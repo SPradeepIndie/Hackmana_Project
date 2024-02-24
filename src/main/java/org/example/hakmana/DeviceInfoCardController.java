@@ -1,27 +1,18 @@
 package org.example.hakmana;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DeviceInfoCardController extends AnchorPane implements Initializable {
-     private Stage stage;
-     private Scene scene;
-     private Parent sceneroot;
      @Override
      public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -39,8 +30,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
                throw new RuntimeException(e);
           }
      }
-     @FXML
-     private Button DetailedViewBtn;
+
      @FXML
      private TextField devIdTxt;
      @FXML
@@ -109,13 +99,6 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
      }
 
-     public void DetailedViewSceneLoad(ActionEvent event) throws IOException {
-          Parent sceneroot = FXMLLoader.load(getClass().getResource("Scene/DevDetailedView.fxml"));
-          stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-          scene = new Scene(sceneroot);
-          stage.setScene(scene);
-          stage.show();
-     }
 
 
 }

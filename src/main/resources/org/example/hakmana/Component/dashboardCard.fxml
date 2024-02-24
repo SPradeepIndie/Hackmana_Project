@@ -2,10 +2,14 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-
-<fx:root styleClass="dashboardCard" stylesheets="@CSS/dashboardCard.css" type="ScrollPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="186.0" styleClass="dashboardCard" stylesheets="@CSS/dashboardCard.css" type="ScrollPane" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <Label fx:id="topLabel" styleClass="Lables" stylesheets="@CSS/dashboardCard.css" text="Label" />
+      <AnchorPane>
+         <children>
+            <Label fx:id="topLabel" alignment="CENTER" styleClass="Lables" text="Label" />
+         </children>
+      </AnchorPane>
    </content>
 </fx:root>

@@ -16,7 +16,7 @@
          <children>
             <VBox prefHeight="53.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="backBttn" mnemonicParsing="false" onAction="#goBack" prefWidth="100.0" style="-fx-padding: 0;" styleClass="goBackBtn" stylesheets="@CSS/PathFinder.css" text="Go Back" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
+                  <Button fx:id="backBttn" mnemonicParsing="false" onAction="#goBack" prefWidth="100.0" styleClass="goBackBtn" stylesheets="@CSS/PathFinder.css" text="Go Back" textAlignment="RIGHT" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -42,7 +42,7 @@
                   </Label>
                </children>
             </VBox>
-            <HBox fx:id="searchBar" alignment="CENTER" prefHeight="53.0" prefWidth="357.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="357.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>

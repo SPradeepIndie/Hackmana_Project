@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -14,9 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PathFinderController extends VBox implements Initializable {
-    @FXML
-    public HBox searchBar;
-    private boolean searchBarVisible;
+
     @FXML
     private Button backBttn;
     @FXML
@@ -25,15 +22,6 @@ public class PathFinderController extends VBox implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    }
-
-    public boolean isSearchBarVisible() {
-        return searchBarVisible;
-    }
-
-    public void setSearchBarVisible(boolean searchBarVisible) {
-        this.searchBarVisible = searchBarVisible;
-        searchBar.setVisible(this.searchBarVisible);
     }
 
     public PathFinderController() {

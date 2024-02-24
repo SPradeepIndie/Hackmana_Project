@@ -1,0 +1,17 @@
+/* EditProfile.css */
+@import 'UserManagement.css';
+
+/* Additional styles specific to the Edit Your Profile interface */
+.edit-profile-container {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.edit-profile-field {
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+}
+
+.edit-profile-button {
+    -fx-background-color: #2196F3;
+}

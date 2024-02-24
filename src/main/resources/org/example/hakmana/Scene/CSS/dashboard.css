@@ -11,7 +11,6 @@
          -fx-pref-width: 696px;
          -fx-pref-height: 453px;
           -fx-background-color:#00000021;
-
 }
 
 .Mpane1{
@@ -50,7 +49,7 @@
     -fx-on-click: open-overlay("Add_device_popup"), animate("Instant", 0ms);
     -fx-font-family: "Inter";
     -fx-font-size: 13px;
-    -fx-font-weight: 700;
+    -fx-font-weight: 500;
 
     -fx-letter-spacing: 0em;
     -fx-alignment: center;
@@ -64,7 +63,7 @@
             -fx-on-click: open-overlay("Add_device_popup"), animate("Instant", 0ms);
             -fx-font-family: "Inter";
             -fx-font-size: 13px;
-            -fx-font-weight: 700;
+            -fx-font-weight: 500;
 
             -fx-letter-spacing: 0em;
             -fx-alignment: center;

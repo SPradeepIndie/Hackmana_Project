@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.example.hakmana.FooterController?>
+<?import org.example.hakmana.HeaderController?>
+<?import org.example.hakmana.NavPanelController?>
+<?import org.example.hakmana.PathFinderController?>
+
+<AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.UserMngmntController">
+    <children>
+        <!-- Main VBox layout -->
+        <VBox prefHeight="640.0" prefWidth="1024.0" stylesheets="@../Scene/CSS/CreateAccount.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <!-- Horizontal layout for sidebar and content -->
+                <HBox prefHeight="640.0" prefWidth="1024.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Navigation panel Component-->
+                        <NavPanelController fx:id="navPanelController" HBox.hgrow="NEVER" />
+
+                        <!-- Main content area -->
+                        <VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" style="0: 0;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <!-- Header Component -->
+                                <HeaderController fx:id="headerController" designationMsg="Product owner" prefHeight="109.0" prefWidth="770.0" usernameMsg="R.Gunathilaka" VBox.vgrow="NEVER" />
+
+                                <!-- Path Component -->
+                                <PathFinderController prefHeight="78.0" prefWidth="748.0" VBox.vgrow="NEVER" />
+
+                                <!-- Body content for Create New Account -->
+                                <AnchorPane fx:id="createAccountContent" prefHeight="430.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <!-- Insert fields and button for account creation -->
+                                        <Label fx:id="createAccountLabel" text="Create New Account" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                                        <VBox fx:id="createAccountFields" spacing="10" styleClass="create-account-field" stylesheets="@CSS/CreateAccount.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+                                            <children>
+                                                <TextField fx:id="newUsernameField" promptText="Username" styleClass="create-account-field" stylesheets="@CSS/CreateAccount.css" />
+                                    <TextField promptText="Full Name" />
+                                    <TextField promptText="Post" />
+                                    <TextField promptText="Employee ID" />
+                                                <PasswordField fx:id="newPasswordField" promptText="Password" styleClass="create-account-field" stylesheets="@CSS/CreateAccount.css" />
+                                                <TextField fx:id="newEmailField" promptText="Email" styleClass="create-account-field" stylesheets="@CSS/CreateAccount.css" />
+                                    <TextField promptText="Phone Number" />
+                                                <Button fx:id="createAccountButton" styleClass="create-account-button" stylesheets="@CSS/CreateAccount.css" text="Create Account" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+
+                                <!-- Footer Component -->
+                                <FooterController prefHeight="62.0" prefWidth="720.0" VBox.vgrow="NEVER" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

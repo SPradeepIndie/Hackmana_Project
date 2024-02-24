@@ -12,41 +12,34 @@
 
 <fx:root alignment="BOTTOM_CENTER" prefHeight="66.0" prefWidth="748.0" style="-fx-border-color: black;" styleClass="footerContainer" stylesheets="@CSS/Footer.css" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox maxHeight="32.0" prefHeight="32.0" prefWidth="695.0" spacing="15.0" styleClass="footer" stylesheets="@CSS/Footer.css" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER" maxHeight="32.0" prefHeight="32.0" prefWidth="695.0" styleClass="footer" stylesheets="@CSS/Footer.css" VBox.vgrow="NEVER">
          <children>
-            <HBox alignment="CENTER_LEFT" maxWidth="150.0" prefHeight="36.0" prefWidth="115.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button fx:id="ContactusBtn" maxWidth="150.0" mnemonicParsing="false" onAction="#ContactusBtnDialogOpen" prefHeight="32.0" prefWidth="112.0" styleClass="contactUs" text="Contact us" HBox.hgrow="NEVER">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/help.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-               </children>
+            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" style="-fx-border-color: black;" text="Contact us" HBox.hgrow="ALWAYS">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/help.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <HBox.margin>
-                  <Insets left="27.0" />
+                  <Insets left="13.0" />
                </HBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="373.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label alignment="CENTER" prefHeight="39.0" style="-fx-border-color: black;" stylesheets="@CSS/Footer.css" text="©All Rights Reserved for හක්මණ ප්‍රාදේශීය සභාව" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-                     <styleClass>
-                        <String fx:value="title" />
-                        <String fx:value="border" />
-                     </styleClass>
-                  </Label>
-               </children>
-            </HBox>
-            <VBox alignment="CENTER_RIGHT" maxWidth="150.0" prefHeight="32.0" prefWidth="140.0" styleClass="Leftborder" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="contactUs" />
+                  <String fx:value="Leftborder" />
+               </styleClass>
+            </Button>
+            <Label alignment="CENTER" prefHeight="39.0" style="-fx-border-color: black;" stylesheets="@CSS/Footer.css" text="©All Rights Reserved for හක්මණ ප්‍රාදේශීය සභාව" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+               <styleClass>
+                  <String fx:value="title" />
+                  <String fx:value="Leftborder" />
+               </styleClass>
+            </Label>
+            <VBox alignment="TOP_CENTER" prefHeight="32.0" prefWidth="140.0" styleClass="Leftborder" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="140.0" styleClass="datetime" textAlignment="CENTER">
                      <font>
@@ -58,9 +51,6 @@
                   </Label>
                   <Label fx:id="timeLabel" alignment="CENTER" prefHeight="17.0" prefWidth="101.0" styleClass="datetime" stylesheets="@CSS/Footer.css" />
                </children>
-               <HBox.margin>
-                  <Insets right="27.0" />
-               </HBox.margin>
             </VBox>
          </children>
          <padding>

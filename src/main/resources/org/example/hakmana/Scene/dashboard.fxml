@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import org.example.hakmana.DashboardCardController?>
 <?import org.example.hakmana.FooterController?>
 <?import org.example.hakmana.HeaderController?>
 <?import org.example.hakmana.NavPanelController?>
@@ -31,14 +32,14 @@
                         <HeaderController fx:id="headerController" designationMsg="Product owner" prefHeight="109.0" prefWidth="770.0" usernameMsg="R.Gunathilaka" VBox.vgrow="NEVER" />
                   
                         <!--Path Component-->
-                        <PathFinderController fx:id="pathFinderController" prefWidth="770.0" />
+                        <PathFinderController prefWidth="770.0" />
                         <AnchorPane style="-fx-background-color: yelllow;" VBox.vgrow="ALWAYS">
                            <children>
-                              <ScrollPane fitToWidth="true" layoutY="0.8000030517578125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="0.0">
+                              <ScrollPane fitToWidth="true" layoutY="0.8000030517578125"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <VBox prefHeight="567.0" prefWidth="696.0" stylesheets="@CSS/dashboard.css">
                                        <children>
-                                          <GridPane hgap="20.0" styleClass="Mpane1" VBox.vgrow="NEVER">
+                                          <GridPane styleClass="Mpane1" VBox.vgrow="ALWAYS">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -48,52 +49,18 @@
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
+                                             <padding>
+                                                <Insets left="30.43" />
+                                             </padding>
                                              <children>
-                                                <ScrollPane hbarPolicy="NEVER" prefHeight="109.0" prefWidth="206.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                                <DashboardCardController>
                                                    <content>
-                                                      <HBox prefHeight="214.0" prefWidth="389.0" style="-fx-background-color: linear-gradient( #F2AFEF 6.49%, rgba(196, 153, 243, 0.645) 43.29%, rgba(115, 96, 223, 0.31) 78.02%, rgba(51, 24, 107, 0) 110.16%);">
-                                                         <children>
-                                                            <Label styleClass="Lables" text="Repairing  devices" HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                   </content>
-                                                </ScrollPane>
-                                                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" vbarPolicy="NEVER" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-                                                   <content>
-                                                      <HBox prefHeight="222.0" prefWidth="392.0" style="-fx-background-color: linear-gradient(rgba(39, 0, 93, 0.87) 3.59%, rgba(148, 0, 255, 0.83) 64.1%, #AED2FF 114.63%);;">
-                                                         <children>
-                                                            <Label styleClass="Lables" text="Inactive devices" HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                   </content>
-                                                </ScrollPane>
-                                                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
-                                                   <content>
-                                                      <HBox prefHeight="191.0" prefWidth="392.0" style="-fx-background-color: linear-gradient( #B4FEE7 16.97%, rgba(150, 239, 255, 0.87) 84.41%);;">
-                                                         <children>
-                                                            <Label styleClass="Lables" text="Not assigned" HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                   </content>
-                                                </ScrollPane>
-                                                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
-                                                   <content>
-                                                      <HBox prefHeight="211.0" prefWidth="398.0" style="-fx-background-color: linear-gradient( #FFBD39 -11.6%, #FBF0B2 135.56%);;">
-                                                         <children>
-                                                            <Label styleClass="Lables" text="Total Devices" HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                   </content>
-                                                </ScrollPane>
-                                                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-                                                   <content>
-                                                      <HBox prefHeight="223.0" prefWidth="390.0" style="-fx-background-color: linear-gradient(rgba(89, 5, 123, 0.84) 14.01%, rgba(159, 36, 132, 0.79) 62.28%, #DC408B 104.59%);;">
-                                                         <children>
-                                                            <Label styleClass="Lables" text="Active devices" HBox.hgrow="ALWAYS" />
-                                                         </children>
-                                                      </HBox>
-                                                   </content>
-                                                </ScrollPane>
+                                                      <Label text="Label" />
+                                                   </content></DashboardCardController>
+                                                <DashboardCardController GridPane.columnIndex="1" />
+                                                <DashboardCardController GridPane.columnIndex="2" />
+                                                <DashboardCardController GridPane.rowIndex="1" />
+                                                <DashboardCardController GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
                                           <HBox prefHeight="200.0" prefWidth="693.6" VBox.vgrow="ALWAYS">

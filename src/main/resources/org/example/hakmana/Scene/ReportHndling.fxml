@@ -25,7 +25,7 @@
                                 <!-- Header Component -->
                                 <HeaderController fx:id="headerController" designationMsg="Product owner" prefHeight="109.0" prefWidth="770.0" usernameMsg="R.Gunathilaka" VBox.vgrow="NEVER" />
                                 <!-- Path Component -->
-                                <PathFinderController fx:id="pathFinderController" prefWidth="770.0" VBox.vgrow="NEVER" />
+                                <PathFinderController prefWidth="770.0" VBox.vgrow="NEVER" />
                                 <!-- Body content starts here -->
                                 <AnchorPane prefHeight="404.0" prefWidth="748.0" VBox.vgrow="ALWAYS">
                                     <children>
@@ -40,7 +40,7 @@
                                     </children>
                                 </AnchorPane>
                                 <!-- Footer Component -->
-                                <FooterController fx:id="footerController" prefHeight="39.0" prefWidth="770.0" VBox.vgrow="NEVER" />
+                                <FooterController prefHeight="39.0" prefWidth="770.0" VBox.vgrow="NEVER" />
                             </children>
                         </VBox>
                     </children>

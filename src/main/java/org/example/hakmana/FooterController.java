@@ -2,33 +2,30 @@ package org.example.hakmana;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class FooterController extends VBox implements Initializable {
-    @FXML
-    private Button ContactusBtn;
     @FXML
     private Label dateLabel;
     @FXML
     private Label timeLabel;
     private boolean test=true;
+
     private static Task<Void> updateTimeTask;
-    private Thread clockThread;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Task for updating date and time
@@ -46,16 +43,18 @@ public class FooterController extends VBox implements Initializable {
                         dateLabel.setText(currentDate);
                         timeLabel.setText(currentTime);
                     });
+                    //System.out.println("thread1,I am runnin");
                     Thread.sleep(1000); // Update every second
                 }
                 return null;
             }
         };
-        clockThread=new Thread(updateTimeTask);
-        clockThread.setDaemon(true);
-        clockThread.start();
+        new Thread(updateTimeTask).start();
     }
-
+    public void clockStoper(){
+        test=false;
+        updateTimeTask.cancel();
+    }
     public FooterController() {
         super();
         FXMLLoader fxmlFooterLoader = new FXMLLoader(getClass().getResource("Component/Footer.fxml"));
@@ -68,17 +67,5 @@ public class FooterController extends VBox implements Initializable {
         catch (IOException Footerexception){
             throw new RuntimeException(Footerexception);
         }
-    }
-    public void ContactusBtnDialogOpen(ActionEvent event) throws IOException{
-        FXMLLoader contactUsfxmlLoad = new FXMLLoader();
-        contactUsfxmlLoad.setLocation(getClass().getResource("Component/ContactUsDialogPane.fxml"));
-        DialogPane conactUsDialogPane=contactUsfxmlLoad.load();
-
-        Dialog<ButtonType> dialog=new Dialog<>();
-        dialog.setDialogPane(conactUsDialogPane);
-        dialog.setTitle("Contact Us");
-
-        Optional<ButtonType> clickedButton=dialog.showAndWait();
-
     }
 }
