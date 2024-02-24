@@ -21,8 +21,6 @@ public class DashboardController implements Initializable {
     @FXML
     private FooterController footerController;
     @FXML
-    private PathFinderController pathFinderController;
-    @FXML
     private  VBox bodyComponet;//injector for VBox to expand
     @FXML
     private Stage stage;
@@ -36,7 +34,6 @@ public class DashboardController implements Initializable {
         headerController.setFontSize("3em");
         headerController.setTitleMsg("Welcome");
         navPanelController.setDashboardBorder();
-        pathFinderController.setSearchBarVisible(false);
         //create the event listener to the navigation panel ToggleButton() method
         navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
             if(newValue){
@@ -56,17 +53,18 @@ public class DashboardController implements Initializable {
 
     }
     public  void expand() {
-        ///String cssRule = "-fx-min-width: 992px;";
-        Double W1=bodyComponet.getWidth()+244;
         Animation(0, -244);
-        bodyComponet.setMinWidth(W1);
-        //bodyComponet.getStyleClass().add(cssRule);
-
+        bodyComponet.setMinWidth(992);
+        bodyComponet.setMinWidth(bodyComponet.getWidth()+244);
+        //System.out.println(bodyComponet.getWidth()+244);
     }
     public  void collapse() {
-        Double W1=bodyComponet.getWidth()-244;
         Animation(-244, 0);
-        bodyComponet.setMinWidth(W1);
+        bodyComponet.setMinWidth(bodyComponet.getWidth()-244);
+        bodyComponet.setMinWidth(748);
     }
+
+
+
 }
 

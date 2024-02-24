@@ -13,7 +13,7 @@
 <AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.UserMngmntController">
     <children>
         <!-- Main VBox layout -->
-        <VBox prefHeight="640.0" prefWidth="1024.0" stylesheets="@../CSS/UserManagement.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="640.0" prefWidth="1024.0" stylesheets="@../Scene/CSS/UserManagement.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <!-- Horizontal layout for sidebar and content -->
                 <HBox prefHeight="640.0" prefWidth="1024.0" VBox.vgrow="ALWAYS">
@@ -28,10 +28,10 @@
                                 <HeaderController fx:id="headerController" designationMsg="Product owner" prefHeight="109.0" prefWidth="770.0" usernameMsg="R.Gunathilaka" VBox.vgrow="NEVER" />
 
                                 <!-- Path Component -->
-                                <PathFinderController fx:id="pathFinderController" prefHeight="78.0" prefWidth="748.0" VBox.vgrow="NEVER" />
+                                <PathFinderController prefHeight="78.0" prefWidth="748.0" VBox.vgrow="NEVER" />
 
                                 <!-- Body content for User Management -->
-                                <AnchorPane prefHeight="430.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
+                                <AnchorPane fx:id="contentArea" prefHeight="430.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
                                     <children>
                                         <!-- Title and Description -->
                                         <Label fx:id="userManagementTitle" styleClass="title-label" text="User Management" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
@@ -39,9 +39,9 @@
                                         <!-- Options for User Management -->
                                         <VBox fx:id="optionsContainer" spacing="10" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="60">
                                             <children>
-                                                <Button fx:id="createAccountButton" maxWidth="Infinity" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Create new account" />
-                                                <Button fx:id="editProfileButton" maxWidth="Infinity" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Edit your profile" />
-                                                <Button fx:id="showUsersButton" maxWidth="Infinity" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Show other Users" />
+                                                <Button fx:id="createAccountButton" maxWidth="Infinity" styleClass="option-button" stylesheets="@CSS/UserManagement.css" onAction="#handleCreateAccountButtonAction" text="Create new account" />
+                                                <Button fx:id="editProfileButton" maxWidth="Infinity" styleClass="option-button" stylesheets="@CSS/UserManagement.css" onAction="#handleEditProfileButtonAction" text="Edit your profile" />
+                                                <Button fx:id="showUsersButton" maxWidth="Infinity" styleClass="option-button" stylesheets="@CSS/UserManagement.css" onAction="#handleShowUsersButtonAction" text="Show other Users" />
                                             </children>
                                         </VBox>
 
@@ -51,9 +51,9 @@
                                                 <Label fx:id="userDetailTitle" contentDisplay="CENTER" prefHeight="23.0" prefWidth="78.0" styleClass="detail-title" text="Mr Kamal" textAlignment="CENTER" />
                                                 <Label fx:id="userNameLabel" styleClass="detail-label" text="Full Name" />
                                                 <Label fx:id="userPostLabel" styleClass="detail-label" text="Post" />
-                                    <Label styleClass="detail-label" stylesheets="@CSS/UserManagement.css" text="Employee ID" />
+                                                <Label styleClass="detail-label" stylesheets="@CSS/UserManagement.css" text="Employee ID" />
                                                 <Label fx:id="userEmailLabel" styleClass="detail-label" text="Email Address" />
-                                    <Label prefHeight="17.0" prefWidth="91.0" styleClass="detail-label" stylesheets="@CSS/UserManagement.css" text="Phone Number" />
+                                                <Label prefHeight="17.0" prefWidth="91.0" styleClass="detail-label" stylesheets="@CSS/UserManagement.css" text="Phone Number" />
                                             </children>
                                         </VBox>
 
@@ -61,7 +61,7 @@
                                 </AnchorPane>
 
                                 <!-- Footer Component -->
-                                <FooterController fx:id="footerController" prefHeight="62.0" prefWidth="720.0" VBox.vgrow="NEVER" />
+                                <FooterController prefHeight="62.0" prefWidth="720.0" VBox.vgrow="NEVER" />
                             </children>
                         </VBox>
                     </children>

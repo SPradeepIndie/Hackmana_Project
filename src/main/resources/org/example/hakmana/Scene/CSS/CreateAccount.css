@@ -1,0 +1,17 @@
+/* CreateAccount.css */
+@import 'UserManagement.css';
+
+/* Additional styles specific to the Create New Account interface */
+.create-account-container {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.create-account-field {
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+}
+
+.create-account-button {
+    -fx-background-color: #4CAF50;
+}

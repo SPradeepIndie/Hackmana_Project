@@ -23,9 +23,9 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="85.0" prefWidth="261.0">
                      <children>
-                        <Label fx:id="navPanelTitle" graphicTextGap="8.0" prefHeight="71.0" prefWidth="228.0" styleClass="hakmanaLabel" text="හක්මණ ප්‍රාදේශීය &#10;සභාව" HBox.hgrow="ALWAYS">
+                        <Label fx:id="navPanelTitle" graphicTextGap="8.0" prefHeight="71.0" prefWidth="247.0" styleClass="hakmanaLabel" text="හක්මණ ප්‍රාදේශීය &#10;සභාව" HBox.hgrow="ALWAYS">
                            <graphic>
-                              <ImageView fitHeight="65.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="65.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@Images/govLogo.png" />
                                  </image>
@@ -35,7 +35,7 @@
                               <Font size="11.0" />
                            </font>
                         </Label>
-                        <Button fx:id="toggleButton" maxHeight="36.0" maxWidth="32.0" mnemonicParsing="false" onAction="#ToggleButton" prefHeight="36.0" prefWidth="0.0" styleClass="buttonWorkStyle">
+                        <Button fx:id="toggleButton" maxHeight="24.0" maxWidth="24.0" mnemonicParsing="false" onAction="#ToggleButton" prefHeight="24.0" prefWidth="24.0" styleClass="buttonWorkStyle">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
                                  <image>

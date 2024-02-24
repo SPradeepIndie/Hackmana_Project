@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.example.hakmana.FooterController?>
+<?import org.example.hakmana.HeaderController?>
+<?import org.example.hakmana.NavPanelController?>
+<?import org.example.hakmana.PathFinderController?>
+
+<AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.UserMngmntController">
+    <children>
+        <!-- Main VBox layout -->
+        <VBox prefHeight="640.0" prefWidth="1024.0" stylesheets="@../Scene/CSS/ShowUsers.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <!-- Horizontal layout for sidebar and content -->
+                <HBox prefHeight="640.0" prefWidth="1024.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Navigation panel Component-->
+                        <NavPanelController fx:id="navPanelController" HBox.hgrow="NEVER" />
+
+                        <!-- Main content area -->
+                        <VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" style="0: 0;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <!-- Header Component -->
+                                <HeaderController fx:id="headerController" designationMsg="Product owner" prefHeight="109.0" prefWidth="770.0" usernameMsg="R.Gunathilaka" VBox.vgrow="NEVER" />
+
+                                <!-- Path Component -->
+                                <PathFinderController prefHeight="78.0" prefWidth="748.0" VBox.vgrow="NEVER" />
+
+                                <!-- Body content for Show Other Users -->
+                                <AnchorPane fx:id="showUsersContent" prefHeight="430.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <!-- Insert list or table to show other users -->
+                                        <Label fx:id="showUsersLabel" text="Show Other Users" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                                        <ListView fx:id="usersListView" layoutX="33.0" layoutY="64.0" prefHeight="307.0" prefWidth="677.0" styleClass="show-users-container" stylesheets="@CSS/ShowUsers.css" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="64.0" />
+                                    </children>
+                                </AnchorPane>
+
+                                <!-- Footer Component -->
+                                <FooterController prefHeight="62.0" prefWidth="720.0" VBox.vgrow="NEVER" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
