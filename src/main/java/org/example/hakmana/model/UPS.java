@@ -1,64 +1,28 @@
 package org.example.hakmana.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UPS extends Devices{
     private String regNum;
-    private String model;
+    private String model="No";
     private String status;
-    private String userName;
-    public UPS(String regNum, String model, String userName, String status) {
-        super(regNum, model, userName, status);
-    }
-    public UPS() {
-    }
-    @Override
-    public String getRegNum() {
-        return regNum;
-    }
-    @Override
-    public void setRegNum(String regNum) {
-        this.regNum = regNum;
-    }
-
-    @Override
-    public String getModel() {
-        return model;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String getUserName() {
-        return userName;
-    }
-
-    @Override
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private String purchasedFrom;
 
     public UPS[] getDevices() {
         DatabaseConnection conn=DatabaseConnection.getInstance();
         List<UPS> ups = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT * FROM ups";
+        String sql = "SELECT * FROM Ups";
 
         try {
             // get result set from connection class
@@ -66,9 +30,9 @@ public class UPS extends Devices{
 
             // Iterate through the result set and create Desktop and User objects
             while (resultSet.next()) {
-                UPS ups1 = new UPS(null,null,null,null);
+                UPS ups1 = new UPS();
 
-                ups1.setRegNum(resultSet.getString("regNum"));
+                ups1.setRegNum(resultSet.getString("UpsRegNum"));
                 ups1.setModel(resultSet.getString("model"));
                 ups1.setStatus(resultSet.getString("status"));
 

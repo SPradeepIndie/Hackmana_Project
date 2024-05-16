@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.model.User;
+import org.example.hakmana.model.DeviceUser;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,14 +26,14 @@ public class UserAssignDialogController implements Initializable {
     private TextField titleTextField;
     @FXML
     private Button assignUserButton;
-    private User user;
+    private DeviceUser user;
 
     public static boolean isAssignUserButtonClicked = false;
 
 
 
     public void assignUserButtonOnAction(ActionEvent event) {
-        user=new User();
+        user=new DeviceUser();
         user.setNic(nicTextField.getText());
         user.setName(nameTextField.getText());
         user.setTitle(nameTextField.getText());
@@ -45,11 +45,11 @@ public class UserAssignDialogController implements Initializable {
         isAssignUserButtonClicked = true;
 
     }
-    private User isNicAvailable(String nic) {
+    private DeviceUser isNicAvailable(String nic) {
         DatabaseConnection databaseConnection = DatabaseConnection.getInstance();
-        User[] users = databaseConnection.getUsers();
+        DeviceUser[] users = databaseConnection.getUsers();
 
-        for (User user : users) {
+        for (DeviceUser user : users) {
             if (user.getNic().equalsIgnoreCase(nic)) {
                 return user;
             }
@@ -68,7 +68,7 @@ public class UserAssignDialogController implements Initializable {
             assignUserButton.setDisable(newValue.isEmpty());
 
             // Check if the newValue is available in the users array
-            User user = isNicAvailable(newValue);
+            DeviceUser user = isNicAvailable(newValue);
             if (user != null) {
                 // Auto-fill the other text fields
                 gmailTextField.setText(user.getGmail());

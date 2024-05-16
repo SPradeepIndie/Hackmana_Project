@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.Desktop;
-import org.example.hakmana.model.User;
+import org.example.hakmana.model.DeviceUser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -110,7 +110,7 @@ public class DevDetailedViewController implements Initializable {
     private String[] WinLin={"Windows","Linux"};
     private String[] OnboardDecicated={"On Board","Dedicated"};
 
-    public static User user;
+    public static DeviceUser user;
     private  TranslateTransition bodyExpand;//Animation object refernce
     @FXML
     private AnchorPane parentAnchor;
@@ -138,7 +138,7 @@ public class DevDetailedViewController implements Initializable {
         SoundCardChoiseBox.getItems().addAll(OnboardDecicated);
         TVCardChoiseBox.getItems().addAll(OnboardDecicated);
         OSChoiseBox.getItems().addAll(WinLin);
-        user=new User();
+        user=new DeviceUser();
         user.setNic("No User");
 
         DialogPane dialogPane = new DialogPane();

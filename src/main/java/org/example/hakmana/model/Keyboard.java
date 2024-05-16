@@ -12,17 +12,20 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Projectors extends Devices{
+public class Keyboard extends Devices{
     private String regNum;
-    private String model;
+    private String model="No";
+    private String name;
     private String status;
 
+    private String purchasedFrom;
+    private  String connectivity;
 
-    public Projectors[] getDevices() {
+    public Keyboard[] getDevices() {
         DatabaseConnection conn=DatabaseConnection.getInstance();
-        List<Projectors> projectors = new ArrayList<>();
+        List<Keyboard> keyboards = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT * FROM MultimediaProjector";
+        String sql = "SELECT * FROM Keyboard";
 
         try {
             // get result set from connection class
@@ -30,19 +33,20 @@ public class Projectors extends Devices{
 
             // Iterate through the result set and create Desktop and User objects
             while (resultSet.next()) {
-                Projectors projector = new Projectors(null,null,null);
+                Keyboard keyboard1 = new Keyboard();
 
-                projector.setRegNum(resultSet.getString("MultimediaProjectorRegNum"));
-                projector.setModel(resultSet.getString("model"));
-                projector.setStatus(resultSet.getString("status"));
+                keyboard1.setRegNum(resultSet.getString("KeyboardRegNum"));
+                keyboard1.setModel(resultSet.getString("model"));
+                keyboard1.setModel(resultSet.getString("name"));
+                keyboard1.setStatus(resultSet.getString("status"));
 
-                projectors.add(projector);
+                keyboards.add(keyboard1);
             }
         }
         catch (SQLException e){
             System.out.println(e);
         }
 
-        return projectors.toArray(new Projectors[0]);
+        return keyboards.toArray(new Keyboard[0]);
     }
 }

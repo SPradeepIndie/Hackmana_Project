@@ -10,19 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Projectors extends Devices{
+@AllArgsConstructor
+public class Mouse extends Devices{
     private String regNum;
-    private String model;
+    private String model="No";
+    private String name;
     private String status;
 
+    private String purchasedFrom;
+    private String Connectivity;
 
-    public Projectors[] getDevices() {
+    public Mouse[] getDevices() {
         DatabaseConnection conn=DatabaseConnection.getInstance();
-        List<Projectors> projectors = new ArrayList<>();
+        List<Mouse> mouse = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT * FROM MultimediaProjector";
+        String sql = "SELECT * FROM Mouse";
 
         try {
             // get result set from connection class
@@ -30,19 +33,21 @@ public class Projectors extends Devices{
 
             // Iterate through the result set and create Desktop and User objects
             while (resultSet.next()) {
-                Projectors projector = new Projectors(null,null,null);
+                Mouse mouse1 = new Mouse();
 
-                projector.setRegNum(resultSet.getString("MultimediaProjectorRegNum"));
-                projector.setModel(resultSet.getString("model"));
-                projector.setStatus(resultSet.getString("status"));
+                mouse1.setRegNum(resultSet.getString("MouseRegNum"));
+                mouse1.setModel(resultSet.getString("model"));
+                mouse1.setModel(resultSet.getString("name"));
+                mouse1.setStatus(resultSet.getString("status"));
 
-                projectors.add(projector);
+                mouse.add(mouse1);
             }
         }
         catch (SQLException e){
             System.out.println(e);
         }
 
-        return projectors.toArray(new Projectors[0]);
+        return mouse.toArray(new Mouse[0]);
     }
+
 }

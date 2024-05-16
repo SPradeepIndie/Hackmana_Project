@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.example.hakmana.model.UPS;
+
 import java.io.IOException;
 
 
@@ -47,6 +49,7 @@ public class AddDeviceControler implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

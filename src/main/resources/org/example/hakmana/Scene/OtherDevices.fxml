@@ -55,22 +55,6 @@
                                                       </Label>
                                                    </graphic>
                                                 </Button>
-                                                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#upsOnAction" prefHeight="35.0" prefWidth="305.0" text="UPS Machine" textAlignment="RIGHT">
-                                                   <font>
-                                                      <Font size="27.0" />
-                                                   </font>
-                                                   <graphic>
-                                                      <Label prefHeight="17.0" prefWidth="56.0">
-                                                         <graphic>
-                                                            <ImageView fitHeight="29.0" fitWidth="40.0">
-                                                               <image>
-                                                                  <Image url="@../Scene/Images/otherdev.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                         </graphic>
-                                                      </Label>
-                                                   </graphic>
-                                                </Button>
                                                 <Button layoutX="10.0" layoutY="61.0" mnemonicParsing="false" onAction="#webCamOnAction" prefHeight="35.0" prefWidth="305.0" text="Web Cams" textAlignment="RIGHT">
                                                    <font>
                                                       <Font size="27.0" />

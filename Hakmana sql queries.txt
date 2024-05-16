@@ -2,112 +2,122 @@ CREATE DATABASE hakmanaEdm;
 
 USE hakmanaEdm;
 
-CREATE TABLE User (
-    userNIC VARCHAR(15) PRIMARY KEY,
-    name VARCHAR(20),
-    title VARCHAR(20),
-    gmail VARCHAR(25),
+CREATE TABLE DeviceUser (                --User -> DeviceUser
+    userNIC VARCHAR(11) PRIMARY KEY,
+    name VARCHAR(50),
+    title VARCHAR(25),
+    gmail VARCHAR(35),
 );
 
 CREATE TABLE Desktop (
-    regNum VARCHAR(20) PRIMARY KEY,
-    model VARCHAR(25),
-    status VARCHAR(10),
-    serialNum VARCHAR(30),
-    purchasedFrom VARCHAR(25),
-    ram VARCHAR(8),
-    processor VARCHAR(10),
-    warranty VARCHAR(25),
-    hardDisk VARCHAR(8),
-    os VARCHAR(10),
-    floppyDisk VARCHAR(3),
-    soundCard VARCHAR(15),
-    tvCard VARCHAR(15),
-    networkCard VARCHAR(15),
-    monitorRegNum VARCHAR(20),
-    projectorRegNum VARCHAR(20),
-    speakerRegNum VARCHAR(20),
-    mouseRegNum VARCHAR(20),
-    keyboardRegNum VARCHAR(20),
-    micRegNum VARCHAR(20),
-	scannerRegNum VARCHAR(20),
+    DesRegNum VARCHAR(13) PRIMARY KEY,   -- RegNum -> DesRegNum(HAK/DES/0001)
+    model VARCHAR(50), -- HP PRO TOWER 280 G9 PCI
+    status VARCHAR(10), --active,inactive,repairing
+    serialNum VARCHAR(20), --5CD6123LMN
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA
+    ram VARCHAR(8),  --4 GB,8 GB,12 GB,...
+    processor VARCHAR(50),  --AMD Ryzen 7 5800X,Intel(R) Core(TM) i7 Processors (14th gen)
+    hardDisk VARCHAR(8),  --1 TB,500 GB
+    os VARCHAR(10),       --WINDOWS,LINUX
+    floppyDisk VARCHAR(3), --yes,no
+    soundCard VARCHAR(15), --onboard,dedicated
+    tvCard VARCHAR(15),        --yes/no
+    networkCard VARCHAR(15),  --onboard,dedicated,no
+    ssd VARCHAR(13),      --1 TB,500 GB To enter the value  Newly added
+    cdRom VARCHAR(3),      --yes,no   (Newly added)
+    monitorRegNum VARCHAR(13),  --HAK/MON/0001
+    speakerRegNum VARCHAR(13),  --HAK/SPE/0001
+    mouseRegNum VARCHAR(13),    --HAK/MOU/0001
+    keyboardRegNum VARCHAR(13), --HAK/KEY/0001
+    micRegNum VARCHAR(13),      --HAK/MIC/0001
+	scannerRegNum VARCHAR(13),  --HAK/SCA/0001
+	printerRegNum VARCHAR(13),  --HAK/PRI/0001  Newly added
+	upsRegNum VARCHAR(13),      --HAK/UPS/0001  Newly added
+	powerSupplyRegNum VARCHAR(13), --HAK/POW/0001  Newly added
     userNIC VARCHAR(15),
-    FOREIGN KEY (userNIC) REFERENCES User (userNIC)
+    FOREIGN KEY (userNIC) REFERENCES DeviceUser (userNIC)
+     --Remove projectorRegNum,warranty
 );
 
 CREATE TABLE Printer (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10),
-    serialNum VARCHAR(30),
-    paperInput VARCHAR(15),
-    paperOutput VARCHAR(15),
-    warranty VARCHAR(25),
-    userNIC VARCHAR(15),
-    FOREIGN KEY (userNIC) REFERENCES User (userNIC)
+    PrinterRegNum VARCHAR(13) PRIMARY KEY NOT NULL, --regNum -> PrinterRegNum
+    model VARCHAR(50), --CANON IMAGE CLASS LBP 6030
+    status VARCHAR(10), --active,inactive,repairing
+    serialNum VARCHAR(30), --NJXA 369415
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA (Newly added)
+    paperInput VARCHAR(15),  --150 SHEETS
+    paperOutput VARCHAR(15), --150 SHEETS
+    --Remove userNIC,warranty
 );
 
 CREATE TABLE Laptop (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10),
-    RAM VARCHAR(20),
-    CPU VARCHAR(100),
-    Storage VARCHAR(100),
-    Display VARCHAR(100),
-    GraphicsCard VARCHAR(100),
-    OperatingSystem VARCHAR(100),
+    LaptopRegNum VARCHAR(13) PRIMARY KEY NOT NULL, --regNum -> LaptopRegNum  HAK/LAP/0001
+    model VARCHAR(25), -- HP PRO TOWER 280 G9 PCI
+    status VARCHAR(10), --active,inactive,repairing
+    RAM VARCHAR(8),  --4 GB,8 GB,12 GB,...
+    processor VARCHAR(50),  --AMD Ryzen 7 5800X,Intel(R) Core(TM) i7 Processors (14th gen)  CPU->processor
+    hardDisk VARCHAR(8),  --1 TB,500 GB       storage -> hardDisk
+    os VARCHAR(10),       --WINDOWS,LINUX     OperatingSystem -> os
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA (Newly added)
+    mouseRegNum VARCHAR(13),    --HAK/MOU/0001
+    keyboardRegNum VARCHAR(13), --HAK/KEY/0001
     userNIC VARCHAR(15),
-    FOREIGN KEY (userNIC) REFERENCES User (userNIC)
+    FOREIGN KEY (userNIC) REFERENCES DeviceUser (userNIC)
+    --remove display,GraphicsCard
 );
 
 CREATE TABLE PhotoCopyMachine (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10),
-    CopyingCapability VARCHAR(20)
+    PhotoCopyMachineRegNum VARCHAR(20) PRIMARY KEY NOT NULL, --regNum -> PhotoCopyMachineRegNum
+    model VARCHAR(45), --Canon imageRUNNER ADVANCE C3520i
+    status VARCHAR(10) --active,inactive,repairing
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA (Newly added)
+    --Remove CopyingCapability
 );
 
-CREATE TABLE Monitors (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10),
-    userNIC VARCHAR(15),
-    regNumDesktop VARCHAR(20),
-    FOREIGN KEY (userNIC) REFERENCES User (userNIC),
-    FOREIGN KEY (regNumDesktop) REFERENCES Desktop (regNum)
+CREATE TABLE Monitor (                          --Monitors -> Monitor
+    MonitorRegNum VARCHAR(20) PRIMARY KEY NOT NULL, --regNum ->  MonitorRegNum
+    model VARCHAR(25), --HP
+    screenSize VARCHAR(10), --19.5' (Newly Added)
+    status VARCHAR(10) --active,inactive,repairing
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA (Newly added)
+
+    --REMOVE userNIC,regNumDesktop
 );
 
 CREATE TABLE MultimediaProjector (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10)
+    MultimediaProjectorRegNum VARCHAR(20) PRIMARY KEY NOT NULL, --regNum  -> MultimediaProjectorRegNum
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA (Newly added)
+    model VARCHAR(25), --HP
+    status VARCHAR(10) --active,inactive,repairing
 );
 
 
 CREATE TABLE FaxMachine (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10)
+    FaxMachineRegNum VARCHAR(20) PRIMARY KEY NOT NULL,  --regNum -> FaxMachineRegNum
+    purchasedFrom VARCHAR(50), --Institute :TULIP COMPUTERS- MATARA (Newly added)
+    model VARCHAR(25), --HP
+    status VARCHAR(10) --active,inactive,repairing
 );
 
 CREATE TABLE UPS (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
-    model VARCHAR(25),
-    status VARCHAR(10),
-    BackupPower VARCHAR(50),
-    Runtime VARCHAR(50),
-    regNumDesktop VARCHAR(20),
-    FOREIGN KEY (regNumDesktop) REFERENCES desktop (regNum)
+    upsRegNum VARCHAR(20) PRIMARY KEY NOT NULL, --regNum ->  upsRegNum
+    model VARCHAR(25), --HP
+    status VARCHAR(10) --active,inactive,repairing
+    --REMOVE regNumDesktop,Runtime,BackupPower
+);
+
+CREATE TABLE PowerSupply (    --newly added table
+    PowerSupplyRegNum VARCHAR(20) PRIMARY KEY NOT NULL,
+    model VARCHAR(25), --HP
+    status VARCHAR(10) --active,inactive,repairing
 );
 
 
 CREATE TABLE WebCam (
-    regNum VARCHAR(20) PRIMARY KEY NOT NULL,
+    WebCamRegNum VARCHAR(20) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
-    status VARCHAR(10),
-    regNumDesktop VARCHAR(20),
-    FOREIGN KEY (regNumDesktop) REFERENCES desktop (regNum)
+    status VARCHAR(10)
+    --remove regNumDesktop
 );
 
 
@@ -222,7 +232,14 @@ CREATE TABLE systemUser (
 );
 
 
-CREATE TABLE notes(id varchar(20),username varchar(20),notes varchar(60),createdate Date,title varchar(30),PRIMARY KEY(id,username,notes,title));
+CREATE TABLE notes(
+    id varchar(20),
+    username varchar(20),
+    notes varchar(60),
+    createdate Date,
+    title varchar(30),
+    PRIMARY KEY(id,username,notes,title)
+);
 
 
 

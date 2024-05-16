@@ -10,19 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Projectors extends Devices{
+@AllArgsConstructor
+public class Speaker extends Devices{
     private String regNum;
-    private String model;
+    private String model="No";
+    private String user;
     private String status;
 
+    private String purchasedFrom;
 
-    public Projectors[] getDevices() {
+    public Speaker[] getDevices() {
         DatabaseConnection conn=DatabaseConnection.getInstance();
-        List<Projectors> projectors = new ArrayList<>();
+        List<Speaker> speakers = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT * FROM MultimediaProjector";
+        String sql = "SELECT * FROM Speaker";
 
         try {
             // get result set from connection class
@@ -30,19 +32,21 @@ public class Projectors extends Devices{
 
             // Iterate through the result set and create Desktop and User objects
             while (resultSet.next()) {
-                Projectors projector = new Projectors(null,null,null);
+                Speaker speaker = new Speaker();
 
-                projector.setRegNum(resultSet.getString("MultimediaProjectorRegNum"));
-                projector.setModel(resultSet.getString("model"));
-                projector.setStatus(resultSet.getString("status"));
+                speaker.setRegNum(resultSet.getString("SpeakerRegNum"));
+                speaker.setModel(resultSet.getString("model"));
+                speaker.setStatus(resultSet.getString("user"));
+                speaker.setStatus(resultSet.getString("status"));
 
-                projectors.add(projector);
+                speakers.add(speaker);
             }
         }
         catch (SQLException e){
             System.out.println(e);
         }
 
-        return projectors.toArray(new Projectors[0]);
+        return speakers.toArray(new Speaker[0]);
     }
+
 }

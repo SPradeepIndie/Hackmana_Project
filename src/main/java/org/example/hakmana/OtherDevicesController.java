@@ -193,10 +193,6 @@ public class OtherDevicesController {
         getDevInfo(dev);
     }
 
-    public void upsOnAction(ActionEvent actionEvent) {
-        dev="UPS";
-        getDevInfo(dev);
-    }
 
     public void faxOnAction(ActionEvent actionEvent) {
         dev="FaxMachine";
@@ -204,6 +200,6 @@ public class OtherDevicesController {
     }
 
     public void AddNewDevOnAction(ActionEvent actionEvent) {
-        
+
     }
 }

@@ -1,75 +1,32 @@
 package org.example.hakmana.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Monitors extends Devices{
     private String regNum;
     private String model;
     private String status;
     private String userName;
+
     private String screenSize;
+    private String purchasedFrom;
 
-    public Monitors(String regNum, String model, String userName, String status, String screenSize, String status1, String userName1, String model1, String regNum1) {
-        super(regNum, model, userName, status);
-        this.screenSize = screenSize;
-    }
-
-    public Monitors(String regNum, String model, String userName,String status) {
-        super(regNum, model, userName,status);
-    }
-
-    public Monitors() {
-    }
-
-    @Override
-    public String getRegNum() {
-        return regNum;
-    }
-    @Override
-    public void setRegNum(String regNum) {
-        this.regNum = regNum;
-    }
-    @Override
-    public String getModel() {
-        return model;
-    }
-    @Override
-    public void setModel(String model) {
-        this.model = model;
-    }
-    @Override
-    public String getStatus() {
-        return status;
-    }
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    @Override
-    public String getUserName() {
-        return userName;
-    }
-    @Override
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getScreenSize() {
-        return screenSize;
-    }
-
-    public void setScreenSize(String screenSize) {
-        this.screenSize = screenSize;
-    }
 
     public Monitors[] getDevices() {
         DatabaseConnection conn=DatabaseConnection.getInstance();
         List<Monitors> monitors = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT monitors.regNum,monitors.model,monitors.status, user.name FROM monitors LEFT JOIN user ON monitors.userNIC = user.userNIC";
+        String sql = "SELECT Monitor.MonitorRegNum,Monitor.model,Monitor.status, DeviceUser.name FROM Monitor LEFT JOIN user ON Monitor.userNIC = DeviceUser.userNIC";
 
         try {
             // get result set from connection class
@@ -77,13 +34,12 @@ public class Monitors extends Devices{
 
             // Iterate through the result set and create Desktop and User objects
             while (resultSet.next()) {
-                Monitors monitor = new Monitors(null,null,null,null);
+                Monitors monitor = new Monitors();
 
-                monitor.setRegNum(resultSet.getString("regNum"));
+                monitor.setRegNum(resultSet.getString("MonitorRegNum"));
                 monitor.setModel(resultSet.getString("model"));
                 monitor.setStatus(resultSet.getString("status"));
-                monitor.setUserName(resultSet.getString("name"));
-
+                monitor.setStatus(resultSet.getString("name"));
 
                 monitors.add(monitor);//add monitor to the monitors list
             }

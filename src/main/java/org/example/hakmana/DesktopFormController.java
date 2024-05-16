@@ -12,7 +12,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.Desktop;
-import org.example.hakmana.model.User;
+import org.example.hakmana.model.DeviceUser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -94,7 +94,7 @@ public class DesktopFormController implements Initializable {
     private String[] WinLin={"Windows","Linux"};
     private String[] OnboardDecicated={"On Board","Dedicated"};
 
-    public static User user;
+    public static DeviceUser user;
     public void addUser(ActionEvent event) throws IOException {
         ((Node) event.getSource()).setDisable(UserAssignDialogController.isAssignUserButtonClicked);
 
@@ -128,7 +128,7 @@ public class DesktopFormController implements Initializable {
         SoundCardChoiseBox.getItems().addAll(OnboardDecicated);
         TVCardChoiseBox.getItems().addAll(OnboardDecicated);
         OSChoiseBox.getItems().addAll(WinLin);
-        user=new User();
+        user=new DeviceUser();
         user.setNic("No User");
 
         DialogPane dialogPane = new DialogPane();

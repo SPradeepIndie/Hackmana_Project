@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.SystemUser;
-import org.example.hakmana.model.User;
+
 
 import javax.mail.MessagingException;
 import java.sql.SQLException;

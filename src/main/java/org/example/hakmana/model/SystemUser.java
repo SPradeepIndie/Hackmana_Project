@@ -2,6 +2,8 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import lombok.Data;
+import lombok.ToString;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -15,6 +17,8 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
 
+@Data
+@ToString
 public class SystemUser {
     private DatabaseConnection databaseConnection;
     private Connection conn;
@@ -68,85 +72,6 @@ public class SystemUser {
 
     public void setCheckCode(boolean checkCode) {
         this.checkCode = checkCode;
-    }
-
-    // Setters and Getters
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getPost() {
-        return post;
-    }
-
-    public void setPost(String post) {
-        this.post = post;
-    }
-
-    public String getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(String empId) {
-        this.empId = empId;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    public boolean isRemember() {
-        return isRemember;
-    }
-
-    public void setRemember(boolean remember) {
-        isRemember = remember;
-    }
-
-    @Override
-    public String toString() {
-        return "SystemUser{" +
-                "userName='" + userName + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", post='" + post + '\'' +
-                ", empId='" + empId + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", isRemember=" + isRemember +
-                '}';
     }
 
     /*-----------User verification for password reset-------------*/

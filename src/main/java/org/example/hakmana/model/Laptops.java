@@ -1,91 +1,38 @@
 package org.example.hakmana.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Laptops extends Devices{
     private String regNum;
     private String model;
     private String status;
     private String userName;
 
-    private String tech;//including inkjet, laser, and thermal
-    private String printSpeed;
+    private String ram;
+    private String processor;
+    private String hardDisk;
+    private  String os;
+    private  String purchasedFrom;
+    private String mouseRegNum;
+    private String keyboardRegNum;
+    private String userNIC;
 
-    public Laptops(String regNum, String model, String userName, String status, String regNum1, String model1, String userName1, String status1, String tech, String printSpeed) {
-        super(regNum, model, userName, status);
-        this.tech = tech;
-        this.printSpeed = printSpeed;
-    }
-
-    public Laptops(String regNum, String model, String userName,String status) {
-        super(regNum, model, userName,status);
-    }
-
-    public Laptops() {
-    }
-    @Override
-    public String getRegNum() {
-        return regNum;
-    }
-
-    @Override
-    public void setRegNum(String regNum) {
-        this.regNum = regNum;
-    }
-
-    @Override
-    public String getModel() {
-        return model;
-    }
-
-    @Override
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String getUserName() {
-        return userName;
-    }
-
-    @Override
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-    public String getTech() {
-        return tech;
-    }
-
-    public void setTech(String tech) {
-        this.tech = tech;
-    }
-
-    public String getPrintSpeed() {
-        return printSpeed;
-    }
-
-    public void setPrintSpeed(String printSpeed) {
-        this.printSpeed = printSpeed;
-    }
 
     public Laptops[] getDevices() {
         DatabaseConnection conn=DatabaseConnection.getInstance();
         List<Laptops> laptops = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT laptop.regNum,laptop.model,laptop.status, user.name FROM laptop LEFT JOIN user ON laptop.userNIC = user.userNIC";
+        String sql = "SELECT Laptop.LaptopRegNum,Laptop.model,Laptop.status, DeviceUser.name FROM laptop LEFT JOIN user ON Laptop.userNIC = DeviceUser.userNIC";
 
         try {
             // get result set from connection class
@@ -93,9 +40,9 @@ public class Laptops extends Devices{
 
             // Iterate through the result set and create Desktop and User objects
             while (resultSet.next()) {
-                Laptops laptop = new Laptops(null,null,null,null);
+                Laptops laptop = new Laptops();
 
-                laptop.setRegNum(resultSet.getString("regNum"));
+                laptop.setRegNum(resultSet.getString("LaptopRegNum"));
                 laptop.setModel(resultSet.getString("model"));
                 laptop.setStatus(resultSet.getString("status"));
                 laptop.setUserName(resultSet.getString("name"));
