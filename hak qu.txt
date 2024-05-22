@@ -188,7 +188,7 @@ CREATE TABLE notes(
     notes varchar(60),
     createdate Date,
     title varchar(30),
-    PRIMARY KEY(id,username,notes,title)
+    PRIMARY KEY(id,title)
 );
 
 CREATE TABLE systemUser (
