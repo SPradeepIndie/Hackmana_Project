@@ -38,6 +38,15 @@ public class CreateAccountController {
     public TextField emailTxt;
     @FXML
     public TextField phoneNumTxt;
+    public JFXTextField phoneNumTxtField;
+    public JFXTextField emailTxtField;
+    public JFXPasswordField pwdTextField;
+    public JFXTextField userNameTxtField;
+    public JFXTextField fullNameTxtField;
+    public JFXTextField postTxtField;
+    public JFXTextField empIdTxtField;
+    public AnchorPane parentAnchor;
+    public VBox createAccountFields;
 
     private DatabaseConnection databaseConnection;
     private Connection connection;
@@ -61,6 +70,7 @@ public class CreateAccountController {
 
     }
 
+    @FXML
     public void createAccButtonOnAction(ActionEvent actionEvent) {
         if(!(userNameTxt.getText().equals("")||fullNameTxt.getText().equals("")||postTxt.getText().equals("")||pwdText.getText().equals("")||phoneNumTxt.getText().equals(""))){
             databaseConnection=DatabaseConnection.getInstance();

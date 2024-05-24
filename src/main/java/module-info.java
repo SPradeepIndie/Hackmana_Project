@@ -22,6 +22,10 @@ module org.example.hakmana {
     exports org.example.hakmana;
     exports org.example.hakmana.model;
     opens org.example.hakmana.model to javafx.fxml;
+    exports org.example.hakmana.view.component;
+    opens org.example.hakmana.view.component to javafx.fxml;
+    exports org.example.hakmana.view.scene;
+    opens org.example.hakmana.view.scene to javafx.fxml;
 
 
 }

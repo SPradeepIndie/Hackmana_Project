@@ -1,17 +1,14 @@
 package org.example.hakmana;
 
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.view.scene.LoginPageController;
 
-import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
