@@ -15,8 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import org.example.hakmana.ForgotPasswrdController;
+import org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.io.IOException;
@@ -33,7 +32,6 @@ import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
     public Text forgotBtn;
-    private Parent root;
     private DatabaseConnection databaseConnection;
     private String query;
     Connection connection;
@@ -57,7 +55,7 @@ public class LoginPageController implements Initializable {
         String tempPsswrd = sha1(psswrdFeild.getText()); // Hash the input password using SHA-1
 
         try {
-            // Query to retrieve user information
+            // Query to retrieve deviceUser information
             query = "SELECT * FROM systemUser WHERE userName = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, tempUserName);
@@ -173,7 +171,7 @@ public class LoginPageController implements Initializable {
     }
 
     public void forgotPsswrdDialogPane(MouseEvent event) throws IOException{
-        ForgotPasswrdController forgotPasswrdController=new ForgotPasswrdController();
+        ForgotPasswrdDialog forgotPasswrdController=new ForgotPasswrdDialog();
         FXMLLoader forgotFxmlLoad = new FXMLLoader();
         forgotFxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/FrogotPasswrd.fxml"));
         forgotFxmlLoad.setController(forgotPasswrdController);

@@ -178,7 +178,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                                               <children>
-                                                  <Button fx:id="addUserButton" layoutX="214.0" layoutY="10.0" mnemonicParsing="false" onAction="#addUser" styleClass="btn" text="Assign user" />
+                                                  <Button fx:id="addUserButton" layoutX="214.0" layoutY="10.0" mnemonicParsing="false" onAction="#addUser" styleClass="btn" text="Assign deviceUser" />
                                               </children>
                                           </HBox>
                                       </children>

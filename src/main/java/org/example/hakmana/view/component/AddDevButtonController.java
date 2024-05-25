@@ -9,7 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
-import org.example.hakmana.AddDeviceDialogController;
+import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +60,7 @@ public class AddDevButtonController extends AnchorPane implements Initializable 
         root.setScaleY(1.0);
     }
     public void addDeviceBtnDialogOpen(ActionEvent event) throws IOException {
-        FXMLLoader addDevicefxmlLoad = new FXMLLoader(AddDevButtonController.class.getResource("Scene/DialogBox/AddDeviceDialog.fxml"));
+        FXMLLoader addDevicefxmlLoad = new FXMLLoader(org.example.hakmana.view.dialogBoxes.AddDeviceDialogController.class.getResource("AddDeviceDialog.fxml"));
         AddDeviceDialogController addDeviceDialogController=new AddDeviceDialogController();
         addDevicefxmlLoad.setController(addDeviceDialogController);
         DialogPane addDeviceDialogPane=addDevicefxmlLoad.load();

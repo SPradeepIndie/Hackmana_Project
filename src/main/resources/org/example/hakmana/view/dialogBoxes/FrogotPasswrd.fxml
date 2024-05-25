@@ -23,7 +23,7 @@
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/image_lock.png" />
+                  <Image url="@../scene/Images/image_lock.png" />
                </image>
             </ImageView>
          </graphic>
@@ -44,7 +44,7 @@
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Images/icon-user.png" />
+                              <Image url="@../Images/icon-deviceUser.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -60,7 +60,7 @@
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/next.png" />
+                                    <Image url="@../scene/Images/next.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -86,7 +86,7 @@
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Images/icon-link.png" />
+                              <Image url="@../scene/Images/icon-link.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -125,7 +125,7 @@
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/icon-key.png" />
+                                    <Image url="@../scene/Images/icon-key.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -146,7 +146,7 @@
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/icon-key.png" />
+                                    <Image url="@../scene/Images/icon-key.png" />
                                  </image>
                               </ImageView>
                            </graphic>

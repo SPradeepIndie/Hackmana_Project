@@ -33,13 +33,13 @@ public class Printer extends Devices {
         conn=DatabaseConnection.getInstance();
         List<Printer> printers = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Printer.PrinterRegNum,Printer.model,Printer.status, DeviceUser.name FROM Printer LEFT JOIN user ON Printer.userNIC = DeviceUser.userNIC";
+        String sql = "SELECT Printer.PrinterRegNum,Printer.model,Printer.status, DeviceUser.name FROM Printer LEFT JOIN deviceUser ON Printer.userNIC = DeviceUser.userNIC";
 
         try {
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 Printer printer = new Printer();
                 printer.setRegNum(resultSet.getString("PrinterRegNum"));

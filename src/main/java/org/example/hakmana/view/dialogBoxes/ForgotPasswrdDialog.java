@@ -1,4 +1,4 @@
-package org.example.hakmana;
+package org.example.hakmana.view.dialogBoxes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,14 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.SystemUser;
-import org.example.hakmana.model.User;
 
 import javax.mail.MessagingException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class ForgotPasswrdController {
+public class ForgotPasswrdDialog {
     public SystemUser systemUser =new SystemUser();
     private String usrEmail;
 
@@ -95,7 +94,7 @@ public class ForgotPasswrdController {
     }
 
     //check first validation in here and,
-    //send the mail to the user.java model controller to check in database and get the result boolean
+    //send the mail to the deviceUser.java model controller to check in database and get the result boolean
     public boolean isValidEmail(String email) throws SQLException {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);

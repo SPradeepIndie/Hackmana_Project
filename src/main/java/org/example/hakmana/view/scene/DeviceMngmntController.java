@@ -9,17 +9,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.example.hakmana.model.OtherDevices;
-import org.example.hakmana.view.component.DeviceCategoryCardController;
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.component.*;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DeviceMngmntController implements Initializable {
-
+    public FooterController footerController;
     @FXML
     private NavPanelController navPanelController;//NavPanel custom component injector
     @FXML
@@ -76,7 +73,7 @@ public class DeviceMngmntController implements Initializable {
         if(Objects.equals(catTitle, "Other Devices"))
             card.setDevCatSceneName(OtherDevices.class.getResource("OtherDevice.fxml"));
         else
-            card.setDevCatSceneName(OtherDevices.class.getResource("DeviceMngmntSmmryScene"));
+            card.setDevCatSceneName(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
         card.disableBtn(false);
 
         // Add the label to the grid

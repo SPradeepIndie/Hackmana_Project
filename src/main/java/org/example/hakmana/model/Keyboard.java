@@ -31,7 +31,7 @@ public class Keyboard extends Devices{
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 Keyboard keyboard1 = new Keyboard();
 

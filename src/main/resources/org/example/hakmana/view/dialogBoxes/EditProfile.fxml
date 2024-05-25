@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.EditAccountController">
+<DialogPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.view.dialogBoxes.EditAccountController">
    <content>
       <AnchorPane fx:id="parentAnchor" style="-fx-background-color: #00000021;">
           <children>
-                      <VBox fx:id="editProfileFields" alignment="CENTER" layoutX="40.0" layoutY="40.0" prefHeight="227.0" prefWidth="291.0" spacing="10" stylesheets="@../CSS/EditProfile.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <VBox fx:id="editProfileFields" alignment="CENTER" layoutX="40.0" layoutY="40.0" prefHeight="227.0" prefWidth="291.0" spacing="10" stylesheets="@../scene/CSS/EditProfile.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <children>
                             <!-- Insert fields and button for profile editing -->
                             <Label fx:id="editProfileLabel" text="Edit Your Profile">
@@ -23,11 +23,11 @@
                   </Label>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                                    <TextField fx:id="editNameField" promptText="Full Name" stylesheets="@../CSS/EditProfile.css" />
+                                    <TextField fx:id="editNameField" promptText="Full Name" stylesheets="@../scene/CSS/EditProfile.css" />
                                      <TextField fx:id="editPostField" promptText="Post" />
                                     <TextField fx:id="editEmailField" promptText="Email" />
-                                    <TextField fx:id="editPhoneField" promptText="Phone Number" styleClass="edit-profile-field" stylesheets="@../CSS/EditProfile.css" />
-                                    <Button fx:id="updateProfileButton" onAction="#updateProfileButtonOnAction" styleClass="edit-profile-button" stylesheets="@../CSS/EditProfile.css" text="Update Profile" />
+                                    <TextField fx:id="editPhoneField" promptText="Phone Number" styleClass="edit-profile-field" stylesheets="@../scene/CSS/EditProfile.css" />
+                                    <Button fx:id="updateProfileButton" onAction="#updateProfileButtonOnAction" styleClass="edit-profile-button" stylesheets="@../scene/CSS/EditProfile.css" text="Update Profile" />
                      </children>
                   </VBox>
                           </children>

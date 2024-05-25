@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.ShowUsersController">
+<DialogPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.view.dialogBoxes.ShowUsersController">
    <content>
-      <AnchorPane fx:id="parentAnchor" prefWidth="600.0" style="-fx-background-color: #00000021;" stylesheets="@../CSS/ShowUsers.css">
+      <AnchorPane fx:id="parentAnchor" prefWidth="600.0" style="-fx-background-color: #00000021;" stylesheets="@../scene/CSS/ShowUsers.css">
           <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0">
                <children>
-                            <!-- Insert list or table to show other users -->
+                            <!-- Insert list or table to show other deviceUsers -->
                             <Label fx:id="showUsersLabel" text="Show Other Users">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -29,7 +29,7 @@
                        </columns>
                    </TableView>
 
-                            <ListView fx:id="usersListView" prefHeight="183.0" prefWidth="547.0" styleClass="show-users-container" stylesheets="@../CSS/ShowUsers.css" />
+                            <ListView fx:id="usersListView" prefHeight="183.0" prefWidth="547.0" styleClass="show-deviceUsers-container" stylesheets="@../scene/CSS/ShowUsers.css" />
                </children>
             </VBox>
           </children>

@@ -30,13 +30,13 @@ public class Speaker extends Devices{
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 Speaker speaker = new Speaker();
 
                 speaker.setRegNum(resultSet.getString("SpeakerRegNum"));
                 speaker.setModel(resultSet.getString("model"));
-                speaker.setStatus(resultSet.getString("user"));
+                speaker.setStatus(resultSet.getString("deviceUser"));
                 speaker.setStatus(resultSet.getString("status"));
 
                 speakers.add(speaker);

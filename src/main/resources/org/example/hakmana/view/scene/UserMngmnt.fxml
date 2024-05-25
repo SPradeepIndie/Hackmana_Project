@@ -30,14 +30,14 @@
                                 <!-- Path Component -->
                                 <PathFinderController fx:id="pathFinderController" prefHeight="78.0" prefWidth="748.0" VBox.vgrow="NEVER" />
 
-                                <!-- Body content for User Management -->
+                                <!-- Body content for DeviceUser Management -->
                                 <AnchorPane fx:id="contentArea" prefHeight="430.0" prefWidth="758.0" stylesheets="@../../Scene/CSS/UserManagement.css" VBox.vgrow="ALWAYS">
                                     <children>
                                         <HBox layoutX="20.0" layoutY="60.0" spacing="250.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="10.0">
                                             <children>
 
-                                        <!-- User Detail Card -->
-                                        <VBox fx:id="userDetailCard" layoutX="396.0" layoutY="60.0" prefHeight="367.0" prefWidth="355.0" spacing="10" style="-fx-border-color: #800080; -fx-border-width: 1.5;" styleClass="user-detail-card" stylesheets="@../../Scene/CSS/UserManagement.css" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="60.0">
+                                        <!-- DeviceUser Detail Card -->
+                                        <VBox fx:id="userDetailCard" layoutX="396.0" layoutY="60.0" prefHeight="367.0" prefWidth="355.0" spacing="10" style="-fx-border-color: #800080; -fx-border-width: 1.5;" styleClass="deviceUser-detail-card" stylesheets="@../../Scene/CSS/UserManagement.css" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="60.0">
                                             <children>
                                                 <Label fx:id="userDetailTitle" contentDisplay="CENTER" prefHeight="23.0" prefWidth="203.0" styleClass="detail-title" text="Mr Kamal" textAlignment="CENTER" />
                                                 <Label fx:id="userNameLabel" prefHeight="18.0" prefWidth="340.0" styleClass="detail-label" text="Full Name           :" />
@@ -46,7 +46,7 @@
                                                 <Label fx:id="userEmailLabel" prefHeight="18.0" prefWidth="342.0" styleClass="detail-label" text="Email Address   :" />
                                                 <Label fx:id="userPhNumLabel" prefHeight="18.0" prefWidth="328.0" styleClass="detail-label" stylesheets="@../../Scene/CSS/UserManagement.css" text="Phone Number  :" />
 
-                                                <!-- Options for User Management -->
+                                                <!-- Options for DeviceUser Management -->
                                                 <VBox fx:id="optionsContainer" alignment="CENTER" prefHeight="221.0" prefWidth="249.0" spacing="10" HBox.hgrow="ALWAYS">
                                                     <children>
                                                         <!-- Title and Description -->

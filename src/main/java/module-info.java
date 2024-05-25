@@ -16,6 +16,7 @@ module org.example.hakmana {
     requires org.apache.commons.codec;
     requires jdk.httpserver;
     requires static lombok;
+    requires mysql.connector.java;
 
 
     opens org.example.hakmana to javafx.fxml;
@@ -26,6 +27,8 @@ module org.example.hakmana {
     opens org.example.hakmana.view.component to javafx.fxml;
     exports org.example.hakmana.view.scene;
     opens org.example.hakmana.view.scene to javafx.fxml;
+    exports org.example.hakmana.view.dialogBoxes;
+    opens org.example.hakmana.view.dialogBoxes to javafx.fxml;
 
 
 }

@@ -1,4 +1,4 @@
-package org.example.hakmana;
+package org.example.hakmana.view.dialogBoxes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +68,7 @@ public class EditAccountController  implements Initializable{
         connection = databaseConnection.getConnection();
 
         try {
-            // Query to retrieve user information
+            // Query to retrieve deviceUser information
             String query = "SELECT * FROM systemUser WHERE userName = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, LoginPageController.curentUser);

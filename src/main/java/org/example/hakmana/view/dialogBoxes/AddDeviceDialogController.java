@@ -1,4 +1,4 @@
-package org.example.hakmana;
+package org.example.hakmana.view.dialogBoxes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import org.example.hakmana.model.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AddDeviceDialogController implements Initializable {
@@ -150,7 +149,7 @@ public class AddDeviceDialogController implements Initializable {
     @FXML
     public TextField output3;
 
-    //user details
+    //deviceUser details
     private ArrayList<TextField> userTextLsit;
     @FXML
     public VBox userDetailsVbox;
@@ -181,7 +180,7 @@ public class AddDeviceDialogController implements Initializable {
 
     private boolean isFromComponent;
 
-    public static User user;
+    public static DeviceUser deviceUser;
 
     //for get new values from the textFields
     ArrayList<String> newValues=new ArrayList<>();
@@ -207,7 +206,7 @@ public class AddDeviceDialogController implements Initializable {
     /*-------------------------------Initialize---------------------------------*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user=new User();
+        deviceUser =new DeviceUser();
         //populate the choiceboxes
         devCat.getItems().addAll(devCategories);
         StatusChoiseBox.getItems().addAll(deviceStatus);
@@ -232,7 +231,7 @@ public class AddDeviceDialogController implements Initializable {
         outputLblList=new ArrayList<>(List.of(output1Lbl,output2Lbl,output3Lbl));
         outputTextList=new ArrayList<>(List.of(output1,output2,output3));
 
-        //get all the user textfield
+        //get all the deviceUser textfield
         userTextLsit=new ArrayList<>(List.of(userNIC,userName,userTitle,userGmail));
 
         resetBtnAction();
@@ -244,7 +243,7 @@ public class AddDeviceDialogController implements Initializable {
             // Enable the submitButton only if regNumTextField is not empty
             submitButton.setDisable(newValue.isEmpty());
 
-            //set editable textfield when user enter register number
+            //set editable textfield when deviceUser enter register number
             setEditable(new ArrayList<>(List.of(modelTextField)),true,"#03AED2");
             setEditable(otherTextList,true,"#03AED2");
             setEditable(inputTextList,true,"#03AED2");
@@ -262,12 +261,12 @@ public class AddDeviceDialogController implements Initializable {
             addUserButton.setDisable(newValue.isEmpty());
 
             // Check if the newValue is available in the users array
-            User user = new User().isNicAvailable(newValue);
-            if (user != null) {
+            DeviceUser deviceUser = new DeviceUser().isNicAvailable(newValue);
+            if (deviceUser != null) {
                 // Auto-fill the other text fields
-                userGmail.setText(user.getGmail());
-                userName.setText(user.getName());
-                userTitle.setText(user.getTitle());
+                userGmail.setText(deviceUser.getGmail());
+                userName.setText(deviceUser.getName());
+                userTitle.setText(deviceUser.getTitle());
             }
         });
 
@@ -600,12 +599,12 @@ public class AddDeviceDialogController implements Initializable {
         }
     }
 
-    /*------------------------Interactions with User TABLE-----------------------------------*/
+    /*------------------------Interactions with DeviceUser TABLE-----------------------------------*/
     @FXML
     private void addUser(){
-            if(user.isNicAvailable(userNIC.getText())==null) {
-                //add new user to the user table
-                user.insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
+            if(deviceUser.isNicAvailable(userNIC.getText())==null) {
+                //add new deviceUser to the deviceUser table
+                deviceUser.insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
             }
     }
 

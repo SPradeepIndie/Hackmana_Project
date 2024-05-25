@@ -61,10 +61,10 @@ public class UserMngmntController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         headerController.setFontSize("2.5em");
-        headerController.setTitleMsg("User management");
+        headerController.setTitleMsg("DeviceUser management");
         navPanelController.setUserMngmntBorder();
         pathFinderController.setSearchBarVisible(false);
-        pathFinderController.setPathTxt("User Management");
+        pathFinderController.setPathTxt("DeviceUser Management");
         //create the event listener to the navigation panel ToggleButton() method
         navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
             if(newValue){
@@ -78,7 +78,7 @@ public class UserMngmntController implements Initializable {
         connection = databaseConnection.getConnection();
 
         try {
-            // Query to retrieve user information
+            // Query to retrieve deviceUser information
             String query = "SELECT * FROM systemUser WHERE userName = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, LoginPageController.curentUser);
@@ -131,7 +131,7 @@ public class UserMngmntController implements Initializable {
     @FXML
     public void handleCreateAccountButtonAction(ActionEvent event) throws IOException{
         FXMLLoader createAccfxmlLoad = new FXMLLoader();
-        createAccfxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/CreateAccount.fxml"));
+        createAccfxmlLoad.setLocation(UserMngmntController.class.getResource("DialogBox/CreateAccount.fxml"));
         DialogPane createAccDialogPane=createAccfxmlLoad.load();
 
         Dialog<ButtonType> dialog=new Dialog<>();
@@ -144,7 +144,7 @@ public class UserMngmntController implements Initializable {
     @FXML
     protected void handleEditProfileButtonAction(ActionEvent event)throws IOException {
         FXMLLoader editAccfxmlLoad = new FXMLLoader();
-        editAccfxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/EditProfile.fxml"));
+        editAccfxmlLoad.setLocation(UserMngmntController.class.getResource("DialogBox/EditProfile.fxml"));
         DialogPane editAccDialogPane=editAccfxmlLoad.load();
 
         Dialog<ButtonType> dialog=new Dialog<>();
@@ -157,7 +157,7 @@ public class UserMngmntController implements Initializable {
     @FXML
     protected void handleShowUsersButtonAction(ActionEvent event)throws IOException {
         FXMLLoader showAccfxmlLoad= new FXMLLoader();
-        showAccfxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/ShowUsers.fxml"));
+        showAccfxmlLoad.setLocation(UserMngmntController.class.getResource("DialogBox/ShowUsers.fxml"));
         DialogPane showAccDialogPane=showAccfxmlLoad.load();
 
         Dialog<ButtonType> dialog=new Dialog<>();

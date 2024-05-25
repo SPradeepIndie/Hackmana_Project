@@ -14,16 +14,16 @@ import org.example.hakmana.view.component.*;
 
 public class DeviceMngmntSmmryScene implements Initializable {
     @FXML
-    private PathFinderController pathFinderController;
+    public PathFinderController pathFinderController;
     @FXML
-    private NavPanelController navPanelController;//NavPanel custom component injector
+    public NavPanelController navPanelController;//NavPanel custom component injector
     @FXML
-    private HeaderController headerController;
+    public HeaderController headerController;
     @FXML
-    private  VBox bodyComponet;//injector for VBox to expand
+    public  VBox bodyComponet;//injector for VBox to expand
 
     @FXML
-    private GridPane grid;
+    public GridPane grid;
     private int rowCount = 1;
     private int colCount = 0;
 

@@ -19,37 +19,37 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OtherDevicesController implements Initializable {
-    private OtherDevices otherDevicesDb;
+    public OtherDevices otherDevicesDb;
     @FXML
-    private NavPanelController navPanelController;//NavPanel custom component injector
+    public NavPanelController navPanelController;//NavPanel custom component injector
     @FXML
-    private HeaderController headerController;
+    public HeaderController headerController;
     @FXML
-    private VBox bodyComponet;//injector for VBox to expand
+    public VBox bodyComponet;//injector for VBox to expand
     @FXML
-    private PathFinderController pathFinderController;
+    public PathFinderController pathFinderController;
 
     @FXML
-    private Button addNew;
+    public Button addNew;
     @FXML
-    private Button ViewMore;
+    public Button ViewMore;
 
     @FXML
-    private TableView<OtherDevices> otherDeviceTblView;
+    public TableView<OtherDevices> otherDeviceTblView;
     @FXML
-    private TableColumn<OtherDevices, Integer> num;
+    public TableColumn<OtherDevices, Integer> num;
     @FXML
-    private TableColumn<OtherDevices, String> deviceNameClmn;
+    public TableColumn<OtherDevices, String> deviceNameClmn;
     @FXML
-    private TableColumn<OtherDevices, Integer> totalClmn;
+    public TableColumn<OtherDevices, Integer> totalClmn;
     @FXML
-    private TableColumn<OtherDevices, Integer> activeClmn;
+    public TableColumn<OtherDevices, Integer> activeClmn;
 
     @FXML
-    private TableColumn<OtherDevices, Integer> inactiveClmn;
+    public TableColumn<OtherDevices, Integer> inactiveClmn;
 
     @FXML
-    private TableColumn<OtherDevices, Integer> repairClmn;
+    public TableColumn<OtherDevices, Integer> repairClmn;
 
     public void initialize(URL location, ResourceBundle resources) {
         otherDevicesDb=new OtherDevices();
@@ -103,8 +103,6 @@ public class OtherDevicesController implements Initializable {
     }
 
     public void addTblRow() {
-        new Thread(() -> {
-            otherDeviceTblView.setItems(otherDevicesDb.getObservableOtherDevices());
-        }).start();
+        new Thread(() -> otherDeviceTblView.setItems(otherDevicesDb.getObservableOtherDevices())).start();
     }
 }

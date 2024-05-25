@@ -1,4 +1,4 @@
-package org.example.hakmana;
+package org.example.hakmana.view.dialogBoxes;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,7 +39,7 @@ public class ShowUsersController implements Initializable {
         userList = new ArrayList<>();
 
         try {
-            // Query to retrieve user information
+            // Query to retrieve deviceUser information
             String query = "SELECT * FROM systemUser";
             preparedStatement = connection.prepareStatement(query);
 

@@ -26,6 +26,7 @@ import org.example.hakmana.view.component.FooterController;
 import org.example.hakmana.view.component.HeaderController;
 import org.example.hakmana.view.component.NavPanelController;
 import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -386,7 +387,7 @@ public class DashboardController extends Component implements Initializable {
     }
     public void addDeviceBtnDialogOpen(ActionEvent event) throws IOException {
         FXMLLoader addDevicefxmlLoad = new FXMLLoader();
-        addDevicefxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/AddDeviceDialog.fxml"));
+        addDevicefxmlLoad.setLocation(DashboardController.class.getResource("DialogBox/AddDeviceDialog.fxml"));
 
         AddDeviceDialogController addDeviceDialogController=new AddDeviceDialogController();
         addDevicefxmlLoad.setController(addDeviceDialogController);
@@ -404,7 +405,7 @@ public class DashboardController extends Component implements Initializable {
     public void Add(){
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("Scene/dialogbox.fxml"));
+        fxmlLoader.setLocation(DashboardController.class.getResource("DialogBox/AddnoteDialog.fxml"));
         try {
             DialogPane dialogPane = fxmlLoader.load();
         } catch (IOException e) {

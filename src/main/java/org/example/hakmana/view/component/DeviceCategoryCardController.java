@@ -91,7 +91,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     public void DevInfoCall(ActionEvent event) throws IOException {
         Parent sceneRoot;
         if(devCatSceneName== OtherDevicesController.class.getResource("OtherDevice.fxml")){
-            sceneRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Scene/OtherDevices.fxml")));
+            sceneRoot = FXMLLoader.load(Objects.requireNonNull(OtherDevicesController.class.getResource("OtherDevices.fxml")));
         }else {
             String selectedDeviceName = getDevName();  // Get the selected device name
 

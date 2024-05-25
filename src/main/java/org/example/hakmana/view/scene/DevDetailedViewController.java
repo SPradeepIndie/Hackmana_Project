@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.hakmana.model.*;
 import org.example.hakmana.view.component.HeaderController;
 import org.example.hakmana.view.component.NavPanelController;
@@ -20,100 +22,102 @@ import java.util.ResourceBundle;
 public class DevDetailedViewController implements Initializable {
 
     @FXML
-    private NavPanelController navPanelController;//NavPanel custom component injector
+    public NavPanelController navPanelController;//NavPanel custom component injector
     @FXML
-    private HeaderController headerController;
+    public HeaderController headerController;
     @FXML
-    private  VBox bodyComponet;//injector for VBox to expand
+    public  VBox bodyComponet;//injector for VBox to expand
     @FXML
-    private PathFinderController pathFinderController;
+    public PathFinderController pathFinderController;
     @FXML
-    private ScrollPane formPane;
+    public ScrollPane formPane;
+    @Setter
+    @Getter
     @FXML
-    private Button dia;
+    public Button dia;//<----------------------What us this
     //Device details
     //common
     @FXML
-    private VBox commonVbox;
+    public VBox commonVbox;
     @FXML
-    private TextField StatusTextField;
+    public TextField StatusTextField;
     @FXML
-    private TextField modelTextField;
+    public TextField modelTextField;
     @FXML
-    private TextField regNumTextField;
+    public TextField regNumTextField;
 
     //other details
     private ArrayList<HBox> otherHboxList;
     private ArrayList<Label> otherLblList;
     private ArrayList<TextField> otherTextList;
     @FXML
-    private VBox otherDetailVbox;
+    public VBox otherDetailVbox;
     @FXML
-    private Label other1Lbl;
+    public Label other1Lbl;
     @FXML
-    private HBox other1Hbox;
+    public HBox other1Hbox;
     @FXML
-    private TextField other1;
+    public TextField other1;
     @FXML
-    private HBox other2Hbox;
+    public HBox other2Hbox;
     @FXML
-    private Label other2Lbl;
+    public Label other2Lbl;
     @FXML
-    private TextField other2;
+    public TextField other2;
     @FXML
-    private HBox other3Hbox;
+    public HBox other3Hbox;
     @FXML
-    private Label other3Lbl;
+    public Label other3Lbl;
     @FXML
-    private TextField other3;
+    public TextField other3;
     @FXML
-    private HBox other4Hbox;
+    public HBox other4Hbox;
     @FXML
-    private Label other4Lbl;
+    public Label other4Lbl;
     @FXML
-    private TextField other4;
+    public TextField other4;
     @FXML
-    private HBox other5Hbox;
+    public HBox other5Hbox;
     @FXML
-    private Label other5Lbl;
+    public Label other5Lbl;
     @FXML
-    private TextField other5;
+    public TextField other5;
     @FXML
-    private HBox other6Hbox;
+    public HBox other6Hbox;
     @FXML
-    private Label other6Lbl;
+    public Label other6Lbl;
     @FXML
-    private TextField other6;
+    public TextField other6;
     @FXML
-    private HBox other7Hbox;
+    public HBox other7Hbox;
     @FXML
-    private Label other7Lbl;
+    public Label other7Lbl;
     @FXML
-    private TextField other7;
+    public TextField other7;
     @FXML
-    private HBox other8Hbox;
+    public HBox other8Hbox;
     @FXML
-    private Label other8Lbl;
+    public Label other8Lbl;
     @FXML
-    private TextField other8;
+    public TextField other8;
     @FXML
-    private HBox other9Hbox;
+    public HBox other9Hbox;
     @FXML
-    private Label other9Lbl;
+    public Label other9Lbl;
     @FXML
-    private TextField other9;
+    public TextField other9;
     @FXML
-    private HBox other10Hbox;
+    public HBox other10Hbox;
     @FXML
-    private Label other10Lbl;
+    public Label other10Lbl;
     @FXML
-    private TextField other10;
+    public TextField other10;
     @FXML
-    private HBox other11Hbox;
+    public HBox other11Hbox;
     @FXML
-    private Label other11Lbl;
+    public Label other11Lbl;
     @FXML
-    private TextField other11;
+    public TextField other11;
 
 
     //input Dev details
@@ -121,81 +125,82 @@ public class DevDetailedViewController implements Initializable {
     private ArrayList<Label> inputLblList;
     private ArrayList<TextField> inputTextList;
     @FXML
-    private VBox inputVbox;
+    public VBox inputVbox;
     @FXML
-    private HBox input1Hbox;
+    public HBox input1Hbox;
     @FXML
-    private Label input1Lbl;
+    public Label input1Lbl;
     @FXML
-    private TextField input1;
+    public TextField input1;
     @FXML
-    private HBox input2Hbox;
+    public HBox input2Hbox;
     @FXML
-    private Label input2Lbl;
+    public Label input2Lbl;
     @FXML
-    private TextField input2;
+    public TextField input2;
     @FXML
-    private HBox input3Hbox;
+    public HBox input3Hbox;
     @FXML
-    private Label input3Lbl;
+    public Label input3Lbl;
     @FXML
-    private TextField input3;
+    public TextField input3;
     @FXML
-    private HBox input4Hbox;
+    public HBox input4Hbox;
     @FXML
-    private Label input4Lbl;
+    public Label input4Lbl;
     @FXML
-    private TextField input4;
+    public TextField input4;
 
     //output Dev details
     private ArrayList<HBox> outputHboxList;
     private ArrayList<Label> outputLblList;
     private ArrayList<TextField> outputTextList;
     @FXML
-    private VBox outputVbox;
+    public VBox outputVbox;
     @FXML
-    private HBox output1Hbox;
+    public HBox output1Hbox;
     @FXML
-    private Label output1Lbl;
+    public Label output1Lbl;
     @FXML
-    private TextField output1;
+    public TextField output1;
     @FXML
-    private HBox output2Hbox;
+    public HBox output2Hbox;
     @FXML
-    private Label output2Lbl;
+    public Label output2Lbl;
     @FXML
-    private TextField output2;
+    public TextField output2;
     @FXML
-    private HBox output3Hbox;
+    public HBox output3Hbox;
     @FXML
-    private Label output3Lbl;
+    public Label output3Lbl;
     @FXML
-    private TextField output3;
+    public TextField output3;
 
-    //user details
+    //deviceUser details
     private ArrayList<TextField> userTextLsit;
     @FXML
-    private VBox userDetailsVbox;
+    public VBox userDetailsVbox;
     @FXML
-    private Button assignUserBtn;
+    public Button assignUserBtn;
     @FXML
-    private TextField userNIC;
-    private String initialUser;//this variable use to identify initial user to compare
+    public TextField userNIC;
+    private String initialUser;//this variable use to identify initial deviceUser to compare
     @FXML
-    private TextField userTitle;
+    public TextField userTitle;
     @FXML
-    private TextField userName;
+    public TextField userName;
     @FXML
-    private TextField userGmail;
+    public TextField userGmail;
 
     @FXML
-    private HBox interactionHbox;
+    public HBox interactionHbox;
     @FXML
-    private Button editBtn;
+    public Button editBtn;
     @FXML
-    private Button saveBtn;
+    public Button saveBtn;
 
     ArrayList<String> newValues=new ArrayList<>();
+    @Getter
     private static String deviceSelector;
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
@@ -236,7 +241,7 @@ public class DevDetailedViewController implements Initializable {
         outputLblList=new ArrayList<>(List.of(output1Lbl,output2Lbl,output3Lbl));
         outputTextList=new ArrayList<>(List.of(output1,output2,output3));
 
-        //get all the user textfield
+        //get all the deviceUser textfield
         userTextLsit=new ArrayList<>(List.of(userNIC,userName,userTitle,userGmail));
 
         //set the all vboxes not visible and not editable at the begining
@@ -248,26 +253,18 @@ public class DevDetailedViewController implements Initializable {
             assignUserBtn.setDisable(newValue.isEmpty());
 
             // Check if the newValue is available in the users array
-            User user = new User().isNicAvailable(newValue);
-            if (user != null) {
+            DeviceUser deviceUser = new DeviceUser().isNicAvailable(newValue);
+            if (deviceUser != null) {
                 // Auto-fill the other text fields
-                userGmail.setText(user.getGmail());
-                userName.setText(user.getName());
-                userTitle.setText(user.getTitle());
+                userGmail.setText(deviceUser.getGmail());
+                userName.setText(deviceUser.getName());
+                userTitle.setText(deviceUser.getTitle());
             }
         });
 
         // Disable the submitButton initially if regNumTextField is empty
         assignUserBtn.setDisable(userNIC.getText().isEmpty());
 
-    }
-
-    public Button getDia() {
-        return dia;
-    }
-
-    public void setDia(Button dia) {
-        this.dia = dia;
     }
 
     private void Animation(double animStartPos, double animEndPos){
@@ -296,9 +293,7 @@ public class DevDetailedViewController implements Initializable {
     public void setDevRegNum(String devRegNum) {
         DevDetailedViewController.devRegNum = devRegNum;
     }
-    public String getDeviceSelector() {
-        return deviceSelector;
-    }
+
     public void setDeviceSelector(String deviceSelector) {
         DevDetailedViewController.deviceSelector = deviceSelector;
     }
@@ -311,11 +306,11 @@ public class DevDetailedViewController implements Initializable {
                 setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Warranty",
                         "Hard Disk","Operating System","Floppy Disk","Sound Card","TV card","Netwrok card"},
                         desktop.getSerialNum(),desktop.getPurchasedFrom(),desktop.getRam(),
-                        desktop.getProcessor(),desktop.getWarranty(),desktop.getHardDisk(),
+                        desktop.getHardDisk(),
                         desktop.getOs(),desktop.getFloppyDisk(),desktop.getSoundCard(),
                         desktop.getTvCard(),desktop.getNetworkCard());
                 setOutputDetails(new String[]{"Monitor Register Number","Projector Register Number","Speaker Register Number"},
-                        desktop.getMonitorRegNum(),desktop.getProjectorRegNum(),desktop.getSpeakerRegNum());
+                        desktop.getMonitorRegNum(),desktop.getSpeakerRegNum());
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"},
                         desktop.getMouseRegNum(),desktop.getKeyboardRegNum(),desktop.getMicRegNum(),desktop.getScannerRegNum());
                 userDetails(desktop.getUserNIC());
@@ -571,7 +566,7 @@ public class DevDetailedViewController implements Initializable {
     }
 
 
-    /*------------------------Interactions with User TABLE-----------------------------------*/
+    /*------------------------Interactions with DeviceUser TABLE-----------------------------------*/
     @FXML
     private void editUser(){
         setEditable(userTextLsit,true,"#03AED2");
@@ -579,17 +574,17 @@ public class DevDetailedViewController implements Initializable {
     @FXML
     private void assignUser(){
         if(!userNIC.getText().equals(initialUser)){
-            if(new User().isNicAvailable(userNIC.getText())==null) {
-                //add new user to the user table
-                new User().insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
+            if(new DeviceUser().isNicAvailable(userNIC.getText())==null) {
+                //add new deviceUser to the deviceUser table
+                new DeviceUser().insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
             }
             switch (deviceSelector){
                 case "Desktop"->{
-                    //add new user to the desktop table
+                    //add new deviceUser to the desktop table
                     new Desktop().updateDeviceUser(userNIC.getText(),getDevRegNum());
                 }
                 case "Laptops"->{
-                    //add new user to the laptop table
+                    //add new deviceUser to the laptop table
                     new Laptops().updateDeviceUser(userNIC.getText(),getDevRegNum());
                 }
             }

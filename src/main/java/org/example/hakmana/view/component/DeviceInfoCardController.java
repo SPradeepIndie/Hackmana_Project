@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.hakmana.view.scene.DevDetailedViewController;
 import org.example.hakmana.dialogPaneController;
 import org.example.hakmana.model.DatabaseConnection;
@@ -42,14 +44,20 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      private Pane addBtn;
      @FXML
      private Pane moreInfoBtn;
+     @Getter
      @FXML
      private String devId;
 
      private   ArrayList<String> paneControllers=new ArrayList<String>();
      private ArrayList<String> username=new ArrayList<String>();
+     @Getter
+     @Setter
      private String deviceCat;
+     @Getter
      private String user;
+     @Getter
      private String brand;
+     @Getter
      private String note;
      @Override
      public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,20 +90,8 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
           root.setScaleY(1.0);
      }
 
-    public String getDeviceCat() {
-        return deviceCat;
-    }
 
-    public void setDeviceCat(String deviceCat) {
-        this.deviceCat = deviceCat;
-    }
-
-
-    public String getDevId() {
-          return devId;
-     }
-
-     public void setDevId(String devId) {
+    public void setDevId(String devId) {
          //creating database connection
          DatabaseConnection instance = DatabaseConnection.getInstance();
          Connection conn = instance.getConnection();
@@ -120,14 +116,14 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
          } catch (SQLException e) {
              throw new RuntimeException(e);
          } finally {
-                    adddefaultDetails();
-             paneControllers.add(devId);
+             //adddefaultDetails();
+                paneControllers.add(devId);
          }
 
      }
      //for get username and device id
         public void adddefaultDetails(){
-             FXMLLoader dialogPaneFxml = new FXMLLoader(Objects.requireNonNull(getClass().getResource("Scene/dialogbox.fxml")));
+             FXMLLoader dialogPaneFxml = new FXMLLoader(Objects.requireNonNull(DeviceInfoCardController.class.getResource("DialogBox/AddnoteDialog.fxml")));
              try {
                  // Load the FXML file and retrieve the controller
                  Parent root = dialogPaneFxml.load();
@@ -150,42 +146,26 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
          }
 
 
-
-
-
-     public String getUser() {
-          return user;
-     }
-
-     public void setUser(String user) {
+    public void setUser(String user) {
           this.user = user;
           userTxt.setText(this.user);
-         adddefaultDetails();
+         //adddefaultDetails();
          username.add(user);
 
 
      }
 
-     public String getBrand() {
-          return brand;
-     }
-
-     public void setBrand(String brand) {
+    public void setBrand(String brand) {
           this.brand = brand;
           brandTxt.setText(this.brand);
      }
 
-     public String getNote() {
-          return note;
-     }
 
-
-
-     //handle more info button to load DevDetailedView scene
+    //handle more info button to load DevDetailedView scene
      @FXML
      public void DetailedViewSceneLoad(ActionEvent event) throws IOException {
          // Load the FXML loader for the target scene
-          FXMLLoader detailDevicefxmlLoder = new FXMLLoader(Objects.requireNonNull(getClass().getResource("Scene/DevDetailedView.fxml")));
+          FXMLLoader detailDevicefxmlLoder = new FXMLLoader(Objects.requireNonNull(org.example.hakmana.view.scene.DevDetailedViewController.class.getResource("DevDetailedView.fxml")));
           //create DevDetailedViewController instance
           DevDetailedViewController devDetailedViewController=new DevDetailedViewController();
          detailDevicefxmlLoder.setController(devDetailedViewController);
@@ -206,7 +186,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
      public void popupdialog() {
           FXMLLoader noteFxmlLoader = new FXMLLoader();
-          noteFxmlLoader.setLocation(getClass().getResource("Scene/dialogbox.fxml"));
+          noteFxmlLoader.setLocation(getClass().getResource("Scene/AddnoteDialog.fxml"));
           try {
                DialogPane dialogPane = noteFxmlLoader.load();
           } catch (IOException e) {

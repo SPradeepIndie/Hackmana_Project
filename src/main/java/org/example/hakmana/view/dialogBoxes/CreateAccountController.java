@@ -1,4 +1,4 @@
-package org.example.hakmana;
+package org.example.hakmana.view.dialogBoxes;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -100,11 +100,11 @@ public class CreateAccountController {
                 int rowsInserted = preparedStatement.executeUpdate();
 
                 if (rowsInserted > 0) {
-                    alertBox(actionEvent,"","A new user was inserted successfully!");
-                    System.out.println("A new user was inserted successfully!");
+                    alertBox(actionEvent,"","A new deviceUser was inserted successfully!");
+                    System.out.println("A new deviceUser was inserted successfully!");
                 } else {
-                    System.out.println("Failed to insert the user.");
-                    alertBox(actionEvent,"Error","Failed to insert the user!");
+                    System.out.println("Failed to insert the deviceUser.");
+                    alertBox(actionEvent,"Error","Failed to insert the deviceUser!");
                 }
                 clearFields();
             } catch (SQLException e) {
