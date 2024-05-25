@@ -68,8 +68,8 @@ public class SystemUser {
         this.checkCode = checkCode;
     }
 
-    /*-----------User verification for password reset-------------*/
-    //return reultset acording to the user mail
+    /*-----------DeviceUser verification for password reset-------------*/
+    //return reultset acording to the deviceUser mail
     public void setResultSet() throws SQLException {
         String query = "SELECT * FROM systemuser WHERE email = ?";
         PreparedStatement ps = conn.prepareStatement(query);
@@ -174,7 +174,7 @@ public class SystemUser {
             //Check confirmation when password change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("password cahnge for the user" + getUserName());
+            alert.setContentText("password cahnge for the deviceUser" + getUserName());
 
             Optional<ButtonType> result = alert.showAndWait();//wait until button press in alert box
 

@@ -103,7 +103,7 @@ public class UPS extends Devices{
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 UPS ups1 = new UPS();
 

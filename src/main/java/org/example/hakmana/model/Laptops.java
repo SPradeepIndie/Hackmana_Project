@@ -4,9 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,39 +15,39 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Laptops extends Devices{
-    private DatabaseConnection conn;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
     private String model;
     private String status;
     private String userName;
 
+    @Setter
+    @Getter
     private String ram = "NO";
+    @Setter
+    @Getter
     private String cpu = "NO";
+    @Setter
+    @Getter
     private String storage;
+    @Setter
+    @Getter
     private String display;
+    @Setter
+    @Getter
     private String graphicCard="NO";
+    @Setter
+    @Getter
     private String os = "NO";
-    private String userNIC = "No User";
-
-    public Laptops(String regNum, String model, String userName, String status, String ram, String cpu, String storage, String display, String graphicCard, String os, String userNIC) {
-        super(regNum, model, userName, status);
-        this.ram = ram;
-        this.cpu = cpu;
-        this.storage = storage;
-        this.display = display;
-        this.graphicCard = graphicCard;
-        this.os = os;
-        this.userNIC = userNIC;
-    }
+    @Setter
+    @Getter
+    private String userNIC = "No DeviceUser";
 
     public Laptops(String regNum, String model, String userName, String status) {
         super(regNum, model, userName,status);
-    }
-
-    public Laptops() {
     }
 
     @Override
@@ -85,73 +83,17 @@ public class Laptops extends Devices{
         this.userName = userName;
     }
 
-    public String getRam() {
-        return ram;
-    }
-
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public String getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
-    public String getStorage() {
-        return storage;
-    }
-
-    public void setStorage(String storage) {
-        this.storage = storage;
-    }
-
-    public String getDisplay() {
-        return display;
-    }
-
-    public void setDisplay(String display) {
-        this.display = display;
-    }
-
-    public String getGraphicCard() {
-        return graphicCard;
-    }
-
-    public void setGraphicCard(String graphicCard) {
-        this.graphicCard = graphicCard;
-    }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        this.os = os;
-    }
-
-    public String getUserNIC() {
-        return userNIC;
-    }
-
-    public void setUserNIC(String userNIC) {
-        this.userNIC = userNIC;
-    }
-
     public Laptops[] getDevices() {
-        conn=DatabaseConnection.getInstance();
+
         List<Laptops> laptops = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Laptop.LaptopRegNum,Laptop.model,Laptop.status, DeviceUser.name FROM laptop LEFT JOIN user ON Laptop.userNIC = DeviceUser.userNIC";
+        String sql = "SELECT Laptop.LaptopRegNum,Laptop.model,Laptop.status, DeviceUser.name FROM laptop LEFT JOIN deviceUser ON Laptop.userNIC = DeviceUser.userNIC";
 
         try {
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 Laptops laptop = new Laptops();
 
@@ -171,7 +113,6 @@ public class Laptops extends Devices{
     }
     @Override
     public Laptops getDevice(String regNum) {
-        conn = DatabaseConnection.getInstance();
         //pass query to the connection class
         String sql = "SELECT * FROM laptop Where regNum=?";
 
@@ -203,7 +144,6 @@ public class Laptops extends Devices{
         return null;
     }
     public boolean updateDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
         String sql="UPDATE laptop SET model=?,status=?,RAM=?,CPU=?,Storage=?,Display=?,OperatingSystem=?,GraphicsCard=? WHERE regNUM=?";
@@ -249,7 +189,6 @@ public class Laptops extends Devices{
         return false;
     }
     public boolean updateDeviceUser(String userNic,String id) {
-        conn = DatabaseConnection.getInstance();
         Connection connection = conn.getConnection();
         //pass query to the connection class
         String sql = "UPDATE laptop SET userNIC=? WHERE regNUM=?";
@@ -264,7 +203,7 @@ public class Laptops extends Devices{
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update user laptop registration number " + id);
+            alert.setContentText("Update deviceUser laptop registration number " + id);
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -283,15 +222,14 @@ public class Laptops extends Devices{
         } catch (SQLException e) {
             // Rollback the transaction on error
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating User");
-            alert.setHeaderText("An error occurred while updating the device user.");
+            alert.setTitle("Error Updating DeviceUser");
+            alert.setHeaderText("An error occurred while updating the device deviceUser.");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
         return false;
     }
     public boolean insertDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
         String sql="INSERT INTO laptop (regNum,model,status,ram,CPU,Storage,Display,GraphicsCard,OperatingSystem,userNIC)" +

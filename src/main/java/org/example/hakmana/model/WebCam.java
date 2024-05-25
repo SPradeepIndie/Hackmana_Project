@@ -64,13 +64,13 @@ public class WebCam extends Devices{
         DatabaseConnection conn=DatabaseConnection.getInstance();
         List<WebCam> webCams = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT WebCam.*, userNIC.name FROM WebCam LEFT JOIN user ON WebCam.userNIC = DeviceUser.userNIC";
+        String sql = "SELECT WebCam.*, userNIC.name FROM WebCam LEFT JOIN deviceUser ON WebCam.userNIC = DeviceUser.userNIC";
 
         try {
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 WebCam webCam = new WebCam();
 

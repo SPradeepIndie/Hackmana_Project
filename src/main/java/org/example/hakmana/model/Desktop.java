@@ -2,9 +2,7 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,33 +15,48 @@ import java.util.Optional;
 @Data
 @AllArgsConstructor
 public class Desktop extends Devices {
-    private DatabaseConnection conn;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
     private String model;
     private String status;
     private String userName;
 
+    @Setter
+    @Getter
     private String serialNum = "NO";
+    @Setter
+    @Getter
     private String purchasedFrom = "NO";
+    @Setter
+    @Getter
     private String ram = "NO";
+    @Setter
+    @Getter
     private String processor = "NO";
-    private String warranty = "NO";
+    @Getter
     private String hardDisk = "NO";
     private String os = "NO";
     private String monitorRegNum = "NO";
-    private String projectorRegNum = "NO";
     private String speakerRegNum = "NO";
     private String mouseRegNum = "NO";
     private String keyboardRegNum = "NO";
+    @Setter
+    @Getter
     private String soundCard = "NO";
+    @Setter
+    @Getter
     private String tvCard = "NO";
+    @Setter
+    @Getter
     private String networkCard = "NO";
     private String micRegNum = "NO";
-    private String userNIC = "No User";
+    private String userNIC = "No DeviceUser";
+    @Setter
+    @Getter
     private String floppyDisk = "NO";
     private String scannerRegNum = "NO";
 
-    public Desktop(String regNum, String model, String userName, String status, String serialNum, String purchasedFrom, String ram, String processor, String warranty, String hardDisk, String os, String floppyDisk, String soundCard, String tvCard, String networkCard, String monitorRegNum, String projectorRegNum, String speakerRegNum, String mouseRegNum, String keyboardRegNum, String micRegNum, String scannerRegNum, String userNIC) {
+    public Desktop(String regNum, String model, String userName, String status, String serialNum, String purchasedFrom, String ram, String processor, String hardDisk, String os, String floppyDisk, String soundCard, String tvCard, String networkCard, String monitorRegNum, String speakerRegNum, String mouseRegNum, String keyboardRegNum, String micRegNum, String scannerRegNum, String userNIC) {
         super(regNum, model, userName, status);
         this.floppyDisk = floppyDisk;
         this.soundCard = soundCard;
@@ -53,11 +66,9 @@ public class Desktop extends Devices {
         this.purchasedFrom = purchasedFrom;
         this.ram = ram;
         this.processor = processor;
-        this.warranty = warranty;
         this.hardDisk = hardDisk;
         this.os = os;
         this.monitorRegNum = monitorRegNum;
-        this.projectorRegNum = projectorRegNum;
         this.speakerRegNum = speakerRegNum;
         this.mouseRegNum = mouseRegNum;
         this.keyboardRegNum = keyboardRegNum;
@@ -105,90 +116,20 @@ public class Desktop extends Devices {
     }
 
 
-
-    public String getFloppyDisk() {
-        return floppyDisk;
-    }
-
-    public void setFloppyDisk(String floppyDisk) {
-        this.floppyDisk = floppyDisk;
-    }
-
-    public String getSoundCard() {
-        return soundCard;
-    }
-
-    public void setSoundCard(String soundCard) {
-        this.soundCard = soundCard;
-    }
-
-    public String getTvCard() {
-        return tvCard;
-    }
-
-    public void setTvCard(String tvCard) {
-        this.tvCard = tvCard;
-    }
-
-    public String getNetworkCard() {
-        return networkCard;
-    }
-
-    public void setNetworkCard(String networkCard) {
-        this.networkCard = networkCard;
-    }
-
-    public String getSerialNum() {
-        return serialNum;
-    }
-
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
-    }
-
-    public String getPurchasedFrom() {
-        return purchasedFrom;
-    }
-
-    public void setPurchasedFrom(String purchasedFrom) {
-        this.purchasedFrom = purchasedFrom;
-    }
-
-    public String getRam() {
-        return ram;
-    }
-
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public String getProcessor() {
-        return processor;
-    }
-
-    public void setProcessor(String processor) {
-        this.processor = processor;
-    }
-
-    public String getWarranty() {
-        return warranty;
-    }
-
-
     //get the Desktop array from the database
+    //for updating cards
     @Override
     public Desktop[] getDevices() {
-        conn = DatabaseConnection.getInstance();
         List<Desktop> desktops = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Desktop.DesRegNum,Desktop.model,Desktop.status,DeviceUser.name FROM desktop LEFT JOIN user ON Desktop.userNIC = DeviceUser.userNIC";
+        String sql = "SELECT Desktop.DesRegNum,Desktop.model,Desktop.status,DeviceUser.name FROM desktop LEFT JOIN deviceUser ON Desktop.userNIC = DeviceUser.userNIC";
 
         try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 Desktop desktop = new Desktop(null, null, null, null);
-                desktop.setRegNum(resultSet.getString("regNum"));
+                desktop.setRegNum(resultSet.getString("DesRegNum"));
                 desktop.setModel(resultSet.getString("model"));
                 desktop.setStatus(resultSet.getString("status"));
                 desktop.setUserName(resultSet.getString("name"));
@@ -206,9 +147,8 @@ public class Desktop extends Devices {
     //for get special device from the database
     @Override
     public Desktop getDevice(String regNum) {
-        conn = DatabaseConnection.getInstance();
         //pass query to the connection class
-        String sql = "SELECT * FROM desktop Where regNum=?";
+        String sql = "SELECT * FROM desktop Where DesRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -217,7 +157,7 @@ public class Desktop extends Devices {
 
             while (rs.next()) {
                 Desktop desktop = new Desktop();
-                desktop.setRegNum(rs.getString("regNum"));
+                desktop.setRegNum(rs.getString("DesRegNum"));
                 desktop.setModel(rs.getString("model"));
                 desktop.setStatus(rs.getString("status"));
                 desktop.setSerialNum(rs.getString("serialNum"));
@@ -231,7 +171,6 @@ public class Desktop extends Devices {
                 desktop.setTvCard(rs.getString("tvCard"));
                 desktop.setNetworkCard(rs.getString("networkCard"));
                 desktop.setMonitorRegNum(rs.getString("monitorRegNum"));
-                desktop.setProjectorRegNum(rs.getString("projectorRegNum"));
                 desktop.setSpeakerRegNum(rs.getString("speakerRegNum"));
                 desktop.setMouseRegNum(rs.getString("mouseRegNum"));
                 desktop.setKeyboardRegNum(rs.getString("keyboardRegNum"));
@@ -250,13 +189,12 @@ public class Desktop extends Devices {
     }
 
     public boolean updateDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
         String sql="UPDATE desktop SET model=?,status=?,serialNum=?,purchasedFrom=?,ram=?," +
-                "processor=?,warranty=?,hardDisk=?,os=?,floppyDisk=?,soundCard=?,tvCard=?,networkCard=?,monitorRegNum=?," +
-                "projectorRegNum=?,speakerRegNum=?,mouseRegNum=?,keyboardRegNum=?,micRegNum=?,scannerRegNum=?" +
-                "WHERE regNum=?";
+                "processor=?,hardDisk=?,os=?,floppyDisk=?,soundCard=?,tvCard=?,networkCard=?,monitorRegNum=?," +
+                "speakerRegNum=?,mouseRegNum=?,keyboardRegNum=?,micRegNum=?,scannerRegNum=?" +
+                "WHERE DesRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -299,10 +237,9 @@ public class Desktop extends Devices {
         return false;
     }
     public boolean updateDeviceUser(String userNic,String id){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE desktop SET userNIC=? WHERE regNum=?";
+        String sql="UPDATE desktop SET userNIC=? WHERE DesRegNum=?";
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -314,7 +251,7 @@ public class Desktop extends Devices {
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update user desktop registration number " +id);
+            alert.setContentText("Update deviceUser desktop registration number " +id);
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -333,20 +270,19 @@ public class Desktop extends Devices {
         } catch (SQLException e) {
             // Rollback the transaction on error
             Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating User");
-            alert.setHeaderText("An error occurred while updating the device user.");
+            alert.setTitle("Error Updating DeviceUser");
+            alert.setHeaderText("An error occurred while updating the device deviceUser.");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
         return false;
     }
     public boolean insertDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO desktop (regNum,model,status,serialNum,purchasedFrom,ram," +
-                "processor,warranty,hardDisk,os,floppyDisk,soundCard,tvCard,networkCard,monitorRegNum," +
-                "projectorRegNum,speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,userNIC)" +
+        String sql="INSERT INTO desktop (DesRegNum,model,status,serialNum,purchasedFrom,ram," +
+                "processor,hardDisk,os,floppyDisk,soundCard,tvCard,networkCard,monitorRegNum," +
+                "speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,userNIC)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             connection.setAutoCommit(false);
