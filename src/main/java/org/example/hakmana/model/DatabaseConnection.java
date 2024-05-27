@@ -1,11 +1,9 @@
 package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
-import lombok.Getter;
 
 import java.sql.*;
 
-@Getter
 public class DatabaseConnection {
     private static DatabaseConnection instance =null;
     private Connection connection;
@@ -28,6 +26,10 @@ public class DatabaseConnection {
             return instance;
         }
         return instance;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public ResultSet executeSt(String sqlSt) {

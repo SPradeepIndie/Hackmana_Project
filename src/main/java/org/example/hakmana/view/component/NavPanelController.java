@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 
 public class NavPanelController extends AnchorPane implements Initializable {
-    private PathFinderController pathFinderController=new PathFinderController();
+    private final PathFinderController pathFinderController=new PathFinderController();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -150,7 +150,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public void deviceMnagmnt(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml")));
-        pathFinderController.setBckBtnScene("Scene/DeviceMngmnt.fxml");
+        pathFinderController.setBckBtnScene(Objects.requireNonNull(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -158,7 +158,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public void overviewScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(OverviewController.class.getResource("Overview.fxml")));
-        pathFinderController.setBckBtnScene("Scene/Overview.fxml");
+        pathFinderController.setBckBtnScene(Objects.requireNonNull(OverviewController.class.getResource("Overview.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -166,7 +166,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public void userMngmntScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(UserMngmntController.class.getResource("UserMngmnt.fxml")));
-        pathFinderController.setBckBtnScene("Scene/UserMngmnt.fxml");
+        pathFinderController.setBckBtnScene(Objects.requireNonNull(OverviewController.class.getResource("UserMngmnt.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -174,7 +174,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public void reportHndlingScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ReportHndlingController.class.getResource("ReportHndling.fxml")));
-        pathFinderController.setBckBtnScene("Scene/ReportHndling.fxml");
+        pathFinderController.setBckBtnScene(Objects.requireNonNull(ReportHndlingController.class.getResource("ReportHndling.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -182,7 +182,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public void dashboardScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(DashboardController.class.getResource("dashboard.fxml")));
-        pathFinderController.setBckBtnScene("Scene/dashboard.fxml");
+        pathFinderController.setBckBtnScene(Objects.requireNonNull(DashboardController.class.getResource("dashboard.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -208,6 +208,5 @@ public class NavPanelController extends AnchorPane implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        System.out.println("logout");
     }
 }

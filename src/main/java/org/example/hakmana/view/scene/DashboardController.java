@@ -405,7 +405,7 @@ public class DashboardController extends Component implements Initializable {
     public void Add(){
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(DashboardController.class.getResource("DialogBox/AddnoteDialog.fxml"));
+        fxmlLoader.setLocation(dialogPaneController.class.getResource("DialogBox/AddnoteDialog.fxml"));
         try {
             DialogPane dialogPane = fxmlLoader.load();
         } catch (IOException e) {

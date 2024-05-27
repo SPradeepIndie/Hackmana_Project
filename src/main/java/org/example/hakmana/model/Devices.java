@@ -1,21 +1,23 @@
 package org.example.hakmana.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public abstract class Devices {
     private String regNum;
     private String model="No";
     private String name;
     private String status;
 
+    public Devices(String regNum, String model, String name, String status) {
+        this.regNum = regNum;
+        this.model = model;
+        this.name = name;
+        this.status = status;
+    }
+
+    public Devices() {
+    }
 
     //get the Devices array from the database
-    public Devices[] getDevices(){
+    public  Devices[] getDevices(){
         return null;
     }
 

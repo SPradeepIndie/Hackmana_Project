@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Data
 @AllArgsConstructor
 public class Desktop extends Devices {
     private DatabaseConnection conn=DatabaseConnection.getInstance();
@@ -21,38 +20,22 @@ public class Desktop extends Devices {
     private String status;
     private String userName;
 
-    @Setter
-    @Getter
+
     private String serialNum = "NO";
-    @Setter
-    @Getter
     private String purchasedFrom = "NO";
-    @Setter
-    @Getter
     private String ram = "NO";
-    @Setter
-    @Getter
     private String processor = "NO";
-    @Getter
     private String hardDisk = "NO";
     private String os = "NO";
     private String monitorRegNum = "NO";
     private String speakerRegNum = "NO";
     private String mouseRegNum = "NO";
     private String keyboardRegNum = "NO";
-    @Setter
-    @Getter
     private String soundCard = "NO";
-    @Setter
-    @Getter
     private String tvCard = "NO";
-    @Setter
-    @Getter
     private String networkCard = "NO";
     private String micRegNum = "NO";
     private String userNIC = "No DeviceUser";
-    @Setter
-    @Getter
     private String floppyDisk = "NO";
     private String scannerRegNum = "NO";
 
@@ -115,6 +98,141 @@ public class Desktop extends Devices {
         this.userName = userName;
     }
 
+    public String getSerialNum() {
+        return serialNum;
+    }
+
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+    }
+
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public String getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(String processor) {
+        this.processor = processor;
+    }
+
+    public String getHardDisk() {
+        return hardDisk;
+    }
+
+    public void setHardDisk(String hardDisk) {
+        this.hardDisk = hardDisk;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public String getMonitorRegNum() {
+        return monitorRegNum;
+    }
+
+    public void setMonitorRegNum(String monitorRegNum) {
+        this.monitorRegNum = monitorRegNum;
+    }
+
+    public String getSpeakerRegNum() {
+        return speakerRegNum;
+    }
+
+    public void setSpeakerRegNum(String speakerRegNum) {
+        this.speakerRegNum = speakerRegNum;
+    }
+
+    public String getMouseRegNum() {
+        return mouseRegNum;
+    }
+
+    public void setMouseRegNum(String mouseRegNum) {
+        this.mouseRegNum = mouseRegNum;
+    }
+
+    public String getKeyboardRegNum() {
+        return keyboardRegNum;
+    }
+
+    public void setKeyboardRegNum(String keyboardRegNum) {
+        this.keyboardRegNum = keyboardRegNum;
+    }
+
+    public String getSoundCard() {
+        return soundCard;
+    }
+
+    public void setSoundCard(String soundCard) {
+        this.soundCard = soundCard;
+    }
+
+    public String getTvCard() {
+        return tvCard;
+    }
+
+    public void setTvCard(String tvCard) {
+        this.tvCard = tvCard;
+    }
+
+    public String getNetworkCard() {
+        return networkCard;
+    }
+
+    public void setNetworkCard(String networkCard) {
+        this.networkCard = networkCard;
+    }
+
+    public String getMicRegNum() {
+        return micRegNum;
+    }
+
+    public void setMicRegNum(String micRegNum) {
+        this.micRegNum = micRegNum;
+    }
+
+    public String getUserNIC() {
+        return userNIC;
+    }
+
+    public void setUserNIC(String userNIC) {
+        this.userNIC = userNIC;
+    }
+
+    public String getFloppyDisk() {
+        return floppyDisk;
+    }
+
+    public void setFloppyDisk(String floppyDisk) {
+        this.floppyDisk = floppyDisk;
+    }
+
+    public String getScannerRegNum() {
+        return scannerRegNum;
+    }
+
+    public void setScannerRegNum(String scannerRegNum) {
+        this.scannerRegNum = scannerRegNum;
+    }
 
     //get the Desktop array from the database
     //for updating cards

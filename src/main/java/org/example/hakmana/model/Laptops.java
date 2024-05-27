@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Laptops extends Devices{
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
@@ -24,30 +22,17 @@ public class Laptops extends Devices{
     private String status;
     private String userName;
 
-    @Setter
-    @Getter
     private String ram = "NO";
-    @Setter
-    @Getter
     private String cpu = "NO";
-    @Setter
-    @Getter
     private String storage;
-    @Setter
-    @Getter
-    private String display;
-    @Setter
-    @Getter
-    private String graphicCard="NO";
-    @Setter
-    @Getter
     private String os = "NO";
-    @Setter
-    @Getter
     private String userNIC = "No DeviceUser";
 
     public Laptops(String regNum, String model, String userName, String status) {
         super(regNum, model, userName,status);
+    }
+
+    public Laptops() {
     }
 
     @Override
@@ -83,8 +68,47 @@ public class Laptops extends Devices{
         this.userName = userName;
     }
 
-    public Laptops[] getDevices() {
+    public String getRam() {
+        return ram;
+    }
 
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
+    }
+
+    public String getStorage() {
+        return storage;
+    }
+
+    public void setStorage(String storage) {
+        this.storage = storage;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public String getUserNIC() {
+        return userNIC;
+    }
+
+    public void setUserNIC(String userNIC) {
+        this.userNIC = userNIC;
+    }
+
+    public Laptops[] getDevices() {
         List<Laptops> laptops = new ArrayList<>();
         //pass query to the connection class
         String sql = "SELECT Laptop.LaptopRegNum,Laptop.model,Laptop.status, DeviceUser.name FROM laptop LEFT JOIN deviceUser ON Laptop.userNIC = DeviceUser.userNIC";
@@ -114,7 +138,7 @@ public class Laptops extends Devices{
     @Override
     public Laptops getDevice(String regNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM laptop Where regNum=?";
+        String sql = "SELECT * FROM laptop Where LaptopRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -123,15 +147,13 @@ public class Laptops extends Devices{
 
             while (rs.next()) {
                 Laptops laptop = new Laptops();
-                laptop.setRegNum(rs.getString("regNum"));
+                laptop.setRegNum(rs.getString("LaptopRegNum"));
                 laptop.setModel(rs.getString("model"));
                 laptop.setStatus(rs.getString("status"));
                 laptop.setRam(rs.getString("RAM"));
-                laptop.setCpu(rs.getString("CPU"));
-                laptop.setStorage(rs.getString("Storage"));
-                laptop.setDisplay(rs.getString("Display"));
-                laptop.setGraphicCard(rs.getString("GraphicsCard"));
-                laptop.setOs(rs.getString("OperatingSystem"));
+                laptop.setCpu(rs.getString("processor"));
+                laptop.setStorage(rs.getString("hardDiak"));
+                laptop.setOs(rs.getString("os"));
                 laptop.setUserNIC(rs.getString("userNIC"));
 
                 return laptop;
@@ -146,7 +168,7 @@ public class Laptops extends Devices{
     public boolean updateDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE laptop SET model=?,status=?,RAM=?,CPU=?,Storage=?,Display=?,OperatingSystem=?,GraphicsCard=? WHERE regNUM=?";
+        String sql="UPDATE laptop SET model=?,status=?,RAM=?,processor=?,hardDisk=?,os=? WHERE LaptopRregNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -191,7 +213,7 @@ public class Laptops extends Devices{
     public boolean updateDeviceUser(String userNic,String id) {
         Connection connection = conn.getConnection();
         //pass query to the connection class
-        String sql = "UPDATE laptop SET userNIC=? WHERE regNUM=?";
+        String sql = "UPDATE laptop SET userNIC=? WHERE LaptopRegNum=?";
         try {
             connection.setAutoCommit(false);
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -232,8 +254,8 @@ public class Laptops extends Devices{
     public boolean insertDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO laptop (regNum,model,status,ram,CPU,Storage,Display,GraphicsCard,OperatingSystem,userNIC)" +
-                "VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql="INSERT INTO laptop (LaptopRegNum,model,status,ram,processor,hardDisk,os,userNIC)" +
+                "VALUES (?,?,?,?,?,?,?,?)";
         try {
             connection.setAutoCommit(false);
 

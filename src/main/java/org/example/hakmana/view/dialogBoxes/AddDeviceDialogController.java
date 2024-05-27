@@ -285,8 +285,8 @@ public class AddDeviceDialogController implements Initializable {
     private void setView(){
         switch (getDevCategoryName()) {
             case "Desktop" -> {
-                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Warranty","Hard Disk"});
-                setOutputDetails(new String[]{"Monitor Register Number","Projector Register Number","Speaker Register Number"});
+                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Hard Disk"});
+                setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number"});
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"});
                 userDetailsVbox.setVisible(true);
                 setChoiceBoxVisibilty(true);
@@ -303,7 +303,7 @@ public class AddDeviceDialogController implements Initializable {
 
             }
             case "Laptops" -> {
-                setOtherDetails(new String[]{"Ram","CPU","Storage","Display","Graphic Card"});
+                setOtherDetails(new String[]{"Ram","CPU","Storage"});
                 setChoiceBoxVisibilty(false);
                 other6Hbox.setVisible(true);
                 userDetailsVbox.setVisible(true);

@@ -2,11 +2,7 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
-
-import javax.mail.*;
+import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
@@ -18,24 +14,25 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
 
-@Data
-@ToString
 public class SystemUser {
     private DatabaseConnection databaseConnection;
     private Connection conn;
-    @Getter
     private ResultSet rs;
    //private OAuth2ForGmail auth;
 
-    @Getter
+
     private boolean checkCode;
     private String userName;
+
     private String fullName;
     private String post;
     private String empId;
     private String pwd;
+
     private String email;
+
     private String phoneNum;
+
     private boolean isRemember;
 
     // Constructors
@@ -68,10 +65,54 @@ public class SystemUser {
         this.checkCode = checkCode;
     }
 
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isCheckCode() {
+        return checkCode;
+    }
+
     /*-----------DeviceUser verification for password reset-------------*/
-    //return reultset acording to the deviceUser mail
+    //return result set acording to the deviceUser mail
     public void setResultSet() throws SQLException {
-        String query = "SELECT * FROM systemuser WHERE email = ?";
+        String query = "SELECT * FROM systemUser WHERE email = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, getEmail());
         rs = ps.executeQuery();
@@ -97,7 +138,7 @@ public class SystemUser {
 
     //store verification code under the username
     public void dbUpdate(String verificationCode) throws SQLException {
-        String sql = "UPDATE systemuser SET verification_code = ?, code_expiry = DATE_ADD(NOW(), INTERVAL 15 MINUTE) WHERE email = ?"; // Update with expiry time
+        String sql = "UPDATE systemUser SET verification_code = ?, code_expiry = DATE_ADD(NOW(), INTERVAL 15 MINUTE) WHERE email = ?"; // Update with expiry time
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, verificationCode);
         ps.setString(2, getEmail());

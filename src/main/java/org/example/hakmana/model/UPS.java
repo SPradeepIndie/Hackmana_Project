@@ -2,6 +2,9 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 public class UPS extends Devices{
     private DatabaseConnection conn;
     private String regNum;
@@ -21,21 +22,13 @@ public class UPS extends Devices{
     private String status;
     private String userName;
 
-    private String backUpPower;
-    private String runTime;
-    private String regNumDesktop;
-
-    public UPS(String regNum, String model, String userName, String status, String backUpPower, String runTime, String regNumDesktop) {
-        super(regNum, model, userName, status);
-        this.backUpPower = backUpPower;
-        this.runTime = runTime;
-        this.regNumDesktop = regNumDesktop;
+    public UPS(String upsRegNum, String model, String userName, String status) {
+        super(upsRegNum, model, userName, status);
     }
 
-    public UPS(String regNum, String model, String userName, String status) {
-        super(regNum, model, userName, status);
+    public UPS() {
     }
-    public UPS() {}
+
     @Override
     public String getRegNum() {
         return regNum;
@@ -69,30 +62,6 @@ public class UPS extends Devices{
         this.userName = userName;
     }
 
-    public String getBackUpPower() {
-        return backUpPower;
-    }
-
-    public void setBackUpPower(String backUpPower) {
-        this.backUpPower = backUpPower;
-    }
-
-    public String getRunTime() {
-        return runTime;
-    }
-
-    public void setRunTime(String runTime) {
-        this.runTime = runTime;
-    }
-
-    public String getRegNumDesktop() {
-        return regNumDesktop;
-    }
-
-    public void setRegNumDesktop(String regNumDesktop) {
-        this.regNumDesktop = regNumDesktop;
-    }
-
     public UPS[] getDevices() {
        conn=DatabaseConnection.getInstance();
         List<UPS> ups = new ArrayList<>();
@@ -124,7 +93,7 @@ public class UPS extends Devices{
     public UPS getDevice(String regNum) {
         conn = DatabaseConnection.getInstance();
         //pass query to the connection class
-        String sql = "SELECT * FROM ups Where regNum=?";
+        String sql = "SELECT * FROM ups Where upsRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -133,12 +102,9 @@ public class UPS extends Devices{
 
             while (rs.next()) {
                 UPS ups = new UPS();
-                ups.setRegNum(rs.getString("regNum"));
+                ups.setRegNum(rs.getString("upsRegNum"));
                 ups.setModel(rs.getString("model"));
                 ups.setStatus(rs.getString("status"));
-                ups.setBackUpPower(rs.getString("BackupPower"));
-                ups.setRunTime(rs.getString("Runtime"));
-                ups.setRegNumDesktop(rs.getString("regNumDesktop"));
 
                 return ups;
             }
@@ -153,7 +119,7 @@ public class UPS extends Devices{
         conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE ups SET model=?,status=?,BackupPower=?,Runtime=?,regNumDesktop=? WHERE regNUM=?";
+        String sql="UPDATE ups SET model=?,status=? WHERE upsRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -199,8 +165,8 @@ public class UPS extends Devices{
         conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO ups (regNum,model,status,BackupPower,Runtime,regNumDesktop)" +
-                "VALUES (?,?,?,?,?,?)";
+        String sql="INSERT INTO ups (upsRegNum,model,status)" +
+                "VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 
