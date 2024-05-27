@@ -15,13 +15,13 @@ import java.util.ResourceBundle;
 
 public class OverviewController implements Initializable{
         @FXML
-        private HeaderController headerController;
+        public HeaderController headerController;
         @FXML
-        private NavPanelController navPanelController;//NavPanel custom component injector
+        public NavPanelController navPanelController;//NavPanel custom component injector
         @FXML
         private VBox bodyComponet;//injector for VBox to expand
         @FXML
-        private PathFinderController pathFinderController;
+        public PathFinderController pathFinderController;
 
         private TranslateTransition bodyExpand;//Animation object refernce
 

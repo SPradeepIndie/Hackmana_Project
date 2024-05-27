@@ -16,17 +16,9 @@ import java.util.Optional;
 public class DeviceUser {
     private final DatabaseConnection dbconn=DatabaseConnection.getInstance();
     private final Connection connection=dbconn.getConnection();
-    @Setter
-    @Getter
     private String nic;
-    @Setter
-    @Getter
     private String name;
-    @Setter
-    @Getter
     private String title;
-    @Setter
-    @Getter
     private String gmail;
 
     public DeviceUser() {
@@ -38,6 +30,39 @@ public class DeviceUser {
         this.title = title;
         this.gmail = gmail;
     }
+
+    public String getNic() {
+        return nic;
+    }
+
+    public void setNic(String nic) {
+        this.nic = nic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getGmail() {
+        return gmail;
+    }
+
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
+    }
+
     public DeviceUser getUser(String userNic) {
         try {
             String sql = "SELECT * FROM deviceuser WHERE userNIC=?";

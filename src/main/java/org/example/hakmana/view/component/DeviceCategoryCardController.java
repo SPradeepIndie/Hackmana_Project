@@ -35,12 +35,8 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     private ImageView devImage;
 
     //private variable to set iamge and the device naem
-    @Getter
     private Image deviceImage;
-    @Getter
     private String devName;
-    @Setter
-    @Getter
     private URL devCatSceneName;
 
     @Override
@@ -60,7 +56,23 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         }
     }
 
-//    For animation of the cards
+    public void setDevCatSceneName(URL devCatSceneName) {
+        this.devCatSceneName = devCatSceneName;
+    }
+
+    public Image getDeviceImage() {
+        return deviceImage;
+    }
+
+    public String getDevName() {
+        return devName;
+    }
+
+    public URL getDevCatSceneName() {
+        return devCatSceneName;
+    }
+
+    //    For animation of the cards
     @FXML
     private void onMouseEntered() {
         root.setScaleX(1.1);

@@ -41,7 +41,7 @@ public class DeviceMngmntController implements Initializable {
         navPanelController.setDeviceMngmntdBorder();
         pathFinderController.setSearchBarVisible(false);
         pathFinderController.setPathTxt("Device Management");
-        pathFinderController.setBckBtnScene("DeviceMngmnt.fxml");
+        pathFinderController.setBckBtnScene(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml"));
 
         //create the event listener to the navigation panel ToggleButton() method
         navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{

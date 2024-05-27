@@ -5,15 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HeaderController extends VBox implements Initializable {
-
     /*Injectors for Labels in fxml file*/
     @FXML
     public Text headerTitle;
@@ -23,14 +20,9 @@ public class HeaderController extends VBox implements Initializable {
     public Text designation;
 
     /*Variables for change the labels*/
-    @Getter
     private String titleMsg;
-    @Setter
-    @Getter
     private String fontSize;
-    @Getter
     private String usernameMsg;
-    @Getter
     private String designationMsg;
 
     @Override
@@ -49,6 +41,26 @@ public class HeaderController extends VBox implements Initializable {
         catch(IOException e){
             throw new RuntimeException(e);
         }
+    }
+
+    public String getTitleMsg() {
+        return titleMsg;
+    }
+
+    public String getFontSize() {
+        return fontSize;
+    }
+
+    public String getUsernameMsg() {
+        return usernameMsg;
+    }
+
+    public String getDesignationMsg() {
+        return designationMsg;
+    }
+
+    public void setFontSize(String fontSize) {
+        this.fontSize = fontSize;
     }
 
     public void setTitleMsg(String titleMsg) {

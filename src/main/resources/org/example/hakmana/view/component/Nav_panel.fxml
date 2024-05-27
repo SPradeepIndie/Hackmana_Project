@@ -115,7 +115,7 @@
                  onAction="#userMngmntScene" text="User Management">
             <graphic>
                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@Images/deviceUsers.png"/>
+                  <Image url="@Images/users.png"/>
                </ImageView>
             </graphic>
             <VBox.margin>
@@ -195,7 +195,7 @@
               prefWidth="24.0" VBox.vgrow="NEVER">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@Images/icon-deviceUsers.png"/>
+               <Image url="@Images/icon-users.png"/>
             </ImageView>
          </graphic>
          <VBox.margin>

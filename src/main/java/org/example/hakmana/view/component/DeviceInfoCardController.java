@@ -44,20 +44,14 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      private Pane addBtn;
      @FXML
      private Pane moreInfoBtn;
-     @Getter
      @FXML
      private String devId;
 
      private   ArrayList<String> paneControllers=new ArrayList<String>();
      private ArrayList<String> username=new ArrayList<String>();
-     @Getter
-     @Setter
      private String deviceCat;
-     @Getter
      private String user;
-     @Getter
      private String brand;
-     @Getter
      private String note;
      @Override
      public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,7 +72,31 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
      }
 
-     @FXML
+    public String getDevId() {
+        return devId;
+    }
+
+    public void setDeviceCat(String deviceCat) {
+        this.deviceCat = deviceCat;
+    }
+
+    public String getDeviceCat() {
+        return deviceCat;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    @FXML
      private void onMouseEntered() {
           root.setScaleX(1.1);
           root.setScaleY(1.1);
@@ -89,7 +107,6 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
           root.setScaleX(1.0);
           root.setScaleY(1.0);
      }
-
 
     public void setDevId(String devId) {
          //creating database connection

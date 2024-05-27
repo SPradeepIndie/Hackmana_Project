@@ -43,7 +43,7 @@ public class DeviceMngmntSmmryScene implements Initializable {
         headerController.setUsernameMsg("Mr.Udara Mahanama");
         headerController.setDesignationMsg("Development Officer");
         navPanelController.setDeviceMngmntdBorder();
-        pathFinderController.setBckBtnScene("Scene/DeviceMngmntSmmryScene.fxml");
+        pathFinderController.setBckBtnScene(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
 
         //create the event listener to the navigation panel ToggleButton() method
         navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) -> {

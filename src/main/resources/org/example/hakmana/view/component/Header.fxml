@@ -43,7 +43,7 @@
             <HBox.margin>
                <Insets right="14.0"/>
             </HBox.margin>
-            <Image url="@Images/deviceUser.png"/>
+            <Image url="@Images/user.png"/>
          </ImageView>
       </HBox>
    </HBox>

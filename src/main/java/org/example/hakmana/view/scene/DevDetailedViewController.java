@@ -200,7 +200,7 @@ public class DevDetailedViewController implements Initializable {
     public Button saveBtn;
 
     ArrayList<String> newValues=new ArrayList<>();
-    @Getter
+
     private static String deviceSelector;
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
@@ -212,7 +212,7 @@ public class DevDetailedViewController implements Initializable {
         headerController.setDesignationMsg("Development Officer");
         navPanelController.setDeviceMngmntdBorder();
         pathFinderController.setSearchBarVisible(false);
-        pathFinderController.setBckBtnScene("Scene/DevDetailedView.fxml");
+        pathFinderController.setBckBtnScene(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
 
         //create the event listener to the navigation panel ToggleButton() method
         navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
@@ -267,6 +267,10 @@ public class DevDetailedViewController implements Initializable {
 
     }
 
+    public static String getDeviceSelector() {
+        return deviceSelector;
+    }
+
     private void Animation(double animStartPos, double animEndPos){
         bodyExpand = new TranslateTransition(Duration.millis(300), bodyComponet);
         bodyExpand.setFromX(animStartPos);
@@ -303,13 +307,13 @@ public class DevDetailedViewController implements Initializable {
             case "Desktop" -> {
                 Desktop desktop = new Desktop().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Desktop>" + getDevRegNum(), desktop);
-                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Warranty",
+                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor",
                         "Hard Disk","Operating System","Floppy Disk","Sound Card","TV card","Netwrok card"},
                         desktop.getSerialNum(),desktop.getPurchasedFrom(),desktop.getRam(),
                         desktop.getHardDisk(),
                         desktop.getOs(),desktop.getFloppyDisk(),desktop.getSoundCard(),
                         desktop.getTvCard(),desktop.getNetworkCard());
-                setOutputDetails(new String[]{"Monitor Register Number","Projector Register Number","Speaker Register Number"},
+                setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number"},
                         desktop.getMonitorRegNum(),desktop.getSpeakerRegNum());
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"},
                         desktop.getMouseRegNum(),desktop.getKeyboardRegNum(),desktop.getMicRegNum(),desktop.getScannerRegNum());
@@ -318,12 +322,12 @@ public class DevDetailedViewController implements Initializable {
             case "Photocopy Machines" ->{
                 PhotocpyMchine photocpyMchine=new PhotocpyMchine().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Photocopy Machines>"+getDevRegNum(),photocpyMchine);
-                setOtherDetails(new String[]{"Copying Capability"},photocpyMchine.getCopyingCapability());
+                //setOtherDetails(new String[]{"Copying Capability"},photocpyMchine.getCopyingCapability());
             }
             case "Monitors" ->{
                 Monitors monitor=new Monitors().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Monitors>"+getDevRegNum(),monitor);
-                setOtherDetails(new String[]{"Desktop Register Number"},monitor.getRegNumDesktop());
+                //setOtherDetails(new String[]{"Desktop Register Number"},monitor.getRegNumDesktop());
             }
             case "Projectors" -> {
                 Projectors projector=new Projectors().getDevice(getDevRegNum());
@@ -333,8 +337,8 @@ public class DevDetailedViewController implements Initializable {
                     Laptops laptop = new Laptops().getDevice(getDevRegNum());
                     setCommonToView("Device Management>Laptops>" + getDevRegNum(), laptop);
                     setOtherDetails(new String[]{"Ram","CPU","Storage","Display",
-                            "Operating System","Graphic Card"},laptop.getRam(), laptop.getCpu(), laptop.getStorage(), laptop.getDisplay()
-                                ,laptop.getOs(), laptop.getGraphicCard());
+                            "Operating System","Graphic Card"},laptop.getRam(), laptop.getCpu(), laptop.getStorage()
+                                ,laptop.getOs());
                     userDetails(laptop.getUserNIC());
                 }
             case "Printers" -> {
@@ -346,8 +350,8 @@ public class DevDetailedViewController implements Initializable {
             case "UPS" -> {
                     UPS ups = new UPS().getDevice(getDevRegNum());
                     setCommonToView("Device Management>UPS>" + getDevRegNum(), ups);
-                    setOtherDetails(new String[]{"Backup Power","Runtime","Desktop Register Number"},
-                            ups.getBackUpPower(),ups.getRunTime(),ups.getRegNumDesktop());
+                    //setOtherDetails(new String[]{"Backup Power","Runtime","Desktop Register Number"},
+                            //ups.getBackUpPower(),ups.getRunTime(),ups.getRegNumDesktop());
             }
 
             default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);

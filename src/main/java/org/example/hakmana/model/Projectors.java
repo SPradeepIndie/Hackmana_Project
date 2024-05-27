@@ -14,18 +14,60 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Projectors extends Devices{
-    private DatabaseConnection conn;
+    private DatabaseConnection conn =DatabaseConnection.getInstance();;
     private String regNum;
     private String model;
     private String status;
 
+    public Projectors(String regNum, String model, String name, String status) {
+        super(regNum, model, name, status);
+    }
+
+    public Projectors() {
+    }
+
+    @Override
+    public void setRegNum(String para1) {
+
+    }
+
+    @Override
+    public String getRegNum() {
+        return null;
+    }
+
+    @Override
+    public void setModel(String para1) {
+
+    }
+
+    @Override
+    public String getModel() {
+        return null;
+    }
+
+    @Override
+    public String getUserName() {
+        return null;
+    }
+
+    @Override
+    public void setUserName(String para1) {
+    }
+
+    @Override
+    public void setStatus(String para1) {
+
+    }
+
+    @Override
+    public String getStatus() {
+        return null;
+    }
 
     public Projectors[] getDevices() {
-        conn=DatabaseConnection.getInstance();
         List<Projectors> projectors = new ArrayList<>();
         //pass query to the connection class
         String sql = "SELECT * FROM MultimediaProjector";
@@ -41,6 +83,7 @@ public class Projectors extends Devices{
                 projector.setRegNum(resultSet.getString("MultimediaProjectorRegNum"));
                 projector.setModel(resultSet.getString("model"));
                 projector.setStatus(resultSet.getString("status"));
+                projector.setUserName("no user");
 
                 projectors.add(projector);
             }
@@ -52,19 +95,18 @@ public class Projectors extends Devices{
         return projectors.toArray(new Projectors[0]);
     }
     @Override
-    public Projectors getDevice(String regNum) {
-        conn = DatabaseConnection.getInstance();
+    public Projectors getDevice(String MultimediaProjectorRegNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM multimediaprojector Where regNum=?";
+        String sql = "SELECT * FROM multimediaprojector Where MultimediaProjectorRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, regNum);
+            ps.setString(1, MultimediaProjectorRegNum);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Projectors multimediaprojector = new Projectors();
-                multimediaprojector.setRegNum(rs.getString("regNum"));
+                multimediaprojector.setRegNum(rs.getString("MultimediaProjectorRegNum"));
                 multimediaprojector.setModel(rs.getString("model"));
                 multimediaprojector.setStatus(rs.getString("status"));
 
@@ -76,16 +118,6 @@ public class Projectors extends Devices{
 
         //return null if there is no result
         return null;
-    }
-
-    @Override
-    public String getUserName() {
-        return null;
-    }
-
-    @Override
-    public void setUserName(String para1) {
-
     }
 
     public boolean updateDevice(ArrayList<String> list){
@@ -138,7 +170,7 @@ public class Projectors extends Devices{
         conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO multimediaprojector (regNum,model,status) VALUES (?,?,?)";
+        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status) VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 

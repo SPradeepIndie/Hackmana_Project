@@ -2,9 +2,7 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,56 +12,73 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Monitors extends Devices{
-    private DatabaseConnection conn;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();;
     private String regNum;
     private String model;
     private String status;
     private String userName;
+    @Setter
+    @Getter
     private String screenSize;
-    private String userNIC = "No DeviceUser";
-    private String regNumDesktop="no desktop";
+    private String purchasedFrom;
 
-    public Monitors(String regNum, String model, String userName, String status, String screenSize, String userNIC, String regNumDesktop) {
+    public Monitors(String regNum, String model, String userName, String status, String screenSize) {
         super(regNum, model, userName, status);
         this.screenSize = screenSize;
-        this.userNIC = userNIC;
-        this.regNumDesktop = regNumDesktop;
     }
 
     public Monitors(String regNum, String model, String userName, String status) {
         super(regNum, model, userName,status);
     }
 
-    private String purchasedFrom;
+    public Monitors() {
+    }
 
-    public String getScreenSize() {
-        return screenSize;
+    @Override
+    public void setRegNum(String para1) {
+
     }
-    public void setScreenSize(String screenSize) {
-        this.screenSize = screenSize;
+
+    @Override
+    public String getRegNum() {
+        return null;
     }
-    public String getUserNIC() {
-        return userNIC;
+
+    @Override
+    public void setModel(String para1) {
+
     }
-    public void setUserNIC(String userNIC) {
-        this.userNIC = userNIC;
+
+    @Override
+    public String getModel() {
+        return null;
     }
-    public String getRegNumDesktop() {
-        return regNumDesktop;
+
+    @Override
+    public String getUserName() {
+        return null;
     }
-    public void setRegNumDesktop(String regNumDesktop) {
-        this.regNumDesktop = regNumDesktop;
+
+    @Override
+    public void setUserName(String para1) {
+
+    }
+
+    @Override
+    public void setStatus(String para1) {
+
+    }
+
+    @Override
+    public String getStatus() {
+        return null;
     }
 
     public Monitors[] getDevices() {
-        conn=DatabaseConnection.getInstance();
         List<Monitors> monitors = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Monitor.MonitorRegNum,Monitor.model,Monitor.status, DeviceUser.name FROM Monitor LEFT JOIN deviceUser ON Monitor.userNIC = DeviceUser.userNIC";
+        String sql = "SELECT Monitor.MonitorRegNum,Monitor.model,Monitor.status FROM Monitor";
 
         try {
             // get result set from connection class
@@ -76,7 +91,7 @@ public class Monitors extends Devices{
                 monitor.setRegNum(resultSet.getString("MonitorRegNum"));
                 monitor.setModel(resultSet.getString("model"));
                 monitor.setStatus(resultSet.getString("status"));
-                monitor.setStatus(resultSet.getString("name"));
+                monitor.setUserName("no user");
 
                 monitors.add(monitor);//add monitor to the monitors list
             }
@@ -89,9 +104,8 @@ public class Monitors extends Devices{
     }
     @Override
     public Monitors getDevice(String regNum) {
-        conn = DatabaseConnection.getInstance();
         //pass query to the connection class
-        String sql = "SELECT * FROM monitors Where regNum=?";
+        String sql = "SELECT * FROM monitors Where MonitoRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -103,8 +117,6 @@ public class Monitors extends Devices{
                 monitors.setRegNum(rs.getString("regNum"));
                 monitors.setModel(rs.getString("model"));
                 monitors.setStatus(rs.getString("status"));
-                monitors.setUserNIC(rs.getString("userNIC"));
-                monitors.setRegNumDesktop(rs.getString("regNumDesktop"));
 
                 return monitors;
             }
@@ -115,11 +127,11 @@ public class Monitors extends Devices{
         //return null if there is no result
         return null;
     }
+
     public boolean updateDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE monitors SET model=?,status=?,regNumDesktop=? WHERE regNUM=?";
+        String sql="UPDATE monitors SET model=?,status=? WHERE MonitoRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -162,11 +174,10 @@ public class Monitors extends Devices{
         return false;
     }
     public boolean insertDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO monitors (regNum,model,status,regNumDesktop)" +
-                "VALUES (?,?,?,?)";
+        String sql="INSERT INTO monitors (MonitoRegNum,model,status)" +
+                "VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 
