@@ -42,38 +42,11 @@ public class UserMngmntController implements Initializable {
     public Label userEmailLabel;
     @FXML
     public Label userPhNumLabel;
-    @FXML
-    private HeaderController headerController;
-
-    @FXML
-    private NavPanelController navPanelController;//NavPanel custom component injector
-    @FXML
-    private  VBox bodyComponet;//injector for VBox to expand
-    @FXML
-    private PathFinderController pathFinderController;
-    private  TranslateTransition bodyExpand;//Animation object refernce
     private DatabaseConnection databaseConnection;
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    @FXML
-    private AnchorPane parentAnchor;
     public void initialize(URL location, ResourceBundle resources) {
-
-        headerController.setFontSize("2.5em");
-        headerController.setTitleMsg("DeviceUser management");
-        navPanelController.setUserMngmntBorder();
-        pathFinderController.setSearchBarVisible(false);
-        pathFinderController.setPathTxt("DeviceUser Management");
-        //create the event listener to the navigation panel ToggleButton() method
-        navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
-            if(newValue){
-                expand();
-            }else{
-                collapse();
-            }
-        });
-
         databaseConnection = DatabaseConnection.getInstance();
         connection = databaseConnection.getConnection();
 
@@ -83,7 +56,6 @@ public class UserMngmntController implements Initializable {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, LoginPageController.curentUser);
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(LoginPageController.curentUser);
 
             if (resultSet.next()) {
                 String storedFullName = (resultSet.getString("fullName")==null)?"":resultSet.getString("fullName");
@@ -105,26 +77,6 @@ public class UserMngmntController implements Initializable {
             e.printStackTrace();
 
         }
-    }
-
-    private void Animation(double animStartPos,double animEndPos){
-        bodyExpand = new TranslateTransition(Duration.millis(300), bodyComponet);
-        bodyExpand.setFromX(animStartPos);
-        bodyExpand.setToX(animEndPos); // expand VBox
-        bodyExpand.setAutoReverse(true);
-        bodyExpand.play();
-
-    }
-    public  void expand() {
-        Animation(0, -244);
-        bodyComponet.setMinWidth(992);
-        bodyComponet.setMinWidth(bodyComponet.getWidth()+244);
-        //System.out.println(bodyComponet.getWidth()+244);
-    }
-    public  void collapse() {
-        Animation(-244, 0);
-        bodyComponet.setMinWidth(bodyComponet.getWidth()-244);
-        bodyComponet.setMinWidth(748);
     }
 
     // Button action methods

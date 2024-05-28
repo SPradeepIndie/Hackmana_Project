@@ -9,11 +9,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import org.example.hakmana.view.component.FooterController?>
-<?import org.example.hakmana.view.component.HeaderController?>
-<?import org.example.hakmana.view.component.NavPanelController?>
-<?import org.example.hakmana.view.component.PathFinderController?>
 
+
+<?import org.example.hakmana.view.component.NavPanelController?>
+<?import org.example.hakmana.view.component.HeaderController?>
+<?import org.example.hakmana.view.component.FooterController?>
+<?import org.example.hakmana.view.component.PathFinderController?>
 <AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <VBox prefHeight="640.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -22,8 +23,8 @@
             <!-- Navigation panel Component-->
             <NavPanelController fx:id="navPanelController" HBox.hgrow="NEVER"/>
             <VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" HBox.hgrow="ALWAYS"><!--Header Component-->
-                <HeaderController fx:id="headerController" designationMsg="Product owner" prefHeight="109.0"
-                                  prefWidth="770.0" usernameMsg="R.Gunathilaka" VBox.vgrow="NEVER"/>
+                <HeaderController fx:id="headerController" prefHeight="109.0"
+                                  prefWidth="770.0" VBox.vgrow="NEVER"/>
 
                 <!--Path Component-->
                 <PathFinderController fx:id="pathFinderController" prefWidth="770.0"/>

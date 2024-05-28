@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,9 +50,9 @@ public class DashboardController extends Component implements Initializable {
     @FXML
     public PathFinderController pathFinderController;
     @FXML
-    private  VBox bodyComponet;//injector for VBox to expand
+    public ScrollPane bodyScrollPane;
     @FXML
-    private AnchorPane body;
+    private  VBox bodyComponet;//injector for VBox to expand
     @FXML
     private Stage stage;
     @FXML
@@ -162,6 +163,7 @@ public class DashboardController extends Component implements Initializable {
             headerController.setUsernameMsg("Mr.Udara Mahanama");
             headerController.setDesignationMsg("Development Officer");
             navPanelController.setDashboardBorder();
+            navPanelController.setDashboardBodyScrollpane(bodyScrollPane);
             pathFinderController.setSearchBarVisible(false);
 
             //create the event listener to the navigation panel ToggleButton() method
@@ -173,6 +175,7 @@ public class DashboardController extends Component implements Initializable {
                 }
             });
             tableAdd();
+
 
         }
     }
