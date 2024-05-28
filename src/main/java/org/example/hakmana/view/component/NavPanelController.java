@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.hakmana.view.scene.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -42,6 +44,17 @@ public class NavPanelController extends AnchorPane implements Initializable {
     private Button toggleButton; // injector to toggle button
     private boolean isCollapsed = true;
     private double sidebarWidth;
+
+    //For get the main dashboard body scroll pane
+    private javafx.scene.control.ScrollPane dashboardBodyScrollpane;
+
+    public ScrollPane getDashboardBodyScrollpane() {
+        return dashboardBodyScrollpane;
+    }
+
+    public void setDashboardBodyScrollpane(ScrollPane dashboardBodyScrollpane) {
+        this.dashboardBodyScrollpane = dashboardBodyScrollpane;
+    }
 
     //injectors to the sections before navigation panel collapsed
     @FXML
@@ -148,37 +161,45 @@ public class NavPanelController extends AnchorPane implements Initializable {
         }
         isCollapsed = !isCollapsed;
     }
-    public void deviceMnagmnt(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml")));
-        pathFinderController.setBckBtnScene(Objects.requireNonNull(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void deviceMnagmnt(){
+        try{
+            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("DeviceMngmnt.fxml"));
+            VBox vbox=vboxLoader.load();
+            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public void overviewScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(OverviewController.class.getResource("Overview.fxml")));
-        pathFinderController.setBckBtnScene(Objects.requireNonNull(OverviewController.class.getResource("Overview.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void overviewScene() {
+        try{
+            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("Overview.fxml"));
+            VBox vbox=vboxLoader.load();
+            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public void userMngmntScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(UserMngmntController.class.getResource("UserMngmnt.fxml")));
-        pathFinderController.setBckBtnScene(Objects.requireNonNull(OverviewController.class.getResource("UserMngmnt.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void userMngmntScene() {
+        try{
+            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("UserMngmnt.fxml"));
+            VBox vbox=vboxLoader.load();
+            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-    public void reportHndlingScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(ReportHndlingController.class.getResource("ReportHndling.fxml")));
-        pathFinderController.setBckBtnScene(Objects.requireNonNull(ReportHndlingController.class.getResource("ReportHndling.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void reportHndlingScene(){
+        try{
+            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("ReportHndling.fxml"));
+            VBox vbox=vboxLoader.load();
+            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void dashboardScene(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(DashboardController.class.getResource("dashboard.fxml")));

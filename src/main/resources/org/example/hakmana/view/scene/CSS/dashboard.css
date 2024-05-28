@@ -86,8 +86,8 @@
 }
 
 .scroll{
-    -fx-background: 10 solid #9E9E9E;
-
+    -fx-background-radius: 10;
+    -fx-background-color: #9E9E9E;
 }
 .scroll .SCROLL_BAR{
     -fx-color:white;
@@ -171,7 +171,7 @@
         -fx-border-width: 0px 0px 2px 0px;
         -fx-border-color: transparent;
         -fx-background-color: #BDBDBD;
-        -fx-border: 0 0 2 0 solid #000000;
+        -fx-border-radius: 0 0 2 0;
 }
 
 .text{
