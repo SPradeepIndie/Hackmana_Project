@@ -29,7 +29,7 @@
                <children>
                   <!-- Navigation panel Component-->
                   <NavPanelController fx:id="navPanelController" HBox.hgrow="NEVER" />
-                  <VBox fx:id="bodyComponet" prefHeight="217.0" prefWidth="748.0" style="0: 0;" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="bodyComponet" prefHeight="217.0" prefWidth="748.0" HBox.hgrow="ALWAYS">
                      <children>
 
                         <!--Header Component-->
@@ -82,19 +82,6 @@
                                                 </ScrollPane>
                                                 <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                                                    <content>
-                                                      <HBox fx:id="hbox3" maxHeight="300.0" prefHeight="108.8" prefWidth="480.0" style="-fx-background-color: linear-gradient( #B4FEE7 16.97%, rgba(150, 239, 255, 0.87) 84.41%);;">
-                                                         <children>
-                                                            <VBox fx:id="vbox3" HBox.hgrow="ALWAYS">
-                                                               <children>
-                                                                  <Label styleClass="Lables" text="Not assigned" />
-                                                               </children>
-                                                            </VBox>
-                                                         </children>
-                                                      </HBox>
-                                                   </content>
-                                                </ScrollPane>
-                                                <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="dashboardCard" stylesheets="@../Component/CSS/dashboardCard.css" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
-                                                   <content>
                                                       <HBox fx:id="hbox4" maxHeight="300.0" prefHeight="108.8" prefWidth="480.0" style="-fx-background-color: linear-gradient( #FFBD39 -11.6%, #FBF0B2 135.56%);;">
                                                          <children>
                                                             <VBox fx:id="vbox4" HBox.hgrow="ALWAYS">
@@ -138,7 +125,7 @@
                                                       </Label>
                                                       <HBox prefWidth="875.0">
                                                          <children>
-                                                            <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="ALWAYS">
+                                                            <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="NEVER">
                                                               <columns>
                                                                 <TableColumn fx:id="col1" editable="false" prefWidth="120.0" resizable="false" sortable="false" text="Device Id" />
                                                                   <TableColumn fx:id="col2" editable="false" prefWidth="575.0" resizable="false" sortable="false" text="title" />

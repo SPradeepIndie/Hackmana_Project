@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<DialogPane fx:id="dialogpane1" expanded="true" prefHeight="446.0" prefWidth="560.0" stylesheets="@CSS/dialogPane.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.dialogPaneController">
+<DialogPane fx:id="dialogpane1" expanded="true" prefHeight="446.0" prefWidth="560.0" stylesheets="@CSS/dialogPane.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.DialogPaneController">
    <graphic>
       <Pane prefHeight="370.0" prefWidth="560.0" style="-fx-background-color: linear-gradient( #CFCDCD -9.83%, #F2F1F1 114.02%);;">
          <children>
@@ -22,11 +22,13 @@
             <TextField fx:id="deviceId" layoutX="333.0" layoutY="137.0" prefHeight="25.0" prefWidth="197.0" />
             <TextField fx:id="username" layoutX="333.0" layoutY="214.0" prefHeight="25.0" prefWidth="201.0" />
             <TextArea fx:id="note" layoutX="7.0" layoutY="106.0" prefHeight="203.0" prefWidth="301.0" />
-            <Button layoutX="19.0" layoutY="313.0" mnemonicParsing="false" onAction="#createnote" styleClass="bttn" text="ADD Note" />
+            <Button fx:id="addNote" layoutX="19.0" layoutY="313.0" mnemonicParsing="false" onAction="#createnote" styleClass="bttn" text="ADD Note" />
+            <Button fx:id="editButton" layoutX="135.0" layoutY="313.0" mnemonicParsing="false" onAction="#edit" prefHeight="25.0" prefWidth="88.0" styleClass="bttn" text="Edit" />
          </children>
       </Pane>
    </graphic>
    <buttonTypes>
       <ButtonType fx:constant="CANCEL" />
+      <ButtonType fx:constant="OK" />
    </buttonTypes>
 </DialogPane>
