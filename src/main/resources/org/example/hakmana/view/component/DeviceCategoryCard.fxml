@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fx:id="root" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="187.0" prefWidth="170.0" style="-fx-border-color: BD00FF;  -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 2;" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="TOP_CENTER" layoutX="5.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="169.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="6.0">
+        <ImageView fx:id="devImage" fitHeight="117.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true"
+                   VBox.vgrow="ALWAYS">
+            <Image url="@Images/desktop.png"/>
+        </ImageView>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 10; -fx-background-radius: 10;">
+         <Button fx:id="devInfoBtn" layoutX="26.0" layoutY="21.0" mnemonicParsing="false" onAction="#DevInfoCall" prefHeight="25.0" prefWidth="117.0" stylesheets="@CSS/DeviceCategoryCard.css" text="Desktop" />
+        </AnchorPane>
+    </VBox>
+</fx:root>

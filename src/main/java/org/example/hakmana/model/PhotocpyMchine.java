@@ -15,21 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Data
-//@NoArgsConstructor
-@AllArgsConstructor
+
 public class PhotocpyMchine extends Devices {
-    private DatabaseConnection conn;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();;
     private String regNum;
     private String model;
     private String status;
     private String userName;
-    private String CopyingCapability;
-
-    public PhotocpyMchine(String regNum, String model, String userName, String status, String copyingCapability) {
-        super(regNum, model, userName, status);
-        CopyingCapability = copyingCapability;
-    }
 
     public PhotocpyMchine(String regNum, String model, String userName, String status) {
         super(regNum, model, userName, status);
@@ -46,44 +38,33 @@ public class PhotocpyMchine extends Devices {
     public void setRegNum(String regNum) {
         this.regNum = regNum;
     }
-
     @Override
     public String getModel() {
         return model;
     }
-
+    @Override
+    public String getUserName() {
+        return null;
+    }
     @Override
     public void setModel(String model) {
         this.model = model;
     }
-
     @Override
     public String getStatus() {
         return status;
     }
-
     @Override
     public void setStatus(String status) {
         this.status = status;
     }
-
-    private String purchasedFrom;
-
     @Override
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getCopyingCapability() {
-        return CopyingCapability;
-    }
-
-    public void setCopyingCapability(String copyingCapability) {
-        CopyingCapability = copyingCapability;
-    }
     @Override
     public PhotocpyMchine[] getDevices() {
-       conn=DatabaseConnection.getInstance();
         List<PhotocpyMchine> photocopyMachines = new ArrayList<>();
         //pass query to the connection class
         String sql = "SELECT PhotoCopyMachine.* FROM PhotoCopyMachine";
@@ -92,13 +73,14 @@ public class PhotocpyMchine extends Devices {
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 PhotocpyMchine photocopyMachine = new PhotocpyMchine();
 
                 photocopyMachine.setRegNum(resultSet.getString("PhotoCopyMachineRegNum"));
                 photocopyMachine.setModel(resultSet.getString("model"));
                 photocopyMachine.setStatus(resultSet.getString("status"));
+                photocopyMachine.setUserName("no user");
 
                 photocopyMachines.add(photocopyMachine);//add photocopyMachines to the photocopyMachins list
             }
@@ -111,9 +93,8 @@ public class PhotocpyMchine extends Devices {
     }
     @Override
     public PhotocpyMchine getDevice(String regNum) {
-        conn = DatabaseConnection.getInstance();
         //pass query to the connection class
-        String sql = "SELECT * FROM PhotoCopyMachine Where regNum=?";
+        String sql = "SELECT * FROM PhotoCopyMachine Where PhotoCopyMachineRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -122,10 +103,9 @@ public class PhotocpyMchine extends Devices {
 
             while (rs.next()) {
                 PhotocpyMchine PhotoCopyMachine = new PhotocpyMchine();
-                PhotoCopyMachine.setRegNum(rs.getString("regNum"));
+                PhotoCopyMachine.setRegNum(rs.getString("PhotoCopyMachineRegNum"));
                 PhotoCopyMachine.setModel(rs.getString("model"));
                 PhotoCopyMachine.setStatus(rs.getString("status"));
-                PhotoCopyMachine.setCopyingCapability(rs.getString("CopyingCapability"));
 
                 return PhotoCopyMachine;
             }
@@ -137,10 +117,9 @@ public class PhotocpyMchine extends Devices {
         return null;
     }
     public boolean updateDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE PhotoCopyMachine SET model= ?, status= ?, CopyingCapability= ? WHERE regNUM=?";
+        String sql="UPDATE PhotoCopyMachine SET model= ?, status= ? WHERE PhotoCopyMachineRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -183,10 +162,9 @@ public class PhotocpyMchine extends Devices {
         return false;
     }
     public boolean insertDevice(ArrayList<String> list) {
-        conn = DatabaseConnection.getInstance();
         Connection connection = conn.getConnection();
         //pass query to the connection class
-        String sql = "INSERT INTO PhotoCopyMachine (regNum,model,status,CopyingCapability) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO PhotoCopyMachine (PhotoCopyMachineRegNum,model,status) VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 
