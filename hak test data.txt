@@ -101,4 +101,4 @@ INSERT INTO notes (id, username, notes, createdate, title) VALUES
 -- Insert data into systemUser table
 INSERT INTO systemUser (userName, fullName, post, empId, pwd, email, phoneNum, isRemember, verification_code, code_expiry) VALUES 
 ('john_doe', 'John Doe', 'Engineer', 'EMP123', SHA1('password123'), 'johndoe@example.com', '1234567890', 0, NULL, NULL),
-INSERT INTO `systemuser`(`userName`, `fullName`, `post`, `empId`, `pwd`, `email`, `phoneNum`) VALUES ('test','test test test test','validator','123456',SHA1('test'),'test@gmail.com','078965432');
+INSERT INTO systemuser(userName, fullName, post, empId, pwd, email, phoneNum) VALUES ('test','test test test test','validator','123456',SHA1('test'),'test@gmail.com','078965432');

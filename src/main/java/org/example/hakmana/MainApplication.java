@@ -5,16 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.example.hakmana.view.scene.LoginPageController;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainApplication extends Application {
 
-
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Scene/loginPage.fxml"));
-        Image icon = new Image(getClass().getResourceAsStream("Scene/Images/icon-airplay.png"));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPageController.class.getResource("loginPage.fxml"));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("view/scene/Images/icon-airplay.png")));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("EDMSystem");
         stage.getIcons().add(icon);

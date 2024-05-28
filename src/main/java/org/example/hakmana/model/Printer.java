@@ -2,9 +2,7 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Printer extends Devices {
-    private DatabaseConnection conn;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
     private String model;
     private String status;
@@ -29,23 +25,102 @@ public class Printer extends Devices {
     private String paperOutput;
     private String purchasedFrom;
 
+
+    public Printer(String regNum, String model, String name, String status) {
+        super(regNum, model, name, status);
+    }
+
+    public Printer() {
+    }
+
+    public String getSerialNum() {
+        return serialNum;
+    }
+
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+    }
+
+    public String getPaperInput() {
+        return paperInput;
+    }
+
+    public void setPaperInput(String paperInput) {
+        this.paperInput = paperInput;
+    }
+
+    public String getPaperOutput() {
+        return paperOutput;
+    }
+
+    public void setPaperOutput(String paperOutput) {
+        this.paperOutput = paperOutput;
+    }
+
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
+    }
+
+    @Override
+    public void setRegNum(String para1) {
+
+    }
+
+    @Override
+    public String getRegNum() {
+        return null;
+    }
+
+    @Override
+    public void setModel(String para1) {
+
+    }
+
+    @Override
+    public String getModel() {
+        return null;
+    }
+
+    @Override
+    public String getUserName() {
+        return null;
+    }
+
+    @Override
+    public void setUserName(String para1) {
+
+    }
+
+    @Override
+    public void setStatus(String para1) {
+
+    }
+
+    @Override
+    public String getStatus() {
+        return null;
+    }
+
     public Printer[] getDevices() {
-        conn=DatabaseConnection.getInstance();
         List<Printer> printers = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Printer.PrinterRegNum,Printer.model,Printer.status, DeviceUser.name FROM Printer LEFT JOIN user ON Printer.userNIC = DeviceUser.userNIC";
+        String sql = "SELECT Printer.PrinterRegNum,Printer.model,Printer.status FROM Printer";
 
         try {
             // get result set from connection class
             ResultSet resultSet = conn.executeSt(sql);
 
-            // Iterate through the result set and create Desktop and User objects
+            // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
                 Printer printer = new Printer();
                 printer.setRegNum(resultSet.getString("PrinterRegNum"));
                 printer.setModel(resultSet.getString("model"));
                 printer.setStatus(resultSet.getString("status"));
-                printer.setUserName(resultSet.getString("name"));
+                printer.setUserName("no user");
 
                 printers.add(printer);
             }
@@ -58,9 +133,8 @@ public class Printer extends Devices {
     }
     @Override
     public Printer getDevice(String regNum) {
-        conn = DatabaseConnection.getInstance();
         //pass query to the connection class
-        String sql = "SELECT * FROM printer Where regNum=?";
+        String sql = "SELECT * FROM printer Where PrinterRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -69,7 +143,7 @@ public class Printer extends Devices {
 
             while (rs.next()) {
                 Printer printer = new Printer();
-                printer.setRegNum(rs.getString("regNum"));
+                printer.setRegNum(rs.getString("PrinterRegNum"));
                 printer.setModel(rs.getString("model"));
                 printer.setStatus(rs.getString("status"));
                 printer.setSerialNum(rs.getString("serialNum"));
@@ -85,11 +159,12 @@ public class Printer extends Devices {
         //return null if there is no result
         return null;
     }
+
+
     public boolean updateDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE printer SET model=?,status=?,serialNum=?,paperInput=?,paperOutput=?,warranty=? WHERE regNUM=?";
+        String sql="UPDATE printer SET model=?,status=?,serialNum=?,paperInput=?,paperOutput=? WHERE PrinterRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -132,11 +207,10 @@ public class Printer extends Devices {
         return false;
     }
     public boolean insertDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO printer (regNum,model,status,serialNum,paperInput,paperOutput,warranty)" +
-                "VALUES (?,?,?,?,?,?,?)";
+        String sql="INSERT INTO printer (PrinterRegNum,model,status,serialNum,paperInput,paperOutput)" +
+                "VALUES (?,?,?,?,?,?)";
         try {
             connection.setAutoCommit(false);
 

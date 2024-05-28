@@ -151,7 +151,7 @@ public  class dialogPaneController extends Component implements Initializable  {
                     JOptionPane.showMessageDialog(this, "the note is successfully added!", "alert!", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(this, "seems like you trying to enter same note\n please use different title", "Rejected!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
 
                 }
 
