@@ -8,21 +8,27 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import org.example.hakmana.view.scene.OtherDevicesController;
+import org.example.hakmana.view.scene.OverviewController;
 
+import javax.print.attribute.standard.MediaSize;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DeviceCategoryCardController extends AnchorPane implements Initializable{
+    //For get the main dashboard body scroll pane
+    private javafx.scene.control.ScrollPane dashboardBodyScrollpaneD;
 
     //Injector for anchorpane For animation
     @FXML
@@ -54,6 +60,14 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public ScrollPane getDashboardBodyScrollpaneD() {
+        return dashboardBodyScrollpaneD;
+    }
+
+    public void setDashboardBodyScrollpaneD(ScrollPane dashboardBodyScrollpaneD) {
+        this.dashboardBodyScrollpaneD = dashboardBodyScrollpaneD;
     }
 
     public void setDevCatSceneName(URL devCatSceneName) {
@@ -100,34 +114,28 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 
 
 //  For the DeviceMngmntSmmryScene load when device category button click
-    public void DevInfoCall(ActionEvent event) throws IOException {
-        Parent sceneRoot;
-        if(devCatSceneName== OtherDevicesController.class.getResource("OtherDevice.fxml")){
-            sceneRoot = FXMLLoader.load(Objects.requireNonNull(OtherDevicesController.class.getResource("OtherDevices.fxml")));
+    public void DevInfoCall(){
+        FXMLLoader vboxLoader;
+        if(Objects.equals(getDevName(), "Other Devices")){
+            vboxLoader = new FXMLLoader(OtherDevicesController.class.getResource("OtherDevices.fxml"));
+            OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
+            vboxLoader.setController(otherDevicesController);
         }else {
-            String selectedDeviceName = getDevName();  // Get the selected device name
+            vboxLoader =new FXMLLoader(OverviewController.class.getResource("DeviceMngmntSmmryScene.fxml"));
 
-            // Load the FXML loader for the target scene
-            FXMLLoader fxmlLoader = new FXMLLoader(getDevCatSceneName());
+            DeviceMngmntSmmryScene deviceMngmntSmmryScene=DeviceMngmntSmmryScene.getInstance(); // Create controller instance
+            vboxLoader.setController(deviceMngmntSmmryScene);
 
-            //Using Setter Method
-            DeviceMngmntSmmryScene controller = new DeviceMngmntSmmryScene();  // Create controller instance
-            fxmlLoader.setController(controller);  // Set controller to the loader
-
-            sceneRoot = fxmlLoader.load();  // Load the scene
-
-            //After loading, set device name using setter
-            controller.setDbSelector(selectedDeviceName);
-            //System.out.println(controller.getDbSelector());
-            controller.addLastComponent();
-            controller.addComponent();
-
+            //After loading, set database name using setter
+            deviceMngmntSmmryScene.setDbSelector(getDevName());
         }
-        //For change the scene when press the button
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(sceneRoot);
-        stage.setScene(scene);
-        stage.show();
+        try{
+            VBox vbox=vboxLoader.load();
+            getDashboardBodyScrollpaneD().setContent(vbox);//this scollpane id knows only that controller file
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

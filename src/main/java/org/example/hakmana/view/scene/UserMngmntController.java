@@ -1,6 +1,5 @@
 package org.example.hakmana.view.scene;
 
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,27 +8,19 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-
-import java.net.URL;
+import org.example.hakmana.model.DatabaseConnection;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
-
 import java.util.ResourceBundle;
 
 public class UserMngmntController implements Initializable {
+    private static UserMngmntController instance=null;
     @FXML
     public Label userDetailTitle;
     @FXML
@@ -45,6 +36,17 @@ public class UserMngmntController implements Initializable {
     private DatabaseConnection databaseConnection;
     private Connection connection;
     private PreparedStatement preparedStatement;
+
+    private UserMngmntController(){
+    }
+
+    public static UserMngmntController getInstance() {
+        if(instance==null){
+            instance=new UserMngmntController();
+            return  instance;
+        }
+        return instance;
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
         databaseConnection = DatabaseConnection.getInstance();

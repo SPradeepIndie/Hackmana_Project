@@ -210,7 +210,6 @@ public class DevDetailedViewController implements Initializable {
         headerController.setTitleMsg("Device Management");
         headerController.setUsernameMsg("Mr.Udara Mahanama");
         headerController.setDesignationMsg("Development Officer");
-        navPanelController.setDeviceMngmntdBorder();
         pathFinderController.setSearchBarVisible(false);
         pathFinderController.setBckBtnScene(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
 

@@ -11,17 +11,30 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.hakmana.view.scene.DashboardController;
 import org.example.hakmana.view.scene.DevDetailedViewController;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
+import org.example.hakmana.view.scene.ReportHndlingController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PathFinderController extends VBox implements Initializable {
     private static final ArrayList<URL> sceneList = new ArrayList<>();
+    private NavPanelController navPanelControllerPath;
+
+    public NavPanelController getNavPanelControllerPath() {
+        return navPanelControllerPath;
+    }
+
+    public void setNavPanelControllerPath(NavPanelController navPanelControllerPath) {
+        this.navPanelControllerPath = navPanelControllerPath;
+    }
+
     private boolean searchBarVisible;
     @FXML
     public HBox searchBar;
@@ -74,7 +87,7 @@ public class PathFinderController extends VBox implements Initializable {
     @FXML
     public void goBack(ActionEvent event) throws IOException {
         Parent root;
-        URL listScenename = org.example.hakmana.view.scene.DashboardController.class.getResource("dashboard.fxml");//always load dashboard if list is empty
+        URL listScenename = DashboardController.class.getResource("dashboard.fxml");//always load dashboard if list is empty
         if(!sceneList.isEmpty()) {
             //To remove current scene from the list.
             //Because current scene is also added to the list
@@ -83,49 +96,52 @@ public class PathFinderController extends VBox implements Initializable {
                 listScenename = sceneList.getLast();
                 sceneList.removeLast();
             }
-
+            System.out.println(sceneList);
+            System.out.println(listScenename);
         }else{
             System.out.println("list is empty");
         }
-
-        //This switch method especially load the DeviceMngmntSmmryScene and DevDetailedView
-        //Because they don't have controllers with the fxml and had to set manually
-        //Also had to call method to add componnet card and form details when calling the fxml file
-        if(listScenename==org.example.hakmana.view.scene.DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml")) {
-            // Load the FXML loader for the target scene
-            FXMLLoader deviceSmmryfxmlLoder = new FXMLLoader(listScenename);
-
-            //create DevDetailedViewController instance
-            DeviceMngmntSmmryScene deviceMngmntSmmryScene = new DeviceMngmntSmmryScene();
-
-            deviceSmmryfxmlLoder.setController(deviceMngmntSmmryScene);
-
-            root = deviceSmmryfxmlLoder.load();// Load the scene
-
-            //Using Setter Method
-            deviceMngmntSmmryScene.addLastComponent();
-            deviceMngmntSmmryScene.addComponent();
-        } else if (listScenename==org.example.hakmana.view.scene.DevDetailedViewController.class.getResource("DevDetailedView.fxml")) {
-            // Load the FXML loader for the target scene
-            FXMLLoader detailDevicefxmlLoder = new FXMLLoader(listScenename);
-
-            //create DevDetailedViewController instance
-            DevDetailedViewController devDetailedViewController = new DevDetailedViewController();
-
-            detailDevicefxmlLoder.setController(devDetailedViewController);
-
-            root = detailDevicefxmlLoder.load();// Load the scene
-
-            //Using Setter Method
-            devDetailedViewController.showDeviceDetail();
+//
+//        //This switch method especially load the DeviceMngmntSmmryScene and DevDetailedView
+//        //Because they don't have controllers with the fxml and had to set manually
+//        //Also had to call method to add componnet card and form details when calling the fxml file
+//        if(listScenename==org.example.hakmana.view.scene.DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml")) {
+//            // Load the FXML loader for the target scene
+//            FXMLLoader deviceSmmryfxmlLoder = new FXMLLoader(listScenename);
+//
+//            //create DevDetailedViewController instance
+//            DeviceMngmntSmmryScene deviceMngmntSmmryScene = new DeviceMngmntSmmryScene();
+//
+//            deviceSmmryfxmlLoder.setController(deviceMngmntSmmryScene);
+//
+//            root = deviceSmmryfxmlLoder.load();// Load the scene
+//
+//            //Using Setter Method
+//            deviceMngmntSmmryScene.addLastComponent();
+//            deviceMngmntSmmryScene.addComponent();
+//        } else if (listScenename==org.example.hakmana.view.scene.DevDetailedViewController.class.getResource("DevDetailedView.fxml")) {
+//            // Load the FXML loader for the target scene
+//            FXMLLoader detailDevicefxmlLoder = new FXMLLoader(listScenename);
+//
+//            //create DevDetailedViewController instance
+//            DevDetailedViewController devDetailedViewController = new DevDetailedViewController();
+//
+//            detailDevicefxmlLoder.setController(devDetailedViewController);
+//
+//            root = detailDevicefxmlLoder.load();// Load the scene
+//
+//            //Using Setter Method
+//            devDetailedViewController.showDeviceDetail();
+//        }
+//        else
+        if(listScenename== DashboardController.class.getResource("dashboard.fxml")){
+            getNavPanelControllerPath().dashboardScene(event);
         }
-        else
-            root = FXMLLoader.load(listScenename);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        else if(listScenename== ReportHndlingController.class.getResource("ReportHndling.fxml")){
+            FXMLLoader vboxLoader =new FXMLLoader(listScenename);
+            ReportHndlingController reportHndlingController=ReportHndlingController.getInstance();
+            vboxLoader.setController(reportHndlingController);
+        }
 
     }
 }
