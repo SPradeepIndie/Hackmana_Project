@@ -1,27 +1,0 @@
-
-`	java:S112s"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-1
-java:S1643a"Use a StringBuilder instead.(Æµ>
-7
-java:S1643c"Use a StringBuilder instead.(ñ¤¢Ôøÿÿÿÿ
-k
-java:S2095›"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(âéÉ£ÿÿÿÿÿ
-k
-java:S2095‰"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(°¤åñúÿÿÿÿ
-k
-java:S2095’"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Õ¹©ıÿÿÿÿ
-w
-java:S1450"aRemove the "databaseConnection" field and declare it as a local variable in the relevant methods.(î¢—à
-K
-java:S26963"6Make the enclosing method "static" or remove this set.(¢«è<
-L
-java:S26965"6Make the enclosing method "static" or remove this set.(“ƒô
-Q
-java:S2696:"6Make the enclosing method "static" or remove this set.(‹ä€çıÿÿÿÿ
-V
-java:S1117{"@Rename "numActiveDev" which hides the field declared at line 23.(ì¢â’
-]
-java:S1117|"BRename "numInactiveDev" which hides the field declared at line 24.(ÀØïÒüÿÿÿÿ
-^
-java:S1117}"CRename "numRepairingDev" which hides the field declared at line 25.(ºÅ²Âøÿÿÿÿ
-W	java:S125§"<This block of commented-out lines of code should be removed.(íóƒÚúÿÿÿÿ

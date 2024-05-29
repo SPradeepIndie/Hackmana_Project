@@ -1,8 +1,0 @@
-
-g	java:S112+"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8‡´’üû1
-l
-java:S2095&"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(‡•Çõ8‘´’üû1
-K
-java:S2115")Add password protection to this database.(Öƒ•Íÿÿÿÿÿ8›´’üû1
-L	java:S106"+Replace this use of System.out by a logger.(˜ØËÃøÿÿÿÿ8›´’üû1
-G	java:S106"+Replace this use of System.out by a logger.(ë­ûì8œ´’üû1
