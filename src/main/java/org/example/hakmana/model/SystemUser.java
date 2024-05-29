@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
+import org.example.hakmana.view.scene.LoginPageController;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -25,7 +26,7 @@ public class SystemUser {
     private Connection conn;
     @Getter
     private ResultSet rs;
-    private OAuth2ForGmail auth;
+   // private OAuth2ForGmail auth;
 
     @Getter
     private boolean checkCode;
@@ -107,7 +108,7 @@ public class SystemUser {
 
     //send verification code to the email
     public void sendEmail(String verificationCode) throws Exception {
-        auth=new OAuth2ForGmail();
+     //   auth=new OAuth2ForGmail();
 
         String fromEmail = "hakmanaedm@gmail.com"; // sender email
         Properties props = new Properties();
@@ -136,7 +137,7 @@ public class SystemUser {
 
         email.setText(emailBody);
 
-        auth.sendMail(email);
+      //  auth.sendMail(email);
 
     }
 
@@ -193,5 +194,81 @@ public class SystemUser {
         return false;
     }
 
+    public String getPassword(String tempUserName){
+        try {
+            String query = "SELECT * FROM systemUser WHERE userName = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, tempUserName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                String storedPassword = resultSet.getString("pwd");
+                return storedPassword;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getIsRemUName(){
+        try {
+            String query = "SELECT userName FROM systemUser WHERE isRemember = TRUE;";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                String isRemUName = resultSet.getString("userName");
+                return isRemUName;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    public String[] getSystemUserDetails(){
+        try {
+            String query = "SELECT * FROM systemUser WHERE userName = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, LoginPageController.curentUser);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            String[] userDetArr=new String[5];
+            if (resultSet.next()) {
+                userDetArr[0]= (resultSet.getString("fullName") == null) ? "" : resultSet.getString("fullName");
+                userDetArr[1] = (resultSet.getString("post") == null) ? "" : resultSet.getString("post");
+                userDetArr[2] = (resultSet.getString("email") == null) ? "" : resultSet.getString("email");
+                userDetArr[3] = (resultSet.getString("phoneNum") == null) ? "" : resultSet.getString("phoneNum");
+                userDetArr[4] = (resultSet.getString("empId") == null) ? "" : resultSet.getString("empId");
+            }
+
+            return  userDetArr;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void dbIsRemember(){
+        String query;
+        PreparedStatement preparedStatement;
+        try {
+            if(isRemember){
+                query = "UPDATE systemUser SET isRemember = TRUE WHERE userName = ?";
+                preparedStatement=conn.prepareStatement(query);
+                preparedStatement.setString(1, this.getUserName());
+            }else{
+                query = "UPDATE systemUser SET isRemember = FALSE;";
+                preparedStatement=conn.prepareStatement(query);
+            }
+            preparedStatement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 }

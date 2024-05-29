@@ -1,24 +1,19 @@
 
-a	java:S112§"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-a	java:S112Ç"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-i
-java:S1192à"MDefine a constant instead of duplicating this literal "Confirmation" 3 times.(ÄÄñ˜şÿÿÿÿ
-€
-java:S1319Í"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(ÎŸçÉùÿÿÿÿ
-k
-java:S2095³"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ı§Éùÿÿÿÿ
-f
-java:S2095‚"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÒÖ˜ª
-f
-java:S2095Ö"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÒÖ˜ª
-f
-java:S2095¯"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÒÖ˜ª
-\	java:S107%"BConstructor has 11 parameters, which is greater than 7 authorized.(üš™ÿÿÿÿÿÿ
-Q
-java:S1161":Add the "@Override" annotation above this method signature(˜´Ö
-;
-java:S6905°"Don't use the query "SELECT *".(›ğöªøÿÿÿÿ
-Q
-java:S1128"6Remove this unused import 'lombok.AllArgsConstructor'.(´œ¾öùÿÿÿÿ
-K
-java:S1128	"5Remove this unused import 'lombok.NoArgsConstructor'.(¸¨›
+h	java:S112…"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8²—£üû1
+h	java:S112¢"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8²—£üû1
+p
+java:S1192º"MDefine a constant instead of duplicating this literal "Confirmation" 3 times.(ÄÄñ˜şÿÿÿÿ8´—£üû1
+‡
+java:S1319¨"dThe type of "list" should be an interface such as "List" rather than the implementation "ArrayList".(ÎŸçÉùÿÿÿÿ8¶—£üû1
+m
+java:S2095°"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÒÖ˜ª8¦˜£üû1
+r
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ı§Éùÿÿÿÿ8¦˜£üû1
+Œ
+java:S2095Û"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÒÖ˜ªJ$2ef2263f-f6ca-45c5-9412-8f8a81113707
+m
+java:S2095‡"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÒÖ˜ª8¦˜£üû1
+W
+java:S1161o":Add the "@Override" annotation above this method signature(˜´Ö8°˜£üû1
+B
+java:S6905"Don't use the query "SELECT *".(áÃ²úÿÿÿÿ8·˜£üû1
