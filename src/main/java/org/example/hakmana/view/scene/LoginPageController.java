@@ -31,6 +31,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
+    private static LoginPageController instance=null;
     public Text forgotBtn;
     private DatabaseConnection databaseConnection;
     private String query;
@@ -49,6 +50,15 @@ public class LoginPageController implements Initializable {
 
     public static String curentUser="";
 
+    private LoginPageController(){}
+
+    public static LoginPageController getInstance() {
+        if(instance==null){
+            instance=new LoginPageController();
+            return instance;
+        }
+        return instance;
+    }
 
     public void DashboardSceneLoad(ActionEvent event) throws IOException {
         String tempUserName = usrNameFeild.getText();
@@ -113,7 +123,13 @@ public class LoginPageController implements Initializable {
 
     // Method to load dashboard scene
     private void loadDashboard(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(LoginPageController.class.getResource("dashboard.fxml")));
+        FXMLLoader dasboardFxmlLoader=new FXMLLoader(DashboardController.class.getResource("dashboard.fxml"));
+
+        DashboardController dashboardController=DashboardController.getInstance();
+        dasboardFxmlLoader.setController(dashboardController);
+
+        Parent root = dasboardFxmlLoader.load();
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
 

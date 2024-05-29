@@ -15,7 +15,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0"
       prefWidth="800.0" style="-fx-background-color: #EEEEEE;" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.view.scene.LoginPageController">
+      xmlns:fx="http://javafx.com/fxml/1">
    <VBox layoutY="-1.0" prefHeight="527.0" prefWidth="221.0" styleClass="vbox_background_left"
          stylesheets="@CSS/login.css">
       <HBox prefHeight="142.0" prefWidth="221.0"/>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-      <VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.view.scene.ReportHndlingController">
+      <VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
           <children>
               <!-- Body content starts here -->
               <AnchorPane prefHeight="404.0" prefWidth="748.0" VBox.vgrow="ALWAYS">
