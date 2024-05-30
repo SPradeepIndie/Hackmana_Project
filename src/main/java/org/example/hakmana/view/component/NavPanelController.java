@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 
 
 public class NavPanelController extends AnchorPane implements Initializable {
-    private PathFinderController pathFinderController=null;
+    private static PathFinderController dashboardpathFinderController=null;
     private Stage stage;
     private Scene scene;
 
@@ -46,6 +46,9 @@ public class NavPanelController extends AnchorPane implements Initializable {
 
     //For get the main dashboard body scroll pane
     private javafx.scene.control.ScrollPane dashboardBodyScrollpane;
+
+    //For the set path in pathfinder when only called NavPanelController
+    private Boolean calledFromNavPanel;
 
     //injectors to the sections before navigation panel collapsed
     @FXML
@@ -74,6 +77,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     /*---------Override the initialize method in Initializable interface--------*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setCalledFromNavPanel(true);
         sidebarWidth = sidebar.getPrefWidth()-32;
     }
 
@@ -109,12 +113,17 @@ public class NavPanelController extends AnchorPane implements Initializable {
     public void setDashboardBodyScrollpane(ScrollPane dashboardBodyScrollpane) {
         this.dashboardBodyScrollpane = dashboardBodyScrollpane;
     }
-    public PathFinderController getPathFinderController() {
-        return pathFinderController;
+    public static PathFinderController getDashboardpathFinderController() {
+        return dashboardpathFinderController;
     }
-
-    public void setPathFinderController(PathFinderController pathFinderController) {
-        this.pathFinderController = pathFinderController;
+    public static void setDashboardpathFinderController(PathFinderController dashboardpathFinderController) {
+        NavPanelController.dashboardpathFinderController = dashboardpathFinderController;
+    }
+    public Boolean getCalledFromNavPanel() {
+        return calledFromNavPanel;
+    }
+    public void setCalledFromNavPanel(Boolean calledFromNavPanel) {
+        this.calledFromNavPanel = calledFromNavPanel;
     }
 
     /*--------Load the custom Component using a constructor--------*/
@@ -168,11 +177,18 @@ public class NavPanelController extends AnchorPane implements Initializable {
             FXMLLoader vboxLoader =new FXMLLoader(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml"));
             DeviceMngmntController deviceMngmntController=DeviceMngmntController.getInstance();
             vboxLoader.setController(deviceMngmntController);
+
             //pass Scroll pane to the Device Management class
             deviceMngmntController.setBodyScrollPaneD(getDashboardBodyScrollpane());
+            //pass the Path finder controller
+            deviceMngmntController.setPathFinderControllerD(getDashboardpathFinderController());
+
             loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
 
-            getPathFinderController().setBckBtnScene(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml"));
+            if(getCalledFromNavPanel()){
+                getDashboardpathFinderController().setBckBtnScene("DeviceMngmnt");
+            }
+            getDashboardpathFinderController().setPathTxt("Device Managemnt");
             setBorderStyle(deviceMngmntBtn);
     }
 
@@ -183,7 +199,10 @@ public class NavPanelController extends AnchorPane implements Initializable {
 
             loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
 
-            getPathFinderController().setBckBtnScene(OverviewController.class.getResource("Overview.fxml"));
+            if(getCalledFromNavPanel()) {
+                getDashboardpathFinderController().setBckBtnScene("Overview");
+            }
+            getDashboardpathFinderController().setPathTxt("Overview History");
             setBorderStyle(overviewHistryBtn);
 
     }
@@ -194,8 +213,10 @@ public class NavPanelController extends AnchorPane implements Initializable {
             vboxLoader.setController(userMngmntController);
 
             loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
-
-            getPathFinderController().setBckBtnScene(UserMngmntController.class.getResource("UserMngmnt.fxml"));
+            if(getCalledFromNavPanel()) {
+                getDashboardpathFinderController().setBckBtnScene("UserMngmnt");
+            }
+            getDashboardpathFinderController().setPathTxt("User Management Controller");
             setBorderStyle(userMngmntBtn);
     }
 
@@ -205,8 +226,10 @@ public class NavPanelController extends AnchorPane implements Initializable {
             vboxLoader.setController(reportHndlingController);
 
             loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
-
-            getPathFinderController().setBckBtnScene(Objects.requireNonNull(ReportHndlingController.class.getResource("ReportHndling.fxml")));
+            if(getCalledFromNavPanel()) {
+                getDashboardpathFinderController().setBckBtnScene("ReportHndling");
+            }
+            getDashboardpathFinderController().setPathTxt("Report Handling");
             setBorderStyle(reportHndlingBtn);
     }
 
@@ -230,7 +253,10 @@ public class NavPanelController extends AnchorPane implements Initializable {
 
         Parent root = dasboardFxmlLoader.load();
 
-        getPathFinderController().setBckBtnScene(Objects.requireNonNull(DashboardController.class.getResource("dashboard.fxml")));
+        if(getCalledFromNavPanel()) {
+            getDashboardpathFinderController().setBckBtnScene("dashboard");
+        }
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

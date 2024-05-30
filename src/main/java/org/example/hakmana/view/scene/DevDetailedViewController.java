@@ -3,16 +3,13 @@ package org.example.hakmana.view.scene;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import lombok.Getter;
-import lombok.Setter;
 import org.example.hakmana.model.*;
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,23 +17,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DevDetailedViewController implements Initializable {
+    private static DevDetailedViewController instance=null;
 
-    @FXML
-    public NavPanelController navPanelController;//NavPanel custom component injector
-    @FXML
-    public HeaderController headerController;
-    @FXML
-    public  VBox bodyComponet;//injector for VBox to expand
-    @FXML
-    public PathFinderController pathFinderController;
-    @FXML
-    public ScrollPane formPane;
-    @Setter
-    @Getter
-    @FXML
-    public Button dia;//<----------------------What us this
-    //Device details
-    //common
+    //Device details common
     @FXML
     public VBox commonVbox;
     @FXML
@@ -205,23 +188,16 @@ public class DevDetailedViewController implements Initializable {
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
 
+    private DevDetailedViewController(){}
+    public static DevDetailedViewController getInstance() {
+        if(instance==null){
+            instance=new DevDetailedViewController();
+            return instance;
+        }
+        return instance;
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
-        headerController.setFontSize("2.5em");
-        headerController.setTitleMsg("Device Management");
-        headerController.setUsernameMsg("Mr.Udara Mahanama");
-        headerController.setDesignationMsg("Development Officer");
-        pathFinderController.setSearchBarVisible(false);
-        pathFinderController.setBckBtnScene(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
-
-        //create the event listener to the navigation panel ToggleButton() method
-        navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
-            if(newValue){
-                expand();
-            }else{
-                collapse();
-            }
-        });
-
         //get all the other details vbox label and Hboxes
         otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other6Hbox,
                 other7Hbox,other8Hbox,other9Hbox,other10Hbox,other11Hbox));
@@ -268,25 +244,6 @@ public class DevDetailedViewController implements Initializable {
 
     public static String getDeviceSelector() {
         return deviceSelector;
-    }
-
-    private void Animation(double animStartPos, double animEndPos){
-        bodyExpand = new TranslateTransition(Duration.millis(300), bodyComponet);
-        bodyExpand.setFromX(animStartPos);
-        bodyExpand.setToX(animEndPos); // expand VBox
-        bodyExpand.setAutoReverse(true);
-        bodyExpand.play();
-
-    }
-    public  void expand() {
-        Animation(0, -244);
-        bodyComponet.setMinWidth(992);
-        bodyComponet.setMinWidth(bodyComponet.getWidth()+244);
-    }
-    public  void collapse() {
-        Animation(-244, 0);
-        bodyComponet.setMinWidth(bodyComponet.getWidth()-244);
-        bodyComponet.setMinWidth(748);
     }
 
     /*-------------------------Getter and Setter--------------------------------*/
@@ -376,7 +333,6 @@ public class DevDetailedViewController implements Initializable {
 
     /*---------------------Set the values in TextField--------------------------*/
     private void setCommonToView(String path,Devices devCommon){
-        pathFinderController.setPathTxt(path);
         regNumTextField.setText(devCommon.getRegNum());
         modelTextField.setText(devCommon.getModel());
         StatusTextField.setText(devCommon.getStatus());

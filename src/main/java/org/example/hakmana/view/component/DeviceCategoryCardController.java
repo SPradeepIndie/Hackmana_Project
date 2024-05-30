@@ -1,21 +1,14 @@
 package org.example.hakmana.view.component;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import lombok.Getter;
-import lombok.Setter;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import org.example.hakmana.view.scene.OtherDevicesController;
 import org.example.hakmana.view.scene.OverviewController;
@@ -28,7 +21,8 @@ import java.util.ResourceBundle;
 
 public class DeviceCategoryCardController extends AnchorPane implements Initializable{
     //For get the main dashboard body scroll pane
-    private javafx.scene.control.ScrollPane dashboardBodyScrollpaneD;
+    private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneD;
+    private static PathFinderController dashboardPathFinderControllerD;
 
     //Injector for anchorpane For animation
     @FXML
@@ -62,14 +56,12 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         }
     }
 
-    public ScrollPane getDashboardBodyScrollpaneD() {
+    public static ScrollPane getDashboardBodyScrollpaneD() {
         return dashboardBodyScrollpaneD;
     }
-
-    public void setDashboardBodyScrollpaneD(ScrollPane dashboardBodyScrollpaneD) {
-        this.dashboardBodyScrollpaneD = dashboardBodyScrollpaneD;
+    public static void setDashboardBodyScrollpaneD(ScrollPane dashboardBodyScrollpaneD) {
+        DeviceCategoryCardController.dashboardBodyScrollpaneD = dashboardBodyScrollpaneD;
     }
-
     public void setDevCatSceneName(URL devCatSceneName) {
         this.devCatSceneName = devCatSceneName;
     }
@@ -84,6 +76,14 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 
     public URL getDevCatSceneName() {
         return devCatSceneName;
+    }
+
+    public static PathFinderController getDashboardPathFinderControllerD() {
+        return dashboardPathFinderControllerD;
+    }
+
+    public static void setDashboardPathFinderControllerD(PathFinderController dashboardPathFinderControllerD) {
+        DeviceCategoryCardController.dashboardPathFinderControllerD = dashboardPathFinderControllerD;
     }
 
     //    For animation of the cards
@@ -116,22 +116,28 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 //  For the DeviceMngmntSmmryScene load when device category button click
     public void DevInfoCall(){
         FXMLLoader vboxLoader;
+        getDashboardPathFinderControllerD().setPathTxt("Device Management>"+getDevName());
         if(Objects.equals(getDevName(), "Other Devices")){
             vboxLoader = new FXMLLoader(OtherDevicesController.class.getResource("OtherDevices.fxml"));
             OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
             vboxLoader.setController(otherDevicesController);
+
+            getDashboardPathFinderControllerD().setBckBtnScene("OtherDevices");
         }else {
-            vboxLoader =new FXMLLoader(OverviewController.class.getResource("DeviceMngmntSmmryScene.fxml"));
+            vboxLoader =new FXMLLoader(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
 
             DeviceMngmntSmmryScene deviceMngmntSmmryScene=DeviceMngmntSmmryScene.getInstance(); // Create controller instance
             vboxLoader.setController(deviceMngmntSmmryScene);
 
+            deviceMngmntSmmryScene.setBodyScrollPaneD(getDashboardBodyScrollpaneD());//set the Scroll pane in Device management class
+
+            getDashboardPathFinderControllerD().setBckBtnScene("DeviceMngmntSmmryScene");
             //After loading, set database name using setter
             deviceMngmntSmmryScene.setDbSelector(getDevName());
         }
         try{
             VBox vbox=vboxLoader.load();
-            getDashboardBodyScrollpaneD().setContent(vbox);//this scollpane id knows only that controller file
+            getDashboardBodyScrollpaneD().setContent(vbox);//this scroll pane id knows only that controller file
 
         } catch (IOException e) {
             throw new RuntimeException(e);

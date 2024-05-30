@@ -34,11 +34,8 @@ import java.util.ResourceBundle;
 public class LoginPageController implements Initializable {
 
     public static String curentUser = "";
-
     private static LoginPageController instance=null;
-
     public Text forgotBtn;
-    private DatabaseConnection databaseConnection;
     private String query;
     @FXML
     private TextField psswrdFeild, usrNameFeild;
@@ -46,8 +43,6 @@ public class LoginPageController implements Initializable {
     private Button login;
     @FXML
     private CheckBox remenberCheckBox;
-
-    public static String curentUser="";
 
     private LoginPageController(){}
 

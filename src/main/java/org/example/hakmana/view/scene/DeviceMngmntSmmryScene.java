@@ -2,6 +2,7 @@ package org.example.hakmana.view.scene;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import org.example.hakmana.model.*;
 import org.example.hakmana.view.component.AddDevButtonController;
@@ -12,20 +13,12 @@ import java.util.ResourceBundle;
 
 public class DeviceMngmntSmmryScene implements Initializable {
     private static DeviceMngmntSmmryScene instance=null;
+    private javafx.scene.control.ScrollPane bodyScrollPaneD;
     @FXML
     public GridPane grid;
     private int rowCount = 1;
     private int colCount = 0;
-
     private static String dbSelector;
-
-    public String getDbSelector() {
-        return dbSelector;
-    }
-
-    public void setDbSelector(String dbSelector) {
-        DeviceMngmntSmmryScene.dbSelector = dbSelector;
-    }
 
     private DeviceMngmntSmmryScene() {
     }
@@ -44,6 +37,21 @@ public class DeviceMngmntSmmryScene implements Initializable {
         addComponent();
         rowCount=1;
         colCount=0;
+    }
+    public String getDbSelector() {
+        return dbSelector;
+    }
+
+    public void setDbSelector(String dbSelector) {
+        DeviceMngmntSmmryScene.dbSelector = dbSelector;
+    }
+
+    public ScrollPane getBodyScrollPaneD() {
+        return bodyScrollPaneD;
+    }
+
+    public void setBodyScrollPaneD(ScrollPane bodyScrollPaneD) {
+        this.bodyScrollPaneD = bodyScrollPaneD;
     }
 
     //add DeviceInfoCards to the scene
@@ -88,6 +96,7 @@ public class DeviceMngmntSmmryScene implements Initializable {
             card.setDevId(d.getRegNum());
             card.setDeviceCat(getDbSelector());
 
+            DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());//set the Scrollpane body in DevInfoCard class
             // Add the label to the grid
             grid.add(card, colCount, rowCount);
 

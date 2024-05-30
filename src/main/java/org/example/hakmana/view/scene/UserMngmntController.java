@@ -9,6 +9,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.SystemUser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,10 +35,7 @@ public class UserMngmntController implements Initializable {
     public Label userEmailLabel;
     @FXML
     public Label userPhNumLabel;
-    private DatabaseConnection databaseConnection;
-    private Connection connection;
-    private PreparedStatement preparedStatement;
-
+   ;
     private UserMngmntController(){
     }
 
@@ -55,11 +53,11 @@ public class UserMngmntController implements Initializable {
 
         String[] name = userDet[0].split(" ");
         userDetailTitle.setText(name[0]);
-        userNameLabel.setText("Full Name     : " + userDet[0]);
-        userPostLabel.setText("Post          : " + userDet[1]);
-        userEmailLabel.setText("Email        : " + userDet[2]);
-        userPhNumLabel.setText("Phone Number : " + userDet[3]);
-        userEmpIdLabel.setText("Employee Id  : " + userDet[4]);
+        userNameLabel.setText(userDet[0]);
+        userPostLabel.setText(userDet[1]);
+        userEmailLabel.setText(userDet[2]);
+        userPhNumLabel.setText(userDet[3]);
+        userEmpIdLabel.setText(userDet[4]);
 
     }
 
