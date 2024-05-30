@@ -13,8 +13,6 @@ public class GetNoteController {
         this.date = date;
 
     }
-
-
     public String getId() {
         return id;
     }

@@ -37,17 +37,6 @@ public class UserMngmntController implements Initializable {
     public Label userEmailLabel;
     @FXML
     public Label userPhNumLabel;
-   ;
-    private UserMngmntController(){
-    }
-
-    public static UserMngmntController getInstance() {
-        if(instance==null){
-            instance=new UserMngmntController();
-            return  instance;
-        }
-        return instance;
-    }
 
     private UserMngmntController(){
     }

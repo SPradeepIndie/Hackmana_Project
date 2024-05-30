@@ -101,8 +101,7 @@ public class PathFinderController extends VBox implements Initializable {
                 case "dashboard" -> getNavPanelControllerPath().dashboardScene(event);
                 default -> getDeviceCategoryCardController().DevInfoCall();
             }
-            System.out.println(sceneList);
-            System.out.println(listScenename);
+
         }else{
             System.out.println("list is empty");
         }
