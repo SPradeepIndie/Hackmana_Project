@@ -7,40 +7,33 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-            <VBox stylesheets="@CSS/Overview.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.view.scene.OverviewController">
-                <children>
-                    <Label text="You can get the overview and log about all the activities that have been done" VBox.vgrow="ALWAYS" />
-                    <Label text="Filter your result to get information" VBox.vgrow="ALWAYS" />
-                    <HBox prefHeight="383.0" prefWidth="679.0" VBox.vgrow="ALWAYS">
-                        <children>
-                            <VBox prefHeight="143.0" prefWidth="136.0" spacing="10.0" style="-fx-padding: 5; -fx-border-color: #800080; -fx-border-radius: 10; -fx-background-color: #E6E6FA;" stylesheets="@CSS/Overview.css" HBox.hgrow="ALWAYS">
-                                <children>
-                                    <Label stylesheets="@CSS/Overview.css" text="Filter the result" VBox.vgrow="ALWAYS">
-                                        <styleClass>
-                                            <String fx:value="check-box" />
-                                            <String fx:value="title-label" />
-                                        </styleClass>
-                                    </Label>
-                                    <CheckBox fx:id="filterUserCheckbox" stylesheets="@CSS/Overview.css" text="User" VBox.vgrow="ALWAYS" />
-                                    <CheckBox fx:id="filterDateCheckbox" stylesheets="@CSS/Overview.css" text="Date" VBox.vgrow="ALWAYS" />
-                                    <CheckBox fx:id="filterDeviceCheckbox" stylesheets="@CSS/Overview.css" text="Device ID" VBox.vgrow="ALWAYS" />
-                                </children>
-                            </VBox>
-                            <VBox fx:id="bodyComponent" prefHeight="436.0" prefWidth="549.0" HBox.hgrow="ALWAYS">
-                                <children>
-                                    <TableView fx:id="historyTable" prefHeight="425.0" prefWidth="554.0" style="-fx-border-radius: 10;" VBox.vgrow="ALWAYS">
-                                        <columns>
-                                            <TableColumn fx:id="dateColumn" text="Date/Time" />
-                                            <TableColumn fx:id="processColumn" text="Process" />
-                                            <TableColumn fx:id="detailsColumn" text="Details" />
-                                        </columns>
-                                        <columnResizePolicy>
-                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                        </columnResizePolicy>
-                                    </TableView>
-                                </children>
-                            </VBox>
-                        </children>
-                    </HBox>
-                </children>
-            </VBox>
+
+<VBox stylesheets="@CSS/Overview.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <Label text="You can get the overview and log about all the activities that have been done" VBox.vgrow="ALWAYS" />
+    <Label text="Filter your result to get information" VBox.vgrow="ALWAYS" />
+    <HBox prefWidth="679.0" VBox.vgrow="ALWAYS">
+        <VBox prefWidth="136.0" spacing="10.0" style="-fx-padding: 5; -fx-border-color: #800080; -fx-border-radius: 10; -fx-background-color: #E6E6FA;" stylesheets="@CSS/Overview.css" HBox.hgrow="ALWAYS">
+            <Label stylesheets="@CSS/Overview.css" text="Filter the result" VBox.vgrow="ALWAYS">
+                <styleClass>
+                    <String fx:value="check-box" />
+                    <String fx:value="title-label" />
+                </styleClass>
+            </Label>
+            <CheckBox fx:id="filterUserCheckbox" stylesheets="@CSS/Overview.css" text="User" VBox.vgrow="ALWAYS" />
+            <CheckBox fx:id="filterDateCheckbox" stylesheets="@CSS/Overview.css" text="Date" VBox.vgrow="ALWAYS" />
+            <CheckBox fx:id="filterDeviceCheckbox" stylesheets="@CSS/Overview.css" text="Device ID" VBox.vgrow="ALWAYS" />
+        </VBox>
+        <VBox fx:id="bodyComponent" prefWidth="549.0" HBox.hgrow="ALWAYS">
+            <TableView fx:id="historyTable" prefHeight="425.0" prefWidth="554.0" style="-fx-border-radius: 10;" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="dateColumn" text="Date/Time" />
+                    <TableColumn fx:id="processColumn" text="Process" />
+                    <TableColumn fx:id="detailsColumn" text="Details" />
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+    </HBox>
+</VBox>

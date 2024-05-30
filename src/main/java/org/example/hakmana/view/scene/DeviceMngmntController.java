@@ -1,25 +1,34 @@
 package org.example.hakmana.view.scene;
 
-import javafx.animation.*;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import org.example.hakmana.model.OtherDevices;
-import org.example.hakmana.view.component.*;
+import org.example.hakmana.view.component.DeviceCategoryCardController;
+import org.example.hakmana.view.component.PathFinderController;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DeviceMngmntController implements Initializable {
-    @FXML
-    private GridPane grid;
+    private static DeviceMngmntController instance=null;
+    private javafx.scene.control.ScrollPane bodyScrollPaneD=null;
+    private PathFinderController pathFinderControllerD;
+    public GridPane grid;
     private int rowCount = 1;
     private int colCount = 0;
+
+    private DeviceMngmntController(){}
+
+    public static DeviceMngmntController getInstance() {
+        if(instance==null){
+            instance=new DeviceMngmntController();
+            return instance;
+        }
+        return instance;
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
         //add DeviceCategoryCardController for the scene
@@ -30,21 +39,21 @@ public class DeviceMngmntController implements Initializable {
         addComponent("Laptops",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/laptopcat.png"))));
         addComponent("UPS",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/UPS.png"))));
         addComponent("Other Devices",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/other.png"))));
+
+        //After adding componennt reset the row and column number
+        rowCount=1;
+        colCount=0;
     }
 
-    @FXML
     private void addComponent(String catTitle, Image catImage) {
         // Create a new label
         DeviceCategoryCardController card=new DeviceCategoryCardController();
         card.setDevName(catTitle);
         card.setDeviceImage(catImage);
-
-        //load the other device scene according to the card title
-        if(Objects.equals(catTitle, "Other Devices"))
-            card.setDevCatSceneName(OtherDevices.class.getResource("OtherDevice.fxml"));
-        else
-            card.setDevCatSceneName(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
         card.disableBtn(false);
+        DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
+        DeviceCategoryCardController.setDashboardPathFinderControllerD(pathFinderControllerD);
+        pathFinderControllerD.setDeviceCategoryCardController(card);
 
         // Add the label to the grid
         grid.add(card, colCount, rowCount);
@@ -57,7 +66,21 @@ public class DeviceMngmntController implements Initializable {
             rowCount++;
             colCount = 0;
         }
-
     }
 
+    public ScrollPane getBodyScrollPaneD() {
+        return bodyScrollPaneD;
+    }
+
+    public void setBodyScrollPaneD(ScrollPane bodyScrollPaneD) {
+        this.bodyScrollPaneD = bodyScrollPaneD;
+    }
+
+    public PathFinderController getPathFinderControllerD() {
+        return pathFinderControllerD;
+    }
+
+    public void setPathFinderControllerD(PathFinderController pathFinderControllerD) {
+        this.pathFinderControllerD = pathFinderControllerD;
+    }
 }

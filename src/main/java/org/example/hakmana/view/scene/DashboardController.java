@@ -39,6 +39,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DashboardController extends Component implements Initializable {
+    private static DashboardController instance=null;
     @FXML
     public HeaderController headerController;//header custom component injector
     @FXML
@@ -75,7 +76,14 @@ public class DashboardController extends Component implements Initializable {
     private  TextArea note1;
     private  Label date1;
 
-    public DashboardController() {
+    private DashboardController(){}
+
+    public static DashboardController getInstance() {
+        if(instance==null){
+            instance=new DashboardController();
+            return instance;
+        }
+        return instance;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -152,9 +160,16 @@ public class DashboardController extends Component implements Initializable {
             headerController.setTitleMsg("Welcome");
             headerController.setUsernameMsg("Mr.Udara Mahanama");
             headerController.setDesignationMsg("Development Officer");
-            navPanelController.setDashboardBorder();
+
+            //set the dashboard scroll pane in navigation panel
             navPanelController.setDashboardBodyScrollpane(bodyScrollPane);
+            //set the pathfinder controller in navigation panel
+            NavPanelController.setDashboardpathFinderController(pathFinderController);
+
+            //set the navigation panel controller in pathfinder controller
+            pathFinderController.setNavPanelControllerPath(navPanelController);
             pathFinderController.setSearchBarVisible(false);
+            pathFinderController.setBckBtnScene("dashboard");
 
             //create the event listener to the navigation panel ToggleButton() method
             navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{

@@ -15,6 +15,10 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginPageController.class.getResource("loginPage.fxml"));
+
+        LoginPageController loginPageController=LoginPageController.getInstance();
+        fxmlLoader.setController(loginPageController);
+
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("view/scene/Images/icon-airplay.png")));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("EDMSystem");

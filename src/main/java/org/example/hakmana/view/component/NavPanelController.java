@@ -29,10 +29,9 @@ import java.util.ResourceBundle;
 
 
 public class NavPanelController extends AnchorPane implements Initializable {
-    private final PathFinderController pathFinderController=new PathFinderController();
+    private static PathFinderController dashboardpathFinderController=null;
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
     /*-------variables for collapse the navigation panel----------*/
     private final Border border=new Border(new BorderStroke(Color.web("#FFB8B8"),BorderStrokeStyle.SOLID,new CornerRadii(8),new BorderWidths(2)));
@@ -48,13 +47,8 @@ public class NavPanelController extends AnchorPane implements Initializable {
     //For get the main dashboard body scroll pane
     private javafx.scene.control.ScrollPane dashboardBodyScrollpane;
 
-    public ScrollPane getDashboardBodyScrollpane() {
-        return dashboardBodyScrollpane;
-    }
-
-    public void setDashboardBodyScrollpane(ScrollPane dashboardBodyScrollpane) {
-        this.dashboardBodyScrollpane = dashboardBodyScrollpane;
-    }
+    //For the set path in pathfinder when only called NavPanelController
+    private Boolean calledFromNavPanel;
 
     //injectors to the sections before navigation panel collapsed
     @FXML
@@ -83,24 +77,24 @@ public class NavPanelController extends AnchorPane implements Initializable {
     /*---------Override the initialize method in Initializable interface--------*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setCalledFromNavPanel(true);
         sidebarWidth = sidebar.getPrefWidth()-32;
     }
 
-    //set border style for the button after clicked
+    /*-----------set border style for the button after clicked----------------*/
     public void setDashboardBorder(){
-        dashboardBtn.setBorder(border);
+        setBorderStyle(dashboardBtn);
     }
-    public void setDeviceMngmntdBorder(){
-        deviceMngmntBtn.setBorder(border);
+    public void setBorderStyle(Button btn){
+        btn.setStyle("-fx-border-color:#FFB8B8;-fx-border-radius: 8;-fx-border-width: 2;-fx-border-style: solid ");
     }
-    public void setReportHndlingBorder(){
-        reportHndlingBtn.setBorder(border);
-    }
-    public void setOverviewHistryBorder(){
-        overviewHistryBtn.setBorder(border);
-    }
-    public void setUserMngmntBorder(){
-        userMngmntBtn.setBorder(border);
+    public void removeBorderStyle(){
+        String borderStyle="-fx-border-style: none;";
+        dashboardBtn.setStyle(borderStyle);
+        deviceMngmntBtn.setStyle(borderStyle);
+        reportHndlingBtn.setStyle(borderStyle);
+        userMngmntBtn.setStyle(borderStyle);
+        overviewHistryBtn.setStyle(borderStyle);
     }
 
     /*--------------Getters---------------*/
@@ -112,6 +106,24 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public Button getToggleButton() {
         return toggleButton;
+    }
+    public ScrollPane getDashboardBodyScrollpane() {
+        return dashboardBodyScrollpane;
+    }
+    public void setDashboardBodyScrollpane(ScrollPane dashboardBodyScrollpane) {
+        this.dashboardBodyScrollpane = dashboardBodyScrollpane;
+    }
+    public static PathFinderController getDashboardpathFinderController() {
+        return dashboardpathFinderController;
+    }
+    public static void setDashboardpathFinderController(PathFinderController dashboardpathFinderController) {
+        NavPanelController.dashboardpathFinderController = dashboardpathFinderController;
+    }
+    public Boolean getCalledFromNavPanel() {
+        return calledFromNavPanel;
+    }
+    public void setCalledFromNavPanel(Boolean calledFromNavPanel) {
+        this.calledFromNavPanel = calledFromNavPanel;
     }
 
     /*--------Load the custom Component using a constructor--------*/
@@ -149,7 +161,6 @@ public class NavPanelController extends AnchorPane implements Initializable {
             vbox3.setVisible(false);
             collapsedNavBar.setVisible(true);
             collapseState.set(true);
-
         }
         else{
             Animation(-sidebarWidth,0);
@@ -161,60 +172,111 @@ public class NavPanelController extends AnchorPane implements Initializable {
         }
         isCollapsed = !isCollapsed;
     }
+
     public void deviceMnagmnt(){
-        try{
-            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("DeviceMngmnt.fxml"));
-            VBox vbox=vboxLoader.load();
-            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+            FXMLLoader vboxLoader =new FXMLLoader(DeviceMngmntController.class.getResource("DeviceMngmnt.fxml"));
+            DeviceMngmntController deviceMngmntController=DeviceMngmntController.getInstance();
+            vboxLoader.setController(deviceMngmntController);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            //pass Scroll pane to the Device Management class
+            deviceMngmntController.setBodyScrollPaneD(getDashboardBodyScrollpane());
+            //pass the Path finder controller
+            deviceMngmntController.setPathFinderControllerD(getDashboardpathFinderController());
+
+            loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
+
+            if(getCalledFromNavPanel()){
+                getDashboardpathFinderController().setBckBtnScene("DeviceMngmnt");
+            }
+            getDashboardpathFinderController().setPathTxt("Device Managemnt");
+            setBorderStyle(deviceMngmntBtn);
     }
+
     public void overviewScene() {
-        try{
             FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("Overview.fxml"));
-            VBox vbox=vboxLoader.load();
-            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+            OverviewController overviewController=OverviewController.getInstance();
+            vboxLoader.setController(overviewController);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
+
+            if(getCalledFromNavPanel()) {
+                getDashboardpathFinderController().setBckBtnScene("Overview");
+            }
+            getDashboardpathFinderController().setPathTxt("Overview History");
+            setBorderStyle(overviewHistryBtn);
+
     }
+
     public void userMngmntScene() {
-        try{
-            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("UserMngmnt.fxml"));
-            VBox vbox=vboxLoader.load();
-            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+            FXMLLoader vboxLoader =new FXMLLoader(UserMngmntController.class.getResource("UserMngmnt.fxml"));
+            UserMngmntController userMngmntController=UserMngmntController.getInstance();
+            vboxLoader.setController(userMngmntController);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
+            if(getCalledFromNavPanel()) {
+                getDashboardpathFinderController().setBckBtnScene("UserMngmnt");
+            }
+            getDashboardpathFinderController().setPathTxt("User Management Controller");
+            setBorderStyle(userMngmntBtn);
     }
+
     public void reportHndlingScene(){
-        try{
-            FXMLLoader vboxLoader =new FXMLLoader(OverviewController.class.getResource("ReportHndling.fxml"));
-            VBox vbox=vboxLoader.load();
-            getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+            FXMLLoader vboxLoader =new FXMLLoader(ReportHndlingController.class.getResource("ReportHndling.fxml"));
+            ReportHndlingController reportHndlingController=ReportHndlingController.getInstance();
+            vboxLoader.setController(reportHndlingController);
 
+            loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
+            if(getCalledFromNavPanel()) {
+                getDashboardpathFinderController().setBckBtnScene("ReportHndling");
+            }
+            getDashboardpathFinderController().setPathTxt("Report Handling");
+            setBorderStyle(reportHndlingBtn);
+    }
+
+    //load Vbox
+    public void loadVBox(FXMLLoader vboxloader){
+        VBox vbox= null;
+        try {
+            vbox = vboxloader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+        removeBorderStyle();
     }
+
     public void dashboardScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(DashboardController.class.getResource("dashboard.fxml")));
-        pathFinderController.setBckBtnScene(Objects.requireNonNull(DashboardController.class.getResource("dashboard.fxml")));
+        FXMLLoader dasboardFxmlLoader=new FXMLLoader(DashboardController.class.getResource("dashboard.fxml"));
+
+        DashboardController dashboardController=DashboardController.getInstance();
+        dasboardFxmlLoader.setController(dashboardController);
+
+        Parent root = dasboardFxmlLoader.load();
+
+        if(getCalledFromNavPanel()) {
+            getDashboardpathFinderController().setBckBtnScene("dashboard");
+        }
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        removeBorderStyle();
+        setBorderStyle(reportHndlingBtn);
     }
+
     public void logOut(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(LoginPageController.class.getResource("loginPage.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPageController.class.getResource("loginPage.fxml"));
+
+        LoginPageController loginPageController=LoginPageController.getInstance();
+        fxmlLoader.setController(loginPageController);
+
+        Parent root = fxmlLoader.load();
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setWidth(845.0);
         stage.setHeight(565.0);
-
 
         //for load the login page in the center of the screen
         Screen screen = Screen.getPrimary();
