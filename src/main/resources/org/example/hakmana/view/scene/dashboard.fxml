@@ -21,7 +21,7 @@
 <?import org.example.hakmana.view.component.NavPanelController?>
 <?import org.example.hakmana.view.component.PathFinderController?>
 
-<AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.view.scene.DashboardController">
+<AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
     <VBox prefHeight="640.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox prefHeight="640.0" prefWidth="1024.0" VBox.vgrow="ALWAYS">
             <!-- Navigation panel Component-->
