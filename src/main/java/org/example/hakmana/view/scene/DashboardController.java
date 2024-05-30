@@ -14,26 +14,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-<<<<<<< HEAD:src/main/java/org/example/hakmana/DashboardController.java
-=======
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
->>>>>>> f9cf7aaeacc47509f625b6f3d9ad1883425e6a73:src/main/java/org/example/hakmana/view/scene/DashboardController.java
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-<<<<<<< HEAD:src/main/java/org/example/hakmana/DashboardController.java
 import lombok.Setter;
-=======
 import org.example.hakmana.*;
->>>>>>> f9cf7aaeacc47509f625b6f3d9ad1883425e6a73:src/main/java/org/example/hakmana/view/scene/DashboardController.java
 import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.view.component.FooterController;
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.component.*;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
+import org.example.hakmana.view.dialogBoxes.DialogPaneController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +34,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -51,16 +43,14 @@ public class DashboardController extends Component implements Initializable {
     public HeaderController headerController;//header custom component injector
     @FXML
     public NavPanelController navPanelController;//NavPanel custom component injector
+    public AnchorPane parentAnchor;
     @FXML
-<<<<<<< HEAD:src/main/java/org/example/hakmana/DashboardController.java
-    private PathFinderController pathFinderController;
-=======
+    private PathFinderController pathFinderControlle;
     public FooterController footerController;
     @FXML
     public PathFinderController pathFinderController;
     @FXML
     public ScrollPane bodyScrollPane;
->>>>>>> f9cf7aaeacc47509f625b6f3d9ad1883425e6a73:src/main/java/org/example/hakmana/view/scene/DashboardController.java
     @FXML
     private  VBox bodyComponet;//injector for VBox to expand
     @Setter
@@ -76,10 +66,7 @@ public class DashboardController extends Component implements Initializable {
     @FXML
     private TableColumn<GetNoteController,String> col2;
     @FXML
-<<<<<<< HEAD:src/main/java/org/example/hakmana/DashboardController.java
     private TableColumn<GetNoteController, Date> col3;
-=======
-    private TableColumn<getNoteController, Date> col3;
     private String titles;
     private String ids;
     private TextField titl1;
@@ -87,7 +74,6 @@ public class DashboardController extends Component implements Initializable {
     private TextField id1;
     private  TextArea note1;
     private  Label date1;
->>>>>>> f9cf7aaeacc47509f625b6f3d9ad1883425e6a73:src/main/java/org/example/hakmana/view/scene/DashboardController.java
 
     public DashboardController() {
     }
@@ -222,7 +208,6 @@ public class DashboardController extends Component implements Initializable {
         }
 
     }
-<<<<<<< HEAD:src/main/java/org/example/hakmana/DashboardController.java
 
     private int getCount3(int count3, String tableValue, PreparedStatement pr, VBox vbox1) throws SQLException {
         ResultSet rs4 = pr.executeQuery();
@@ -236,8 +221,6 @@ public class DashboardController extends Component implements Initializable {
         return count3;
     }
 
-=======
->>>>>>> f9cf7aaeacc47509f625b6f3d9ad1883425e6a73:src/main/java/org/example/hakmana/view/scene/DashboardController.java
     public void tableAdd(){
                 GetDataController controller=new GetDataController();
                ObservableList<GetNoteController> list= controller.getNote();
@@ -300,10 +283,12 @@ public class DashboardController extends Component implements Initializable {
                 try {
                     Statement str2 = conn.createStatement();
                     ResultSet rs = str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("Scene/Dialogbox.fxml"));
+                    System.out.println("checking2");
+                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(DialogPaneController.class.getResource("AddnoteDialog.fxml")));
+                    System.out.println("checking1");
                     try {
                         DialogPane dialog = fxmlLoader.load();
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -416,7 +401,7 @@ public class DashboardController extends Component implements Initializable {
     public void Add(){
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(dialogPaneController.class.getResource("DialogBox/AddnoteDialog.fxml"));
+        fxmlLoader.setLocation(DialogPaneController.class.getResource("AddnoteDialog.fxml"));
         try {
             DialogPane dialogPane = fxmlLoader.load();
         } catch (IOException e) {
@@ -437,12 +422,9 @@ public class DashboardController extends Component implements Initializable {
             tableAdd();
         }
 
-<<<<<<< HEAD:src/main/java/org/example/hakmana/DashboardController.java
 
 
     }
 
-=======
     }
->>>>>>> f9cf7aaeacc47509f625b6f3d9ad1883425e6a73:src/main/java/org/example/hakmana/view/scene/DashboardController.java
-}
+

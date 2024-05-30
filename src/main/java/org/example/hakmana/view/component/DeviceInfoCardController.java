@@ -14,8 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.hakmana.view.dialogBoxes.DialogPaneController;
 import org.example.hakmana.view.scene.DevDetailedViewController;
-import org.example.hakmana.dialogPaneController;
+
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.io.IOException;
