@@ -14,8 +14,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.hakmana.view.dialogBoxes.DialogPaneController;
 import org.example.hakmana.view.scene.DevDetailedViewController;
-import org.example.hakmana.dialogPaneController;
+
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.io.IOException;
@@ -154,10 +155,11 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
              try {
                  // Load the FXML file and retrieve the controller
                  Parent root = dialogPaneFxml.load();
-                 dialogPaneController controller = dialogPaneFxml.getController();
+                 DialogPaneController controller = dialogPaneFxml.getController();
 
                  // Set the device ID name on the controller
                  controller.setSetDeviceIdName(devId);
+
                  // Add the root to the scene or scene node
                  // For example, if you're using a DialogPane:
                  // DialogPane dialogPane = new DialogPane();
@@ -221,8 +223,9 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
           } catch (IOException e) {
                throw new RuntimeException(e);
           }
-         dialogPaneController dialogpane1;
+         DialogPaneController dialogpane1;
          dialogpane1  = noteFxmlLoader.getController();
+         dialogpane1.getEditButton().setVisible(false);
          dialogpane1.setSetDeviceIdName(paneControllers.get(0));
          dialogpane1.setUser(username.get(0));
           Dialog<ButtonType> dialog = new Dialog<>();

@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,18 +15,16 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lombok.Setter;
 import org.example.hakmana.*;
 import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.view.component.FooterController;
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.component.*;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
+import org.example.hakmana.view.dialogBoxes.DialogPaneController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +34,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -46,7 +44,9 @@ public class DashboardController extends Component implements Initializable {
     public HeaderController headerController;//header custom component injector
     @FXML
     public NavPanelController navPanelController;//NavPanel custom component injector
+    public AnchorPane parentAnchor;
     @FXML
+    private PathFinderController pathFinderControlle;
     public FooterController footerController;
     @FXML
     public PathFinderController pathFinderController;
@@ -54,27 +54,20 @@ public class DashboardController extends Component implements Initializable {
     public ScrollPane bodyScrollPane;
     @FXML
     private  VBox bodyComponet;//injector for VBox to expand
+    @Setter
     @FXML
     private Stage stage;
-    @FXML
-    private Button addDeviceBtn;
-    private  TranslateTransition bodyExpand;//Animation object refernce
-    private int selectedIndex;
-    @FXML
-    private AnchorPane parentAnchor;
-    @FXML
-    private HBox hbox1,hbox2,hbox3,hbox4,hbox5;
     @FXML
     private VBox vbox1,vbox2,vbox3,vbox4,vbox5;
 
     @FXML
-    private TableView<getNoteController> table1;
+    private TableView<GetNoteController> table1;
     @FXML
-    private TableColumn<getNoteController,String> col1;
+    private TableColumn<GetNoteController,String> col1;
     @FXML
-    private TableColumn<getNoteController,String> col2;
+    private TableColumn<GetNoteController,String> col2;
     @FXML
-    private TableColumn<getNoteController, Date> col3;
+    private TableColumn<GetNoteController, Date> col3;
     private String titles;
     private String ids;
     private TextField titl1;
@@ -107,11 +100,12 @@ public class DashboardController extends Component implements Initializable {
             int count4;
             //get numbers of columns from database
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT t.TABLE_NAME\n" +
-                    "FROM information_schema.TABLES t\n" +
-                    "INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME\n" +
-                    "WHERE c.COLUMN_NAME = 'status' \n" +
-                    "  AND t.TABLE_SCHEMA = 'hakmanaedm'");
+            ResultSet rs = st.executeQuery("""
+                    SELECT t.TABLE_NAME
+                    FROM information_schema.TABLES t
+                    INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
+                    WHERE c.COLUMN_NAME = 'status'\s
+                      AND t.TABLE_SCHEMA = 'hakmanaedm'""");
             int size = 0;
             while (rs.next()) {
                 size++;
@@ -120,11 +114,12 @@ public class DashboardController extends Component implements Initializable {
             String[] table = new String[size];
             int item = 0;
             rs.close();
-            ResultSet rs0 = st.executeQuery("SELECT t.TABLE_NAME\n" +
-                    "FROM information_schema.TABLES t\n" +
-                    "INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME\n" +
-                    "WHERE c.COLUMN_NAME = 'status' \n" +
-                    "  AND t.TABLE_SCHEMA = 'hakmanaedm';");
+            ResultSet rs0 = st.executeQuery("""
+                    SELECT t.TABLE_NAME
+                    FROM information_schema.TABLES t
+                    INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
+                    WHERE c.COLUMN_NAME = 'status'\s
+                      AND t.TABLE_SCHEMA = 'hakmanaedm';""");
             while (rs0.next()) {
 
                 table[item] = rs0.getString(1);
@@ -142,23 +137,16 @@ public class DashboardController extends Component implements Initializable {
 
                 if ((table[j].equals("desktop")) || (table[j].equals("photocopymachine")) || (table[j].equals("monitor")) || (table[j].equals("multimediaProjector")) || (table[j].equals("laptop")) || (table[j].equals("ups"))) {
 
-                    if (table[j].equals("desktop")) {
-                        dashboardCardUpdate(count1,count2,count3,count4,table[j],"DesRegNum");
-                    }
-                    else if(table[j].equals("photocopymachine")){
-                        dashboardCardUpdate(count1,count2,count3,count4,table[j],"PhotoCopyMachineRegNum");
-                    }
-                    else if(table[j].equals("monitor")){
-                        dashboardCardUpdate(count1,count2,count3,count4,table[j],"MonitorRegNum");
-                    }
-                    else if(table[j].equals("multimediaProjector")){
-                        dashboardCardUpdate(count1,count2,count3,count4,table[j],"MultimediaProjectorRegNum");
-                    }
-                    else if(table[j].equals("laptop")){
-                        dashboardCardUpdate(count1,count2,count3,count4,table[j],"LaptopRegNum");
-                    }
-                    else if(table[j].equals("ups")){
-                        dashboardCardUpdate(count1,count2,count3,count4,table[j],"UpsRegNum");
+                    switch (table[j]) {
+                        case "desktop" -> dashboardCardUpdate(count1, count2, count3, count4, table[j], "DesRegNum");
+                        case "photocopymachine" ->
+                                dashboardCardUpdate(count1, count2, count3, count4, table[j], "PhotoCopyMachineRegNum");
+                        case "monitor" ->
+                                dashboardCardUpdate(count1, count2, count3, count4, table[j], "MonitorRegNum");
+                        case "multimediaProjector" ->
+                                dashboardCardUpdate(count1, count2, count3, count4, table[j], "MultimediaProjectorRegNum");
+                        case "laptop" -> dashboardCardUpdate(count1, count2, count3, count4, table[j], "LaptopRegNum");
+                        case "ups" -> dashboardCardUpdate(count1, count2, count3, count4, table[j], "UpsRegNum");
                     }
                 }
 
@@ -198,10 +186,11 @@ public class DashboardController extends Component implements Initializable {
 
         }
     }
-    public void dashboardCardUpdate(int count1,int count2,int count3,int count4,String tableValue,String regNum ){
+
+    public void dashboardCardUpdate(int count1, int count2, int count3, int count4, String tableValue, String regNum ){
         DatabaseConnection instance=DatabaseConnection.getInstance();
         Connection conn=instance.getConnection();
-        PreparedStatement pr = null;
+        PreparedStatement pr;
         try {
             pr = conn.prepareStatement("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
             System.out.println("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
@@ -210,30 +199,13 @@ public class DashboardController extends Component implements Initializable {
             while (rs1.next()) {
                 count1++;
             }
-            Label label1 = new Label(tableValue +"\t\t\t"+ Integer.toString(count1));
-            vbox5.setMargin(label1, new Insets(0, 0, 0, 10));
+            Label label1 = new Label(tableValue +"\t\t\t"+ count1);
+            VBox.setMargin(label1, new Insets(0, 0, 0, 10));
             vbox5.getChildren().add(label1);
             rs1.close();
 
             pr.setString(1, "Repairing");
-            ResultSet rs4 = pr.executeQuery();
-            while (rs4.next()) {
-                count3++;
-            }
-            Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
-            vbox1.setMargin(label4, new Insets(0, 0, 0, 10));
-            vbox1.getChildren().add(label4);
-            rs4.close();
-
-            pr.setString(1, "Not Assign");
-            ResultSet rs5 = pr.executeQuery();
-            while (rs5.next()) {
-                count4++;
-            }
-            Label label5 = new Label(tableValue +"\t\t\t"+ Integer.toString(count4));
-            vbox3.setMargin(label5, new Insets(0, 0, 0, 10));
-            vbox3.getChildren().add(label5);
-            rs5.close();
+            count3 = getCount3(count3, tableValue, pr, vbox1);
 
             pr.setString(1, "Inactive");
             ResultSet rs2 = pr.executeQuery();
@@ -241,11 +213,11 @@ public class DashboardController extends Component implements Initializable {
                 count2++;
             }
             Label label2 = new Label(tableValue + "\t\t\t "+Integer.toString(count2));
-            vbox2.setMargin(label2, new Insets(0, 0, 0, 10));
+            VBox.setMargin(label2, new Insets(0, 0, 0, 10));
             vbox2.getChildren().add(label2);
             rs2.close();
             Label label3=new Label(tableValue + "\t\t\t"+Integer.toString(count1+count2+count3+count4));
-            vbox4.setMargin(label3, new Insets(0, 0, 0, 10));
+            VBox.setMargin(label3, new Insets(0, 0, 0, 10));
             vbox4.getChildren().add(label3);
 
         } catch (SQLException e) {
@@ -253,12 +225,25 @@ public class DashboardController extends Component implements Initializable {
         }
 
     }
+
+    private int getCount3(int count3, String tableValue, PreparedStatement pr, VBox vbox1) throws SQLException {
+        ResultSet rs4 = pr.executeQuery();
+        while (rs4.next()) {
+            count3++;
+        }
+        Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
+        VBox.setMargin(label4, new Insets(0, 0, 0, 10));
+        vbox1.getChildren().add(label4);
+        rs4.close();
+        return count3;
+    }
+
     public void tableAdd(){
-                getDataController controller=new getDataController();
-               ObservableList<getNoteController> list= controller.getNote();
-                col1.setCellValueFactory(new PropertyValueFactory<getNoteController,String>("id"));
-                col2.setCellValueFactory(new PropertyValueFactory<getNoteController,String>("title"));
-                col3.setCellValueFactory(new PropertyValueFactory<getNoteController,Date>("date"));
+                GetDataController controller=new GetDataController();
+               ObservableList<GetNoteController> list= controller.getNote();
+                col1.setCellValueFactory(new PropertyValueFactory<GetNoteController,String>("id"));
+                col2.setCellValueFactory(new PropertyValueFactory<GetNoteController,String>("title"));
+                col3.setCellValueFactory(new PropertyValueFactory<GetNoteController,Date>("date"));
                 table1.setItems(list);
 
 
@@ -275,8 +260,8 @@ public class DashboardController extends Component implements Initializable {
         alert.initOwner(stage);
         alert.getDialogPane().setContentText("do you want to delete this note?");
         alert.getDialogPane().setHeaderText("confirmation!");
-        Optional<ButtonType> reasult = alert.showAndWait();
-                if(reasult.get()==ButtonType.OK) {
+        Optional<ButtonType> result = alert.showAndWait();
+                if(result.isPresent() &&result.get()==ButtonType.OK) {
                        String  titles = table1.getItems().get(selectedValue).getTitle();
                        String ids= table1.getItems().get(selectedValue).getId();
                         table1.getItems().remove(selectedValue);
@@ -292,7 +277,7 @@ public class DashboardController extends Component implements Initializable {
 
                     }
 
-                if(reasult.get()==ButtonType.CANCEL){
+                if(result.isPresent() && result.get()==ButtonType.CANCEL){
                     table1.getSelectionModel().clearSelection();
                 }
                 // Clear the selection after removing the item
@@ -310,26 +295,30 @@ public class DashboardController extends Component implements Initializable {
             System.out.println(selectedValue);
             if(selectedValue>=0) {
 
-                titles = table1.getItems().get(selectedValue).getTitle();
-                ids=table1.getItems().get(selectedValue).getId();
+                String titles = table1.getItems().get(selectedValue).getTitle();
+                String ids = table1.getItems().get(selectedValue).getId();
                 try {
                     Statement str2 = conn.createStatement();
-                    ResultSet rs = str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ids+"'");
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("Scene/View.fxml"));
+                    ResultSet rs = str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
+                    System.out.println("checking2");
+                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(DialogPaneController.class.getResource("AddnoteDialog.fxml")));
+                    System.out.println("checking1");
                     try {
                         DialogPane dialog = fxmlLoader.load();
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
 
-                    viewDialogController dialogpane = fxmlLoader.getController();
+                    DialogPaneController dialogpane = fxmlLoader.getController();
+                    dialogpane.getEditButton().setVisible(true);
+                    dialogpane.getAddNote().setVisible(false);
                     dialogpane.setIds(ids);
-                    titl1=dialogpane.getTitle1();
-                    note1=dialogpane.getNote1();
-                    user1=dialogpane.getUsername1();
-                    id1=dialogpane.getId1();
-                    date1=dialogpane.getDate1();
+                    TextField titl1 = dialogpane.getTitle();
+                    TextArea note1 = dialogpane.getNote();
+                    TextField user1 = dialogpane.getUsername();
+                    TextField id1 = dialogpane.getDeviceId();
+                    Label date1 = dialogpane.getDate();
                     rs.next();
                     titl1.setText(rs.getString(5));
                     note1.setText(rs.getString(3));
@@ -344,10 +333,10 @@ public class DashboardController extends Component implements Initializable {
                     user1.setEditable(false);
                     id1.setEditable(false);
                     Dialog<ButtonType> dialog = new Dialog<>();
-                    dialog.setDialogPane(dialogpane.getDialogPane2());
+                    dialog.setDialogPane(dialogpane.getDialogpane1());
                     dialog.setTitle("ADD NOTE");
                     Optional<ButtonType> check = dialog.showAndWait();
-                    if(check.get()==ButtonType.OK){
+                    if(check.isPresent() && check.get()==ButtonType.OK){
                         Statement st3= null;
                         try {
                             st3 = conn.createStatement();
@@ -359,9 +348,10 @@ public class DashboardController extends Component implements Initializable {
                         String currentDate=localDate.format(formatter);
                         try {
                           //  System.out.println("update notes set id='"+id1.getText()+"'"+",username='"+user1.getText()+"',notes='"+note1.getText()+"',title='"+titl1.getText()+" ,createdate='"+currentDate+"' "+" where title='"+titles+"' and ");
-                            st3.executeUpdate("update notes set id='"+id1.getText()+"'"+",username='"+user1.getText()+"',notes='"+note1.getText()+"',title='"+titl1.getText()+"' ,createdate='"+currentDate+"' "+" where title='"+titles + "' and id='"+ids+"'");
+                            st3.executeUpdate("update notes set id='"+ id1.getText()+"'"+",username='"+ user1.getText()+"',notes='"+ note1.getText()+"',title='"+ titl1.getText()+"' ,createdate='"+currentDate+"' "+" where title='"+ titles + "' and id='"+ ids +"'");
                             tableAdd();
                             st3.close();
+                            JOptionPane.showMessageDialog(this,"update successful!","successful",JOptionPane.INFORMATION_MESSAGE);
                         } catch (SQLException e) {
                             JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
 
@@ -387,7 +377,8 @@ public class DashboardController extends Component implements Initializable {
             }
             
     private void Animation(double animStartPos,double animEndPos){
-        bodyExpand = new TranslateTransition(Duration.millis(300), bodyComponet);
+        //Animation object refernce
+        TranslateTransition bodyExpand = new TranslateTransition(Duration.millis(300), bodyComponet);
         bodyExpand.setFromX(animStartPos);
         bodyExpand.setToX(animEndPos); // expand VBox
         bodyExpand.setAutoReverse(true);
@@ -427,21 +418,30 @@ public class DashboardController extends Component implements Initializable {
     public void Add(){
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(dialogPaneController.class.getResource("DialogBox/AddnoteDialog.fxml"));
+        fxmlLoader.setLocation(DialogPaneController.class.getResource("AddnoteDialog.fxml"));
         try {
             DialogPane dialogPane = fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        dialogPaneController dialogpane = fxmlLoader.getController();
+        DialogPaneController dialogpane = fxmlLoader.getController();
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogpane.getDialogpane1());
         dialog.setTitle("ADD NOTE");
+        dialogpane.getEditButton().setVisible(false);
         Optional<ButtonType> check = dialog.showAndWait();
+        if(check.isPresent() && check.get()==ButtonType.OK){
+            tableAdd();
+
+        }
         if(check.get()==ButtonType.CANCEL){
             tableAdd();
         }
 
+
+
     }
-}
+
+    }
+
