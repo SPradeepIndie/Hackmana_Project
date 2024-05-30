@@ -19,10 +19,8 @@ public class DashboardCardController extends ScrollPane implements Initializable
         fxmlDashboardCardLoader.setController(this);
         fxmlDashboardCardLoader.setRoot(this);
 
-
         try {
             fxmlDashboardCardLoader.load();
-
         }
         catch(IOException navPnlException){
             throw new RuntimeException(navPnlException);

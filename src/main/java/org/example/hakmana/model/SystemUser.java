@@ -2,7 +2,12 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javax.mail.Session;
+import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
+import org.example.hakmana.view.scene.LoginPageController;
+
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
@@ -14,25 +19,24 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
 
+@Data
+@ToString
 public class SystemUser {
     private DatabaseConnection databaseConnection;
     private Connection conn;
+    @Getter
     private ResultSet rs;
-   //private OAuth2ForGmail auth;
+   // private OAuth2ForGmail auth;
 
-
+    @Getter
     private boolean checkCode;
     private String userName;
-
     private String fullName;
     private String post;
     private String empId;
     private String pwd;
-
     private String email;
-
     private String phoneNum;
-
     private boolean isRemember;
 
     // Constructors
@@ -65,54 +69,10 @@ public class SystemUser {
         this.checkCode = checkCode;
     }
 
-    public ResultSet getRs() {
-        return rs;
-    }
-
-    public void setRs(ResultSet rs) {
-        this.rs = rs;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isCheckCode() {
-        return checkCode;
-    }
-
-    /*-----------DeviceUser verification for password reset-------------*/
-    //return result set acording to the deviceUser mail
+    /*-----------User verification for password reset-------------*/
+    //return reultset acording to the user mail
     public void setResultSet() throws SQLException {
-        String query = "SELECT * FROM systemUser WHERE email = ?";
+        String query = "SELECT * FROM systemuser WHERE email = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, getEmail());
         rs = ps.executeQuery();
@@ -138,7 +98,7 @@ public class SystemUser {
 
     //store verification code under the username
     public void dbUpdate(String verificationCode) throws SQLException {
-        String sql = "UPDATE systemUser SET verification_code = ?, code_expiry = DATE_ADD(NOW(), INTERVAL 15 MINUTE) WHERE email = ?"; // Update with expiry time
+        String sql = "UPDATE systemuser SET verification_code = ?, code_expiry = DATE_ADD(NOW(), INTERVAL 15 MINUTE) WHERE email = ?"; // Update with expiry time
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, verificationCode);
         ps.setString(2, getEmail());
@@ -148,7 +108,7 @@ public class SystemUser {
 
     //send verification code to the email
     public void sendEmail(String verificationCode) throws Exception {
-      //  auth=new OAuth2ForGmail();
+     //   auth=new OAuth2ForGmail();
 
         String fromEmail = "hakmanaedm@gmail.com"; // sender email
         Properties props = new Properties();
@@ -215,7 +175,7 @@ public class SystemUser {
             //Check confirmation when password change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("password cahnge for the deviceUser" + getUserName());
+            alert.setContentText("password cahnge for the user" + getUserName());
 
             Optional<ButtonType> result = alert.showAndWait();//wait until button press in alert box
 
@@ -234,5 +194,81 @@ public class SystemUser {
         return false;
     }
 
+    public String getPassword(String tempUserName){
+        try {
+            String query = "SELECT * FROM systemUser WHERE userName = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, tempUserName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                String storedPassword = resultSet.getString("pwd");
+                return storedPassword;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public String getIsRemUName(){
+        try {
+            String query = "SELECT userName FROM systemUser WHERE isRemember = TRUE;";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                String isRemUName = resultSet.getString("userName");
+                return isRemUName;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    public String[] getSystemUserDetails(){
+        try {
+            String query = "SELECT * FROM systemUser WHERE userName = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, LoginPageController.curentUser);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            String[] userDetArr=new String[5];
+            if (resultSet.next()) {
+                userDetArr[0]= (resultSet.getString("fullName") == null) ? "" : resultSet.getString("fullName");
+                userDetArr[1] = (resultSet.getString("post") == null) ? "" : resultSet.getString("post");
+                userDetArr[2] = (resultSet.getString("email") == null) ? "" : resultSet.getString("email");
+                userDetArr[3] = (resultSet.getString("phoneNum") == null) ? "" : resultSet.getString("phoneNum");
+                userDetArr[4] = (resultSet.getString("empId") == null) ? "" : resultSet.getString("empId");
+            }
+
+            return  userDetArr;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void dbIsRemember(){
+        String query;
+        PreparedStatement preparedStatement;
+        try {
+            if(isRemember){
+                query = "UPDATE systemUser SET isRemember = TRUE WHERE userName = ?";
+                preparedStatement=conn.prepareStatement(query);
+                preparedStatement.setString(1, this.getUserName());
+            }else{
+                query = "UPDATE systemUser SET isRemember = FALSE;";
+                preparedStatement=conn.prepareStatement(query);
+            }
+            preparedStatement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 }

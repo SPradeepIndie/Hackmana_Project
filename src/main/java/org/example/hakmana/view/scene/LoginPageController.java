@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.example.hakmana.model.SystemUser;
 import org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog;
 import org.example.hakmana.model.DatabaseConnection;
 
@@ -31,24 +32,19 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
+
+
+    public static String curentUser = "";
+
     private static LoginPageController instance=null;
     public Text forgotBtn;
-    private DatabaseConnection databaseConnection;
     private String query;
-    Connection connection;
-    PreparedStatement preparedStatement;
-    ResultSet resultSet;
-
     @FXML
-    private TextField psswrdFeild,usrNameFeild;
-
+    private TextField psswrdFeild, usrNameFeild;
     @FXML
     private Button login;
-
     @FXML
     private CheckBox remenberCheckBox;
-
-    public static String curentUser="";
 
     private LoginPageController(){}
 
@@ -60,48 +56,6 @@ public class LoginPageController implements Initializable {
         return instance;
     }
 
-    public void DashboardSceneLoad(ActionEvent event) throws IOException {
-        String tempUserName = usrNameFeild.getText();
-        String tempPsswrd = sha1(psswrdFeild.getText()); // Hash the input password using SHA-1
-
-        try {
-            // Query to retrieve deviceUser information
-            query = "SELECT * FROM systemUser WHERE userName = ?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, tempUserName);
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String storedPassword = resultSet.getString("pwd");
-
-                if (tempPsswrd.equals(storedPassword)) {
-                    // Passwords match, load dashboard
-                    loadDashboard(event);
-
-                    curentUser = tempUserName;
-
-                    if (remenberCheckBox.isSelected()) {
-                        query = "UPDATE systemUser SET isRemember = TRUE WHERE userName = ?";
-                        preparedStatement = connection.prepareStatement(query);
-                        preparedStatement.setString(1, tempUserName);
-                    } else {
-                        query = "UPDATE systemUser SET isRemember = FALSE;";
-                        preparedStatement = connection.prepareStatement(query);
-                    }
-                    preparedStatement.execute();
-                } else {
-                    alertBox(event, "Password Incorrect", "You have entered an incorrect password.");
-                }
-            } else {
-                alertBox(event, "Username Incorrect", "The username you entered does not exist.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle database connection errors
-            alertBox(event, "Error", "System Error!!!");
-        }
-    }
 
     // Method to hash the password using SHA-1
     private static String sha1(String input) {
@@ -120,6 +74,48 @@ public class LoginPageController implements Initializable {
         }
     }
 
+    static void alertBox(ActionEvent event, String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public void DashboardSceneLoad(ActionEvent event) throws IOException {
+        String tempUserName = usrNameFeild.getText();
+        String tempPsswrd = sha1(psswrdFeild.getText()); // Hash the input password using SHA-1
+        SystemUser systemUser = new SystemUser();
+
+        String storedPassword = systemUser.getPassword(tempUserName);
+
+        if (storedPassword != null) {
+
+            if (tempPsswrd.equals(storedPassword)) {
+                // Passwords match, load dashboard
+                loadDashboard(event);
+
+                curentUser = tempUserName;
+                systemUser.setUserName(tempUserName);
+
+
+                if (remenberCheckBox.isSelected()) {
+                    query = "UPDATE systemUser SET isRemember = TRUE WHERE userName = ?";
+                    systemUser.setRemember(true);
+                    systemUser.dbIsRemember();
+                } else {
+                    query = "UPDATE systemUser SET isRemember = FALSE;";
+                    systemUser.setRemember(false);
+                    systemUser.dbIsRemember();
+                }
+            } else {
+                alertBox(event, "Password Incorrect", "You have entered an incorrect password.");
+            }
+        } else {
+            alertBox(event, "Username Incorrect", "The username you entered does not exist.");
+        }
+
+
+    }
 
     // Method to load dashboard scene
     private void loadDashboard(ActionEvent event) throws IOException {
@@ -147,33 +143,11 @@ public class LoginPageController implements Initializable {
         System.out.println("Login successfull");
     }
 
-    static void alertBox(ActionEvent event,String title,String content){
-        Alert alert=new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        databaseConnection=DatabaseConnection.getInstance();
-        connection =databaseConnection.getConnection();
-        query = "SELECT userName, pwd FROM systemUser WHERE isRemember = TRUE;";
-
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String storeUserName = resultSet.getString("userName");
-               // String storedPassword = resultSet.getString("pwd");
-               // psswrdFeild.setText(storedPassword);
-                usrNameFeild.setText(storeUserName);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        SystemUser systemUser = new SystemUser();
+        String storeUserName = systemUser.getIsRemUName();
+        usrNameFeild.setText(storeUserName);
 
         // Bind the ENTER key to the button
         login.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -186,21 +160,21 @@ public class LoginPageController implements Initializable {
         });
     }
 
-    public void forgotPsswrdDialogPane(MouseEvent event) throws IOException{
-        ForgotPasswrdDialog forgotPasswrdController=new ForgotPasswrdDialog();
+    public void forgotPsswrdDialogPane(MouseEvent event) throws IOException {
+        ForgotPasswrdDialog forgotPasswrdController = new ForgotPasswrdDialog();
         FXMLLoader forgotFxmlLoad = new FXMLLoader();
         forgotFxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/FrogotPasswrd.fxml"));
         forgotFxmlLoad.setController(forgotPasswrdController);
-        DialogPane forgotDialogPane=forgotFxmlLoad.load();
+        DialogPane forgotDialogPane = forgotFxmlLoad.load();
 
-        Dialog<ButtonType> dialog=new Dialog<>();
+        Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(forgotDialogPane);
         dialog.setTitle("Forgot password");
 
 
-       Optional<ButtonType> clickedButton=dialog.showAndWait();
-        if(clickedButton.get()==ButtonType.CANCEL) {
-           dialog.close();
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
         }
     }
 

@@ -176,11 +176,14 @@ public class DashboardController extends Component implements Initializable {
             //set the dashboard scroll pane in navigation panel
             navPanelController.setDashboardBodyScrollpane(bodyScrollPane);
             //set the pathfinder controller in navigation panel
-            navPanelController.setPathFinderController(pathFinderController);
+
+            NavPanelController.setDashboardpathFinderController(pathFinderController);
+
 
             //set the navigation panel controller in pathfinder controller
             pathFinderController.setNavPanelControllerPath(navPanelController);
             pathFinderController.setSearchBarVisible(false);
+            pathFinderController.setBckBtnScene("dashboard");
 
             //create the event listener to the navigation panel ToggleButton() method
             navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{

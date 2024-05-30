@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import org.example.hakmana.model.OtherDevices;
 import org.example.hakmana.view.component.DeviceCategoryCardController;
+import org.example.hakmana.view.component.PathFinderController;
+
 
 import java.net.URL;
 import java.util.Objects;
@@ -14,6 +16,9 @@ import java.util.ResourceBundle;
 public class DeviceMngmntController implements Initializable {
     private static DeviceMngmntController instance=null;
     private javafx.scene.control.ScrollPane bodyScrollPaneD=null;
+
+    private PathFinderController pathFinderControllerD;
+
     public GridPane grid;
     private int rowCount = 1;
     private int colCount = 0;
@@ -49,7 +54,11 @@ public class DeviceMngmntController implements Initializable {
         card.setDevName(catTitle);
         card.setDeviceImage(catImage);
         card.disableBtn(false);
-        card.setDashboardBodyScrollpaneD(bodyScrollPaneD);
+
+        DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
+        DeviceCategoryCardController.setDashboardPathFinderControllerD(pathFinderControllerD);
+        pathFinderControllerD.setDeviceCategoryCardController(card);
+
 
         // Add the label to the grid
         grid.add(card, colCount, rowCount);
@@ -70,5 +79,14 @@ public class DeviceMngmntController implements Initializable {
 
     public void setBodyScrollPaneD(ScrollPane bodyScrollPaneD) {
         this.bodyScrollPaneD = bodyScrollPaneD;
+    }
+
+    public PathFinderController getPathFinderControllerD() {
+        return pathFinderControllerD;
+    }
+
+    public void setPathFinderControllerD(PathFinderController pathFinderControllerD) {
+        this.pathFinderControllerD = pathFinderControllerD;
+
     }
 }

@@ -27,7 +27,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DeviceInfoCardController extends AnchorPane implements Initializable {
-    private Parent sceneRoot;
+
+     //For get the main dashboard body scroll pane
+     private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneDD;
      @FXML
      private Button DetailedViewBtn;
      @FXML
@@ -96,6 +98,14 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
         return note;
     }
 
+    public static ScrollPane getDashboardBodyScrollpaneDD() {
+        return dashboardBodyScrollpaneDD;
+    }
+
+    public static void setDashboardBodyScrollpaneDD(ScrollPane dashboardBodyScrollpaneDD) {
+        DeviceInfoCardController.dashboardBodyScrollpaneDD = dashboardBodyScrollpaneDD;
+    }
+
     @FXML
      private void onMouseEntered() {
           root.setScaleX(1.1);
@@ -139,7 +149,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
      }
      //for get username and device id
-        public void adddefaultDetails(){
+     public void adddefaultDetails(){
              FXMLLoader dialogPaneFxml = new FXMLLoader(Objects.requireNonNull(DeviceInfoCardController.class.getResource("DialogBox/AddnoteDialog.fxml")));
              try {
                  // Load the FXML file and retrieve the controller
@@ -168,8 +178,6 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
           userTxt.setText(this.user);
          //adddefaultDetails();
          username.add(user);
-
-
      }
 
     public void setBrand(String brand) {
@@ -182,21 +190,25 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      @FXML
      public void DetailedViewSceneLoad(ActionEvent event) throws IOException {
          // Load the FXML loader for the target scene
-          FXMLLoader detailDevicefxmlLoder = new FXMLLoader(Objects.requireNonNull(org.example.hakmana.view.scene.DevDetailedViewController.class.getResource("DevDetailedView.fxml")));
+          FXMLLoader detailDeviceVboxLoder = new FXMLLoader(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
           //create DevDetailedViewController instance
-          DevDetailedViewController devDetailedViewController=new DevDetailedViewController();
-         detailDevicefxmlLoder.setController(devDetailedViewController);
-          sceneRoot=detailDevicefxmlLoder.load();// Load the scene
+          DevDetailedViewController devDetailedViewController=DevDetailedViewController.getInstance();
+          detailDeviceVboxLoder.setController(devDetailedViewController);
+
+         try{
+             VBox vbox=detailDeviceVboxLoder.load();
+             getDashboardBodyScrollpaneDD().setContent(vbox);//this scollpane id knows only that controller file
+
+         } catch (IOException e) {
+             throw new RuntimeException(e);
+         }
 
           //Using Setter Method
-         devDetailedViewController.setDeviceSelector(getDeviceCat());
-         devDetailedViewController.setDevRegNum(getDevId());
-         devDetailedViewController.showDeviceDetail();
+          devDetailedViewController.setDeviceSelector(getDeviceCat());
+          devDetailedViewController.setDevRegNum(getDevId());
+          devDetailedViewController.showDeviceDetail();
 
-          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-          Scene scene = new Scene(sceneRoot);
-          stage.setScene(scene);
-          stage.show();
+
      }
 
      //note adding dialog box
