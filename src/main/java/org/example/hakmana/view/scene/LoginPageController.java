@@ -47,7 +47,6 @@ public class LoginPageController implements Initializable {
     @FXML
     private CheckBox remenberCheckBox;
 
-    public static String curentUser="";
 
     private LoginPageController(){}
 
