@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- Main VBox layout -->
-
 <VBox stylesheets="@CSS/UserManagement.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <HBox fillHeight="false" spacing="100.0" VBox.vgrow="ALWAYS">
         <padding>
@@ -57,12 +56,14 @@
         </VBox>
 
         <!-- Options for DeviceUser Management -->
+
         <VBox fx:id="optionsContainer" alignment="CENTER" prefHeight="221.0" prefWidth="249.0" spacing="10" HBox.hgrow="ALWAYS">
             <!-- Title and Description -->
             <Label fx:id="userManagementTitle" alignment="CENTER" prefHeight="92.0" styleClass="title-label" text="User Management Controls " textAlignment="CENTER" wrapText="true" />
             <Button fx:id="createAccountButton" maxWidth="Infinity" onAction="#handleCreateAccountButtonAction" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Create new account" />
             <Button fx:id="editProfileButton" maxWidth="Infinity" onAction="#handleEditProfileButtonAction" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Edit your profile" />
             <Button fx:id="showUsersButton" maxWidth="Infinity" onAction="#handleShowUsersButtonAction" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Show other Users" />
+
         </VBox>
     </HBox>
 </VBox>

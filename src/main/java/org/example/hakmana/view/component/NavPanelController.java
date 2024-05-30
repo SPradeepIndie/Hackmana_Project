@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 
 public class NavPanelController extends AnchorPane implements Initializable {
     private static PathFinderController dashboardpathFinderController=null;
+
     private Stage stage;
     private Scene scene;
 
@@ -47,8 +48,10 @@ public class NavPanelController extends AnchorPane implements Initializable {
     //For get the main dashboard body scroll pane
     private javafx.scene.control.ScrollPane dashboardBodyScrollpane;
 
+
     //For the set path in pathfinder when only called NavPanelController
     private Boolean calledFromNavPanel;
+
 
     //injectors to the sections before navigation panel collapsed
     @FXML
@@ -113,6 +116,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     public void setDashboardBodyScrollpane(ScrollPane dashboardBodyScrollpane) {
         this.dashboardBodyScrollpane = dashboardBodyScrollpane;
     }
+
     public static PathFinderController getDashboardpathFinderController() {
         return dashboardpathFinderController;
     }
@@ -124,6 +128,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
     public void setCalledFromNavPanel(Boolean calledFromNavPanel) {
         this.calledFromNavPanel = calledFromNavPanel;
+
     }
 
     /*--------Load the custom Component using a constructor--------*/
@@ -178,6 +183,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
             DeviceMngmntController deviceMngmntController=DeviceMngmntController.getInstance();
             vboxLoader.setController(deviceMngmntController);
 
+
             //pass Scroll pane to the Device Management class
             deviceMngmntController.setBodyScrollPaneD(getDashboardBodyScrollpane());
             //pass the Path finder controller
@@ -189,6 +195,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
                 getDashboardpathFinderController().setBckBtnScene("DeviceMngmnt");
             }
             getDashboardpathFinderController().setPathTxt("Device Managemnt");
+
             setBorderStyle(deviceMngmntBtn);
     }
 
@@ -203,6 +210,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
                 getDashboardpathFinderController().setBckBtnScene("Overview");
             }
             getDashboardpathFinderController().setPathTxt("Overview History");
+
             setBorderStyle(overviewHistryBtn);
 
     }
@@ -213,10 +221,12 @@ public class NavPanelController extends AnchorPane implements Initializable {
             vboxLoader.setController(userMngmntController);
 
             loadVBox(vboxLoader);//this method load the Vbox to the Scrollpane
+
             if(getCalledFromNavPanel()) {
                 getDashboardpathFinderController().setBckBtnScene("UserMngmnt");
             }
             getDashboardpathFinderController().setPathTxt("User Management Controller");
+
             setBorderStyle(userMngmntBtn);
     }
 
@@ -232,6 +242,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
             getDashboardpathFinderController().setPathTxt("Report Handling");
             setBorderStyle(reportHndlingBtn);
     }
+
 
     //load Vbox
     public void loadVBox(FXMLLoader vboxloader){
@@ -252,6 +263,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
         dasboardFxmlLoader.setController(dashboardController);
 
         Parent root = dasboardFxmlLoader.load();
+
 
         if(getCalledFromNavPanel()) {
             getDashboardpathFinderController().setBckBtnScene("dashboard");

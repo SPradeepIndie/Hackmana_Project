@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 public class DeviceMngmntSmmryScene implements Initializable {
     private static DeviceMngmntSmmryScene instance=null;
     private javafx.scene.control.ScrollPane bodyScrollPaneD;
+
     @FXML
     public GridPane grid;
     private int rowCount = 1;
@@ -52,6 +53,7 @@ public class DeviceMngmntSmmryScene implements Initializable {
 
     public void setBodyScrollPaneD(ScrollPane bodyScrollPaneD) {
         this.bodyScrollPaneD = bodyScrollPaneD;
+
     }
 
     //add DeviceInfoCards to the scene

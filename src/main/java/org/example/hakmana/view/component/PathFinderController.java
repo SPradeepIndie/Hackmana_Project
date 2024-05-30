@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import org.example.hakmana.view.scene.*;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class PathFinderController extends VBox implements Initializable {
     private String currentScene;//hold the current scene
     private NavPanelController navPanelControllerPath;//reference for navpanel
     private DeviceCategoryCardController deviceCategoryCardController;//reference for device categorycard
+
     private boolean searchBarVisible;
     @FXML
     public HBox searchBar;
@@ -79,9 +81,11 @@ public class PathFinderController extends VBox implements Initializable {
     }
     @FXML
     public void goBack(ActionEvent event) throws IOException {
+
         FXMLLoader vboxLoader;
         if(!sceneStack.isEmpty()) {
             String listScenename=sceneStack.pop();
+
             //To remove current scene from the list.
             //Because current scene is also added to the list
             if(Objects.equals(listScenename, currentScene)){
@@ -97,7 +101,8 @@ public class PathFinderController extends VBox implements Initializable {
                 case "dashboard" -> getNavPanelControllerPath().dashboardScene(event);
                 default -> getDeviceCategoryCardController().DevInfoCall();
             }
-
+            System.out.println(sceneList);
+            System.out.println(listScenename);
         }else{
             System.out.println("list is empty");
         }

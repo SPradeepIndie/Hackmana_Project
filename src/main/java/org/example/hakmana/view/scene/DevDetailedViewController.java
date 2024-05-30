@@ -188,6 +188,7 @@ public class DevDetailedViewController implements Initializable {
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
 
+
     private DevDetailedViewController(){}
     public static DevDetailedViewController getInstance() {
         if(instance==null){
@@ -196,6 +197,7 @@ public class DevDetailedViewController implements Initializable {
         }
         return instance;
     }
+
 
     public void initialize(URL location, ResourceBundle resources) {
         //get all the other details vbox label and Hboxes

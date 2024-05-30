@@ -33,7 +33,9 @@ import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
 
+
     public static String curentUser = "";
+
     private static LoginPageController instance=null;
     public Text forgotBtn;
     private String query;

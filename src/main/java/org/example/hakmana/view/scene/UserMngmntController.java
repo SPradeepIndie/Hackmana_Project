@@ -9,7 +9,9 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import org.example.hakmana.model.DatabaseConnection;
+
 import org.example.hakmana.model.SystemUser;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +38,17 @@ public class UserMngmntController implements Initializable {
     @FXML
     public Label userPhNumLabel;
    ;
+    private UserMngmntController(){
+    }
+
+    public static UserMngmntController getInstance() {
+        if(instance==null){
+            instance=new UserMngmntController();
+            return  instance;
+        }
+        return instance;
+    }
+
     private UserMngmntController(){
     }
 
