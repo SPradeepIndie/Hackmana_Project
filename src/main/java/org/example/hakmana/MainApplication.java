@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.example.hakmana.model.AllDeviceDetails;
 import org.example.hakmana.view.scene.LoginPageController;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class MainApplication extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+
     }
 
     public static void main(String[] args) {

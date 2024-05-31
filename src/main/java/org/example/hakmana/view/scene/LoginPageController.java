@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.example.hakmana.model.AllDeviceDetails;
 import org.example.hakmana.model.SystemUser;
 import org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog;
 import org.example.hakmana.model.DatabaseConnection;
@@ -151,6 +152,11 @@ public class LoginPageController implements Initializable {
         String storeUserName = systemUser.getIsRemUName();
         usrNameFeild.setText(storeUserName);
 
+        AllDeviceDetails allDeviceDetails=new AllDeviceDetails();
+        for (AllDeviceDetails dev:allDeviceDetails.getActiveDevicesCount()){
+            System.out.println(dev.getDeviceName()+" "+dev.getDeviceCount());
+        }
+
         // Bind the ENTER key to the button
         login.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
@@ -160,6 +166,8 @@ public class LoginPageController implements Initializable {
                 }
             }
         });
+
+
     }
 
     public void forgotPsswrdDialogPane(MouseEvent event) throws IOException {

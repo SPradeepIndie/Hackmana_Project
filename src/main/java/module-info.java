@@ -17,6 +17,8 @@ module org.example.hakmana {
     requires jdk.httpserver;
     requires static lombok;
     requires mysql.connector.java;
+    requires kernel;
+    requires layout;
 
 
     opens org.example.hakmana to javafx.fxml;

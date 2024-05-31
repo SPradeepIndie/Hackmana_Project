@@ -7,14 +7,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-      <VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
+<VBox fx:id="bodyComponet" prefHeight="640.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
           <children>
               <!-- Body content starts here -->
               <AnchorPane prefHeight="404.0" prefWidth="748.0" VBox.vgrow="ALWAYS">
                   <children>
                       <Label fx:id="descriptionLabel" layoutX="20.0" layoutY="40.0" styleClass="description-label" text="To download report press the download button" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
-                      <Button fx:id="downloadButton" layoutX="628.0" layoutY="30.0" styleClass="button" stylesheets="@CSS/ReportHandling.css" text="Download" AnchorPane.rightAnchor="20.5" AnchorPane.topAnchor="30.0" />
+                      <Button fx:id="downloadButton" layoutX="628.0" layoutY="30.0" onAction="#downloadButtonOnAction" styleClass="button" stylesheets="@CSS/ReportHandling.css" text="Download" AnchorPane.rightAnchor="20.5" AnchorPane.topAnchor="30.0" />
                       <TableView fx:id="reportTable" styleClass="report-table" stylesheets="@CSS/ReportHandling.css" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="90">
                           <columns>
                               <TableColumn fx:id="reportNameColumn" minWidth="150.0" prefWidth="354.07696533203125" text="Report Name" />
