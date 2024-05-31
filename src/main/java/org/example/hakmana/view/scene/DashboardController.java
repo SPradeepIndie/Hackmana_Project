@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -22,9 +23,10 @@ import javafx.util.Duration;
 import lombok.Setter;
 import org.example.hakmana.*;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.NoteTable;
 import org.example.hakmana.view.component.*;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
-import org.example.hakmana.view.dialogBoxes.DialogPaneController;
+import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,7 +77,11 @@ public class DashboardController extends Component implements Initializable {
     private TextField id1;
     private  TextArea note1;
     private  Label date1;
-
+    private Button editButton;
+    private Button updateButton;
+    private NoteTable noteInstance;
+    private DatabaseConnection databaseInstance;
+    private Connection conn;
     private DashboardController(){}
 
     public static DashboardController getInstance() {
@@ -88,24 +94,17 @@ public class DashboardController extends Component implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         //automaticaly upadate the cards
-
+        noteInstance=NoteTable.getInstance();
         try {
             //create the connections
-            DatabaseConnection instance = DatabaseConnection.getInstance();
-            Connection conn = instance.getConnection();
+
 
             int count1;
             int count2;
             int count3;
             int count4;
             //get numbers of columns from database
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("""
-                    SELECT t.TABLE_NAME
-                    FROM information_schema.TABLES t
-                    INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
-                    WHERE c.COLUMN_NAME = 'status'\s
-                      AND t.TABLE_SCHEMA = 'hakmanaedm'""");
+           ResultSet rs=noteInstance.getTableNamesQuiries();
             int size = 0;
             while (rs.next()) {
                 size++;
@@ -114,12 +113,7 @@ public class DashboardController extends Component implements Initializable {
             String[] table = new String[size];
             int item = 0;
             rs.close();
-            ResultSet rs0 = st.executeQuery("""
-                    SELECT t.TABLE_NAME
-                    FROM information_schema.TABLES t
-                    INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
-                    WHERE c.COLUMN_NAME = 'status'\s
-                      AND t.TABLE_SCHEMA = 'hakmanaedm';""");
+            ResultSet rs0 = noteInstance.getTableNamesQuiries();
             while (rs0.next()) {
 
                 table[item] = rs0.getString(1);
@@ -188,8 +182,8 @@ public class DashboardController extends Component implements Initializable {
     }
 
     public void dashboardCardUpdate(int count1, int count2, int count3, int count4, String tableValue, String regNum ){
-        DatabaseConnection instance=DatabaseConnection.getInstance();
-        Connection conn=instance.getConnection();
+        databaseInstance=DatabaseConnection.getInstance();
+        conn=databaseInstance.getConnection();
         PreparedStatement pr;
         try {
             pr = conn.prepareStatement("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
@@ -249,8 +243,8 @@ public class DashboardController extends Component implements Initializable {
 
     }
     public void delete(){
-        DatabaseConnection instance=DatabaseConnection.getInstance();
-        Connection conn=instance.getConnection();
+        databaseInstance=DatabaseConnection.getInstance();
+        conn=databaseInstance.getConnection();
         int selectedValue=table1.getSelectionModel().getSelectedIndex();
         System.out.println(selectedValue);
         if(selectedValue>=0){
@@ -288,8 +282,8 @@ public class DashboardController extends Component implements Initializable {
         }
                 }
     public void view(){
-            DatabaseConnection instance=DatabaseConnection.getInstance();
-            Connection conn=instance.getConnection();
+        databaseInstance=DatabaseConnection.getInstance();
+        conn=databaseInstance.getConnection();
 
             int selectedValue=table1.getSelectionModel().getSelectedIndex();
             System.out.println(selectedValue);
@@ -301,72 +295,79 @@ public class DashboardController extends Component implements Initializable {
                     Statement str2 = conn.createStatement();
                     ResultSet rs = str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
                     System.out.println("checking2");
-                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(DialogPaneController.class.getResource("AddnoteDialog.fxml")));
+                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
                     System.out.println("checking1");
                     try {
-                        DialogPane dialog = fxmlLoader.load();
+                        DialogPane dialog1 = fxmlLoader.load();
+                        AddNoteDialogPane dialogpane = fxmlLoader.getController();
+                        dialogpane.getEditButton().setVisible(true);
+                        editButton = dialogpane.getEditButton();
+                        dialogpane.getAddNote().setVisible(false);
+                        dialogpane.getUpdateButton().setVisible(false);
+                        updateButton = dialogpane.getUpdateButton();
+                        dialogpane.setIds(ids);
+                        TextField titl1 = dialogpane.getTitle();
+                        TextArea note1 = dialogpane.getNote();
+                        TextField user1 = dialogpane.getUsername();
+                        TextField id1 = dialogpane.getDeviceId();
+                        Label date1 = dialogpane.getDate();
+                        rs.next();
+                        titl1.setText(rs.getString(5));
+                        note1.setText(rs.getString(3));
+                        user1.setText(rs.getString(2));
+                        id1.setText(rs.getString(1));
+                        String date = rs.getDate(4).toString();
+                        date1.setText(date);
+                        rs.close();
+                        str2.close();
+                        titl1.setEditable(false);
+                        note1.setEditable(false);
+                        user1.setEditable(false);
+                        id1.setEditable(false);
+                        Dialog<ButtonType> dialog = new Dialog<>();
+                        dialog.setDialogPane(dialogpane.getDialogpane1());
+                        dialog.setTitle("ADD NOTE");
+                        editButton.setOnAction(e -> {
+                            id1.setEditable(true);
+                            titl1.setEditable(true);
+                            user1.setEditable(true);
+                            note1.setEditable(true);
+                            updateButton.setVisible(true);
+                        });
+                        updateButton.setOnAction(e1 -> {
+                            Statement st3 = null;
+                            try {
+                                st3 = conn.createStatement();
+                            } catch (SQLException event) {
+                                throw new RuntimeException(event);
+                            }
+                            LocalDate localDate = LocalDate.now();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            String currentDate = localDate.format(formatter);
+                            try {
+                                //  System.out.println("update notes set id='"+id1.getText()+"'"+",username='"+user1.getText()+"',notes='"+note1.getText()+"',title='"+titl1.getText()+" ,createdate='"+currentDate+"' "+" where title='"+titles+"' and ");
+                                st3.executeUpdate("update notes set id='" + id1.getText() + "'" + ",username='" + user1.getText() + "',notes='" + note1.getText() + "',title='" + titl1.getText() + "' ,createdate='" + currentDate + "' " + " where title='" + titles + "' and id='" + ids + "'");
+                                tableAdd();
+                                st3.close();
+                                JOptionPane.showMessageDialog(this, "update successful!", "successful", JOptionPane.INFORMATION_MESSAGE);
+                            } catch (SQLException event) {
+                                JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
 
+                            } finally {
+                                table1.getSelectionModel().clearSelection();
+
+
+                            }
+
+                        });
+
+                        Optional<ButtonType> check= dialog.showAndWait();
+                        if(check.isPresent() && check.get()==ButtonType.CLOSE) {
+
+                        }
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
-                    DialogPaneController dialogpane = fxmlLoader.getController();
-                    dialogpane.getEditButton().setVisible(true);
-                    dialogpane.getAddNote().setVisible(false);
-                    dialogpane.setIds(ids);
-                    TextField titl1 = dialogpane.getTitle();
-                    TextArea note1 = dialogpane.getNote();
-                    TextField user1 = dialogpane.getUsername();
-                    TextField id1 = dialogpane.getDeviceId();
-                    Label date1 = dialogpane.getDate();
-                    rs.next();
-                    titl1.setText(rs.getString(5));
-                    note1.setText(rs.getString(3));
-                    user1.setText(rs.getString(2));
-                    id1.setText(rs.getString(1));
-                    String date=rs.getDate(4).toString();
-                    date1.setText(date);
-                    rs.close();
-                    str2.close();
-                    titl1.setEditable(false);
-                    note1.setEditable(false);
-                    user1.setEditable(false);
-                    id1.setEditable(false);
-                    Dialog<ButtonType> dialog = new Dialog<>();
-                    dialog.setDialogPane(dialogpane.getDialogpane1());
-                    dialog.setTitle("ADD NOTE");
-                    Optional<ButtonType> check = dialog.showAndWait();
-                    if(check.isPresent() && check.get()==ButtonType.OK){
-                        Statement st3= null;
-                        try {
-                            st3 = conn.createStatement();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        LocalDate localDate=LocalDate.now();
-                        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        String currentDate=localDate.format(formatter);
-                        try {
-                          //  System.out.println("update notes set id='"+id1.getText()+"'"+",username='"+user1.getText()+"',notes='"+note1.getText()+"',title='"+titl1.getText()+" ,createdate='"+currentDate+"' "+" where title='"+titles+"' and ");
-                            st3.executeUpdate("update notes set id='"+ id1.getText()+"'"+",username='"+ user1.getText()+"',notes='"+ note1.getText()+"',title='"+ titl1.getText()+"' ,createdate='"+currentDate+"' "+" where title='"+ titles + "' and id='"+ ids +"'");
-                            tableAdd();
-                            st3.close();
-                            JOptionPane.showMessageDialog(this,"update successful!","successful",JOptionPane.INFORMATION_MESSAGE);
-                        } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                       finally{
-                            table1.getSelectionModel().clearSelection();
-
-                        }
-
-                    }
-                    if(check.get()==ButtonType.CANCEL){
-                        table1.getSelectionModel().clearSelection();
-                    }
-
-
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -375,7 +376,7 @@ public class DashboardController extends Component implements Initializable {
             }
 
             }
-            
+
     private void Animation(double animStartPos,double animEndPos){
         //Animation object refernce
         TranslateTransition bodyExpand = new TranslateTransition(Duration.millis(300), bodyComponet);
@@ -418,26 +419,25 @@ public class DashboardController extends Component implements Initializable {
     public void Add(){
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(DialogPaneController.class.getResource("AddnoteDialog.fxml"));
+        fxmlLoader.setLocation(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
         try {
             DialogPane dialogPane = fxmlLoader.load();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        DialogPaneController dialogpane = fxmlLoader.getController();
+        AddNoteDialogPane dialogpane = fxmlLoader.getController();
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogpane.getDialogpane1());
         dialog.setTitle("ADD NOTE");
         dialogpane.getEditButton().setVisible(false);
+        dialogpane.getUpdateButton().setVisible(false);
         Optional<ButtonType> check = dialog.showAndWait();
-        if(check.isPresent() && check.get()==ButtonType.OK){
+        if(check.isPresent() && check.get()==ButtonType.CLOSE){
             tableAdd();
 
         }
-        if(check.get()==ButtonType.CANCEL){
-            tableAdd();
-        }
+
 
 
 
