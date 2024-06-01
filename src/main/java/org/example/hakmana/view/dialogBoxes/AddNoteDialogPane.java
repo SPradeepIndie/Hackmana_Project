@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public  class DialogPaneController extends Component implements Initializable  {
+public  class AddNoteDialogPane extends Component implements Initializable  {
 
     @FXML
     private DialogPane dialogpane1;
@@ -40,6 +40,8 @@ public  class DialogPaneController extends Component implements Initializable  {
     @FXML
     private TextArea note;
 
+    @FXML
+    private Button updateButton;
 
     @FXML
     private Button editButton;
@@ -69,6 +71,14 @@ public  class DialogPaneController extends Component implements Initializable  {
     private String Title;
     DatabaseConnection instance = DatabaseConnection.getInstance();
     Connection conn = instance.getConnection();
+
+    public Button getUpdateButton() {
+        return updateButton;
+    }
+
+    public void setUpdateButton(Button updateButton) {
+        this.updateButton = updateButton;
+    }
 
     public DialogPane getDialogpane1() {
         return dialogpane1;
@@ -190,7 +200,7 @@ public  class DialogPaneController extends Component implements Initializable  {
     }
 
 
-    public DialogPaneController() {
+    public AddNoteDialogPane() {
     }
 
     public void addDetails() {
@@ -265,10 +275,7 @@ public  class DialogPaneController extends Component implements Initializable  {
     }
 
     public void edit() {
-            deviceId.setEditable(true);
-            title.setEditable(true);
-            username.setEditable(true);
-            note.setEditable(true);
+
 
     }
 
