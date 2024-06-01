@@ -7,50 +7,63 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-  <!-- Main VBox layout -->
+<!-- Main VBox layout -->
 <VBox stylesheets="@CSS/UserManagement.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <HBox fillHeight="false" spacing="100.0" VBox.vgrow="ALWAYS">
         <padding>
-            <Insets left="20.0" right="20.0" top="10.0"/>
+            <Insets left="20.0" right="20.0" top="10.0" />
         </padding>
 
         <!-- DeviceUser Detail Card -->
-        <VBox fx:id="userDetailCard" alignment="TOP_CENTER" layoutX="396.0" layoutY="60.0" prefHeight="367.0"
-              prefWidth="355.0" spacing="10" style="-fx-border-color: #800080; -fx-border-width: 1.5;"
-              styleClass="deviceUser-detail-card" stylesheets="@CSS/UserManagement.css"
-              AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="60.0" HBox.hgrow="ALWAYS">
-            <Label fx:id="userDetailTitle" contentDisplay="CENTER" styleClass="detail-title" text="Mr Kamal"
-                   textAlignment="CENTER"/>
+        <VBox fx:id="userDetailCard" alignment="TOP_CENTER" layoutX="396.0" layoutY="60.0" prefHeight="367.0" prefWidth="355.0" spacing="10" style="-fx-border-color: #800080; -fx-border-width: 1.5;" styleClass="deviceUser-detail-card" stylesheets="@CSS/UserManagement.css" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="60.0" HBox.hgrow="ALWAYS">
+            <Label fx:id="userDetailTitle" contentDisplay="CENTER" styleClass="detail-title" text="Mr Kamal" textAlignment="CENTER" />
             <VBox spacing="20.0">
                 <padding>
-                    <Insets left="15.0" right="15.0"/>
+                    <Insets left="15.0" right="15.0" />
                 </padding>
-                <Label fx:id="userNameLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label"
-                       text="Full Name           :"/>
-                <Label fx:id="userPostLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label"
-                       text="Post                      :"/>
-                <Label fx:id="userEmpIdLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label"
-                       stylesheets="@CSS/UserManagement.css" text="Employee ID      :"/>
-                <Label fx:id="userEmailLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label"
-                       text="Email Address   :"/>
-                <Label fx:id="userPhNumLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label"
-                       stylesheets="@CSS/UserManagement.css" text="Phone Number  :"/>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                      <Label prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" text="Full Name " />
+                  <Label fx:id="userNameLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                      <Label prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" text="Post " />
+                  <Label fx:id="userPostLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                      <Label prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" stylesheets="@CSS/UserManagement.css" text="Employee ID " />
+                  <Label fx:id="userEmpIdLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" stylesheets="@CSS/UserManagement.css" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                      <Label prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" text="Email Address " />
+                  <Label fx:id="userEmailLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                      <Label prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" stylesheets="@CSS/UserManagement.css" text="Phone Number" />
+                  <Label fx:id="userPhNumLabel" prefHeight="25.0" prefWidth="125.0" styleClass="detail-label" stylesheets="@CSS/UserManagement.css" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
             </VBox>
 
         </VBox>
 
         <!-- Options for DeviceUser Management -->
-        <VBox fx:id="optionsContainer" alignment="CENTER" prefHeight="221.0" prefWidth="249.0" spacing="10"
-              HBox.hgrow="ALWAYS">
+
+        <VBox fx:id="optionsContainer" alignment="CENTER" prefHeight="221.0" prefWidth="249.0" spacing="10" HBox.hgrow="ALWAYS">
             <!-- Title and Description -->
-            <Label fx:id="userManagementTitle" alignment="CENTER" prefHeight="92.0" styleClass="title-label"
-                   text="User Management Controls " textAlignment="CENTER" wrapText="true"/>
-            <Button fx:id="createAccountButton" maxWidth="Infinity" onAction="#handleCreateAccountButtonAction"
-                    styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Create new account"/>
-            <Button fx:id="editProfileButton" maxWidth="Infinity" onAction="#handleEditProfileButtonAction"
-                    styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Edit your profile"/>
-            <Button fx:id="showUsersButton" maxWidth="Infinity" onAction="#handleShowUsersButtonAction"
-                    styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Show other Users"/>
+            <Label fx:id="userManagementTitle" alignment="CENTER" prefHeight="92.0" styleClass="title-label" text="User Management Controls " textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="createAccountButton" maxWidth="Infinity" onAction="#handleCreateAccountButtonAction" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Create new account" />
+            <Button fx:id="editProfileButton" maxWidth="Infinity" onAction="#handleEditProfileButtonAction" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Edit your profile" />
+            <Button fx:id="showUsersButton" maxWidth="Infinity" onAction="#handleShowUsersButtonAction" styleClass="option-button" stylesheets="@CSS/UserManagement.css" text="Show other Users" />
+
         </VBox>
     </HBox>
 </VBox>

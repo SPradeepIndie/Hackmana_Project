@@ -9,17 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class getDataController {
-    public ObservableList<getNoteController> getNote() {
+public class GetDataController {
+    public ObservableList<GetNoteController> getNote() {
         DatabaseConnection instance = DatabaseConnection.getInstance();
         Connection conn = instance.getConnection();
-        ObservableList<getNoteController> list = FXCollections.observableArrayList();
+        ObservableList<GetNoteController> list = FXCollections.observableArrayList();
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select id,title,createdate from notes");
 
             while (rs.next()) {
-                list.add(new getNoteController(rs.getString(1),rs.getString(2),rs.getDate(3)));
+                list.add(new GetNoteController(rs.getString(1),rs.getString(2),rs.getDate(3)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

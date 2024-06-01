@@ -21,6 +21,7 @@ module org.example.hakmana {
     requires layout;
 
 
+
     opens org.example.hakmana to javafx.fxml;
     exports org.example.hakmana;
     exports org.example.hakmana.model;

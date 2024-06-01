@@ -2,12 +2,9 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 import org.example.hakmana.view.scene.LoginPageController;
 
-import javax.mail.*;
+import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
@@ -19,16 +16,13 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
 
-@Data
-@ToString
 public class SystemUser {
     private DatabaseConnection databaseConnection;
     private Connection conn;
-    @Getter
     private ResultSet rs;
+
    // private OAuth2ForGmail auth;
 
-    @Getter
     private boolean checkCode;
     private String userName;
     private String fullName;
@@ -65,8 +59,80 @@ public class SystemUser {
         conn = databaseConnection.getConnection();
     }
 
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public boolean isCheckCode() {
+        return checkCode;
+    }
+
+    public boolean isRemember() {
+        return isRemember;
+    }
+
+    public void setRemember(boolean remember) {
+        isRemember = remember;
+    }
+
     public void setCheckCode(boolean checkCode) {
         this.checkCode = checkCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    public String getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     /*-----------User verification for password reset-------------*/
