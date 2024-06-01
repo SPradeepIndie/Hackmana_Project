@@ -1,9 +1,6 @@
 package org.example.hakmana.model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class NoteTable {
@@ -40,4 +37,52 @@ public class NoteTable {
 
         return  rs;
     }
+    private PreparedStatement getPreparedStatement(String regNum,String tableValue) throws SQLException {
+        PreparedStatement pr = null;
+        pr = conn.prepareStatement("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
+
+        return pr;
+    }
+
+   public ResultSet setPrValues(String regNum,String tableValue,String state) throws SQLException {
+       PreparedStatement pr=getPreparedStatement(regNum,tableValue);
+        pr.setString(1,state);
+        ResultSet rs=pr.executeQuery();
+        return rs;
+   }
+
+   public void deleteTableQueries(String ids,String titles){
+       Statement st= null;
+       try {
+           st = conn.createStatement();
+           st.executeUpdate("delete from notes where title='"+titles + "' and id='"+ids+"'");
+           st.close();
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+
+   }
+    //view quries
+   public ResultSet viewQueries(String titles,String ids){
+       Statement str2 = null;
+       ResultSet rs=null;
+       try {
+           str2 = conn.createStatement();
+           rs= str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
+
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+       return  rs;
+
+   }
+    //update quiry values
+   public void updateTableQuiries(String id,String userName,String note,String title,String currentDate,String titles,String ids) throws SQLException{
+       Statement st3 = null;
+           st3 = conn.createStatement();
+           st3.executeUpdate("update notes set id='" + id + "'" + ",username='" + userName + "',notes='" + note + "',title='" + title + "' ,createdate='" + currentDate + "' " + " where title='" + titles + "' and id='" + ids + "'");
+
+   }
+
+
 }
