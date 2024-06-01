@@ -9,6 +9,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.SystemUser;
 
 import org.example.hakmana.model.SystemUser;
 
