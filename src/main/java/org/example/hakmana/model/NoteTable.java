@@ -18,8 +18,9 @@ public class NoteTable {
         }
         return noteInstance;
     }
-
-    public ResultSet getTableNamesQuiries(){
+    //get the size of the array
+    public int getTableNamesQuiries(String returnValue){
+        int size=0;
         Statement st = null;
         ResultSet rs;
         try {
@@ -30,13 +31,44 @@ public class NoteTable {
                         INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
                         WHERE c.COLUMN_NAME = 'status'\s
                           AND t.TABLE_SCHEMA = 'hakmanaedm'""");
+            while (rs.next()) {
+                size++;
+            }
+            rs.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        return  rs;
+        return  size;
     }
+    //return an array consists with table names
+    public String[] getArray(int size){
+        String[] items=new String[size];
+        int item=0;
+        Statement st = null;
+        ResultSet rs;
+        try {
+            st = conn.createStatement();
+            rs = st.executeQuery("""
+                        SELECT t.TABLE_NAME
+                        FROM information_schema.TABLES t
+                        INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
+                        WHERE c.COLUMN_NAME = 'status'\s
+                          AND t.TABLE_SCHEMA = 'hakmanaedm'""");
+            while (rs.next()) {
+                items[item]=rs.getString(1);
+                item++;
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return items;
+
+    }
+    //get prepared statements
     private PreparedStatement getPreparedStatement(String regNum,String tableValue) throws SQLException {
         PreparedStatement pr = null;
         pr = conn.prepareStatement("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
@@ -44,11 +76,22 @@ public class NoteTable {
         return pr;
     }
 
-   public ResultSet setPrValues(String regNum,String tableValue,String state) throws SQLException {
-       PreparedStatement pr=getPreparedStatement(regNum,tableValue);
-        pr.setString(1,state);
-        ResultSet rs=pr.executeQuery();
-        return rs;
+   public int setPrValues(String regNum,String tableValue,String state) {
+       int count1=0;
+       PreparedStatement pr= null;
+       try {
+           pr = getPreparedStatement(regNum,tableValue);
+           pr.setString(1,state);
+           ResultSet rs=pr.executeQuery();
+           while (rs.next()) {
+               count1++;
+           }
+           rs.close();
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+
+       return count1;
    }
 
    public void deleteTableQueries(String ids,String titles){
@@ -82,6 +125,18 @@ public class NoteTable {
            st3 = conn.createStatement();
            st3.executeUpdate("update notes set id='" + id + "'" + ",username='" + userName + "',notes='" + note + "',title='" + title + "' ,createdate='" + currentDate + "' " + " where title='" + titles + "' and id='" + ids + "'");
 
+   }
+
+   public void createNoteQuries(String id,String name,String note,Date date,String title) throws SQLException {
+       PreparedStatement notesse = null;
+       notesse = conn.prepareStatement("insert into notes values(?,?,?,?,?)");
+       notesse.setString(1, id);
+       notesse.setString(2, name);
+       notesse.setString(3, note);
+       notesse.setDate(4,date);
+       notesse.setString(5,title);
+       notesse.executeUpdate();
+       notesse.close();
    }
 
 

@@ -96,31 +96,15 @@ public class DashboardController extends Component implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //automaticaly upadate the cards
         noteInstance=NoteTable.getInstance();
-        try {
             //create the connections
             int count1;
             int count2;
             int count3;
             int count4;
             //get numbers of columns from database
-           ResultSet rs=noteInstance.getTableNamesQuiries();
-            int size = 0;
-            while (rs.next()) {
-                size++;
-            }
-
-            String[] table = new String[size];
-            int item = 0;
-            rs.close();
-            ResultSet rs0 = noteInstance.getTableNamesQuiries();
-            while (rs0.next()) {
-
-                table[item] = rs0.getString(1);
-                item++;
-                //System.out.println(rs0.getString(1));
-
-            }
-            rs0.close();
+            int size =noteInstance.getTableNamesQuiries("tablesize") ;
+            String[] table ;
+            table=noteInstance.getArray(size);
             //update the cards
             for (int j = 0; j < size; j++) {
                 count1 = 0;
@@ -144,11 +128,7 @@ public class DashboardController extends Component implements Initializable {
                 }
 
             }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
+
             headerController.setFontSize("3em");
             headerController.setTitleMsg("Welcome");
             headerController.setUsernameMsg("Mr.Udara Mahanama");
@@ -177,54 +157,41 @@ public class DashboardController extends Component implements Initializable {
             tableAdd();
 
 
-        }
+
     }
 
     public void dashboardCardUpdate(int count1, int count2, int count3, int count4, String tableValue, String regNum ){
         noteInstance=NoteTable.getInstance();
-        try {
-            ResultSet rs1 = noteInstance.setPrValues(regNum,tableValue,"Active");
-            while (rs1.next()) {
-                count1++;
-            }
+
+            count1= noteInstance.setPrValues(regNum,tableValue,"Active");
             Label label1 = new Label(tableValue +"\t\t\t"+ count1);
             VBox.setMargin(label1, new Insets(0, 0, 0, 10));
             vbox5.getChildren().add(label1);
-            rs1.close();
 
-            ResultSet rs0 = noteInstance.setPrValues(regNum,tableValue,"Repairing");
-            count3 = getCount3(count3, tableValue, rs0, vbox1);
+            count3 = noteInstance.setPrValues(regNum,tableValue,"Repairing");
+            Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
+            VBox.setMargin(label4, new Insets(0, 0, 0, 10));
+            vbox1.getChildren().add(label4);
 
-            ResultSet rs2 =noteInstance.setPrValues(regNum,tableValue,"Inactive");
-            while (rs2.next()) {
-                count2++;
-            }
+            count2 =noteInstance.setPrValues(regNum,tableValue,"Inactive");
             Label label2 = new Label(tableValue + "\t\t\t "+Integer.toString(count2));
             VBox.setMargin(label2, new Insets(0, 0, 0, 10));
             vbox2.getChildren().add(label2);
-            rs2.close();
+
+            count4 =noteInstance.setPrValues(regNum,tableValue,"NotAssign");
+            Label label0 = new Label(tableValue + "\t\t\t "+Integer.toString(count4));
+            VBox.setMargin(label0, new Insets(0, 0, 0, 10));
+            vbox3.getChildren().add(label0);
+
+
             Label label3=new Label(tableValue + "\t\t\t"+Integer.toString(count1+count2+count3+count4));
             VBox.setMargin(label3, new Insets(0, 0, 0, 10));
             vbox4.getChildren().add(label3);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
-
-    private int getCount3(int count3, String tableValue, ResultSet rs0, VBox vbox1) throws SQLException {
-        ResultSet rs4 = rs0;
-        while (rs4.next()) {
-            count3++;
-        }
-        Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
-        VBox.setMargin(label4, new Insets(0, 0, 0, 10));
-        vbox1.getChildren().add(label4);
-        rs4.close();
-        return count3;
-    }
-
+    
     public void tableAdd(){
                 setTableColumnData controller=new setTableColumnData();
                ObservableList<GetNoteController> list= controller.getNote();
@@ -265,9 +232,6 @@ public class DashboardController extends Component implements Initializable {
         }
                 }
     public void view(){
-        databaseInstance=DatabaseConnection.getInstance();
-        conn=databaseInstance.getConnection();
-
             int selectedValue=table1.getSelectionModel().getSelectedIndex();
             System.out.println(selectedValue);
             if(selectedValue>=0) {
