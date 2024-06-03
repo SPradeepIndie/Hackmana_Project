@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.NoteTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +67,7 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
     @FXML
     private  Button addNote;
 
-
+    private NoteTable noteInstance;
 
     private String Title;
     DatabaseConnection instance = DatabaseConnection.getInstance();
@@ -212,8 +213,8 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
 
 
     public void createnote() {
-        DatabaseConnection instance = DatabaseConnection.getInstance();
-        Connection conn = instance.getConnection();
+
+
         addDetails();
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
@@ -227,21 +228,9 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
         if (reasult.get() == ButtonType.OK) {
 
             if ((getIds() != null) && (getUserName1() != null) && (getNote() != null)) {
-                PreparedStatement notesse = null;
                 try {
-                    notesse = conn.prepareStatement("insert into notes values(?,?,?,?,?)");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-
-                    notesse.setString(1, getIds());
-                    notesse.setString(2, getUserName1());
-                    notesse.setString(3, getNote1());
-                    notesse.setDate(4,java.sql.Date.valueOf(localDate));
-                    notesse.setString(5,Title);
-                    notesse.executeUpdate();
-                    notesse.close();
+                    noteInstance=NoteTable.getInstance();
+                    noteInstance.createNoteQuries(getIds(),getUserName1(),getNote1(),java.sql.Date.valueOf(localDate),Title);
                     deviceId.setText(null);
                     username.setText(null);
                     title.setText(null);

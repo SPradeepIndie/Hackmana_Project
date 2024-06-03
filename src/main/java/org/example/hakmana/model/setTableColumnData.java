@@ -1,15 +1,15 @@
-package org.example.hakmana;
+package org.example.hakmana.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.GetNoteController;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class GetDataController {
+public class setTableColumnData {
     public ObservableList<GetNoteController> getNote() {
         DatabaseConnection instance = DatabaseConnection.getInstance();
         Connection conn = instance.getConnection();

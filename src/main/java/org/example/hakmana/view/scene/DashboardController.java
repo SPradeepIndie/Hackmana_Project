@@ -24,6 +24,7 @@ import lombok.Setter;
 import org.example.hakmana.*;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.NoteTable;
+import org.example.hakmana.model.setTableColumnData;
 import org.example.hakmana.view.component.*;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
 import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
@@ -94,33 +95,15 @@ public class DashboardController extends Component implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //automaticaly upadate the cards
         noteInstance=NoteTable.getInstance();
-        try {
             //create the connections
-
-
             int count1;
             int count2;
             int count3;
             int count4;
             //get numbers of columns from database
-           ResultSet rs=noteInstance.getTableNamesQuiries();
-            int size = 0;
-            while (rs.next()) {
-                size++;
-            }
-
-            String[] table = new String[size];
-            int item = 0;
-            rs.close();
-            ResultSet rs0 = noteInstance.getTableNamesQuiries();
-            while (rs0.next()) {
-
-                table[item] = rs0.getString(1);
-                item++;
-                //System.out.println(rs0.getString(1));
-
-            }
-            rs0.close();
+            int size =noteInstance.getTableNamesQuiries("tablesize") ;
+            String[] table ;
+            table=noteInstance.getArray(size);
             //update the cards
             for (int j = 0; j < size; j++) {
                 count1 = 0;
@@ -144,11 +127,7 @@ public class DashboardController extends Component implements Initializable {
                 }
 
             }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
+
             headerController.setFontSize("3em");
             headerController.setTitleMsg("Welcome");
             headerController.setUsernameMsg("Mr.Udara Mahanama");
@@ -177,62 +156,43 @@ public class DashboardController extends Component implements Initializable {
             tableAdd();
 
 
-        }
+
     }
 
     public void dashboardCardUpdate(int count1, int count2, int count3, int count4, String tableValue, String regNum ){
-        databaseInstance=DatabaseConnection.getInstance();
-        conn=databaseInstance.getConnection();
-        PreparedStatement pr;
-        try {
-            pr = conn.prepareStatement("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
-            System.out.println("SELECT "+regNum+" FROM " +tableValue+ " WHERE status=?");
-            pr.setString(1, "Active");
-            ResultSet rs1 = pr.executeQuery();
-            while (rs1.next()) {
-                count1++;
-            }
+        noteInstance=NoteTable.getInstance();
+
+            count1= noteInstance.setPrValues(regNum,tableValue,"Active");
             Label label1 = new Label(tableValue +"\t\t\t"+ count1);
             VBox.setMargin(label1, new Insets(0, 0, 0, 10));
             vbox5.getChildren().add(label1);
-            rs1.close();
 
-            pr.setString(1, "Repairing");
-            count3 = getCount3(count3, tableValue, pr, vbox1);
+            count3 = noteInstance.setPrValues(regNum,tableValue,"Repairing");
+            Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
+            VBox.setMargin(label4, new Insets(0, 0, 0, 10));
+            vbox1.getChildren().add(label4);
 
-            pr.setString(1, "Inactive");
-            ResultSet rs2 = pr.executeQuery();
-            while (rs2.next()) {
-                count2++;
-            }
+            count2 =noteInstance.setPrValues(regNum,tableValue,"Inactive");
             Label label2 = new Label(tableValue + "\t\t\t "+Integer.toString(count2));
             VBox.setMargin(label2, new Insets(0, 0, 0, 10));
             vbox2.getChildren().add(label2);
-            rs2.close();
+
+            count4 =noteInstance.setPrValues(regNum,tableValue,"NotAssign");
+            Label label0 = new Label(tableValue + "\t\t\t "+Integer.toString(count4));
+            VBox.setMargin(label0, new Insets(0, 0, 0, 10));
+            vbox3.getChildren().add(label0);
+
+
             Label label3=new Label(tableValue + "\t\t\t"+Integer.toString(count1+count2+count3+count4));
             VBox.setMargin(label3, new Insets(0, 0, 0, 10));
             vbox4.getChildren().add(label3);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
-
-    private int getCount3(int count3, String tableValue, PreparedStatement pr, VBox vbox1) throws SQLException {
-        ResultSet rs4 = pr.executeQuery();
-        while (rs4.next()) {
-            count3++;
-        }
-        Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
-        VBox.setMargin(label4, new Insets(0, 0, 0, 10));
-        vbox1.getChildren().add(label4);
-        rs4.close();
-        return count3;
-    }
-
+    
     public void tableAdd(){
-                GetDataController controller=new GetDataController();
+                setTableColumnData controller=new setTableColumnData();
                ObservableList<GetNoteController> list= controller.getNote();
                 col1.setCellValueFactory(new PropertyValueFactory<GetNoteController,String>("id"));
                 col2.setCellValueFactory(new PropertyValueFactory<GetNoteController,String>("title"));
@@ -242,8 +202,7 @@ public class DashboardController extends Component implements Initializable {
 
     }
     public void delete(){
-        databaseInstance=DatabaseConnection.getInstance();
-        conn=databaseInstance.getConnection();
+        noteInstance=NoteTable.getInstance();
         int selectedValue=table1.getSelectionModel().getSelectedIndex();
         System.out.println(selectedValue);
         if(selectedValue>=0){
@@ -259,17 +218,8 @@ public class DashboardController extends Component implements Initializable {
                        String ids= table1.getItems().get(selectedValue).getId();
                         table1.getItems().remove(selectedValue);
                     table1.getSelectionModel().clearSelection();
-                        System.out.println(ids);
-                        try {
-                            Statement st=conn.createStatement();
-                            st.executeUpdate("delete from notes where title='"+titles + "' and id='"+ids+"'");
-                            st.close();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-
+                        noteInstance.deleteTableQueries(ids,titles);
                     }
-
                 if(result.isPresent() && result.get()==ButtonType.CANCEL){
                     table1.getSelectionModel().clearSelection();
                 }
@@ -281,9 +231,6 @@ public class DashboardController extends Component implements Initializable {
         }
                 }
     public void view(){
-        databaseInstance=DatabaseConnection.getInstance();
-        conn=databaseInstance.getConnection();
-
             int selectedValue=table1.getSelectionModel().getSelectedIndex();
             System.out.println(selectedValue);
             if(selectedValue>=0) {
@@ -291,8 +238,7 @@ public class DashboardController extends Component implements Initializable {
                 String titles = table1.getItems().get(selectedValue).getTitle();
                 String ids = table1.getItems().get(selectedValue).getId();
                 try {
-                    Statement str2 = conn.createStatement();
-                    ResultSet rs = str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
+                    ResultSet rs = noteInstance.viewQueries(titles,ids);
                     System.out.println("checking2");
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
                     System.out.println("checking1");
@@ -318,7 +264,6 @@ public class DashboardController extends Component implements Initializable {
                         String date = rs.getDate(4).toString();
                         date1.setText(date);
                         rs.close();
-                        str2.close();
                         titl1.setEditable(false);
                         note1.setEditable(false);
                         user1.setEditable(false);
@@ -334,20 +279,12 @@ public class DashboardController extends Component implements Initializable {
                             updateButton.setVisible(true);
                         });
                         updateButton.setOnAction(e1 -> {
-                            Statement st3 = null;
-                            try {
-                                st3 = conn.createStatement();
-                            } catch (SQLException event) {
-                                throw new RuntimeException(event);
-                            }
                             LocalDate localDate = LocalDate.now();
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                             String currentDate = localDate.format(formatter);
                             try {
-                                //  System.out.println("update notes set id='"+id1.getText()+"'"+",username='"+user1.getText()+"',notes='"+note1.getText()+"',title='"+titl1.getText()+" ,createdate='"+currentDate+"' "+" where title='"+titles+"' and ");
-                                st3.executeUpdate("update notes set id='" + id1.getText() + "'" + ",username='" + user1.getText() + "',notes='" + note1.getText() + "',title='" + titl1.getText() + "' ,createdate='" + currentDate + "' " + " where title='" + titles + "' and id='" + ids + "'");
+                                noteInstance.updateTableQuiries(id1.getText(),user1.getText(),note1.getText() ,titl1.getText(),currentDate,titles,ids);
                                 tableAdd();
-                                st3.close();
                                 JOptionPane.showMessageDialog(this, "update successful!", "successful", JOptionPane.INFORMATION_MESSAGE);
                             } catch (SQLException event) {
                                 JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
