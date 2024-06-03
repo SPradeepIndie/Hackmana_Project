@@ -23,7 +23,7 @@ public class PathFinderController extends VBox implements Initializable {
     private String currentScene;//hold the current scene
     private NavPanelController navPanelControllerPath;//reference for navpanel
     private DeviceCategoryCardController deviceCategoryCardController;//reference for device categorycard
-
+    private DeviceInfoCardController deviceInfoCardController;
     private boolean searchBarVisible;
     @FXML
     public HBox searchBar;
@@ -49,11 +49,9 @@ public class PathFinderController extends VBox implements Initializable {
     public DeviceCategoryCardController getDeviceCategoryCardController() {
         return deviceCategoryCardController;
     }
-
     public void setDeviceCategoryCardController(DeviceCategoryCardController deviceCategoryCardController) {
         this.deviceCategoryCardController = deviceCategoryCardController;
     }
-
     public void setSearchBarVisible(boolean searchBarVisible) {
         this.searchBarVisible = searchBarVisible;
         searchBar.setVisible(this.searchBarVisible);
@@ -61,28 +59,31 @@ public class PathFinderController extends VBox implements Initializable {
     public NavPanelController getNavPanelControllerPath() {
         return navPanelControllerPath;
     }
-
     public void setNavPanelControllerPath(NavPanelController navPanelControllerPath) {
         this.navPanelControllerPath = navPanelControllerPath;
     }
-
     public Label getPathTxt() {
         return pathTxt;
     }
-
     public void setPathTxt(String pathTxt) {
         this.pathTxt.setText(pathTxt);
     }
-
+    public DeviceInfoCardController getDeviceInfoCardController() {
+        return deviceInfoCardController;
+    }
+    public void setDeviceInfoCardController(DeviceInfoCardController deviceInfoCardController) {
+        this.deviceInfoCardController = deviceInfoCardController;
+    }
     //this method is called by the relevant scene controller when scene is change
     public void setBckBtnScene(String bckBtnScene) {
         sceneStack.push(bckBtnScene);
         currentScene=bckBtnScene;
     }
+
     @FXML
     public void goBack(ActionEvent event) throws IOException {
-
-        FXMLLoader vboxLoader;
+        getNavPanelControllerPath().setCalledFromNavPanel(false);
+        getDeviceCategoryCardController().setCalledFromCategoryCard(false);
         if(!sceneStack.isEmpty()) {
             String listScenename=sceneStack.pop();
 
@@ -99,9 +100,10 @@ public class PathFinderController extends VBox implements Initializable {
                 case "Overview" -> getNavPanelControllerPath().overviewScene();
                 case "UserMngmnt" -> getNavPanelControllerPath().userMngmntScene();
                 case "dashboard" -> getNavPanelControllerPath().dashboardScene(event);
-                default -> getDeviceCategoryCardController().DevInfoCall();
+                case "DevDetailedView" -> getDeviceInfoCardController().DetailedViewSceneLoad(event);
+                case "OtherDevices" -> getDeviceCategoryCardController().loadOtherDevice();
+                default -> getDeviceCategoryCardController().loadSmmryScene();
             }
-
         }else{
             System.out.println("list is empty");
         }

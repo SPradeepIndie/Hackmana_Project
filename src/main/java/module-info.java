@@ -16,6 +16,9 @@ module org.example.hakmana {
     requires org.apache.commons.codec;
     requires jdk.httpserver;
     requires static lombok;
+    requires kernel;
+    requires layout;
+
 
 
     opens org.example.hakmana to javafx.fxml;

@@ -26,6 +26,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
      //For get the main dashboard body scroll pane
      private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneDD;
+     private static PathFinderController dashboardPathFinderControllerDD;
      @FXML
      private Button DetailedViewBtn;
      @FXML
@@ -44,7 +45,6 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      private Pane moreInfoBtn;
      @FXML
      private String devId;
-
      private   ArrayList<String> paneControllers=new ArrayList<String>();
      private ArrayList<String> username=new ArrayList<String>();
      private String deviceCat;
@@ -53,7 +53,6 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      private String note;
      @Override
      public void initialize(URL url, ResourceBundle resourceBundle) {
-
      }
      public DeviceInfoCardController() {
           super();
@@ -73,33 +72,33 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
     public String getDevId() {
         return devId;
     }
-
     public void setDeviceCat(String deviceCat) {
         this.deviceCat = deviceCat;
     }
-
     public String getDeviceCat() {
         return deviceCat;
     }
-
     public String getUser() {
         return user;
     }
-
     public String getBrand() {
         return brand;
     }
-
     public String getNote() {
         return note;
     }
-
     public static ScrollPane getDashboardBodyScrollpaneDD() {
         return dashboardBodyScrollpaneDD;
     }
-
     public static void setDashboardBodyScrollpaneDD(ScrollPane dashboardBodyScrollpaneDD) {
         DeviceInfoCardController.dashboardBodyScrollpaneDD = dashboardBodyScrollpaneDD;
+    }
+    public static PathFinderController getDashboardPathFinderControllerDD() {
+        return dashboardPathFinderControllerDD;
+    }
+
+    public static void setDashboardPathFinderControllerDD(PathFinderController dashboardPathFinderControllerDD) {
+        DeviceInfoCardController.dashboardPathFinderControllerDD = dashboardPathFinderControllerDD;
     }
 
     @FXML
@@ -191,28 +190,27 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
           //create DevDetailedViewController instance
           DevDetailedViewController devDetailedViewController=DevDetailedViewController.getInstance();
           detailDeviceVboxLoder.setController(devDetailedViewController);
+          getDashboardPathFinderControllerDD().setPathTxt("Device Management>"+getDeviceCat()+">"+getDevId());
+          getDashboardPathFinderControllerDD().setBckBtnScene("DevDetailedView");
 
-         try{
+          try{
              VBox vbox=detailDeviceVboxLoder.load();
              getDashboardBodyScrollpaneDD().setContent(vbox);//this scollpane id knows only that controller file
 
-         } catch (IOException e) {
-             throw new RuntimeException(e);
-         }
-
-          //Using Setter Method
+          } catch (IOException e) {
+              throw new RuntimeException(e);
+          }
+          //setters
           devDetailedViewController.setDeviceSelector(getDeviceCat());
           devDetailedViewController.setDevRegNum(getDevId());
           devDetailedViewController.showDeviceDetail();
-
-
      }
 
      //note adding dialog box
 
      public void popupdialog() {
           FXMLLoader noteFxmlLoader = new FXMLLoader();
-          noteFxmlLoader.setLocation(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
+          noteFxmlLoader.setLocation(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
           try {
                DialogPane dialogPane = noteFxmlLoader.load();
           } catch (IOException e) {

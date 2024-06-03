@@ -2,7 +2,6 @@ package org.example.hakmana.model;
 
 import java.sql.*;
 
-
 public class NoteTable {
     private static NoteTable noteInstance=null;
     private DatabaseConnection instance;

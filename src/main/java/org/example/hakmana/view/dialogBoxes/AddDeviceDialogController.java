@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddDeviceDialogController implements Initializable {
+    private static AddDeviceDialogController instance=null;
     @FXML
     public ChoiceBox<String> devCat;
     private String devCategoryName;
@@ -198,9 +199,19 @@ public class AddDeviceDialogController implements Initializable {
     public void setDevRegNum(String devRegNum) {
         this.devRegNum = devRegNum;
     }
-
     public void setDevCat() {
         devCat.setValue("Select a device");
+    }
+
+    private AddDeviceDialogController(){
+
+    }
+    public static AddDeviceDialogController getInstance() {
+        if(instance==null){
+            instance=new AddDeviceDialogController();
+            return instance;
+        }
+        return instance;
     }
 
     /*-------------------------------Initialize---------------------------------*/

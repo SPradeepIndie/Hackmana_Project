@@ -23,7 +23,8 @@ public class DeviceMngmntController implements Initializable {
     private int rowCount = 1;
     private int colCount = 0;
 
-    private DeviceMngmntController(){}
+    private DeviceMngmntController(){
+    }
 
     public static DeviceMngmntController getInstance() {
         if(instance==null){
@@ -55,10 +56,9 @@ public class DeviceMngmntController implements Initializable {
         card.setDeviceImage(catImage);
         card.disableBtn(false);
 
+        getPathFinderControllerD().setDeviceCategoryCardController(card);
         DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
-        DeviceCategoryCardController.setDashboardPathFinderControllerD(pathFinderControllerD);
-        pathFinderControllerD.setDeviceCategoryCardController(card);
-
+        card.setDashboardPathFinderControllerD(pathFinderControllerD);
 
         // Add the label to the grid
         grid.add(card, colCount, rowCount);
@@ -87,6 +87,5 @@ public class DeviceMngmntController implements Initializable {
 
     public void setPathFinderControllerD(PathFinderController pathFinderControllerD) {
         this.pathFinderControllerD = pathFinderControllerD;
-
     }
 }

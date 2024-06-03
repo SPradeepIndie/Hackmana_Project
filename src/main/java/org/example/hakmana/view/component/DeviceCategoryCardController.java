@@ -9,12 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import org.example.hakmana.view.scene.OtherDevicesController;
-import org.example.hakmana.view.scene.OverviewController;
 
-import javax.print.attribute.standard.MediaSize;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -22,10 +19,8 @@ import java.util.ResourceBundle;
 
 public class DeviceCategoryCardController extends AnchorPane implements Initializable{
     //For get the main dashboard body scroll pane
-
     private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneD;
-    private static PathFinderController dashboardPathFinderControllerD;
-
+    private PathFinderController dashboardPathFinderControllerD;
 
     //Injector for anchorpane For animation
     @FXML
@@ -41,10 +36,11 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     private Image deviceImage;
     private String devName;
     private URL devCatSceneName;
+    private boolean calledFromCategoryCard;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setCalledFromCategoryCard(true);
     }
     public DeviceCategoryCardController() {
         super();
@@ -59,6 +55,13 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         }
     }
 
+    public boolean isCalledFromCategoryCard() {
+        return calledFromCategoryCard;
+    }
+
+    public void setCalledFromCategoryCard(boolean calledFromCategoryCard) {
+        this.calledFromCategoryCard = calledFromCategoryCard;
+    }
 
     public static ScrollPane getDashboardBodyScrollpaneD() {
         return dashboardBodyScrollpaneD;
@@ -66,7 +69,6 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     public static void setDashboardBodyScrollpaneD(ScrollPane dashboardBodyScrollpaneD) {
         DeviceCategoryCardController.dashboardBodyScrollpaneD = dashboardBodyScrollpaneD;
     }
-
     public void setDevCatSceneName(URL devCatSceneName) {
         this.devCatSceneName = devCatSceneName;
     }
@@ -83,12 +85,11 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         return devCatSceneName;
     }
 
-    public static PathFinderController getDashboardPathFinderControllerD() {
+    public PathFinderController getDashboardPathFinderControllerD() {
         return dashboardPathFinderControllerD;
     }
-
-    public static void setDashboardPathFinderControllerD(PathFinderController dashboardPathFinderControllerD) {
-        DeviceCategoryCardController.dashboardPathFinderControllerD = dashboardPathFinderControllerD;
+    public void setDashboardPathFinderControllerD(PathFinderController dashboardPathFinderControllerD) {
+        this.dashboardPathFinderControllerD = dashboardPathFinderControllerD;
     }
 
     //    For animation of the cards
@@ -120,42 +121,53 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 
 //  For the DeviceMngmntSmmryScene load when device category button click
     public void DevInfoCall(){
-        FXMLLoader vboxLoader;
-
         getDashboardPathFinderControllerD().setPathTxt("Device Management>"+getDevName());
-
         if(Objects.equals(getDevName(), "Other Devices")){
-            vboxLoader = new FXMLLoader(OtherDevicesController.class.getResource("OtherDevices.fxml"));
-            OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
-            vboxLoader.setController(otherDevicesController);
+            loadOtherDevice();
 
-            getDashboardPathFinderControllerD().setBckBtnScene("OtherDevices");
         }else {
-            vboxLoader =new FXMLLoader(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
+            loadSmmryScene();
+        }
 
+    }
 
-            DeviceMngmntSmmryScene deviceMngmntSmmryScene=DeviceMngmntSmmryScene.getInstance(); // Create controller instance
-            vboxLoader.setController(deviceMngmntSmmryScene);
+    public void loadOtherDevice(){
+        FXMLLoader vboxLoad = new FXMLLoader(OtherDevicesController.class.getResource("OtherDevices.fxml"));
+        OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
+        vboxLoad.setController(otherDevicesController);
 
+        if(isCalledFromCategoryCard())
+            getDashboardPathFinderControllerD().setBckBtnScene("OtherDevices");
 
-            deviceMngmntSmmryScene.setBodyScrollPaneD(getDashboardBodyScrollpaneD());//set the Scroll pane in Device management class
+        sceneLoading(vboxLoad);
+    }
 
+    public void loadSmmryScene(){
+        FXMLLoader vboxLoad =new FXMLLoader(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
+
+        DeviceMngmntSmmryScene deviceMngmntSmmryScene=DeviceMngmntSmmryScene.getInstance(); // Create controller instance
+        vboxLoad.setController(deviceMngmntSmmryScene);
+
+        deviceMngmntSmmryScene.setBodyScrollPaneD(getDashboardBodyScrollpaneD());//set the Scroll pane in Device management class
+        deviceMngmntSmmryScene.setPathFinderControllerD(getDashboardPathFinderControllerD());
+
+        if(isCalledFromCategoryCard())
             getDashboardPathFinderControllerD().setBckBtnScene("DeviceMngmntSmmryScene");
 
-            //After loading, set database name using setter
-            deviceMngmntSmmryScene.setDbSelector(getDevName());
-        }
+        //After loading, set database name using setter
+        deviceMngmntSmmryScene.setDbSelector(getDevName());
+
+        sceneLoading(vboxLoad);
+    }
+
+    private void sceneLoading(FXMLLoader vboxLoader){
         try{
             VBox vbox=vboxLoader.load();
-
             getDashboardBodyScrollpaneD().setContent(vbox);//this scroll pane id knows only that controller file
-
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 }
 

@@ -21,7 +21,7 @@
 <?import org.example.hakmana.view.component.NavPanelController?>
 <?import org.example.hakmana.view.component.PathFinderController?>
 
-<AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="parentAnchor" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-color: #00000021;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <VBox prefHeight="640.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox prefHeight="640.0" prefWidth="1024.0" VBox.vgrow="ALWAYS">
             <!-- Navigation panel Component-->
@@ -111,10 +111,10 @@
                                         </VBox.margin>
                                     </Label>
                                     <HBox prefWidth="875.0">
-                                        <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="ALWAYS">
+                                        <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="NEVER">
                                             <columns>
-                                                <TableColumn fx:id="col1" editable="false" prefWidth="120.0" resizable="false" sortable="false" text="Device Id" />
-                                                <TableColumn fx:id="col2" editable="false" prefWidth="575.0" resizable="false" sortable="false" text="title" />
+                                                <TableColumn fx:id="col1" editable="false" prefWidth="195.0" resizable="false" sortable="false" text="Device Id" />
+                                                <TableColumn fx:id="col2" editable="false" prefWidth="500.0" resizable="false" sortable="false" text="title" />
                                                 <TableColumn fx:id="col3" editable="false" prefWidth="200.0" resizable="false" sortType="DESCENDING" text="Date" />
                                             </columns>
                                         </TableView>
