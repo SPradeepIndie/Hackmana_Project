@@ -56,7 +56,6 @@ public class DashboardController extends Component implements Initializable {
     public ScrollPane bodyScrollPane;
     @FXML
     private  VBox bodyComponet;//injector for VBox to expand
-    @Setter
     @FXML
     private Stage stage;
     @FXML

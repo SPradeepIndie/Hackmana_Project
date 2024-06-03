@@ -1,6 +1,6 @@
 package org.example.hakmana.view.scene;
 
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.UnitValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.*;
 import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
