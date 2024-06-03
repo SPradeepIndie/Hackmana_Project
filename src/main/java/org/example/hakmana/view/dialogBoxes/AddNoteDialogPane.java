@@ -24,55 +24,33 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public  class AddNoteDialogPane extends Component implements Initializable  {
-
+    private static AddNoteDialogPane instance=null;
     @FXML
     private DialogPane dialogpane1;
-
     @FXML
     private TextField deviceId;
-
     @FXML
     private Label date;
-
     @FXML
     private TextField username;
-
-
     @FXML
     private TextArea note;
-
     @FXML
     private Button updateButton;
-
     @FXML
     private Button editButton;
-
     @FXML
     private TextField title;
-
     private String ids;
-
     private String userName1;
-
     private String cardNoteId;
-
     private String setDeviceIdName;
-
     private String Note1;
-
-
     private Stage stage;
-
-
     @FXML
     private  Button addNote;
-
     private NoteTable noteInstance;
-
     private String Title;
-    DatabaseConnection instance = DatabaseConnection.getInstance();
-    Connection conn = instance.getConnection();
-
     public Button getUpdateButton() {
         return updateButton;
     }
@@ -200,8 +178,15 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
         this.username.setText(userName);
     }
 
+    private AddNoteDialogPane() {
+    }
 
-    public AddNoteDialogPane() {
+    public static AddNoteDialogPane getInstance() {
+        if(instance==null){
+            instance=new AddNoteDialogPane();
+            return instance;
+        }
+        return instance;
     }
 
     public void addDetails() {
@@ -213,8 +198,6 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
 
 
     public void createnote() {
-
-
         addDetails();
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
