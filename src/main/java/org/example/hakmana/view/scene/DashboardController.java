@@ -233,16 +233,15 @@ public class DashboardController extends Component implements Initializable {
                 }
     public void view(){
             int selectedValue=table1.getSelectionModel().getSelectedIndex();
+            String[] data=new String[5];
             System.out.println(selectedValue);
             if(selectedValue>=0) {
 
                 String titles = table1.getItems().get(selectedValue).getTitle();
                 String ids = table1.getItems().get(selectedValue).getId();
-                try {
-                    ResultSet rs = noteInstance.viewQueries(titles,ids);
-                    System.out.println("checking2");
+
+                     data = noteInstance.viewQueries(titles,ids);
                     FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
-                    System.out.println("checking1");
                     try {
                         DialogPane dialog1 = fxmlLoader.load();
                         AddNoteDialogPane dialogpane = fxmlLoader.getController();
@@ -257,14 +256,12 @@ public class DashboardController extends Component implements Initializable {
                         TextField user1 = dialogpane.getUsername();
                         TextField id1 = dialogpane.getDeviceId();
                         Label date1 = dialogpane.getDate();
-                        rs.next();
-                        titl1.setText(rs.getString(5));
-                        note1.setText(rs.getString(3));
-                        user1.setText(rs.getString(2));
-                        id1.setText(rs.getString(1));
-                        String date = rs.getDate(4).toString();
+                        titl1.setText(data[4]);
+                        note1.setText(data[2]);
+                        user1.setText(data[1]);
+                        id1.setText(data[0]);
+                        String date = data[3].toString();
                         date1.setText(date);
-                        rs.close();
                         titl1.setEditable(false);
                         note1.setEditable(false);
                         user1.setEditable(false);
@@ -305,9 +302,7 @@ public class DashboardController extends Component implements Initializable {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+
 
 
             }

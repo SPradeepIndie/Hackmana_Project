@@ -106,17 +106,25 @@ public class NoteTable {
 
    }
     //view quries
-   public ResultSet viewQueries(String titles,String ids){
+   public String[] viewQueries(String titles,String ids){
+      String[] data=new String[5];
+      int i;
        Statement str2 = null;
        ResultSet rs=null;
        try {
            str2 = conn.createStatement();
            rs= str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
+           rs.next();
+           for(i=0;i<5;i++){
+               data[i]=rs.getString(i+1);
+           }
+
+           rs.close();
 
        } catch (SQLException e) {
            throw new RuntimeException(e);
        }
-       return  rs;
+       return  data;
 
    }
     //update quiry values
