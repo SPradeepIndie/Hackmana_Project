@@ -82,18 +82,18 @@ public class PathFinderController extends VBox implements Initializable {
 
     @FXML
     public void goBack(ActionEvent event) throws IOException {
-        getNavPanelControllerPath().setCalledFromNavPanel(false);
-        getDeviceCategoryCardController().setCalledFromCategoryCard(false);
-        if(!sceneStack.isEmpty()) {
-            String listScenename=sceneStack.pop();
+        checknullContrller(false);
+        if (!sceneStack.isEmpty()) {
+            String listScenename = sceneStack.pop();
 
             //To remove current scene from the list.
             //Because current scene is also added to the list
-            if(Objects.equals(listScenename, currentScene)){
-                if(!sceneStack.isEmpty()){
-                    listScenename=sceneStack.pop();
+            if (Objects.equals(listScenename, currentScene)) {
+                if (!sceneStack.isEmpty()) {
+                    listScenename = sceneStack.pop();
                 }
             }
+
             switch (listScenename) {
                 case "ReportHndling" -> getNavPanelControllerPath().reportHndlingScene();
                 case "DeviceMngmnt" -> getNavPanelControllerPath().deviceMnagmnt();
@@ -104,11 +104,18 @@ public class PathFinderController extends VBox implements Initializable {
                 case "OtherDevices" -> getDeviceCategoryCardController().loadOtherDevice();
                 default -> getDeviceCategoryCardController().loadSmmryScene();
             }
-        }else{
+
+            sceneStack.push(listScenename);
+            currentScene = listScenename;
+            checknullContrller(true);
+        } else {
             System.out.println("list is empty");
         }
-
-
     }
-
+    private void checknullContrller(boolean setBoolean){
+        if (getDeviceCategoryCardController() != null)
+            getNavPanelControllerPath().setCalledFromNavPanel(setBoolean);
+        if (getDeviceCategoryCardController() != null)
+            getDeviceCategoryCardController().setCalledFromCategoryCard(setBoolean);
+    }
 }

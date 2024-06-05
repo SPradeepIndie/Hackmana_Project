@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.*;
+import org.example.hakmana.model.mainDevices.*;
 
 import java.net.URL;
 import java.util.ArrayList;

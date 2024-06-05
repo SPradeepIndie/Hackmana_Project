@@ -124,7 +124,6 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         getDashboardPathFinderControllerD().setPathTxt("Device Management>"+getDevName());
         if(Objects.equals(getDevName(), "Other Devices")){
             loadOtherDevice();
-
         }else {
             loadSmmryScene();
         }

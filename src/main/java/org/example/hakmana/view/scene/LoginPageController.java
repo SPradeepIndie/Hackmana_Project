@@ -170,9 +170,9 @@ public class LoginPageController implements Initializable {
     }
 
     public void forgotPsswrdDialogPane(MouseEvent event) throws IOException {
-        ForgotPasswrdDialog forgotPasswrdController = new ForgotPasswrdDialog();
+        ForgotPasswrdDialog forgotPasswrdController = ForgotPasswrdDialog.getInstance();
         FXMLLoader forgotFxmlLoad = new FXMLLoader();
-        forgotFxmlLoad.setLocation(getClass().getResource("Scene/DialogBox/FrogotPasswrd.fxml"));
+        forgotFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog.class.getResource("FrogotPasswrd.fxml"));
         forgotFxmlLoad.setController(forgotPasswrdController);
         DialogPane forgotDialogPane = forgotFxmlLoad.load();
 
@@ -182,7 +182,7 @@ public class LoginPageController implements Initializable {
 
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
-        if (clickedButton.get() == ButtonType.CANCEL) {
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
             dialog.close();
         }
     }
