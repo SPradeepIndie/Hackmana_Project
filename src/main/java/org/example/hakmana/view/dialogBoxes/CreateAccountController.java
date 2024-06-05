@@ -23,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CreateAccountController {
-
+    private static CreateAccountController instance=null;
     @FXML
     public TextField userNameTxt;
     @FXML
@@ -51,8 +51,17 @@ public class CreateAccountController {
     private DatabaseConnection databaseConnection;
     private Connection connection;
 
+    private CreateAccountController(){}
 
-    static void alertBox(ActionEvent event,String title,String content){
+    public static CreateAccountController getInstance() {
+        if(instance==null){
+            instance=new CreateAccountController();
+            return instance;
+        }
+        return instance;
+    }
+
+    static void alertBox(ActionEvent event, String title, String content){
         Alert alert=new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(content);

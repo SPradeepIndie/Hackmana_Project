@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.*;
+import org.example.hakmana.model.mainDevices.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -334,7 +335,7 @@ public class DevDetailedViewController implements Initializable {
     }
 
     /*---------------------Set the values in TextField--------------------------*/
-    private void setCommonToView(String path,Devices devCommon){
+    private void setCommonToView(String path, Devices devCommon){
         regNumTextField.setText(devCommon.getRegNum());
         modelTextField.setText(devCommon.getModel());
         StatusTextField.setText(devCommon.getStatus());

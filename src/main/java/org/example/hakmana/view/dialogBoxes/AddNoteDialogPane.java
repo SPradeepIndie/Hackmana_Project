@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.NoteTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,53 +23,41 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public  class DialogPaneController extends Component implements Initializable  {
-
+public  class AddNoteDialogPane extends Component implements Initializable  {
+    private static AddNoteDialogPane instance=null;
     @FXML
     private DialogPane dialogpane1;
-
     @FXML
     private TextField deviceId;
-
     @FXML
     private Label date;
-
     @FXML
     private TextField username;
-
-
     @FXML
     private TextArea note;
-
-
+    @FXML
+    private Button updateButton;
     @FXML
     private Button editButton;
-
     @FXML
     private TextField title;
-
     private String ids;
-
     private String userName1;
-
     private String cardNoteId;
-
     private String setDeviceIdName;
-
     private String Note1;
-
-
     private Stage stage;
-
-
     @FXML
     private  Button addNote;
-
-
-
+    private NoteTable noteInstance;
     private String Title;
-    DatabaseConnection instance = DatabaseConnection.getInstance();
-    Connection conn = instance.getConnection();
+    public Button getUpdateButton() {
+        return updateButton;
+    }
+
+    public void setUpdateButton(Button updateButton) {
+        this.updateButton = updateButton;
+    }
 
     public DialogPane getDialogpane1() {
         return dialogpane1;
@@ -189,8 +178,15 @@ public  class DialogPaneController extends Component implements Initializable  {
         this.username.setText(userName);
     }
 
+    private AddNoteDialogPane() {
+    }
 
-    public DialogPaneController() {
+    public static AddNoteDialogPane getInstance() {
+        if(instance==null){
+            instance=new AddNoteDialogPane();
+            return instance;
+        }
+        return instance;
     }
 
     public void addDetails() {
@@ -202,8 +198,6 @@ public  class DialogPaneController extends Component implements Initializable  {
 
 
     public void createnote() {
-        DatabaseConnection instance = DatabaseConnection.getInstance();
-        Connection conn = instance.getConnection();
         addDetails();
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
@@ -217,21 +211,9 @@ public  class DialogPaneController extends Component implements Initializable  {
         if (reasult.get() == ButtonType.OK) {
 
             if ((getIds() != null) && (getUserName1() != null) && (getNote() != null)) {
-                PreparedStatement notesse = null;
                 try {
-                    notesse = conn.prepareStatement("insert into notes values(?,?,?,?,?)");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
-
-                    notesse.setString(1, getIds());
-                    notesse.setString(2, getUserName1());
-                    notesse.setString(3, getNote1());
-                    notesse.setDate(4,java.sql.Date.valueOf(localDate));
-                    notesse.setString(5,Title);
-                    notesse.executeUpdate();
-                    notesse.close();
+                    noteInstance=NoteTable.getInstance();
+                    noteInstance.createNoteQuries(getIds(),getUserName1(),getNote1(),java.sql.Date.valueOf(localDate),Title);
                     deviceId.setText(null);
                     username.setText(null);
                     title.setText(null);
@@ -265,10 +247,7 @@ public  class DialogPaneController extends Component implements Initializable  {
     }
 
     public void edit() {
-            deviceId.setEditable(true);
-            title.setEditable(true);
-            username.setEditable(true);
-            note.setEditable(true);
+
 
     }
 

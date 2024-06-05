@@ -50,7 +50,7 @@ public class OtherDevices {
         databaseConnection = DatabaseConnection.getInstance();
         connection = databaseConnection.getConnection();
         //this list contains the main devices list
-        excludedTables = Arrays.asList("desktop","monitors","laptop","printer","ups","multimediaprojector","photocopymachine");
+        excludedTables = Arrays.asList("desktop","monitors","laptop","printer","ups","multimediaprojector","photocopymachine","systemuser","deviceuser","notes");
 
         if (!devicesLoaded) {
             // Fetch table names and populate devices list

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ShowUsersController implements Initializable {
+    private static ShowUsersController insance=null;
     @FXML
     private TableView<SystemUser> tableView;
 
@@ -31,6 +32,16 @@ public class ShowUsersController implements Initializable {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private List<SystemUser> userList;
+
+    private ShowUsersController(){}
+
+    public static ShowUsersController getInsance() {
+        if(insance==null){
+            insance=new ShowUsersController();
+            return insance;
+        }
+        return insance;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane fx:controller="org.example.hakmana.view.dialogBoxes.CreateAccountController" xmlns="http://javafx.com/javafx/21"
+<DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1">
     <content>
         <AnchorPane fx:id="parentAnchor" prefWidth="300.0" style="-fx-background-color: #00000021;"

@@ -23,7 +23,8 @@ public class DeviceMngmntController implements Initializable {
     private int rowCount = 1;
     private int colCount = 0;
 
-    private DeviceMngmntController(){}
+    private DeviceMngmntController(){
+    }
 
     public static DeviceMngmntController getInstance() {
         if(instance==null){
@@ -41,8 +42,8 @@ public class DeviceMngmntController implements Initializable {
         addComponent("Projectors",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/projector.png"))));
         addComponent("Laptops",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/laptopcat.png"))));
         addComponent("UPS",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/UPS.png"))));
+        addComponent("Printers",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/other.png"))));
         addComponent("Other Devices",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/other.png"))));
-
         //After adding componennt reset the row and column number
         rowCount=1;
         colCount=0;
@@ -55,10 +56,9 @@ public class DeviceMngmntController implements Initializable {
         card.setDeviceImage(catImage);
         card.disableBtn(false);
 
+        getPathFinderControllerD().setDeviceCategoryCardController(card);
         DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
-        DeviceCategoryCardController.setDashboardPathFinderControllerD(pathFinderControllerD);
-        pathFinderControllerD.setDeviceCategoryCardController(card);
-
+        card.setDashboardPathFinderControllerD(pathFinderControllerD);
 
         // Add the label to the grid
         grid.add(card, colCount, rowCount);
@@ -87,6 +87,5 @@ public class DeviceMngmntController implements Initializable {
 
     public void setPathFinderControllerD(PathFinderController pathFinderControllerD) {
         this.pathFinderControllerD = pathFinderControllerD;
-
     }
 }

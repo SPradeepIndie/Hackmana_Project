@@ -1,10 +1,9 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,18 +13,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
-public class Projectors extends Devices{
-    private DatabaseConnection conn =DatabaseConnection.getInstance();;
+public class Monitors extends Devices{
+    private DatabaseConnection conn=DatabaseConnection.getInstance();;
     private String regNum;
     private String model;
     private String status;
+    private String userName;
+    @Setter
+    @Getter
+    private String screenSize;
+    private String purchasedFrom;
 
-    public Projectors(String regNum, String model, String name, String status) {
-        super(regNum, model, name, status);
+    public Monitors(String regNum, String model, String userName, String status, String screenSize) {
+        super(regNum, model, userName, status);
+        this.screenSize = screenSize;
     }
 
-    public Projectors() {
+    public Monitors(String regNum, String model, String userName, String status) {
+        super(regNum, model, userName,status);
+    }
+
+    public Monitors() {
     }
 
     @Override
@@ -55,6 +63,7 @@ public class Projectors extends Devices{
 
     @Override
     public void setUserName(String para1) {
+
     }
 
     @Override
@@ -67,10 +76,10 @@ public class Projectors extends Devices{
         return null;
     }
 
-    public Projectors[] getDevices() {
-        List<Projectors> projectors = new ArrayList<>();
+    public Monitors[] getDevices() {
+        List<Monitors> monitors = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT * FROM MultimediaProjector";
+        String sql = "SELECT Monitor.MonitorRegNum,Monitor.model,Monitor.status FROM Monitor";
 
         try {
             // get result set from connection class
@@ -78,39 +87,39 @@ public class Projectors extends Devices{
 
             // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
-                Projectors projector = new Projectors();
+                Monitors monitor = new Monitors();
 
-                projector.setRegNum(resultSet.getString("MultimediaProjectorRegNum"));
-                projector.setModel(resultSet.getString("model"));
-                projector.setStatus(resultSet.getString("status"));
-                projector.setUserName("no user");
+                monitor.setRegNum(resultSet.getString("MonitorRegNum"));
+                monitor.setModel(resultSet.getString("model"));
+                monitor.setStatus(resultSet.getString("status"));
+                monitor.setUserName("no user");
 
-                projectors.add(projector);
+                monitors.add(monitor);//add monitor to the monitors list
             }
         }
         catch (SQLException e){
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
-        return projectors.toArray(new Projectors[0]);
+        return monitors.toArray(new Monitors[0]);
     }
     @Override
-    public Projectors getDevice(String MultimediaProjectorRegNum) {
+    public Monitors getDevice(String regNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM multimediaprojector Where MultimediaProjectorRegNum=?";
+        String sql = "SELECT * FROM monitors Where MonitoRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, MultimediaProjectorRegNum);
+            ps.setString(1, regNum);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Projectors multimediaprojector = new Projectors();
-                multimediaprojector.setRegNum(rs.getString("MultimediaProjectorRegNum"));
-                multimediaprojector.setModel(rs.getString("model"));
-                multimediaprojector.setStatus(rs.getString("status"));
+                Monitors monitors = new Monitors();
+                monitors.setRegNum(rs.getString("regNum"));
+                monitors.setModel(rs.getString("model"));
+                monitors.setStatus(rs.getString("status"));
 
-                return multimediaprojector;
+                return monitors;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -121,10 +130,9 @@ public class Projectors extends Devices{
     }
 
     public boolean updateDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE multimediaprojector SET model=?,status=? WHERE regNUM=?";
+        String sql="UPDATE monitors SET model=?,status=? WHERE MonitoRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -140,7 +148,7 @@ public class Projectors extends Devices{
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(2));
+            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(3));
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -167,10 +175,10 @@ public class Projectors extends Devices{
         return false;
     }
     public boolean insertDevice(ArrayList<String> list){
-        conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status) VALUES (?,?,?)";
+        String sql="INSERT INTO monitors (MonitoRegNum,model,status)" +
+                "VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 

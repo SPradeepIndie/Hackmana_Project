@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import org.example.hakmana.view.dialogBoxes.ContactUsDialog;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,6 +68,7 @@ public class FooterController extends VBox implements Initializable {
     public void ContactusBtnDialogOpen() throws IOException{
         FXMLLoader contactUsFxmlLoad = new FXMLLoader();
         contactUsFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.ContactUsDialog.class.getResource("ContactUsDialogPane.fxml"));
+        contactUsFxmlLoad.setController(ContactUsDialog.getInstance());
         DialogPane conactUsDialogPane=contactUsFxmlLoad.load();
 
         Dialog<ButtonType> dialog=new Dialog<>();
