@@ -297,7 +297,7 @@ public class DashboardController extends Component implements Initializable {
 
                         Optional<ButtonType> check= dialog.showAndWait();
                         if(check.isPresent() && check.get()==ButtonType.CLOSE) {
-
+                                dialog.close();
                         }
                     } catch (IOException e) {
                         throw new RuntimeException(e);

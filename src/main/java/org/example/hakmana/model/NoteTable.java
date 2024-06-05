@@ -1,6 +1,9 @@
 package org.example.hakmana.model;
 
+import javafx.scene.control.Button;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class NoteTable {
@@ -146,6 +149,30 @@ public class NoteTable {
        notesse.executeUpdate();
        notesse.close();
    }
+    //put note for the deviceInfoCard Controller
+    public ArrayList setNoteForCard(String devId){
+        ArrayList<Button> list = new ArrayList<Button>();
+        int r=0;
+        try {
+            Statement str = conn.createStatement();
+            ResultSet rst = str.executeQuery("select title,notes from notes where id='" + devId + "'");
+            while (rst.next()) {
+                Button lab = new Button(rst.getString(1));
+                lab.setStyle("-fx-background-color: white; -fx-margin:0px 5px 0px 0px;");
+                list.add(lab);
+                r++;
+            }
+            str.close();
+            rst.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally{
+            return list;
+        }
+
+    }
+
 
 
 }
