@@ -125,7 +125,6 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
          this.devId = devId;
          devIdTxt.setText(this.devId);
          //add notes to the deviceInfoCard
-        System.out.println(devId);
         setNoteForCard(devId);
         id.add(devId);
      }
@@ -135,13 +134,11 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
          NoteTable instance=NoteTable.getInstance();
          ArrayList list;
          list=instance.setNoteForCard(devids);
-         System.out.println(list.toArray().length);
          while(index< list.size()) {
              Button btn= (Button) list.get(index);
              btn.setOnAction(event->{
                         NoteTable noteInstance=NoteTable.getInstance();
                         String titles=btn.getText();
-                 System.out.println(btn.getText());
                          String[] data=new String[5];
                          data = noteInstance.viewQueries(titles,devids);
                          FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
@@ -191,7 +188,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
              noteTxtArea.getChildren().add((Node) list.get(index));
              index++;
          }
-         System.out.println("l3");
+
      }
      //for get username and device id
      public void adddefaultDetails(){

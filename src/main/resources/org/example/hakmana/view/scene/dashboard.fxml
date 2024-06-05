@@ -111,7 +111,7 @@
                                         </VBox.margin>
                                     </Label>
                                     <HBox prefWidth="875.0">
-                                        <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="NEVER">
+                                        <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="ALWAYS">
                                             <columns>
                                                 <TableColumn fx:id="col1" editable="false" prefWidth="195.0" resizable="false" sortable="false" text="Device Id" />
                                                 <TableColumn fx:id="col2" editable="false" prefWidth="500.0" resizable="false" sortable="false" text="title" />
