@@ -164,27 +164,27 @@ public class DashboardController extends Component implements Initializable {
         noteInstance=NoteTable.getInstance();
 
             count1= noteInstance.setPrValues(regNum,tableValue,"Active");
-            Label label1 = new Label(tableValue +"\t\t\t"+ count1);
+            Label label1 = new Label(tableValue +"  ".repeat(21-tableValue.length())+ count1);
             VBox.setMargin(label1, new Insets(0, 0, 0, 10));
             vbox5.getChildren().add(label1);
 
             count3 = noteInstance.setPrValues(regNum,tableValue,"Repairing");
-            Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
+            Label label4 = new Label(tableValue+"  ".repeat(21-tableValue.length())+ Integer.toString(count3));
             VBox.setMargin(label4, new Insets(0, 0, 0, 10));
             vbox1.getChildren().add(label4);
 
             count2 =noteInstance.setPrValues(regNum,tableValue,"Inactive");
-            Label label2 = new Label(tableValue + "\t\t\t "+Integer.toString(count2));
+            Label label2 = new Label(tableValue +"  ".repeat(21-tableValue.length())+Integer.toString(count2));
             VBox.setMargin(label2, new Insets(0, 0, 0, 10));
             vbox2.getChildren().add(label2);
 
             count4 =noteInstance.setPrValues(regNum,tableValue,"NotAssign");
-            Label label0 = new Label(tableValue + "\t\t\t "+Integer.toString(count4));
+            Label label0 = new Label(tableValue +"  ".repeat(21-tableValue.length())+Integer.toString(count4));
             VBox.setMargin(label0, new Insets(0, 0, 0, 10));
             vbox3.getChildren().add(label0);
 
 
-            Label label3=new Label(tableValue + "\t\t\t"+Integer.toString(count1+count2+count3+count4));
+            Label label3=new Label(tableValue +"  ".repeat(21-tableValue.length())+Integer.toString(count1+count2+count3+count4));
             VBox.setMargin(label3, new Insets(0, 0, 0, 10));
             vbox4.getChildren().add(label3);
 

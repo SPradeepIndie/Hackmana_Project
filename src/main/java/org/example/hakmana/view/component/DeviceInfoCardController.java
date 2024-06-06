@@ -48,8 +48,8 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      @FXML
      private String devId;
 
-     Button editButton;
-     Button updateButton;
+   private  Button editButton;
+    private Button updateButton;
 
      private   ArrayList<String> id=new ArrayList<String>();
      private ArrayList<String> username=new ArrayList<String>();

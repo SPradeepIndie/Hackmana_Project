@@ -214,7 +214,7 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
 
     public void createnote() {
 
-
+    try {
         addDetails();
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
@@ -223,14 +223,13 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
         alert.getDialogPane().setContentText("do you want to add this note?");
         alert.getDialogPane().setHeaderText("confirmation!");
         Optional<ButtonType> reasult = alert.showAndWait();
-        String currentdate=date.getText();
-        LocalDate localDate=LocalDate.parse(currentdate);
+        String currentdate = date.getText();
+        LocalDate localDate = LocalDate.parse(currentdate);
         if (reasult.get() == ButtonType.OK) {
-
-            if ((getIds() != null) && (getUserName1() != null) && (getNote() != null)) {
+            if ((getIds() != null) && (getUserName1() != null) && (getNote() != null) && (getTitle() != null)) {
                 try {
-                    noteInstance=NoteTable.getInstance();
-                    noteInstance.createNoteQuries(getIds(),getUserName1(),getNote1(),java.sql.Date.valueOf(localDate),Title);
+                    noteInstance = NoteTable.getInstance();
+                    noteInstance.createNoteQuries(getIds(), getUserName1(), getNote1(), java.sql.Date.valueOf(localDate), Title);
                     deviceId.setText(null);
                     username.setText(null);
                     title.setText(null);
@@ -251,6 +250,11 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
             JOptionPane.showMessageDialog(this, "note is cancelled!", "alert!", JOptionPane.INFORMATION_MESSAGE);
 
         }
+    }
+    catch (NullPointerException e) {
+        JOptionPane.showMessageDialog(this, "All fields need to be filled.", "problem!", JOptionPane.ERROR_MESSAGE);
+
+    }
 
     }
 
