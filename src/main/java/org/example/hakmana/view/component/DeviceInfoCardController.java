@@ -1,6 +1,7 @@
 package org.example.hakmana.view.component;
 
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,11 +13,10 @@ import javafx.scene.layout.VBox;
 import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
 import org.example.hakmana.view.scene.DevDetailedViewController;
 
-import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.NoteTable;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,6 +27,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      //For get the main dashboard body scroll pane
      private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneDD;
      private static PathFinderController dashboardPathFinderControllerDD;
+
      @FXML
      private Button DetailedViewBtn;
      @FXML
@@ -51,7 +52,11 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      private String user;
      private String brand;
      private String note;
-     @Override
+    private Button editButton;
+    private Button updateButton;
+    private ArrayList<String> id=new ArrayList<String>();
+
+    @Override
      public void initialize(URL url, ResourceBundle resourceBundle) {
      }
      public DeviceInfoCardController() {
@@ -114,36 +119,77 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      }
 
     public void setDevId(String devId) {
-         //creating database connection
-         DatabaseConnection instance = DatabaseConnection.getInstance();
-         Connection conn = instance.getConnection();
-         int r = 0;
-         this.devId = devId;
-         devIdTxt.setText(this.devId);
-         //add notes to the deviceInfoCard
-         try {
-             Statement str = conn.createStatement();
-             ResultSet rst = str.executeQuery("select title,notes from notes where id='" + devId + "'");
-             ArrayList<Button> list = new ArrayList<Button>();
-             while (rst.next()) {
-                 String finalnote = rst.getString(2);
-                 Button lab = new Button(Integer.toString(r + 1) + ")" + rst.getString(1));
-                 lab.setStyle("-fx-background-color: white; -fx-margin:0px 5px 0px 0px;");
-                 list.add(lab);
-                 noteTxtArea.getChildren().add(list.get(r));
-                 r++;
-             }
-             str.close();
-             rst.close();
-         } catch (SQLException e) {
-             throw new RuntimeException(e);
-         } finally {
-             //adddefaultDetails();
-                paneControllers.add(devId);
-         }
+        //creating database connection
+        this.devId = devId;
+        devIdTxt.setText(this.devId);
+        //add notes to the deviceInfoCard
+        setNoteForCard(devId);
+        id.add(devId);
+    }
+    public void setNoteForCard(String devids){
+        int index=0;
+        NoteTable instance=NoteTable.getInstance();
+        ArrayList list;
+        list=instance.setNoteForCard(devids);
+        while(index< list.size()) {
+            Button btn= (Button) list.get(index);
+            btn.setOnAction(event->{
+                NoteTable noteInstance=NoteTable.getInstance();
+                String titles=btn.getText();
+                String[] data=new String[5];
+                data = noteInstance.viewQueries(titles,devids);
+                FXMLLoader fxmlLoader = new FXMLLoader(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
 
-     }
-     //for get username and device id
+                try {
+                    DialogPane dialog1 = fxmlLoader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                AddNoteDialogPane dialogpane = fxmlLoader.getController();
+                dialogpane.getEditButton().setVisible(false);
+                editButton = dialogpane.getEditButton();
+                dialogpane.getAddNote().setVisible(false);
+                dialogpane.getUpdateButton().setVisible(false);
+                updateButton = dialogpane.getUpdateButton();
+                dialogpane.setIds(devids);
+                TextField titl1 = dialogpane.getTitle();
+                TextArea note1 = dialogpane.getNote();
+                TextField user1 = dialogpane.getUsername();
+                TextField id1 = dialogpane.getDeviceId();
+                Label date1 = dialogpane.getDate();
+                titl1.setText(data[4]);
+                note1.setText(data[2]);
+                user1.setText(data[1]);
+                id1.setText(data[0]);
+                String date = data[3].toString();
+                date1.setText(date);
+                titl1.setEditable(false);
+                note1.setEditable(false);
+                user1.setEditable(false);
+                id1.setEditable(false);
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogpane.getDialogpane1());
+                dialog.setTitle("ADD NOTE");
+                Optional<ButtonType> check= dialog.showAndWait();
+                if(check.isPresent() && check.get()==ButtonType.CLOSE) {
+                    dialog.close();
+                }
+
+            });
+            btn.setStyle("-fx-pref-width: 190px;-fx-alignment: CENTER_LEFT;-fx-background-color: white");
+            btn.setOnMouseEntered(e->{
+                btn.setStyle("-fx-background-color: lightblue;-fx-pref-width: 190px;-fx-alignment: CENTER_LEFT;");
+            });
+            btn.setOnMouseExited(e->{
+                btn.setStyle("-fx-background-color: white;-fx-pref-width: 190px;-fx-alignment: CENTER_LEFT;");
+            });
+            noteTxtArea.getChildren().add((Node) list.get(index));
+            index++;
+        }
+
+    }
+
+    //for get username and device id
      public void adddefaultDetails(){
              FXMLLoader dialogPaneFxml = new FXMLLoader(Objects.requireNonNull(DeviceInfoCardController.class.getResource("DialogBox/AddnoteDialog.fxml")));
              try {
@@ -220,13 +266,16 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
          dialogpane1  = noteFxmlLoader.getController();
          dialogpane1.getEditButton().setVisible(false);
          dialogpane1.getUpdateButton().setVisible(false);
-         dialogpane1.setSetDeviceIdName(paneControllers.get(0));
+         dialogpane1.setSetDeviceIdName(id.get(0));
          dialogpane1.setUser(username.get(0));
           Dialog<ButtonType> dialog = new Dialog<>();
           dialog.setDialogPane(dialogpane1.getDialogpane1());
           dialog.setTitle("ADD NOTE");
           Optional<ButtonType> check = dialog.showAndWait();
           if(check.isPresent() && check.get()==ButtonType.CLOSE){
+              noteTxtArea.getChildren().clear();
+              setDevId(devId);
+              dialog.close();
           }
 
      }

@@ -226,73 +226,66 @@ public class DashboardController extends Component implements Initializable {
     }
     public void view(){
             int selectedValue=table1.getSelectionModel().getSelectedIndex();
-            System.out.println(selectedValue);
+            String[] data=new String[5];
             if(selectedValue>=0) {
                 String titles = table1.getItems().get(selectedValue).getTitle();
                 String ids = table1.getItems().get(selectedValue).getId();
+                data = noteInstance.viewQueries(titles,ids);
+                System.out.println("checking2");
+                FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
                 try {
-                    ResultSet rs = noteInstance.viewQueries(titles,ids);
-                    System.out.println("checking2");
-                    FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
-                    System.out.println("checking1");
-                    try {
-                        DialogPane dialog1 = fxmlLoader.load();
-                        AddNoteDialogPane dialogpane = fxmlLoader.getController();
-                        dialogpane.getEditButton().setVisible(true);
-                        editButton = dialogpane.getEditButton();
-                        dialogpane.getAddNote().setVisible(false);
-                        dialogpane.getUpdateButton().setVisible(false);
-                        updateButton = dialogpane.getUpdateButton();
-                        dialogpane.setIds(ids);
-                        TextField titl1 = dialogpane.getTitle();
-                        TextArea note1 = dialogpane.getNote();
-                        TextField user1 = dialogpane.getUsername();
-                        TextField id1 = dialogpane.getDeviceId();
-                        Label date1 = dialogpane.getDate();
-                        rs.next();
-                        titl1.setText(rs.getString(5));
-                        note1.setText(rs.getString(3));
-                        user1.setText(rs.getString(2));
-                        id1.setText(rs.getString(1));
-                        String date = rs.getDate(4).toString();
-                        date1.setText(date);
-                        rs.close();
-                        titl1.setEditable(false);
-                        note1.setEditable(false);
-                        user1.setEditable(false);
-                        id1.setEditable(false);
-                        Dialog<ButtonType> dialog = new Dialog<>();
-                        dialog.setDialogPane(dialogpane.getDialogpane1());
-                        dialog.setTitle("ADD NOTE");
-                        editButton.setOnAction(e -> {
-                            id1.setEditable(true);
-                            titl1.setEditable(true);
-                            user1.setEditable(true);
-                            note1.setEditable(true);
-                            updateButton.setVisible(true);
-                        });
-                        updateButton.setOnAction(e1 -> {
-                            LocalDate localDate = LocalDate.now();
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            String currentDate = localDate.format(formatter);
-                            try {
-                                noteInstance.updateTableQuiries(id1.getText(),user1.getText(),note1.getText() ,titl1.getText(),currentDate,titles,ids);
-                                tableAdd();
-                                JOptionPane.showMessageDialog(this, "update successful!", "successful", JOptionPane.INFORMATION_MESSAGE);
-                            } catch (SQLException event) {
-                                JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
-                            } finally {
-                                table1.getSelectionModel().clearSelection();
-                            }
-                        });
-                        Optional<ButtonType> check= dialog.showAndWait();
-                        if(check.isPresent() && check.get()==ButtonType.CLOSE) {
-
+                    DialogPane dialog1 = fxmlLoader.load();
+                    AddNoteDialogPane dialogpane = fxmlLoader.getController();
+                    dialogpane.getEditButton().setVisible(true);
+                    editButton = dialogpane.getEditButton();
+                    dialogpane.getAddNote().setVisible(false);
+                    dialogpane.getUpdateButton().setVisible(false);
+                    updateButton = dialogpane.getUpdateButton();
+                    dialogpane.setIds(ids);
+                    TextField titl1 = dialogpane.getTitle();
+                    TextArea note1 = dialogpane.getNote();
+                    TextField user1 = dialogpane.getUsername();
+                    TextField id1 = dialogpane.getDeviceId();
+                    Label date1 = dialogpane.getDate();
+                    titl1.setText(data[4]);
+                    note1.setText(data[2]);
+                    user1.setText(data[1]);
+                    id1.setText(data[0]);
+                    String date = data[3].toString();
+                    date1.setText(date);
+                    titl1.setEditable(false);
+                    note1.setEditable(false);
+                    user1.setEditable(false);
+                    id1.setEditable(false);
+                    Dialog<ButtonType> dialog = new Dialog<>();
+                    dialog.setDialogPane(dialogpane.getDialogpane1());
+                    dialog.setTitle("ADD NOTE");
+                    editButton.setOnAction(e -> {
+                        id1.setEditable(true);
+                        titl1.setEditable(true);
+                        user1.setEditable(true);
+                        note1.setEditable(true);
+                        updateButton.setVisible(true);
+                    });
+                    updateButton.setOnAction(e1 -> {
+                        LocalDate localDate = LocalDate.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String currentDate = localDate.format(formatter);
+                        try {
+                            noteInstance.updateTableQuiries(id1.getText(),user1.getText(),note1.getText() ,titl1.getText(),currentDate,titles,ids);
+                            tableAdd();
+                            JOptionPane.showMessageDialog(this, "update successful!", "successful", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (SQLException event) {
+                            JOptionPane.showMessageDialog(this, "same title with same id not valid", "Rejected!", JOptionPane.ERROR_MESSAGE);
+                        } finally {
+                            table1.getSelectionModel().clearSelection();
                         }
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    });
+                    Optional<ButtonType> check= dialog.showAndWait();
+                    if(check.isPresent() && check.get()==ButtonType.CLOSE) {
+
                     }
-                } catch (SQLException e) {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
