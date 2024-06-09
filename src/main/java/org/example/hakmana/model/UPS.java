@@ -1,7 +1,8 @@
-package org.example.hakmana.model.mainDevices;
+package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,62 +13,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Projectors extends Devices{
-    private DatabaseConnection conn =DatabaseConnection.getInstance();;
+
+public class UPS extends Devices{
+    private DatabaseConnection conn;
     private String regNum;
-    private String model;
+    private String model="No";
     private String status;
+    private String userName;
 
-    public Projectors(String regNum, String model, String name, String status) {
-        super(regNum, model, name, status);
+    public UPS(String upsRegNum, String model, String userName, String status) {
+        super(upsRegNum, model, userName, status);
     }
 
-    public Projectors() {
-    }
-
-    @Override
-    public void setRegNum(String para1) {
-
+    public UPS() {
     }
 
     @Override
     public String getRegNum() {
-        return null;
+        return regNum;
     }
-
     @Override
-    public void setModel(String para1) {
-
+    public void setRegNum(String regNum) {
+        this.regNum = regNum;
     }
-
     @Override
     public String getModel() {
-        return null;
+        return model;
     }
-
     @Override
-    public String getUserName() {
-        return null;
+    public void setModel(String model) {
+        this.model = model;
     }
-
-    @Override
-    public void setUserName(String para1) {
-    }
-
-    @Override
-    public void setStatus(String para1) {
-
-    }
-
     @Override
     public String getStatus() {
-        return null;
+        return status;
+    }
+    @Override
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Projectors[] getDevices() {
-        List<Projectors> projectors = new ArrayList<>();
+    public UPS[] getDevices() {
+       conn=DatabaseConnection.getInstance();
+        List<UPS> ups = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT * FROM MultimediaProjector";
+        String sql = "SELECT * FROM Ups";
 
         try {
             // get result set from connection class
@@ -75,39 +73,39 @@ public class Projectors extends Devices{
 
             // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
-                Projectors projector = new Projectors();
+                UPS ups1 = new UPS();
 
-                projector.setRegNum(resultSet.getString("MultimediaProjectorRegNum"));
-                projector.setModel(resultSet.getString("model"));
-                projector.setStatus(resultSet.getString("status"));
-                projector.setUserName("no user");
+                ups1.setRegNum(resultSet.getString("UpsRegNum"));
+                ups1.setModel(resultSet.getString("model"));
+                ups1.setStatus(resultSet.getString("status"));
 
-                projectors.add(projector);
+                ups.add(ups1);
             }
         }
         catch (SQLException e){
             System.out.println(e);
         }
 
-        return projectors.toArray(new Projectors[0]);
+        return ups.toArray(new UPS[0]);
     }
     @Override
-    public Projectors getDevice(String MultimediaProjectorRegNum) {
+    public UPS getDevice(String regNum) {
+        conn = DatabaseConnection.getInstance();
         //pass query to the connection class
-        String sql = "SELECT * FROM multimediaprojector Where MultimediaProjectorRegNum=?";
+        String sql = "SELECT * FROM ups Where upsRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, MultimediaProjectorRegNum);
+            ps.setString(1, regNum);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Projectors multimediaprojector = new Projectors();
-                multimediaprojector.setRegNum(rs.getString("MultimediaProjectorRegNum"));
-                multimediaprojector.setModel(rs.getString("model"));
-                multimediaprojector.setStatus(rs.getString("status"));
+                UPS ups = new UPS();
+                ups.setRegNum(rs.getString("upsRegNum"));
+                ups.setModel(rs.getString("model"));
+                ups.setStatus(rs.getString("status"));
 
-                return multimediaprojector;
+                return ups;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -116,12 +114,11 @@ public class Projectors extends Devices{
         //return null if there is no result
         return null;
     }
-
     public boolean updateDevice(ArrayList<String> list){
         conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE multimediaprojector SET model=?,status=? WHERE regNUM=?";
+        String sql="UPDATE ups SET model=?,status=? WHERE upsRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -137,7 +134,7 @@ public class Projectors extends Devices{
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(2));
+            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(5));
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -167,7 +164,8 @@ public class Projectors extends Devices{
         conn = DatabaseConnection.getInstance();
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status) VALUES (?,?,?)";
+        String sql="INSERT INTO ups (upsRegNum,model,status)" +
+                "VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 
@@ -209,4 +207,5 @@ public class Projectors extends Devices{
         }
         return false;
     }
+
 }

@@ -1,8 +1,7 @@
-package org.example.hakmana.model.mainDevices;
+package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,57 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-public class Printer extends Devices {
-    private DatabaseConnection conn=DatabaseConnection.getInstance();
+public class Monitors extends Devices{
+    private DatabaseConnection conn=DatabaseConnection.getInstance();;
     private String regNum;
     private String model;
     private String status;
     private String userName;
 
-    private String serialNum;
-    private String paperInput;
-    private String paperOutput;
+    private String screenSize;
     private String purchasedFrom;
 
-
-    public Printer(String regNum, String model, String name, String status) {
-        super(regNum, model, name, status);
+    public Monitors(String regNum, String model, String userName, String status, String screenSize) {
+        super(regNum, model, userName, status);
+        this.screenSize = screenSize;
     }
 
-    public Printer() {
+    public Monitors(String regNum, String model, String userName, String status) {
+        super(regNum, model, userName,status);
     }
 
-    public String getSerialNum() {
-        return serialNum;
-    }
-
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
-    }
-
-    public String getPaperInput() {
-        return paperInput;
-    }
-
-    public void setPaperInput(String paperInput) {
-        this.paperInput = paperInput;
-    }
-
-    public String getPaperOutput() {
-        return paperOutput;
-    }
-
-    public void setPaperOutput(String paperOutput) {
-        this.paperOutput = paperOutput;
-    }
-
-    public String getPurchasedFrom() {
-        return purchasedFrom;
-    }
-
-    public void setPurchasedFrom(String purchasedFrom) {
-        this.purchasedFrom = purchasedFrom;
+    public Monitors() {
     }
 
     @Override
@@ -106,10 +74,10 @@ public class Printer extends Devices {
         return null;
     }
 
-    public Printer[] getDevices() {
-        List<Printer> printers = new ArrayList<>();
+    public Monitors[] getDevices() {
+        List<Monitors> monitors = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Printer.PrinterRegNum,Printer.model,Printer.status FROM Printer";
+        String sql = "SELECT Monitor.MonitorRegNum,Monitor.model,Monitor.status FROM Monitor";
 
         try {
             // get result set from connection class
@@ -117,25 +85,26 @@ public class Printer extends Devices {
 
             // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
-                Printer printer = new Printer();
-                printer.setRegNum(resultSet.getString("PrinterRegNum"));
-                printer.setModel(resultSet.getString("model"));
-                printer.setStatus(resultSet.getString("status"));
-                printer.setUserName("no user");
+                Monitors monitor = new Monitors();
 
-                printers.add(printer);
+                monitor.setRegNum(resultSet.getString("MonitorRegNum"));
+                monitor.setModel(resultSet.getString("model"));
+                monitor.setStatus(resultSet.getString("status"));
+                monitor.setUserName("no user");
+
+                monitors.add(monitor);//add monitor to the monitors list
             }
         }
         catch (SQLException e){
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
-        return printers.toArray(new Printer[0]);
+        return monitors.toArray(new Monitors[0]);
     }
     @Override
-    public Printer getDevice(String regNum) {
+    public Monitors getDevice(String regNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM printer Where PrinterRegNum=?";
+        String sql = "SELECT * FROM monitors Where MonitoRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -143,15 +112,12 @@ public class Printer extends Devices {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Printer printer = new Printer();
-                printer.setRegNum(rs.getString("PrinterRegNum"));
-                printer.setModel(rs.getString("model"));
-                printer.setStatus(rs.getString("status"));
-                printer.setSerialNum(rs.getString("serialNum"));
-                printer.setPaperInput(rs.getString("paperInput"));
-                printer.setPaperOutput(rs.getString("paperOutput"));
+                Monitors monitors = new Monitors();
+                monitors.setRegNum(rs.getString("regNum"));
+                monitors.setModel(rs.getString("model"));
+                monitors.setStatus(rs.getString("status"));
 
-                return printer;
+                return monitors;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -161,11 +127,10 @@ public class Printer extends Devices {
         return null;
     }
 
-
     public boolean updateDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE printer SET model=?,status=?,serialNum=?,paperInput=?,paperOutput=? WHERE PrinterRegNum=?";
+        String sql="UPDATE monitors SET model=?,status=? WHERE MonitoRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -181,7 +146,7 @@ public class Printer extends Devices {
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(6));
+            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(3));
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -210,8 +175,8 @@ public class Printer extends Devices {
     public boolean insertDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO printer (PrinterRegNum,model,status,serialNum,paperInput,paperOutput)" +
-                "VALUES (?,?,?,?,?,?)";
+        String sql="INSERT INTO monitors (MonitoRegNum,model,status)" +
+                "VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 

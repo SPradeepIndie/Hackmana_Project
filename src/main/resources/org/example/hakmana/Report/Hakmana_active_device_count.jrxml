@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Hakmana_active_device_count" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7bf696ca-bd35-4d63-a1a6-09074eb8cdc2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (32)"/>
+	<subDataset name="Dataset1" uuid="2c280fd6-6323-4004-b42a-b365244dadda">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (33)"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'hakmanaedm'
+AND table_name not in ('notes','systemuser','users')
+]]>
+		</queryString>
+		<field name="table_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="TABLE_NAME"/>
+			<property name="com.jaspersoft.studio.field.label" value="table_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="TABLES"/>
+		</field>
+	</subDataset>
+	<subDataset name="Dataset2" uuid="4bdc1aa9-d231-4e6d-9c0d-b6596fec3815">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (34)"/>
+		<queryString language="SQL">
+			<![CDATA[select count(regNum) from accesspoint where status in ('active') union all
+select count(regNum) from desktop where status in ('active') union all
+select count(regNum) from externaldvdrom where status in ('active') union all
+select count(regNum) from externalusb where status in ('active') union all
+select count(regNum) from faxmachine where status in ('active') union all
+select count(regNum) from headphone where status in ('active') union all
+select count(regNum) from keyboard where status in ('active') union all
+select count(regNum) from laptop where status in ('active') union all
+select count(regNum) from monitors where status in ('active') union all
+select count(regNum) from mouse where status in ('active') union all
+select count(regNum) from multimediaprojector where status in ('active') union all
+select count(regNum) from photocopymachine where status in ('active') union all
+select count(regNum) from printer where status in ('active') union all
+select count(regNum) from router where status in ('active') union all
+select count(regNum) from routerswitch where status in ('active') union all
+select count(regNum) from speakerset where status in ('active') union all
+select count(regNum) from toolkit where status in ('active') union all
+select count(regNum) from tripod where status in ('active') union all
+select count(regNum) from ups where status in ('active') union all
+select count(regNum) from usbcable where status in ('active') union all
+select count(regNum) from usbhub where status in ('active') union all
+select count(regNum) from vgacable where status in ('active') union all
+select count(regNum) from webcam where status in ('active') ]]>
+		</queryString>
+		<field name="count(regNum)" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="count(regNum)"/>
+			<property name="com.jaspersoft.studio.field.label" value="count(regNum)"/>
+		</field>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[select count(regNum) from accesspoint where status in ('active') union all
+select count(regNum) from desktop where status in ('active') union all
+select count(regNum) from externaldvdrom where status in ('active') union all
+select count(regNum) from externalusb where status in ('active') union all
+select count(regNum) from faxmachine where status in ('active') union all
+select count(regNum) from headphone where status in ('active') union all
+select count(regNum) from keyboard where status in ('active') union all
+select count(regNum) from laptop where status in ('active') union all
+select count(regNum) from monitors where status in ('active') union all
+select count(regNum) from mouse where status in ('active') union all
+select count(regNum) from multimediaprojector where status in ('active') union all
+select count(regNum) from photocopymachine where status in ('active') union all
+select count(regNum) from printer where status in ('active') union all
+select count(regNum) from router where status in ('active') union all
+select count(regNum) from routerswitch where status in ('active') union all
+select count(regNum) from speakerset where status in ('active') union all
+select count(regNum) from toolkit where status in ('active') union all
+select count(regNum) from tripod where status in ('active') union all
+select count(regNum) from ups where status in ('active') union all
+select count(regNum) from usbcable where status in ('active') union all
+select count(regNum) from usbhub where status in ('active') union all
+select count(regNum) from vgacable where status in ('active') union all
+select count(regNum) from webcam where status in ('active')]]>
+	</queryString>
+	<field name="count(regNum)" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="count(regNum)"/>
+		<property name="com.jaspersoft.studio.field.label" value="count(regNum)"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="57" y="6" width="440" height="30" uuid="d29db596-085a-452f-a32e-47c736fc8990"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of Active devices]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="110" y="4" width="100" height="30" uuid="77b35693-9933-4064-ba13-b766e3b3a69b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Device name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="4" width="100" height="30" uuid="8abb145f-5a3d-43c7-bba9-5a04f6f2e222"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Device Count]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="371" splitType="Stretch">
+			<componentElement>
+				<reportElement x="330" y="0" width="100" height="30" uuid="00f5cfc0-6300-4552-b7dd-a6b1e1263537"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset2" uuid="c32f3d59-accf-44a0-9f59-9cef68ab2f80">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="30" width="100">
+						<textField>
+							<reportElement x="0" y="0" width="100" height="30" uuid="ca3405bc-f091-4ef9-9370-af4caf06e54f"/>
+							<textFieldExpression><![CDATA[$F{count(regNum)}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement x="120" y="0" width="100" height="30" uuid="9f15a361-23db-4d5e-9d03-fe3f0ca92a13"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Dataset1" uuid="a9aea8cb-a674-47a3-ab70-01c9dc379723">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="30" width="100">
+						<textField>
+							<reportElement x="0" y="0" width="100" height="30" uuid="3f2bd8e7-d3ad-4d50-bf1c-ff561f436b2a"/>
+							<textFieldExpression><![CDATA[$F{table_name}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

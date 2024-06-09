@@ -14,7 +14,6 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ForgotPasswrdDialog {
-    private static ForgotPasswrdDialog instance=null;
     public SystemUser systemUser =new SystemUser();
     private String usrEmail;
 
@@ -87,15 +86,6 @@ public class ForgotPasswrdDialog {
 
     public Button getApplyBtn() {
         return ApplyBtn;
-    }
-    private ForgotPasswrdDialog(){
-    }
-    public static ForgotPasswrdDialog getInstance() {
-        if(instance==null){
-            instance=new ForgotPasswrdDialog();
-            return instance;
-        }
-        return instance;
     }
 
     //get email and from the FrogotPsswrd.fxml

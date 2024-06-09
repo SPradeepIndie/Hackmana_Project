@@ -1,4 +1,4 @@
-package org.example.hakmana.model.mainDevices;
+package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

@@ -1,4 +1,4 @@
-package org.example.hakmana.model.mainDevices;
+package org.example.hakmana.model;
 
 public abstract class Devices {
     private String regNum;

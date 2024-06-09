@@ -113,8 +113,8 @@
                                     <HBox prefWidth="875.0">
                                         <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="ALWAYS">
                                             <columns>
-                                                <TableColumn fx:id="col1" editable="false" prefWidth="120.0" resizable="false" sortable="false" text="Device Id" />
-                                                <TableColumn fx:id="col2" editable="false" prefWidth="575.0" resizable="false" sortable="false" text="title" />
+                                                <TableColumn fx:id="col1" editable="false" prefWidth="195.0" resizable="false" sortable="false" text="Device Id" />
+                                                <TableColumn fx:id="col2" editable="false" prefWidth="500.0" resizable="false" sortable="false" text="title" />
                                                 <TableColumn fx:id="col3" editable="false" prefWidth="200.0" resizable="false" sortType="DESCENDING" text="Date" />
                                             </columns>
                                         </TableView>

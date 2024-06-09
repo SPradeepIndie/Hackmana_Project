@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EditAccountController  implements Initializable{
-    private static EditAccountController instance=null;
+
     @FXML
     public TextField editNameField;
     @FXML
@@ -35,18 +35,7 @@ public class EditAccountController  implements Initializable{
 
     private Connection connection;
 
-    private EditAccountController(){
-    }
-
-    public static EditAccountController getInstance() {
-        if(instance==null){
-            instance=new EditAccountController();
-            return instance;
-        }
-        return instance;
-    }
-
-    static void alertBox(ActionEvent event, String title, String content){
+    static void alertBox(ActionEvent event,String title,String content){
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setContentText(content);
