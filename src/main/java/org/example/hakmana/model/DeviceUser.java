@@ -2,8 +2,6 @@ package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

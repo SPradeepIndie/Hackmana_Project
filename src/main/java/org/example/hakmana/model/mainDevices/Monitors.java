@@ -2,7 +2,6 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.*;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -19,8 +18,7 @@ public class Monitors extends Devices{
     private String model;
     private String status;
     private String userName;
-    @Setter
-    @Getter
+
     private String screenSize;
     private String purchasedFrom;
 

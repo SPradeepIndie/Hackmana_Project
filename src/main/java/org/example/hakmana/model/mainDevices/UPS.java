@@ -2,7 +2,7 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
+
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+
 public class UPS extends Devices{
     private DatabaseConnection conn;
     private String regNum;
