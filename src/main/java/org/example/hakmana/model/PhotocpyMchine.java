@@ -1,9 +1,11 @@
-package org.example.hakmana.model.mainDevices;
+package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.*;
-import org.example.hakmana.model.DatabaseConnection;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,103 +15,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
-public class Printer extends Devices {
-    private DatabaseConnection conn=DatabaseConnection.getInstance();
+
+public class PhotocpyMchine extends Devices {
+    private DatabaseConnection conn=DatabaseConnection.getInstance();;
     private String regNum;
     private String model;
     private String status;
     private String userName;
 
-    private String serialNum;
-    private String paperInput;
-    private String paperOutput;
-    private String purchasedFrom;
-
-
-    public Printer(String regNum, String model, String name, String status) {
-        super(regNum, model, name, status);
+    public PhotocpyMchine(String regNum, String model, String userName, String status) {
+        super(regNum, model, userName, status);
     }
 
-    public Printer() {
-    }
-
-    public String getSerialNum() {
-        return serialNum;
-    }
-
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
-    }
-
-    public String getPaperInput() {
-        return paperInput;
-    }
-
-    public void setPaperInput(String paperInput) {
-        this.paperInput = paperInput;
-    }
-
-    public String getPaperOutput() {
-        return paperOutput;
-    }
-
-    public void setPaperOutput(String paperOutput) {
-        this.paperOutput = paperOutput;
-    }
-
-    public String getPurchasedFrom() {
-        return purchasedFrom;
-    }
-
-    public void setPurchasedFrom(String purchasedFrom) {
-        this.purchasedFrom = purchasedFrom;
-    }
-
-    @Override
-    public void setRegNum(String para1) {
-
+    public PhotocpyMchine() {
     }
 
     @Override
     public String getRegNum() {
-        return null;
+        return regNum;
     }
-
     @Override
-    public void setModel(String para1) {
-
+    public void setRegNum(String regNum) {
+        this.regNum = regNum;
     }
-
     @Override
     public String getModel() {
-        return null;
+        return model;
     }
-
     @Override
     public String getUserName() {
         return null;
     }
-
     @Override
-    public void setUserName(String para1) {
-
+    public void setModel(String model) {
+        this.model = model;
     }
-
-    @Override
-    public void setStatus(String para1) {
-
-    }
-
     @Override
     public String getStatus() {
-        return null;
+        return status;
+    }
+    @Override
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Printer[] getDevices() {
-        List<Printer> printers = new ArrayList<>();
+    @Override
+    public PhotocpyMchine[] getDevices() {
+        List<PhotocpyMchine> photocopyMachines = new ArrayList<>();
         //pass query to the connection class
-        String sql = "SELECT Printer.PrinterRegNum,Printer.model,Printer.status FROM Printer";
+        String sql = "SELECT PhotoCopyMachine.* FROM PhotoCopyMachine";
 
         try {
             // get result set from connection class
@@ -117,25 +75,26 @@ public class Printer extends Devices {
 
             // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
-                Printer printer = new Printer();
-                printer.setRegNum(resultSet.getString("PrinterRegNum"));
-                printer.setModel(resultSet.getString("model"));
-                printer.setStatus(resultSet.getString("status"));
-                printer.setUserName("no user");
+                PhotocpyMchine photocopyMachine = new PhotocpyMchine();
 
-                printers.add(printer);
+                photocopyMachine.setRegNum(resultSet.getString("PhotoCopyMachineRegNum"));
+                photocopyMachine.setModel(resultSet.getString("model"));
+                photocopyMachine.setStatus(resultSet.getString("status"));
+                photocopyMachine.setUserName("no user");
+
+                photocopyMachines.add(photocopyMachine);//add photocopyMachines to the photocopyMachins list
             }
         }
         catch (SQLException e){
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
-        return printers.toArray(new Printer[0]);
+        return photocopyMachines.toArray(new PhotocpyMchine[0]);
     }
     @Override
-    public Printer getDevice(String regNum) {
+    public PhotocpyMchine getDevice(String regNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM printer Where PrinterRegNum=?";
+        String sql = "SELECT * FROM PhotoCopyMachine Where PhotoCopyMachineRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -143,15 +102,12 @@ public class Printer extends Devices {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Printer printer = new Printer();
-                printer.setRegNum(rs.getString("PrinterRegNum"));
-                printer.setModel(rs.getString("model"));
-                printer.setStatus(rs.getString("status"));
-                printer.setSerialNum(rs.getString("serialNum"));
-                printer.setPaperInput(rs.getString("paperInput"));
-                printer.setPaperOutput(rs.getString("paperOutput"));
+                PhotocpyMchine PhotoCopyMachine = new PhotocpyMchine();
+                PhotoCopyMachine.setRegNum(rs.getString("PhotoCopyMachineRegNum"));
+                PhotoCopyMachine.setModel(rs.getString("model"));
+                PhotoCopyMachine.setStatus(rs.getString("status"));
 
-                return printer;
+                return PhotoCopyMachine;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -160,12 +116,10 @@ public class Printer extends Devices {
         //return null if there is no result
         return null;
     }
-
-
     public boolean updateDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE printer SET model=?,status=?,serialNum=?,paperInput=?,paperOutput=? WHERE PrinterRegNum=?";
+        String sql="UPDATE PhotoCopyMachine SET model= ?, status= ? WHERE PhotoCopyMachineRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -181,7 +135,7 @@ public class Printer extends Devices {
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(6));
+            alert.setContentText("Update "+ i+" rows Photocopy Machine registration number " +list.get(3));
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -207,27 +161,26 @@ public class Printer extends Devices {
         }
         return false;
     }
-    public boolean insertDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
+    public boolean insertDevice(ArrayList<String> list) {
+        Connection connection = conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO printer (PrinterRegNum,model,status,serialNum,paperInput,paperOutput)" +
-                "VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO PhotoCopyMachine (PhotoCopyMachineRegNum,model,status) VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);
 
-            int i=1;
+            int i = 1;
             PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
+            for (String l : list) {
+                ps.setString(i, l);
                 i++;
             }
 
-            i=ps.executeUpdate();
+            i = ps.executeUpdate();
 
             //Check confirmation to change
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.getFirst());
+            alert.setContentText("Update " + i + " rows desktop registration number " + list.getFirst());
 
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
@@ -245,7 +198,7 @@ public class Printer extends Devices {
 
         } catch (SQLException e) {
             // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Updating Device");
             alert.setHeaderText("An error occurred while updating the device.");
             alert.setContentText(e.getMessage());

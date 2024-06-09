@@ -9,12 +9,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.model.SystemUser;
 
 import org.example.hakmana.model.SystemUser;
-import org.example.hakmana.view.dialogBoxes.CreateAccountController;
-import org.example.hakmana.view.dialogBoxes.EditAccountController;
-import org.example.hakmana.view.dialogBoxes.ShowUsersController;
 
 
 import java.io.IOException;
@@ -71,8 +67,7 @@ public class UserMngmntController implements Initializable {
     @FXML
     public void handleCreateAccountButtonAction(ActionEvent event) throws IOException {
         FXMLLoader createAccfxmlLoad = new FXMLLoader();
-        createAccfxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.CreateAccountController.class.getResource("CreateAccount.fxml"));
-        createAccfxmlLoad.setController(CreateAccountController.getInstance());
+        createAccfxmlLoad.setLocation(UserMngmntController.class.getResource("DialogBox/CreateAccount.fxml"));
         DialogPane createAccDialogPane = createAccfxmlLoad.load();
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -85,8 +80,7 @@ public class UserMngmntController implements Initializable {
     @FXML
     protected void handleEditProfileButtonAction(ActionEvent event) throws IOException {
         FXMLLoader editAccfxmlLoad = new FXMLLoader();
-        editAccfxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.EditAccountController.class.getResource("EditProfile.fxml"));
-        editAccfxmlLoad.setController(EditAccountController.getInstance());
+        editAccfxmlLoad.setLocation(UserMngmntController.class.getResource("DialogBox/EditProfile.fxml"));
         DialogPane editAccDialogPane = editAccfxmlLoad.load();
 
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -99,8 +93,7 @@ public class UserMngmntController implements Initializable {
     @FXML
     protected void handleShowUsersButtonAction(ActionEvent event) throws IOException {
         FXMLLoader showAccfxmlLoad = new FXMLLoader();
-        showAccfxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.ShowUsersController.class.getResource("ShowUsers.fxml"));
-        showAccfxmlLoad.setController(ShowUsersController.getInsance());
+        showAccfxmlLoad.setLocation(UserMngmntController.class.getResource("DialogBox/ShowUsers.fxml"));
         DialogPane showAccDialogPane = showAccfxmlLoad.load();
 
         Dialog<ButtonType> dialog = new Dialog<>();

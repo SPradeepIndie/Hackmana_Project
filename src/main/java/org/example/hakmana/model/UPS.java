@@ -1,9 +1,10 @@
-package org.example.hakmana.model.mainDevices;
+package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import lombok.AllArgsConstructor;
-import org.example.hakmana.model.DatabaseConnection;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
