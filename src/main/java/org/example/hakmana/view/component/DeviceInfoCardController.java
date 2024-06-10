@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
 import org.example.hakmana.view.scene.DevDetailedViewController;
 
-import org.example.hakmana.model.NoteTable;
+import org.example.hakmana.model.noteHndling.NoteTable;
 
 import java.io.IOException;
 import java.net.URL;

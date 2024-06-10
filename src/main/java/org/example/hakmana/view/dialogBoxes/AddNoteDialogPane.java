@@ -9,14 +9,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.model.NoteTable;
+import org.example.hakmana.model.noteHndling.NoteTable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

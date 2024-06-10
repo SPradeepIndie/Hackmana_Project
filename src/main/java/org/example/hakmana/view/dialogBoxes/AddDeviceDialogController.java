@@ -6,8 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.example.hakmana.model.*;
 import org.example.hakmana.model.mainDevices.*;
+import org.example.hakmana.model.userMngmnt.DeviceUser;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -218,7 +218,7 @@ public class AddDeviceDialogController implements Initializable {
     /*-------------------------------Initialize---------------------------------*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        deviceUser =new DeviceUser();
+        deviceUser =DeviceUser.getDeviceUserInstance();
         //populate the choiceboxes
         devCat.getItems().addAll(devCategories);
         StatusChoiseBox.getItems().addAll(deviceStatus);
@@ -273,7 +273,7 @@ public class AddDeviceDialogController implements Initializable {
             addUserButton.setDisable(newValue.isEmpty());
 
             // Check if the newValue is available in the users array
-            DeviceUser deviceUser = new DeviceUser().isNicAvailable(newValue);
+            DeviceUser deviceUser =DeviceUser.getDeviceUserInstance().isNicAvailable(newValue);
             if (deviceUser != null) {
                 // Auto-fill the other text fields
                 userGmail.setText(deviceUser.getGmail());
