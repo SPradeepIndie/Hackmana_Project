@@ -2,7 +2,6 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.*;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,10 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-@AllArgsConstructor
 public class Desktop extends Devices {
     private DatabaseConnection conn=DatabaseConnection.getInstance();
+    private static Desktop desktopInstance=null;
     private String regNum;
     private String model;
     private String status;
@@ -39,33 +37,15 @@ public class Desktop extends Devices {
     private String userNIC = "No DeviceUser";
     private String floppyDisk = "NO";
     private String scannerRegNum = "NO";
-
-    public Desktop(String regNum, String model, String userName, String status, String serialNum, String purchasedFrom, String ram, String processor, String hardDisk, String os, String floppyDisk, String soundCard, String tvCard, String networkCard, String monitorRegNum, String speakerRegNum, String mouseRegNum, String keyboardRegNum, String micRegNum, String scannerRegNum, String userNIC) {
-        super(regNum, model, userName, status);
-        this.floppyDisk = floppyDisk;
-        this.soundCard = soundCard;
-        this.tvCard = tvCard;
-        this.networkCard = networkCard;
-        this.serialNum = serialNum;
-        this.purchasedFrom = purchasedFrom;
-        this.ram = ram;
-        this.processor = processor;
-        this.hardDisk = hardDisk;
-        this.os = os;
-        this.monitorRegNum = monitorRegNum;
-        this.speakerRegNum = speakerRegNum;
-        this.mouseRegNum = mouseRegNum;
-        this.keyboardRegNum = keyboardRegNum;
-        this.micRegNum = micRegNum;
-        this.scannerRegNum = scannerRegNum;
-        this.userNIC = userNIC;
+    private Desktop() {
     }
 
-    public Desktop(String regNum, String model, String userName, String status) {
-        super(regNum, model, userName, status);
-    }
-
-    public Desktop() {
+    public static Desktop getDesktopInstance() {
+        if(desktopInstance==null){
+            desktopInstance=new Desktop();
+            return desktopInstance;
+        }
+        return desktopInstance;
     }
 
     @Override
@@ -247,7 +227,7 @@ public class Desktop extends Devices {
 
             // Iterate through the result set and create Desktop and DeviceUser objects
             while (resultSet.next()) {
-                Desktop desktop = new Desktop(null, null, null, null);
+                Desktop desktop = new Desktop();
                 desktop.setRegNum(resultSet.getString("DesRegNum"));
                 desktop.setModel(resultSet.getString("model"));
                 desktop.setStatus(resultSet.getString("status"));

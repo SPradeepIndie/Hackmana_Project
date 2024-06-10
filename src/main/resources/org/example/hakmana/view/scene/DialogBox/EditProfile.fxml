@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.hakmana.EditAccountController">
+   <content>
+      <AnchorPane fx:id="parentAnchor" style="-fx-background-color: #00000021;">
+          <children>
+                      <VBox fx:id="editProfileFields" alignment="CENTER" layoutX="40.0" layoutY="40.0" prefHeight="227.0" prefWidth="291.0" spacing="10" stylesheets="@../CSS/EditProfile.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <!-- Insert fields and button for profile editing -->
+                            <Label fx:id="editProfileLabel" text="Edit Your Profile">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                                    <TextField fx:id="editNameField" promptText="Full Name" stylesheets="@../CSS/EditProfile.css" />
+                                     <TextField fx:id="editPostField" promptText="Post" />
+                                    <TextField fx:id="editEmailField" promptText="Email" />
+                                    <TextField fx:id="editPhoneField" promptText="Phone Number" styleClass="edit-profile-field" stylesheets="@../CSS/EditProfile.css" />
+                                    <Button fx:id="updateProfileButton" onAction="#updateProfileButtonOnAction" styleClass="edit-profile-button" stylesheets="@../CSS/EditProfile.css" text="Update Profile" />
+                     </children>
+                  </VBox>
+                          </children>
+                      </VBox>
+          </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

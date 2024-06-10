@@ -2,7 +2,7 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.*;
+
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -14,26 +14,25 @@ import java.util.List;
 import java.util.Optional;
 
 public class Monitors extends Devices{
-    private DatabaseConnection conn=DatabaseConnection.getInstance();;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();
+    private static Monitors monitorInstance=null;
     private String regNum;
     private String model;
     private String status;
     private String userName;
-    @Setter
-    @Getter
+
     private String screenSize;
     private String purchasedFrom;
 
-    public Monitors(String regNum, String model, String userName, String status, String screenSize) {
-        super(regNum, model, userName, status);
-        this.screenSize = screenSize;
+    private Monitors() {
     }
 
-    public Monitors(String regNum, String model, String userName, String status) {
-        super(regNum, model, userName,status);
-    }
-
-    public Monitors() {
+    public static Monitors getMonitorInstance() {
+        if(monitorInstance==null){
+            monitorInstance=new Monitors();
+            return monitorInstance;
+        }
+        return monitorInstance;
     }
 
     @Override

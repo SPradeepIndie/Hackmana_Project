@@ -2,7 +2,6 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,18 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 public class Projectors extends Devices{
-    private DatabaseConnection conn =DatabaseConnection.getInstance();;
+    private DatabaseConnection conn =DatabaseConnection.getInstance();
+    private static Projectors projectorsInstance=null;
     private String regNum;
     private String model;
     private String status;
 
-    public Projectors(String regNum, String model, String name, String status) {
-        super(regNum, model, name, status);
+    private Projectors() {
     }
 
-    public Projectors() {
+    public static Projectors getProjectorsInstance() {
+        if(projectorsInstance==null){
+            projectorsInstance=new Projectors();
+            return projectorsInstance;
+        }
+        return projectorsInstance;
     }
 
     @Override

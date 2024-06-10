@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane prefHeight="675.0" prefWidth="1271.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <expandableContent>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+    </expandableContent>
+
+   <content>
+      <AnchorPane prefWidth="1271.0">
+       <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+          <VBox alignment="CENTER" spacing="10.0">
+              <children>
+                  <HBox fx:id="interactionHbox" alignment="CENTER" prefHeight="42.0" prefWidth="631.0" spacing="10.0" style="-fx-border-color: BLACK; -fx-border-width: 1 0 1 0; -fx-background-color: #CDE8E5;" VBox.vgrow="ALWAYS">
+                      <children>
+                          <Label text="ADD NEW DEVICE" HBox.hgrow="NEVER">
+                              <font>
+                                  <Font name="System Bold" size="28.0" />
+                              </font>
+                              <HBox.margin>
+                                  <Insets />
+                              </HBox.margin>
+                          </Label>
+                          <Button fx:id="submitButton" layoutX="405.0" layoutY="19.0" mnemonicParsing="false" onAction="#submitButtonOnAction" prefWidth="80.0" styleClass="btn" text="Submit" />
+                          <Button fx:id="resetBtn" layoutX="460.0" layoutY="19.0" mnemonicParsing="false" onAction="#resetBtnAction" prefWidth="80.0" styleClass="btn" text="Reset" />
+                      </children>
+                  </HBox>
+                  <HBox spacing="20.0">
+                      <children>
+                          <VBox prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                  <VBox fx:id="commonVbox" spacing="10.0" VBox.vgrow="ALWAYS">
+                                      <children>
+                                          <HBox fillHeight="false" prefWidth="200.0" VBox.vgrow="NEVER">
+                                             <children>
+                                                <Label prefWidth="150.0" text="Select Deivce Category" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="devCat" prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Registration Number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="regNumTextField" style="-fx-border-radius: 5; -fx-border-color: #03AED2;" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Model" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="modelTextField" editable="false" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Status" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="StatusChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
+                                      </children>
+                                  </VBox>
+                                  <VBox fx:id="otherDetailVbox" spacing="10.0" VBox.vgrow="ALWAYS">
+                                      <children>
+                                          <HBox fx:id="other1Hbox" VBox.vgrow="ALWAYS">
+                                              <children>
+                                                  <Label fx:id="other1Lbl" prefWidth="150.0" text="Purchased From" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other1" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other2Hbox">
+                                              <children>
+                                                  <Label fx:id="other2Lbl" prefWidth="150.0" text="Ram" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other2" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other3Hbox">
+                                              <children>
+                                                  <Label fx:id="other3Lbl" prefWidth="150.0" text="Processor" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other3" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other4Hbox">
+                                              <children>
+                                                  <Label fx:id="other4Lbl" prefWidth="150.0" text="Warranty" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other4" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other5Hbox">
+                                              <children>
+                                                  <Label fx:id="other5Lbl" prefWidth="150.0" text="Hard Disk" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other5" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other6Hbox">
+                                              <children>
+                                                  <Label fx:id="other6Lbl" prefWidth="150.0" text="Operatiing System" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="OSChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other7Hbox">
+                                              <children>
+                                                  <Label fx:id="other7Lbl" prefWidth="150.0" text="Serial Number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other7" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other8Hbox">
+                                              <children>
+                                                  <Label fx:id="other8Lbl" prefWidth="150.0" text="Floppy Disk Drive" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="FloppyDiskChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other9Hbox">
+                                              <children>
+                                                  <Label fx:id="other9Lbl" prefWidth="150.0" text="Sound Card" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="SoundCardChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other10Hbox">
+                                              <children>
+                                                  <Label fx:id="other10Lbl" prefWidth="150.0" text="TV Card" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="TVCardChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other11Hbox">
+                                              <children>
+                                                  <Label fx:id="other11Lbl" prefWidth="150.0" text="Network Card" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="NetworkCardChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </VBox>
+                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                  <VBox fx:id="userDetailsVbox" alignment="TOP_CENTER" spacing="10.0" style="-fx-border-color: black; -fx-border-radius: 10; -fx-border-width: 2; -fx-background-radius: 10;">
+                                      <children>
+                                          <Label prefHeight="20.0" prefWidth="100.0" text="User Detail" VBox.vgrow="NEVER">
+                                              <font>
+                                                  <Font size="16.0" />
+                                              </font>
+                                          </Label>
+                                          <HBox fillHeight="false" VBox.vgrow="NEVER">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="NIC" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="userNIC" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fillHeight="false" VBox.vgrow="NEVER">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Name" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="userName" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fillHeight="false" VBox.vgrow="NEVER">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Title" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="userTitle" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fillHeight="false" VBox.vgrow="NEVER">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Gmail Address" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="userGmail" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                              <children>
+                                                  <Button fx:id="addUserButton" layoutX="214.0" layoutY="10.0" mnemonicParsing="false" onAction="#addUser" styleClass="btn" text="Assign user" />
+                                              </children>
+                                          </HBox>
+                                      </children>
+                                      <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" />
+                                      </padding>
+                                  </VBox>
+                                  <VBox fx:id="inputVbox" alignment="TOP_CENTER" prefWidth="400.0" spacing="10.0">
+                                      <children>
+                                          <Label prefHeight="20.0" prefWidth="111.0" text="Input Devices">
+                                              <font>
+                                                  <Font size="16.0" />
+                                              </font>
+                                          </Label>
+                                          <HBox fx:id="input1Hbox">
+                                              <children>
+                                                  <Label fx:id="input1Lbl" prefWidth="200.0" text="Mouse Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="input1" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="input2Hbox">
+                                              <children>
+                                                  <Label fx:id="input2Lbl" prefWidth="200.0" text="Keyboard Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="input2" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="input3Hbox">
+                                              <children>
+                                                  <Label fx:id="input3Lbl" prefWidth="200.0" text="External Mic Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="input3" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="input4Hbox">
+                                              <children>
+                                                  <Label fx:id="input4Lbl" prefWidth="200.0" text="Scanner Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="input4" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                      </children>
+                                  </VBox>
+                                  <VBox fx:id="outputVbox" alignment="TOP_CENTER" spacing="10.0">
+                                      <children>
+                                          <Label prefHeight="20.0" prefWidth="100.0" text="Output device">
+                                              <font>
+                                                  <Font size="16.0" />
+                                              </font>
+                                          </Label>
+                                          <HBox fx:id="output1Hbox">
+                                              <children>
+                                                  <Label fx:id="output1Lbl" prefWidth="200.0" text="Monitor Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="output1" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="output2Hbox">
+                                              <children>
+                                                  <Label fx:id="output2Lbl" prefWidth="200.0" text="Projector Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="output2" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="output3Hbox">
+                                              <children>
+                                                  <Label fx:id="output3Lbl" prefWidth="200.0" text="Speaker Registration number" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="output3" HBox.hgrow="ALWAYS" />
+                                              </children>
+                                          </HBox>
+                                      </children>
+                                  </VBox>
+                              </children>
+                          </VBox>
+                      </children>
+                      <padding>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                      </padding>
+                  </HBox>
+              </children>
+          </VBox>
+               </content>
+            </ScrollPane>
+</children>
+<VBox.margin>
+<Insets left="27.0" right="27.0" />
+</VBox.margin></AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="CLOSE" />
+   </buttonTypes>
+</DialogPane>

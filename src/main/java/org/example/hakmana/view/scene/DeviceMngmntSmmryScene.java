@@ -70,13 +70,13 @@ public class DeviceMngmntSmmryScene implements Initializable {
         if(dev==null){
             //upcast the dev
             switch (dbSelector) {
-                case "Desktop" -> dev = new Desktop().getDevices();
-                case "Photocopy Machines" -> dev = new PhotocpyMchine().getDevices();
-                case "Monitors" -> dev = new Monitors().getDevices();
-                case "Projectors" -> dev = new Projectors().getDevices();
-                case "Laptops" -> dev = new Laptops().getDevices();
-                case "Printers" -> dev = new Printer().getDevices();
-                case "UPS" -> dev = new UPS().getDevices();
+                case "Desktop" -> dev = Desktop.getDesktopInstance().getDevices();
+                case "Photocopy Machines" -> dev = PhotocpyMchine.getPhotocpyMchineInstance().getDevices();
+                case "Monitors" -> dev = Monitors.getMonitorInstance().getDevices();
+                case "Projectors" -> dev =Projectors.getProjectorsInstance().getDevices();
+                case "Laptops" -> dev = Laptops.getLaptopsInstance().getDevices();
+                case "Printers" -> dev =Printer.getPrinterInstance().getDevices();
+                case "UPS" -> dev = UPS.getUpsInstance().getDevices();
             }
             return dev;
         }

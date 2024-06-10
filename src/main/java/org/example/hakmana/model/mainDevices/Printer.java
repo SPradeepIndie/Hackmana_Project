@@ -2,7 +2,6 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.*;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 public class Printer extends Devices {
     private DatabaseConnection conn=DatabaseConnection.getInstance();
+    private static Printer printerInstance=null;
     private String regNum;
     private String model;
     private String status;
@@ -26,12 +25,15 @@ public class Printer extends Devices {
     private String paperOutput;
     private String purchasedFrom;
 
-
-    public Printer(String regNum, String model, String name, String status) {
-        super(regNum, model, name, status);
+    private Printer() {
     }
 
-    public Printer() {
+    public static Printer getPrinterInstance() {
+        if(printerInstance==null){
+            printerInstance=new Printer();
+            return printerInstance;
+        }
+        return printerInstance;
     }
 
     public String getSerialNum() {

@@ -2,7 +2,6 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import lombok.AllArgsConstructor;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,19 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+
 public class UPS extends Devices{
     private DatabaseConnection conn;
+    private static UPS upsInstance=null;
     private String regNum;
     private String model="No";
     private String status;
     private String userName;
 
-    public UPS(String upsRegNum, String model, String userName, String status) {
-        super(upsRegNum, model, userName, status);
+    private UPS() {
     }
 
-    public UPS() {
+    public static UPS getUpsInstance() {
+        if(upsInstance==null){
+            upsInstance=new UPS();
+            return upsInstance;
+        }
+        return upsInstance;
     }
 
     @Override

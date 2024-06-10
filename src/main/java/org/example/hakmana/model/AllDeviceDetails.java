@@ -1,7 +1,5 @@
 package org.example.hakmana.model;
 
-import org.example.hakmana.view.scene.LoginPageController;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
