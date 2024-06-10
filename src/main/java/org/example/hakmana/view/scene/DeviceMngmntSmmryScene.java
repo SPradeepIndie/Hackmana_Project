@@ -67,20 +67,18 @@ public class DeviceMngmntSmmryScene implements Initializable {
     }
 
     public Devices[] getDev() {
-        if(dev==null){
-            //upcast the dev
-            switch (dbSelector) {
-                case "Desktop" -> dev = Desktop.getDesktopInstance().getDevices();
-                case "Photocopy Machines" -> dev = PhotocpyMchine.getPhotocpyMchineInstance().getDevices();
-                case "Monitors" -> dev = Monitors.getMonitorInstance().getDevices();
-                case "Projectors" -> dev =Projectors.getProjectorsInstance().getDevices();
-                case "Laptops" -> dev = Laptops.getLaptopsInstance().getDevices();
-                case "Printers" -> dev =Printer.getPrinterInstance().getDevices();
-                case "UPS" -> dev = UPS.getUpsInstance().getDevices();
-            }
-            return dev;
+        //upcast the dev
+        switch (dbSelector) {
+            case "Desktop" -> dev = Desktop.getDesktopInstance().getDevices();
+            case "Photocopy Machines" -> dev = PhotocpyMchine.getPhotocpyMchineInstance().getDevices();
+            case "Monitors" -> dev = Monitors.getMonitorInstance().getDevices();
+            case "Projectors" -> dev =Projectors.getProjectorsInstance().getDevices();
+            case "Laptops" -> dev = Laptops.getLaptopsInstance().getDevices();
+            case "Printers" -> dev =Printer.getPrinterInstance().getDevices();
+            case "UPS" -> dev = UPS.getUpsInstance().getDevices();
         }
         return dev;
+
     }
 
     //add DeviceInfoCards to the scene

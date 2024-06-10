@@ -145,10 +145,10 @@ public class LoginPageController implements Initializable {
         String storeUserName = systemUser.getIsRemUName();
         usrNameFeild.setText(storeUserName);
 
-        AllDeviceDetails allDeviceDetails=new AllDeviceDetails();
-        for (AllDeviceDetails dev:allDeviceDetails.getActiveDevicesCount()){
-            System.out.println(dev.getDeviceName()+" "+dev.getDeviceCount());
-        }
+//        AllDeviceDetails allDeviceDetails=new AllDeviceDetails();
+//        for (AllDeviceDetails dev:allDeviceDetails.getActiveDevicesCount()){
+//            System.out.println(dev.getDeviceName()+" "+dev.getDeviceCount());
+//        }
 
         // Bind the ENTER key to the button
         login.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
