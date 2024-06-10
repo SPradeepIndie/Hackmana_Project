@@ -16,19 +16,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.example.hakmana.model.AllDeviceDetails;
-import org.example.hakmana.model.SystemUser;
+import org.example.hakmana.model.userMngmnt.SystemUser;
 import org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog;
-import org.example.hakmana.model.DatabaseConnection;
 
 import java.io.IOException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 

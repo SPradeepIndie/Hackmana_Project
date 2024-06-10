@@ -4,7 +4,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import org.example.hakmana.model.OtherDevices;
 import org.example.hakmana.view.component.DeviceCategoryCardController;
 import org.example.hakmana.view.component.PathFinderController;
 

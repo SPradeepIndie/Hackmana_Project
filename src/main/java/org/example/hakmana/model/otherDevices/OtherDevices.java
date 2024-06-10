@@ -1,7 +1,8 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.otherDevices;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

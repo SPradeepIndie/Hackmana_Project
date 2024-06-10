@@ -1,7 +1,8 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.userMngmnt;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.example.hakmana.model.DatabaseConnection;
 
 
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DeviceUser {
+    private static DeviceUser deviceUserInstance=null;
     private final DatabaseConnection dbconn=DatabaseConnection.getInstance();
     private final Connection connection=dbconn.getConnection();
     private String nic;
@@ -20,14 +22,15 @@ public class DeviceUser {
     private String title;
     private String gmail;
 
-    public DeviceUser() {
+    private DeviceUser() {
     }
 
-    public DeviceUser(String nic, String name, String title, String gmail) {
-        this.nic = nic;
-        this.name = name;
-        this.title = title;
-        this.gmail = gmail;
+    public static DeviceUser getDeviceUserInstance() {
+        if(deviceUserInstance==null){
+            deviceUserInstance=new DeviceUser();
+            return deviceUserInstance;
+        }
+        return deviceUserInstance;
     }
 
     public String getNic() {

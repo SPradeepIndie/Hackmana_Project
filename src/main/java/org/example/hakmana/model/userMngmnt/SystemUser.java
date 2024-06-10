@@ -1,7 +1,8 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.userMngmnt;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.view.scene.LoginPageController;
 
 import javax.mail.Session;

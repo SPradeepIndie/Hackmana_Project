@@ -9,8 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.example.hakmana.model.*;
 import org.example.hakmana.model.mainDevices.*;
+import org.example.hakmana.model.userMngmnt.DeviceUser;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -231,7 +231,7 @@ public class DevDetailedViewController implements Initializable {
             assignUserBtn.setDisable(newValue.isEmpty());
 
             // Check if the newValue is available in the users array
-            DeviceUser deviceUser = new DeviceUser().isNicAvailable(newValue);
+            DeviceUser deviceUser =DeviceUser.getDeviceUserInstance().isNicAvailable(newValue);
             if (deviceUser != null) {
                 // Auto-fill the other text fields
                 userGmail.setText(deviceUser.getGmail());
@@ -536,9 +536,9 @@ public class DevDetailedViewController implements Initializable {
     @FXML
     private void assignUser(){
         if(!userNIC.getText().equals(initialUser)){
-            if(new DeviceUser().isNicAvailable(userNIC.getText())==null) {
+            if(DeviceUser.getDeviceUserInstance().isNicAvailable(userNIC.getText())==null) {
                 //add new deviceUser to the deviceUser table
-                new DeviceUser().insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
+                DeviceUser.getDeviceUserInstance().insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
             }
             switch (deviceSelector){
                 case "Desktop"->{

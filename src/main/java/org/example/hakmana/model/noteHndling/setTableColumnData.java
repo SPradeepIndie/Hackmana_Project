@@ -1,8 +1,9 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.noteHndling;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.hakmana.GetNoteController;
+import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

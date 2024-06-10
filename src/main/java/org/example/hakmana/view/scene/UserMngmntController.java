@@ -8,10 +8,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import org.example.hakmana.model.DatabaseConnection;
-import org.example.hakmana.model.SystemUser;
+import org.example.hakmana.model.userMngmnt.SystemUser;
 
-import org.example.hakmana.model.SystemUser;
 import org.example.hakmana.view.dialogBoxes.CreateAccountController;
 import org.example.hakmana.view.dialogBoxes.EditAccountController;
 import org.example.hakmana.view.dialogBoxes.ShowUsersController;
@@ -19,10 +17,6 @@ import org.example.hakmana.view.dialogBoxes.ShowUsersController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 
 import java.util.ResourceBundle;

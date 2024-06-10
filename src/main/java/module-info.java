@@ -32,6 +32,12 @@ module org.example.hakmana {
     opens org.example.hakmana.view.dialogBoxes to javafx.fxml;
     exports org.example.hakmana.model.mainDevices;
     opens org.example.hakmana.model.mainDevices to javafx.fxml;
+    exports org.example.hakmana.model.userMngmnt;
+    opens org.example.hakmana.model.userMngmnt to javafx.fxml;
+    exports org.example.hakmana.model.otherDevices;
+    opens org.example.hakmana.model.otherDevices to javafx.fxml;
+    exports org.example.hakmana.model.noteHndling;
+    opens org.example.hakmana.model.noteHndling to javafx.fxml;
 
 
 }

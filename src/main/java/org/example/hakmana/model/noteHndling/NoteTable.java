@@ -1,6 +1,7 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.noteHndling;
 
 import javafx.scene.control.Button;
+import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
