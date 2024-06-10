@@ -263,7 +263,7 @@ public class DevDetailedViewController implements Initializable {
     public void showDeviceDetail(){
         switch (deviceSelector) {
             case "Desktop" -> {
-                Desktop desktop = new Desktop().getDevice(getDevRegNum());
+                Desktop desktop = Desktop.getDesktopInstance().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Desktop>" + getDevRegNum(), desktop);
                 setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor",
                         "Hard Disk","Operating System","Floppy Disk","Sound Card","TV card","Netwrok card"},
@@ -278,21 +278,21 @@ public class DevDetailedViewController implements Initializable {
                 userDetails(desktop.getUserNIC());
             }
             case "Photocopy Machines" ->{
-                PhotocpyMchine photocpyMchine=new PhotocpyMchine().getDevice(getDevRegNum());
+                PhotocpyMchine photocpyMchine=PhotocpyMchine.getPhotocpyMchineInstance().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Photocopy Machines>"+getDevRegNum(),photocpyMchine);
                 //setOtherDetails(new String[]{"Copying Capability"},photocpyMchine.getCopyingCapability());
             }
             case "Monitors" ->{
-                Monitors monitor=new Monitors().getDevice(getDevRegNum());
+                Monitors monitor=Monitors.getMonitorInstance().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Monitors>"+getDevRegNum(),monitor);
                 //setOtherDetails(new String[]{"Desktop Register Number"},monitor.getRegNumDesktop());
             }
             case "Projectors" -> {
-                Projectors projector=new Projectors().getDevice(getDevRegNum());
+                Projectors projector=Projectors.getProjectorsInstance().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Projectors>"+getDevRegNum(),projector);
             }
             case "Laptops" -> {
-                    Laptops laptop = new Laptops().getDevice(getDevRegNum());
+                    Laptops laptop = Laptops.getLaptopsInstance().getDevice(getDevRegNum());
                     setCommonToView("Device Management>Laptops>" + getDevRegNum(), laptop);
                     setOtherDetails(new String[]{"Ram","CPU","Storage","Display",
                             "Operating System","Graphic Card"},laptop.getRam(), laptop.getCpu(), laptop.getStorage()
@@ -300,13 +300,13 @@ public class DevDetailedViewController implements Initializable {
                     userDetails(laptop.getUserNIC());
                 }
             case "Printers" -> {
-                Printer printer = new Printer().getDevice(getDevRegNum());
+                Printer printer =Printer.getPrinterInstance().getDevice(getDevRegNum());
                 setCommonToView("Device Management>Printers>" + getDevRegNum(), printer);
                 setOtherDetails(new String[]{"Serial Number","Paper Input","Paper Output","Warranty"},
                         printer.getSerialNum(),printer.getPaperInput(),printer.getPaperOutput(),"waranty");
             }
             case "UPS" -> {
-                    UPS ups = new UPS().getDevice(getDevRegNum());
+                    UPS ups =UPS.getUpsInstance().getDevice(getDevRegNum());
                     setCommonToView("Device Management>UPS>" + getDevRegNum(), ups);
                     //setOtherDetails(new String[]{"Backup Power","Runtime","Desktop Register Number"},
                             //ups.getBackUpPower(),ups.getRunTime(),ups.getRegNumDesktop());
@@ -404,7 +404,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
-                if(!new Desktop().updateDevice(newValues)){
+                if(!Desktop.getDesktopInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     //Check confirmation to change
@@ -420,7 +420,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(getDevRegNum());
 
                 //System.out.println(newValues);
-                if(!new PhotocpyMchine().updateDevice(newValues)){
+                if(!PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     //Check confirmation to change
@@ -437,7 +437,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(getDevRegNum());
 
                 //System.out.println(newValues);
-                if(!new Monitors().updateDevice(newValues)){
+                if(!Monitors.getMonitorInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -453,7 +453,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(getDevRegNum());
 
                 //System.out.println(newValues);
-                if(!new Projectors().updateDevice(newValues)){
+                if(!Projectors.getProjectorsInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     //Check confirmation to change
@@ -469,7 +469,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(getDevRegNum());
 
                // System.out.println(newValues);
-                if(!new Laptops().updateDevice(newValues)){
+                if(!Laptops.getLaptopsInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     //Check confirmation to change
@@ -486,7 +486,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(getDevRegNum());
 
                 //System.out.println(newValues);
-                if(!new Printer().updateDevice(newValues)){
+                if(!Printer.getPrinterInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     //Check confirmation to change
@@ -503,7 +503,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(getDevRegNum());
 
                // System.out.println(newValues);
-                if(!new UPS().updateDevice(newValues)){
+                if(!UPS.getUpsInstance().updateDevice(newValues)){
                     showDeviceDetail();
                 }else{
                     //Check confirmation to change
@@ -542,11 +542,11 @@ public class DevDetailedViewController implements Initializable {
             switch (deviceSelector){
                 case "Desktop"->{
                     //add new deviceUser to the desktop table
-                    new Desktop().updateDeviceUser(userNIC.getText(),getDevRegNum());
+                    Desktop.getDesktopInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
                 }
                 case "Laptops"->{
                     //add new deviceUser to the laptop table
-                    new Laptops().updateDeviceUser(userNIC.getText(),getDevRegNum());
+                    Laptops.getLaptopsInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
                 }
             }
 

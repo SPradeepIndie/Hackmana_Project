@@ -368,7 +368,7 @@ public class AddDeviceDialogController implements Initializable {
                 // Call addUser in a background thread
                 new Thread(this::addUser).start();
 
-                isSuccessed=new Desktop().insertDevice(newValues);
+                isSuccessed=Desktop.getDesktopInstance().insertDevice(newValues);
 
 
             }
@@ -378,7 +378,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(StatusChoiseBox.getValue());
                 getTextFieldText(otherTextList);
 
-                isSuccessed=new PhotocpyMchine().insertDevice(newValues);
+                isSuccessed=PhotocpyMchine.getPhotocpyMchineInstance().insertDevice(newValues);
             }
             case "Monitors" -> {
                 newValues.add(getDevRegNum());
@@ -386,7 +386,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(StatusChoiseBox.getValue());
                 getTextFieldText(otherTextList);
 
-                isSuccessed=new Monitors().insertDevice(newValues);
+                isSuccessed=Monitors.getMonitorInstance().insertDevice(newValues);
 
             }
             case "Projectors" -> {
@@ -394,7 +394,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiseBox.getValue());
 
-                isSuccessed=new Projectors().insertDevice(newValues);
+                isSuccessed=Projectors.getProjectorsInstance().insertDevice(newValues);
 
             }
             case "Laptops" -> {
@@ -408,7 +408,7 @@ public class AddDeviceDialogController implements Initializable {
                 // Call addUser in a background thread
                 new Thread(this::addUser).start();
 
-                isSuccessed =new Laptops().insertDevice(newValues);
+                isSuccessed =Laptops.getLaptopsInstance().insertDevice(newValues);
 
             }
             case "Printers" -> {
@@ -417,7 +417,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(StatusChoiseBox.getValue());
                 getTextFieldText(otherTextList);
 
-                isSuccessed=new Printer().insertDevice(newValues);
+                isSuccessed=Printer.getPrinterInstance().insertDevice(newValues);
 
             }
             case "UPS" -> {
@@ -428,7 +428,7 @@ public class AddDeviceDialogController implements Initializable {
 
                 System.out.println(newValues);
 
-                isSuccessed=new UPS().insertDevice(newValues);
+                isSuccessed=UPS.getUpsInstance().insertDevice(newValues);
 
             }
             default -> {

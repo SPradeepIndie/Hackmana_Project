@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane fx:id="parentAnchor" prefWidth="600.0" style="-fx-background-color: #00000021;" stylesheets="@CSS/ShowUsers.css">
+          <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0">
+               <children>
+                            <!-- Insert list or table to show other users -->
+                            <Label fx:id="showUsersLabel" text="Show Other Users">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TableView prefHeight="329.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn prefWidth="217.0" text="Full Name" />
+                      <TableColumn prefWidth="196.0" text="Post" />
+                        <TableColumn prefWidth="185.0" text="Phone Number" />
+                    </columns>
+                  </TableView>
+                            <ListView fx:id="usersListView" prefHeight="183.0" prefWidth="547.0" styleClass="show-users-container" stylesheets="@CSS/ShowUsers.css" />
+               </children>
+            </VBox>
+          </children>
+      </AnchorPane>
+   </content>`
+   <buttonTypes>
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

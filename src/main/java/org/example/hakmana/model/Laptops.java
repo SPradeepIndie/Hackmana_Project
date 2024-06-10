@@ -1,8 +1,7 @@
-package org.example.hakmana.model;
+package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class Laptops extends Devices{
     private DatabaseConnection conn=DatabaseConnection.getInstance();
+    private static Laptops laptopsInstance=null;
     private String regNum;
     private String model;
     private String status;
@@ -27,11 +26,15 @@ public class Laptops extends Devices{
     private String os = "NO";
     private String userNIC = "No DeviceUser";
 
-    public Laptops(String regNum, String model, String userName, String status) {
-        super(regNum, model, userName,status);
+    private Laptops() {
     }
 
-    public Laptops() {
+    public static Laptops getLaptopsInstance() {
+        if(laptopsInstance==null){
+            laptopsInstance=new Laptops();
+            return laptopsInstance;
+        }
+        return laptopsInstance;
     }
 
     @Override

@@ -15,19 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 public class PhotocpyMchine extends Devices {
-    private DatabaseConnection conn=DatabaseConnection.getInstance();;
+    private DatabaseConnection conn=DatabaseConnection.getInstance();
+    private static PhotocpyMchine photocpyMchineInstance=null;
     private String regNum;
     private String model;
     private String status;
     private String userName;
 
-    public PhotocpyMchine(String regNum, String model, String userName, String status) {
-        super(regNum, model, userName, status);
+    private PhotocpyMchine() {
     }
 
-    public PhotocpyMchine() {
+    public static PhotocpyMchine getPhotocpyMchineInstance() {
+        if(photocpyMchineInstance==null){
+            photocpyMchineInstance=new PhotocpyMchine();
+            return photocpyMchineInstance;
+        }
+        return photocpyMchineInstance;
     }
 
     @Override
