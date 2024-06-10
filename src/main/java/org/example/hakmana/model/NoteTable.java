@@ -28,7 +28,7 @@ public class NoteTable {
         ResultSet rs;
         try {
             st = conn.createStatement();
-          rs = st.executeQuery("""
+            rs = st.executeQuery("""
                         SELECT t.TABLE_NAME
                         FROM information_schema.TABLES t
                         INNER JOIN information_schema.COLUMNS c ON t.TABLE_NAME = c.TABLE_NAME
@@ -79,76 +79,76 @@ public class NoteTable {
         return pr;
     }
 
-   public int setPrValues(String regNum,String tableValue,String state) {
-       int count1=0;
-       PreparedStatement pr= null;
-       try {
-           pr = getPreparedStatement(regNum,tableValue);
-           pr.setString(1,state);
-           ResultSet rs=pr.executeQuery();
-           while (rs.next()) {
-               count1++;
-           }
-           rs.close();
-       } catch (SQLException e) {
-           throw new RuntimeException(e);
-       }
+    public int setPrValues(String regNum,String tableValue,String state) {
+        int count1=0;
+        PreparedStatement pr= null;
+        try {
+            pr = getPreparedStatement(regNum,tableValue);
+            pr.setString(1,state);
+            ResultSet rs=pr.executeQuery();
+            while (rs.next()) {
+                count1++;
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-       return count1;
-   }
+        return count1;
+    }
 
-   public void deleteTableQueries(String ids,String titles){
-       Statement st= null;
-       try {
-           st = conn.createStatement();
-           st.executeUpdate("delete from notes where title='"+titles + "' and id='"+ids+"'");
-           st.close();
-       } catch (SQLException e) {
-           throw new RuntimeException(e);
-       }
+    public void deleteTableQueries(String ids,String titles){
+        Statement st= null;
+        try {
+            st = conn.createStatement();
+            st.executeUpdate("delete from notes where title='"+titles + "' and id='"+ids+"'");
+            st.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-   }
+    }
     //view quries
-   public String[] viewQueries(String titles,String ids){
-      String[] data=new String[5];
-      int i;
-       Statement str2 = null;
-       ResultSet rs=null;
-       try {
-           str2 = conn.createStatement();
-           rs= str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
-           rs.next();
-           for(i=0;i<5;i++){
-               data[i]=rs.getString(i+1);
-           }
+    public String[] viewQueries(String titles,String ids){
+        String[] data=new String[5];
+        int i;
+        Statement str2 = null;
+        ResultSet rs=null;
+        try {
+            str2 = conn.createStatement();
+            rs= str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
+            rs.next();
+            for(i=0;i<5;i++){
+                data[i]=rs.getString(i+1);
+            }
 
-           rs.close();
+            rs.close();
 
-       } catch (SQLException e) {
-           throw new RuntimeException(e);
-       }
-       return  data;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return  data;
 
-   }
+    }
     //update quiry values
-   public void updateTableQuiries(String id,String userName,String note,String title,String currentDate,String titles,String ids) throws SQLException{
-       Statement st3 = null;
-           st3 = conn.createStatement();
-           st3.executeUpdate("update notes set id='" + id + "'" + ",username='" + userName + "',notes='" + note + "',title='" + title + "' ,createdate='" + currentDate + "' " + " where title='" + titles + "' and id='" + ids + "'");
+    public void updateTableQuiries(String id,String userName,String note,String title,String currentDate,String titles,String ids) throws SQLException{
+        Statement st3 = null;
+        st3 = conn.createStatement();
+        st3.executeUpdate("update notes set id='" + id + "'" + ",username='" + userName + "',notes='" + note + "',title='" + title + "' ,createdate='" + currentDate + "' " + " where title='" + titles + "' and id='" + ids + "'");
 
-   }
+    }
 
-   public void createNoteQuries(String id,String name,String note,Date date,String title) throws SQLException {
-       PreparedStatement notesse = null;
-       notesse = conn.prepareStatement("insert into notes values(?,?,?,?,?)");
-       notesse.setString(1, id);
-       notesse.setString(2, name);
-       notesse.setString(3, note);
-       notesse.setDate(4,date);
-       notesse.setString(5,title);
-       notesse.executeUpdate();
-       notesse.close();
-   }
+    public void createNoteQuries(String id,String name,String note,Date date,String title) throws SQLException {
+        PreparedStatement notesse = null;
+        notesse = conn.prepareStatement("insert into notes values(?,?,?,?,?)");
+        notesse.setString(1, id);
+        notesse.setString(2, name);
+        notesse.setString(3, note);
+        notesse.setDate(4,date);
+        notesse.setString(5,title);
+        notesse.executeUpdate();
+        notesse.close();
+    }
     //put note for the deviceInfoCard Controller
     public ArrayList setNoteForCard(String devId){
         ArrayList<Button> list = new ArrayList<Button>();

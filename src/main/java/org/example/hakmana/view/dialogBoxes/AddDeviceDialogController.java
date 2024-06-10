@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.*;
+import org.example.hakmana.model.mainDevices.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddDeviceDialogController implements Initializable {
+    private static AddDeviceDialogController instance=null;
     @FXML
     public ChoiceBox<String> devCat;
     private String devCategoryName;
@@ -198,9 +200,19 @@ public class AddDeviceDialogController implements Initializable {
     public void setDevRegNum(String devRegNum) {
         this.devRegNum = devRegNum;
     }
-
     public void setDevCat() {
         devCat.setValue("Select a device");
+    }
+
+    private AddDeviceDialogController(){
+
+    }
+    public static AddDeviceDialogController getInstance() {
+        if(instance==null){
+            instance=new AddDeviceDialogController();
+            return instance;
+        }
+        return instance;
     }
 
     /*-------------------------------Initialize---------------------------------*/

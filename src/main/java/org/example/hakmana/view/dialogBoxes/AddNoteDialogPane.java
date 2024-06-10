@@ -24,55 +24,33 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public  class AddNoteDialogPane extends Component implements Initializable  {
-
+    private static AddNoteDialogPane instance=null;
     @FXML
     private DialogPane dialogpane1;
-
     @FXML
     private TextField deviceId;
-
     @FXML
     private Label date;
-
     @FXML
     private TextField username;
-
-
     @FXML
     private TextArea note;
-
     @FXML
     private Button updateButton;
-
     @FXML
     private Button editButton;
-
     @FXML
     private TextField title;
-
     private String ids;
-
     private String userName1;
-
     private String cardNoteId;
-
     private String setDeviceIdName;
-
     private String Note1;
-
-
     private Stage stage;
-
-
     @FXML
     private  Button addNote;
-
     private NoteTable noteInstance;
-
     private String Title;
-    DatabaseConnection instance = DatabaseConnection.getInstance();
-    Connection conn = instance.getConnection();
-
     public Button getUpdateButton() {
         return updateButton;
     }
@@ -200,8 +178,15 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
         this.username.setText(userName);
     }
 
+    private AddNoteDialogPane() {
+    }
 
-    public AddNoteDialogPane() {
+    public static AddNoteDialogPane getInstance() {
+        if(instance==null){
+            instance=new AddNoteDialogPane();
+            return instance;
+        }
+        return instance;
     }
 
     public void addDetails() {
@@ -213,8 +198,6 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
 
 
     public void createnote() {
-
-    try {
         addDetails();
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
@@ -223,13 +206,14 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
         alert.getDialogPane().setContentText("do you want to add this note?");
         alert.getDialogPane().setHeaderText("confirmation!");
         Optional<ButtonType> reasult = alert.showAndWait();
-        String currentdate = date.getText();
-        LocalDate localDate = LocalDate.parse(currentdate);
+        String currentdate=date.getText();
+        LocalDate localDate=LocalDate.parse(currentdate);
         if (reasult.get() == ButtonType.OK) {
-            if ((getIds() != null) && (getUserName1() != null) && (getNote() != null) && (getTitle() != null)) {
+
+            if ((getIds() != null) && (getUserName1() != null) && (getNote() != null)) {
                 try {
-                    noteInstance = NoteTable.getInstance();
-                    noteInstance.createNoteQuries(getIds(), getUserName1(), getNote1(), java.sql.Date.valueOf(localDate), Title);
+                    noteInstance=NoteTable.getInstance();
+                    noteInstance.createNoteQuries(getIds(),getUserName1(),getNote1(),java.sql.Date.valueOf(localDate),Title);
                     deviceId.setText(null);
                     username.setText(null);
                     title.setText(null);
@@ -250,11 +234,6 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
             JOptionPane.showMessageDialog(this, "note is cancelled!", "alert!", JOptionPane.INFORMATION_MESSAGE);
 
         }
-    }
-    catch (NullPointerException e) {
-        JOptionPane.showMessageDialog(this, "All fields need to be filled.", "problem!", JOptionPane.ERROR_MESSAGE);
-
-    }
 
     }
 

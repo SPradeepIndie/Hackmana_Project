@@ -61,7 +61,7 @@ public class AddDevButtonController extends AnchorPane implements Initializable 
     }
     public void addDeviceBtnDialogOpen(ActionEvent event) throws IOException {
         FXMLLoader addDevicefxmlLoad = new FXMLLoader(org.example.hakmana.view.dialogBoxes.AddDeviceDialogController.class.getResource("AddDeviceDialog.fxml"));
-        AddDeviceDialogController addDeviceDialogController=new AddDeviceDialogController();
+        AddDeviceDialogController addDeviceDialogController=AddDeviceDialogController.getInstance();
         addDevicefxmlLoad.setController(addDeviceDialogController);
         DialogPane addDeviceDialogPane=addDevicefxmlLoad.load();
 
