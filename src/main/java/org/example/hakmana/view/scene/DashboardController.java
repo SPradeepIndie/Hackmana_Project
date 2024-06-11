@@ -334,15 +334,16 @@ public class DashboardController extends Component implements Initializable {
     public void Add(){
         FXMLLoader noteFxmlLoad = new FXMLLoader(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
 
-        AddNoteDialogPane addNoteDialogPane=org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.getInstance();
+        AddNoteDialogPane addNoteDialogPane=AddNoteDialogPane.getInstance();
 
         noteFxmlLoad.setController(addNoteDialogPane);
 
-        //addNoteDialogPane.getEditButton().setVisible(false);
-        //addNoteDialogPane.getUpdateButton().setVisible(false);
-
         try {
             DialogPane notedialogPane = noteFxmlLoad.load();
+            addNoteDialogPane=noteFxmlLoad.getController();
+            addNoteDialogPane.getEditButton().setVisible(false);
+            addNoteDialogPane.getUpdateButton().setVisible(false);
+            addNoteDialogPane.getAddNote().setVisible(true);
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(notedialogPane);
             dialog.setTitle("ADD NOTE");
