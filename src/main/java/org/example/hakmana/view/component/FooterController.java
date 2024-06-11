@@ -69,6 +69,7 @@ public class FooterController extends VBox implements Initializable {
         FXMLLoader contactUsFxmlLoad = new FXMLLoader();
         contactUsFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.ContactUsDialog.class.getResource("ContactUsDialogPane.fxml"));
         contactUsFxmlLoad.setController(ContactUsDialog.getInstance());
+
         DialogPane conactUsDialogPane=contactUsFxmlLoad.load();
 
         Dialog<ButtonType> dialog=new Dialog<>();
