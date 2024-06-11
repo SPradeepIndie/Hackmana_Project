@@ -11,7 +11,7 @@
 
 <DialogPane fx:id="dialogpane1" expanded="true" prefHeight="446.0" prefWidth="560.0" stylesheets="@../scene/CSS/dialogPane.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <graphic>
-      <Pane prefHeight="370.0" prefWidth="560.0" style="-fx-background-color: linear-gradient( #CFCDCD -9.83%, #F2F1F1 114.02%);;">
+      <Pane prefHeight="370.0" prefWidth="560.0" style="-fx-background-color: linear-gradient( #CFCDCD -9.83%, #F2F1F1 114.02%);">
          <children>
             <TextField fx:id="title" layoutX="15.0" layoutY="34.0" prefHeight="25.0" prefWidth="292.0" />
             <Text layoutX="25.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt" text="Title of the note:" />

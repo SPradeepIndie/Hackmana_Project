@@ -139,8 +139,10 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
                 String[] data=new String[5];
                 data = noteInstance.viewQueries(titles,devids);
                 FXMLLoader fxmlLoader = new FXMLLoader(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
-
+                AddNoteDialogPane dialogPane=AddNoteDialogPane.getInstance();
+                fxmlLoader.setController(dialogPane);
                 try {
+
                     DialogPane dialog1 = fxmlLoader.load();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -256,27 +258,33 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
      public void popupdialog() {
           FXMLLoader noteFxmlLoader = new FXMLLoader();
+
           noteFxmlLoader.setLocation(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
+
           try {
+
+              AddNoteDialogPane dialogpane1=AddNoteDialogPane.getInstance();
+              noteFxmlLoader.setController(dialogpane1);
                DialogPane dialogPane = noteFxmlLoader.load();
+
+              dialogpane1=noteFxmlLoader.getController();
+              dialogpane1.getEditButton().setVisible(false);
+              dialogpane1.getUpdateButton().setVisible(false);
+              dialogpane1.setSetDeviceIdName(id.get(0));
+              dialogpane1.setUser(username.get(0));
+              Dialog<ButtonType> dialog = new Dialog<>();
+              dialog.setDialogPane(dialogpane1.getDialogpane1());
+              dialog.setTitle("ADD NOTE");
+              Optional<ButtonType> check = dialog.showAndWait();
+              if(check.isPresent() && check.get()==ButtonType.CLOSE){
+                  noteTxtArea.getChildren().clear();
+                  setDevId(devId);
+                  dialog.close();
+              }
           } catch (IOException e) {
                throw new RuntimeException(e);
           }
-         AddNoteDialogPane dialogpane1;
-         dialogpane1  = noteFxmlLoader.getController();
-         dialogpane1.getEditButton().setVisible(false);
-         dialogpane1.getUpdateButton().setVisible(false);
-         dialogpane1.setSetDeviceIdName(id.get(0));
-         dialogpane1.setUser(username.get(0));
-          Dialog<ButtonType> dialog = new Dialog<>();
-          dialog.setDialogPane(dialogpane1.getDialogpane1());
-          dialog.setTitle("ADD NOTE");
-          Optional<ButtonType> check = dialog.showAndWait();
-          if(check.isPresent() && check.get()==ButtonType.CLOSE){
-              noteTxtArea.getChildren().clear();
-              setDevId(devId);
-              dialog.close();
-          }
+
 
      }
 

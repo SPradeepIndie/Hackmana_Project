@@ -117,7 +117,7 @@ public class NoteTable {
         ResultSet rs=null;
         try {
             str2 = conn.createStatement();
-            rs= str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"'");
+            rs= str2.executeQuery("Select id,username,notes,createdate,title from notes where title='" + titles + "' and id='"+ ids +"' ORDER BY createdate DESC");
             rs.next();
             for(i=0;i<5;i++){
                 data[i]=rs.getString(i+1);
