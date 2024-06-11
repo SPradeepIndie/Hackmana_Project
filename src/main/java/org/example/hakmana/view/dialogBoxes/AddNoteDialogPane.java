@@ -196,6 +196,7 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
 
     public void createnote() {
         addDetails();
+
         Alert.AlertType type = Alert.AlertType.CONFIRMATION;
         Alert alert = new Alert(type, "");
         alert.initModality(Modality.APPLICATION_MODAL);
@@ -207,7 +208,8 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
         LocalDate localDate=LocalDate.parse(currentdate);
         if (reasult.get() == ButtonType.OK) {
 
-            if ((getIds() != null) && (getUserName1() != null) && (getNote() != null)) {
+            if ((ids !=null) && (userName1 != null) && (Note1!=null) && (Title !=null)) {
+
                 try {
                     noteInstance=NoteTable.getInstance();
                     noteInstance.createNoteQuries(getIds(),getUserName1(),getNote1(),java.sql.Date.valueOf(localDate),Title);

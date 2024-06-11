@@ -232,9 +232,11 @@ public class DashboardController extends Component implements Initializable {
                 data = noteInstance.viewQueries(titles,ids);
                 System.out.println("checking2");
                 FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(AddNoteDialogPane.class.getResource("AddnoteDialog.fxml")));
+                AddNoteDialogPane dialogpane=AddNoteDialogPane.getInstance();
+                fxmlLoader.setController(dialogpane);
                 try {
                     DialogPane dialog1 = fxmlLoader.load();
-                    AddNoteDialogPane dialogpane = fxmlLoader.getController();
+                    dialogpane = fxmlLoader.getController();
                     dialogpane.getEditButton().setVisible(true);
                     editButton = dialogpane.getEditButton();
                     dialogpane.getAddNote().setVisible(false);
