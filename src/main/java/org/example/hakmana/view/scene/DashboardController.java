@@ -332,23 +332,30 @@ public class DashboardController extends Component implements Initializable {
     }
 
     public void Add(){
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
+        FXMLLoader noteFxmlLoad = new FXMLLoader(org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.class.getResource("AddnoteDialog.fxml"));
+
+        AddNoteDialogPane addNoteDialogPane=org.example.hakmana.view.dialogBoxes.AddNoteDialogPane.getInstance();
+
+        noteFxmlLoad.setController(addNoteDialogPane);
+
+        //addNoteDialogPane.getEditButton().setVisible(false);
+        //addNoteDialogPane.getUpdateButton().setVisible(false);
+
         try {
-            DialogPane dialogPane = fxmlLoader.load();
+            DialogPane notedialogPane = noteFxmlLoad.load();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(notedialogPane);
+            dialog.setTitle("ADD NOTE");
+
+            Optional<ButtonType> check = dialog.showAndWait();
+            if(check.isPresent() && check.get()==ButtonType.CLOSE){
+                tableAdd();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        AddNoteDialogPane dialogpane = fxmlLoader.getController();
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogpane.getDialogpane1());
-        dialog.setTitle("ADD NOTE");
-        dialogpane.getEditButton().setVisible(false);
-        dialogpane.getUpdateButton().setVisible(false);
-        Optional<ButtonType> check = dialog.showAndWait();
-        if(check.isPresent() && check.get()==ButtonType.CLOSE){
-            tableAdd();
-        }
+
+
     }
 
 }
