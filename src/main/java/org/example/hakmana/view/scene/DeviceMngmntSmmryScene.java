@@ -41,10 +41,11 @@ public class DeviceMngmntSmmryScene implements Initializable {
         rowCount=1;
         colCount=0;
     }
+
+
     public String getDbSelector() {
         return dbSelector;
     }
-
     public void setDbSelector(String dbSelector) {
         DeviceMngmntSmmryScene.dbSelector = dbSelector;
     }
@@ -52,7 +53,6 @@ public class DeviceMngmntSmmryScene implements Initializable {
     public ScrollPane getBodyScrollPaneD() {
         return bodyScrollPaneD;
     }
-
     public void setBodyScrollPaneD(ScrollPane bodyScrollPaneD) {
         this.bodyScrollPaneD = bodyScrollPaneD;
 
@@ -61,7 +61,6 @@ public class DeviceMngmntSmmryScene implements Initializable {
     public PathFinderController getPathFinderControllerD() {
         return pathFinderControllerD;
     }
-
     public void setPathFinderControllerD(PathFinderController pathFinderControllerD) {
         this.pathFinderControllerD = pathFinderControllerD;
     }
@@ -93,7 +92,6 @@ public class DeviceMngmntSmmryScene implements Initializable {
             card.setDevId(d.getRegNum());
             card.setDeviceCat(getDbSelector());
 
-            getPathFinderControllerD().setDeviceInfoCardController(card);
             DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());//set the Scrollpane body in DevInfoCard class
             DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD());//pass pathFinderController to the Device Info card Component
 

@@ -32,10 +32,9 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     @FXML
     private ImageView devImage;
 
-    //private variable to set iamge and the device naem
+    //private variable to set iamge and the device name
     private Image deviceImage;
     private String devName;
-    private URL devCatSceneName;
     private boolean calledFromCategoryCard;
 
     @Override
@@ -58,7 +57,6 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     public boolean isCalledFromCategoryCard() {
         return calledFromCategoryCard;
     }
-
     public void setCalledFromCategoryCard(boolean calledFromCategoryCard) {
         this.calledFromCategoryCard = calledFromCategoryCard;
     }
@@ -69,20 +67,12 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     public static void setDashboardBodyScrollpaneD(ScrollPane dashboardBodyScrollpaneD) {
         DeviceCategoryCardController.dashboardBodyScrollpaneD = dashboardBodyScrollpaneD;
     }
-    public void setDevCatSceneName(URL devCatSceneName) {
-        this.devCatSceneName = devCatSceneName;
-    }
 
     public Image getDeviceImage() {
         return deviceImage;
     }
-
     public String getDevName() {
         return devName;
-    }
-
-    public URL getDevCatSceneName() {
-        return devCatSceneName;
     }
 
     public PathFinderController getDashboardPathFinderControllerD() {
@@ -111,7 +101,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 
     public void setDevName(String devName) {
         this.devName = devName;
-        devInfoBtn.setText(this.devName);
+        devInfoBtn.setText(devName);
     }
 
     public void disableBtn(boolean stateVal){
@@ -119,15 +109,14 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     }
 
 
-//  For the DeviceMngmntSmmryScene load when device category button click
+    //  For the DeviceMngmntSmmryScene load when device category button click
     public void DevInfoCall(){
-        getDashboardPathFinderControllerD().setPathTxt("Device Management>"+getDevName());
+        getDashboardPathFinderControllerD().setDeviceCategoryCardController(this);
         if(Objects.equals(getDevName(), "Other Devices")){
             loadOtherDevice();
         }else {
             loadSmmryScene();
         }
-
     }
 
     public void loadOtherDevice(){
@@ -135,8 +124,9 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
         vboxLoad.setController(otherDevicesController);
 
-        if(isCalledFromCategoryCard())
+        if(isCalledFromCategoryCard()) {
             getDashboardPathFinderControllerD().setBckBtnScene("OtherDevices");
+        }
 
         sceneLoading(vboxLoad);
     }
@@ -149,17 +139,18 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 
         deviceMngmntSmmryScene.setBodyScrollPaneD(getDashboardBodyScrollpaneD());//set the Scroll pane in Device management class
         deviceMngmntSmmryScene.setPathFinderControllerD(getDashboardPathFinderControllerD());
-
-        if(isCalledFromCategoryCard())
+        if(isCalledFromCategoryCard()){
             getDashboardPathFinderControllerD().setBckBtnScene("DeviceMngmntSmmryScene");
+            //After loading, set database name using setter
+            deviceMngmntSmmryScene.setDbSelector(getDevName());
 
-        //After loading, set database name using setter
-        deviceMngmntSmmryScene.setDbSelector(getDevName());
-
+        }
         sceneLoading(vboxLoad);
     }
 
+
     private void sceneLoading(FXMLLoader vboxLoader){
+        getDashboardPathFinderControllerD().setPathTxt("Device Management>"+getDevName());
         try{
             VBox vbox=vboxLoader.load();
             getDashboardBodyScrollpaneD().setContent(vbox);//this scroll pane id knows only that controller file

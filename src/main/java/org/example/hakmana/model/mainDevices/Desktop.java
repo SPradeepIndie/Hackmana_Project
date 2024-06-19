@@ -12,31 +12,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 public class Desktop extends Devices {
-    private DatabaseConnection conn=DatabaseConnection.getInstance();
+    private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Desktop desktopInstance=null;
-    private String regNum;
+    private String DesRegNum;
     private String model;
     private String status;
     private String userName;
-
-
     private String serialNum = "NO";
     private String purchasedFrom = "NO";
     private String ram = "NO";
     private String processor = "NO";
     private String hardDisk = "NO";
     private String os = "NO";
+    private String floppyDisk = "NO";
+    private String soundCard = "NO";
+    private String tvCard = "NO";
+    private String networkCard = "NO";
+    private String ssd="No";//*********
+    private String cdRom="No";//*********
     private String monitorRegNum = "NO";
     private String speakerRegNum = "NO";
     private String mouseRegNum = "NO";
     private String keyboardRegNum = "NO";
-    private String soundCard = "NO";
-    private String tvCard = "NO";
-    private String networkCard = "NO";
     private String micRegNum = "NO";
-    private String userNIC = "No DeviceUser";
-    private String floppyDisk = "NO";
     private String scannerRegNum = "NO";
+    private String printerRegNum = "NO";//*********
+    private String upsRegNum = "NO";//*********
+    private String powerSupplyRegNum = "NO";//*********
+    private String userNIC = "No DeviceUser";
+
     private Desktop() {
     }
 
@@ -50,11 +54,11 @@ public class Desktop extends Devices {
 
     @Override
     public String getRegNum() {
-        return regNum;
+        return DesRegNum;
     }
     @Override
-    public void setRegNum(String regNum) {
-        this.regNum = regNum;
+    public void setRegNum(String DesRegNum) {
+        this.DesRegNum = DesRegNum;
     }
     @Override
     public String getModel() {
@@ -215,6 +219,46 @@ public class Desktop extends Devices {
         this.scannerRegNum = scannerRegNum;
     }
 
+    public String getSsd() {
+        return ssd;
+    }
+
+    public void setSsd(String ssd) {
+        this.ssd = ssd;
+    }
+
+    public String getCdRom() {
+        return cdRom;
+    }
+
+    public void setCdRom(String cdRom) {
+        this.cdRom = cdRom;
+    }
+
+    public String getPrinterRegNum() {
+        return printerRegNum;
+    }
+
+    public void setPrinterRegNum(String printerRegNum) {
+        this.printerRegNum = printerRegNum;
+    }
+
+    public String getUpsRegNum() {
+        return upsRegNum;
+    }
+
+    public void setUpsRegNum(String upsRegNum) {
+        this.upsRegNum = upsRegNum;
+    }
+
+    public String getPowerSupplyRegNum() {
+        return powerSupplyRegNum;
+    }
+
+    public void setPowerSupplyRegNum(String powerSupplyRegNum) {
+        this.powerSupplyRegNum = powerSupplyRegNum;
+    }
+
     //get the Desktop array from the database
     //for updating cards
     @Override
@@ -245,16 +289,16 @@ public class Desktop extends Devices {
 
     //for get special device from the database
     @Override
-    public Desktop getDevice(String regNum) {
+    public Desktop getDevice(String DesRegNum) {
         //pass query to the connection class
         String sql = "SELECT * FROM desktop Where DesRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, regNum);
+            ps.setString(1, DesRegNum);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 Desktop desktop = new Desktop();
                 desktop.setRegNum(rs.getString("DesRegNum"));
                 desktop.setModel(rs.getString("model"));
@@ -327,11 +371,8 @@ public class Desktop extends Devices {
 
         } catch (SQLException e) {
             // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            alerting(e.getMessage());
+
         }
         return false;
     }
@@ -368,11 +409,8 @@ public class Desktop extends Devices {
 
         } catch (SQLException e) {
             // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating DeviceUser");
-            alert.setHeaderText("An error occurred while updating the device deviceUser.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+           alerting(e.getMessage());
+
         }
         return false;
     }
@@ -414,14 +452,19 @@ public class Desktop extends Devices {
                 return false;
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException sqlException) {
             // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            alerting(sqlException.getMessage());
         }
         return false;
     }
+
+    private void alerting(String content){
+        Alert alert=new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Updating Device");
+        alert.setHeaderText("An error occurred while updating the device.");
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
+

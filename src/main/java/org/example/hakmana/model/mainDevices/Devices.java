@@ -5,14 +5,12 @@ public abstract class Devices {
     private String model="No";
     private String name;
     private String status;
-
     public Devices(String regNum, String model, String name, String status) {
         this.regNum = regNum;
         this.model = model;
         this.name = name;
         this.status = status;
     }
-
     public Devices() {
     }
 
