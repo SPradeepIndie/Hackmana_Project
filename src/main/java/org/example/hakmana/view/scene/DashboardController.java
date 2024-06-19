@@ -175,19 +175,18 @@ public class DashboardController extends Component implements Initializable {
         noteInstance=NoteTable.getInstance();
 
         count1= noteInstance.setPrValues(regNum,tableValue,"Active");
-        String statement1=tableValue + "\t "+Integer.toString(count1);
+        String statement1=Integer.toString(count1);
 
         count3 = noteInstance.setPrValues(regNum,tableValue,"Repairing");
-        String statement2=tableValue + "\t "+Integer.toString(count3);
+        String statement2=Integer.toString(count3);
 
         count2 =noteInstance.setPrValues(regNum,tableValue,"Inactive");
-        String statement3=tableValue + "\t "+Integer.toString(count2);
+        String statement3=Integer.toString(count2);
 
         count4 =noteInstance.setPrValues(regNum,tableValue,"NotAssign");
-        String statement4=tableValue + "\t"+Integer.toString(count4);
+        String statement4=Integer.toString(count4);
 
-        String statement5=tableValue + "\t"+Integer.toString(count4+count1+count2+count3);
-        noteInstance.getDeviceStatus(statement1,statement3,statement4,statement2,statement5);
+        noteInstance.getDeviceStatus(statement1,statement3,statement4,statement2, tableValue);
     }
     //add status of device to the table
     public void addDataOfDevice(){
