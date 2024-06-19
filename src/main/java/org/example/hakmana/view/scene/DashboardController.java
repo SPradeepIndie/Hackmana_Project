@@ -188,6 +188,7 @@ public class DashboardController extends Component implements Initializable {
         String statement5=tableValue + "\t"+Integer.toString(count4+count1+count2+count3);
         noteInstance.getDeviceStatus(statement1,statement3,statement4,statement2,statement5);
     }
+    //add status of device to the table
     public void addDataOfDevice(){
         noteInstance=NoteTable.getInstance();
         ObservableList<DashboardCardTableController> list=noteInstance.getDeviceStatus(null,null,null,null,null);

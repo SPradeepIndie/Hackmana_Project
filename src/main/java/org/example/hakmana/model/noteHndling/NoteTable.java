@@ -104,6 +104,7 @@ public class NoteTable {
 
         return count1;
     }
+    //new observable list for new table
     public ObservableList<DashboardCardTableController> getDeviceStatus(String st1,String st2,String st3,String st4,String st5){
         list1.add(new DashboardCardTableController(st1,st2,st3,st4,st5));
         return list1;
