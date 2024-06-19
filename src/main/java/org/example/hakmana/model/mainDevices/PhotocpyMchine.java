@@ -16,10 +16,11 @@ import java.util.Optional;
 public class PhotocpyMchine extends Devices {
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private static PhotocpyMchine photocpyMchineInstance=null;
-    private String regNum;
+    private String photoCopyRegNum;
     private String model;
     private String status;
-    private String userName;
+    private String purchasedFrom = "NO";//**********
+    private String userName="No User";
 
     private PhotocpyMchine() {
     }
@@ -34,19 +35,15 @@ public class PhotocpyMchine extends Devices {
 
     @Override
     public String getRegNum() {
-        return regNum;
+        return photoCopyRegNum;
     }
     @Override
-    public void setRegNum(String regNum) {
-        this.regNum = regNum;
+    public void setRegNum(String photoCopyRegNum) {
+        this.photoCopyRegNum = photoCopyRegNum;
     }
     @Override
     public String getModel() {
         return model;
-    }
-    @Override
-    public String getUserName() {
-        return null;
     }
     @Override
     public void setModel(String model) {
@@ -63,6 +60,26 @@ public class PhotocpyMchine extends Devices {
     @Override
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPhotoCopyRegNum() {
+        return photoCopyRegNum;
+    }
+
+    public void setPhotoCopyRegNum(String photoCopyRegNum) {
+        this.photoCopyRegNum = photoCopyRegNum;
+    }
+
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
     }
 
     @Override
@@ -94,13 +111,13 @@ public class PhotocpyMchine extends Devices {
         return photocopyMachines.toArray(new PhotocpyMchine[0]);
     }
     @Override
-    public PhotocpyMchine getDevice(String regNum) {
+    public PhotocpyMchine getDevice(String photoCopyRegNum) {
         //pass query to the connection class
         String sql = "SELECT * FROM PhotoCopyMachine Where PhotoCopyMachineRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, regNum);
+            ps.setString(1, photoCopyRegNum);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

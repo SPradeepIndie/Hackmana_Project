@@ -15,9 +15,11 @@ import java.util.Optional;
 public class Projectors extends Devices{
     private DatabaseConnection conn =DatabaseConnection.getInstance();
     private static Projectors projectorsInstance=null;
-    private String regNum;
+    private String multimediaProjectorRegNum;
     private String model;
     private String status;
+    private String userName;
+    private String purchasedFrom;//***************
 
     private Projectors() {
     }
@@ -31,42 +33,43 @@ public class Projectors extends Devices{
     }
 
     @Override
-    public void setRegNum(String para1) {
-
+    public void setRegNum(String multimediaProjectorRegNum) {
+        this.multimediaProjectorRegNum=multimediaProjectorRegNum;
     }
-
     @Override
     public String getRegNum() {
-        return null;
+        return multimediaProjectorRegNum;
     }
-
-    @Override
-    public void setModel(String para1) {
-
-    }
-
     @Override
     public String getModel() {
-        return null;
+        return model;
     }
-
     @Override
-    public String getUserName() {
-        return null;
+    public void setModel(String model) {
+        this.model = model;
     }
-
-    @Override
-    public void setUserName(String para1) {
-    }
-
-    @Override
-    public void setStatus(String para1) {
-
-    }
-
     @Override
     public String getStatus() {
-        return null;
+        return status;
+    }
+    @Override
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
     }
 
     public Projectors[] getDevices() {

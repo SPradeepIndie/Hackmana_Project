@@ -16,13 +16,12 @@ import java.util.Optional;
 public class Monitors extends Devices{
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Monitors monitorInstance=null;
-    private String regNum;
+    private String monitorRegNum;
     private String model;
     private String status;
     private String userName;
-
-    private String screenSize;
-    private String purchasedFrom;
+    private String screenSize;//************
+    private String purchasedFrom;//************
 
     private Monitors() {
     }
@@ -34,45 +33,49 @@ public class Monitors extends Devices{
         }
         return monitorInstance;
     }
-
-    @Override
-    public void setRegNum(String para1) {
-
-    }
-
     @Override
     public String getRegNum() {
-        return null;
+        return monitorRegNum;
     }
-
     @Override
-    public void setModel(String para1) {
-
+    public void setRegNum(String monitorRegNum) {
+        this.monitorRegNum = monitorRegNum;
     }
-
     @Override
     public String getModel() {
-        return null;
+        return model;
     }
-
     @Override
-    public String getUserName() {
-        return null;
+    public void setModel(String model) {
+        this.model = model;
     }
-
-    @Override
-    public void setUserName(String para1) {
-
-    }
-
-    @Override
-    public void setStatus(String para1) {
-
-    }
-
     @Override
     public String getStatus() {
-        return null;
+        return status;
+    }
+    @Override
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getScreenSize() {
+        return screenSize;
+    }
+    public void setScreenSize(String screenSize) {
+        this.screenSize = screenSize;
+    }
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
     }
 
     public Monitors[] getDevices() {
@@ -103,18 +106,18 @@ public class Monitors extends Devices{
         return monitors.toArray(new Monitors[0]);
     }
     @Override
-    public Monitors getDevice(String regNum) {
+    public Monitors getDevice(String monitorRegNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM monitors Where MonitoRegNum=?";
+        String sql = "SELECT * FROM monitor Where MonitoRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, regNum);
+            ps.setString(1, monitorRegNum);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 Monitors monitors = new Monitors();
-                monitors.setRegNum(rs.getString("regNum"));
+                monitors.setRegNum(rs.getString("MonitorRegNum"));
                 monitors.setModel(rs.getString("model"));
                 monitors.setStatus(rs.getString("status"));
 
@@ -131,7 +134,7 @@ public class Monitors extends Devices{
     public boolean updateDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="UPDATE monitors SET model=?,status=? WHERE MonitoRegNum=?";
+        String sql="UPDATE monitor SET model=?,status=? WHERE MonitoRegNum=?";
         try {
             connection.setAutoCommit(false);
 
@@ -176,7 +179,7 @@ public class Monitors extends Devices{
     public boolean insertDevice(ArrayList<String> list){
         Connection connection= conn.getConnection();
         //pass query to the connection class
-        String sql="INSERT INTO monitors (MonitoRegNum,model,status)" +
+        String sql="INSERT INTO monitor (MonitoRegNum,model,status)" +
                 "VALUES (?,?,?)";
         try {
             connection.setAutoCommit(false);

@@ -41,7 +41,7 @@ public class DeviceMngmntController implements Initializable {
         addComponent("Projectors",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/projector.png"))));
         addComponent("Laptops",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/laptopcat.png"))));
         addComponent("UPS",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/UPS.png"))));
-        addComponent("Printers",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/other.png"))));
+        addComponent("Printers",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/printer.png"))));
         addComponent("Other Devices",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/other.png"))));
         //After adding componennt reset the row and column number
         rowCount=1;
@@ -55,7 +55,6 @@ public class DeviceMngmntController implements Initializable {
         card.setDeviceImage(catImage);
         card.disableBtn(false);
 
-        getPathFinderControllerD().setDeviceCategoryCardController(card);
         DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
         card.setDashboardPathFinderControllerD(pathFinderControllerD);
 
