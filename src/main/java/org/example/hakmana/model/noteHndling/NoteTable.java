@@ -1,13 +1,19 @@
 package org.example.hakmana.model.noteHndling;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import org.example.hakmana.DashboardCardTableController;
+import org.example.hakmana.GetNoteController;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class NoteTable {
+    private  ObservableList<DashboardCardTableController> list1 = FXCollections.observableArrayList();
     private static NoteTable noteInstance=null;
     private DatabaseConnection instance;
     Connection conn;
@@ -83,6 +89,7 @@ public class NoteTable {
     public int setPrValues(String regNum,String tableValue,String state) {
         int count1=0;
         PreparedStatement pr= null;
+
         try {
             pr = getPreparedStatement(regNum,tableValue);
             pr.setString(1,state);
@@ -96,6 +103,10 @@ public class NoteTable {
         }
 
         return count1;
+    }
+    public ObservableList<DashboardCardTableController> getDeviceStatus(String st1,String st2,String st3,String st4,String st5){
+        list1.add(new DashboardCardTableController(st1,st2,st3,st4,st5));
+        return list1;
     }
 
     public void deleteTableQueries(String ids,String titles){
