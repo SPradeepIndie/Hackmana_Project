@@ -174,6 +174,13 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
     public  void setUser(String userName){
         this.username.setText(userName);
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        LocalDate localDate=LocalDate.now();
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String currentDate=localDate.format(formatter);
+        date.setText(currentDate);
+    }
 
     private AddNoteDialogPane() {
     }
@@ -237,18 +244,6 @@ public  class AddNoteDialogPane extends Component implements Initializable  {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        LocalDate localDate=LocalDate.now();
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String currentDate=localDate.format(formatter);
-        date.setText(currentDate);
-    }
-
-    public void edit() {
-
-
-    }
 
 
 }

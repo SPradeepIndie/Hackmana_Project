@@ -256,7 +256,6 @@ public class DevDetailedViewController implements Initializable {
     public void setDevRegNum(String devRegNum) {
         DevDetailedViewController.devRegNum = devRegNum;
     }
-
     public void setDeviceSelector(String deviceSelector) {
         DevDetailedViewController.deviceSelector = deviceSelector;
     }

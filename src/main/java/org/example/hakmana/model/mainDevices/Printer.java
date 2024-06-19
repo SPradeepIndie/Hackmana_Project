@@ -15,15 +15,14 @@ import java.util.Optional;
 public class Printer extends Devices {
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Printer printerInstance=null;
-    private String regNum;
+    private String printerRegNum;
     private String model;
     private String status;
-    private String userName;
-
     private String serialNum;
     private String paperInput;
     private String paperOutput;
-    private String purchasedFrom;
+    private String purchasedFrom;//***************
+    private String userName="No user";
 
     private Printer() {
     }
@@ -36,76 +35,62 @@ public class Printer extends Devices {
         return printerInstance;
     }
 
+    @Override
+    public String getRegNum() {
+        return printerRegNum;
+    }
+    @Override
+    public void setRegNum(String printerRegNum) {
+        this.printerRegNum = printerRegNum;
+    }
+    @Override
+    public String getModel() {
+        return model;
+    }
+    @Override
+    public void setModel(String model) {
+        this.model = model;
+    }
+    @Override
+    public String getStatus() {
+        return status;
+    }
+    @Override
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+    @Override
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getSerialNum() {
         return serialNum;
     }
-
     public void setSerialNum(String serialNum) {
         this.serialNum = serialNum;
     }
-
     public String getPaperInput() {
         return paperInput;
     }
-
     public void setPaperInput(String paperInput) {
         this.paperInput = paperInput;
     }
-
     public String getPaperOutput() {
         return paperOutput;
     }
-
     public void setPaperOutput(String paperOutput) {
         this.paperOutput = paperOutput;
     }
-
     public String getPurchasedFrom() {
         return purchasedFrom;
     }
-
     public void setPurchasedFrom(String purchasedFrom) {
         this.purchasedFrom = purchasedFrom;
-    }
-
-    @Override
-    public void setRegNum(String para1) {
-
-    }
-
-    @Override
-    public String getRegNum() {
-        return null;
-    }
-
-    @Override
-    public void setModel(String para1) {
-
-    }
-
-    @Override
-    public String getModel() {
-        return null;
-    }
-
-    @Override
-    public String getUserName() {
-        return null;
-    }
-
-    @Override
-    public void setUserName(String para1) {
-
-    }
-
-    @Override
-    public void setStatus(String para1) {
-
-    }
-
-    @Override
-    public String getStatus() {
-        return null;
     }
 
     public Printer[] getDevices() {
@@ -135,13 +120,13 @@ public class Printer extends Devices {
         return printers.toArray(new Printer[0]);
     }
     @Override
-    public Printer getDevice(String regNum) {
+    public Printer getDevice(String printerRegNum) {
         //pass query to the connection class
         String sql = "SELECT * FROM printer Where PrinterRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, regNum);
+            ps.setString(1, printerRegNum);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

@@ -82,6 +82,7 @@ public class PathFinderController extends VBox implements Initializable {
 
     @FXML
     public void goBack(ActionEvent event) throws IOException {
+        setPathTxt("");
         checknullContrller(false);
         if (!sceneStack.isEmpty()) {
             String listScenename = sceneStack.pop();

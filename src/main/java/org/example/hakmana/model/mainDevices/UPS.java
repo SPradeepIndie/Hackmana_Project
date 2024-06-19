@@ -16,10 +16,11 @@ import java.util.Optional;
 public class UPS extends Devices{
     private DatabaseConnection conn;
     private static UPS upsInstance=null;
-    private String regNum;
+    private String upsRegNum;
     private String model="No";
     private String status;
-    private String userName;
+    private String userName="No";
+    private String purchasedFrom;//***************
 
     private UPS() {
     }
@@ -34,11 +35,11 @@ public class UPS extends Devices{
 
     @Override
     public String getRegNum() {
-        return regNum;
+        return upsRegNum;
     }
     @Override
-    public void setRegNum(String regNum) {
-        this.regNum = regNum;
+    public void setRegNum(String upsRegNum) {
+        this.upsRegNum = upsRegNum;
     }
     @Override
     public String getModel() {
@@ -63,6 +64,13 @@ public class UPS extends Devices{
     @Override
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
     }
 
     public UPS[] getDevices() {
@@ -93,14 +101,14 @@ public class UPS extends Devices{
         return ups.toArray(new UPS[0]);
     }
     @Override
-    public UPS getDevice(String regNum) {
+    public UPS getDevice(String upsRegNum) {
         conn = DatabaseConnection.getInstance();
         //pass query to the connection class
         String sql = "SELECT * FROM ups Where upsRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-            ps.setString(1, regNum);
+            ps.setString(1, upsRegNum);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
