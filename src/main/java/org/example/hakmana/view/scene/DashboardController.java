@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.hakmana.DashboardCardTableController;
 import org.example.hakmana.GetNoteController;
 import org.example.hakmana.model.noteHndling.NoteTable;
 import org.example.hakmana.model.noteHndling.setTableColumnData;
@@ -62,6 +63,18 @@ public class DashboardController extends Component implements Initializable {
     private Stage stage;
     @FXML
     private VBox vbox1,vbox2,vbox3,vbox4,vbox5;
+    @FXML
+    private TableView<DashboardCardTableController> table2;
+    @FXML
+    private TableColumn<DashboardCardTableController,String> activeCol;
+    @FXML
+    private TableColumn<DashboardCardTableController,String> inActiveCol;
+    @FXML
+    private TableColumn<DashboardCardTableController,String> repairingCol;
+    @FXML
+    private TableColumn<DashboardCardTableController,String> notAssignCol;
+    @FXML
+    private TableColumn<DashboardCardTableController,String> totalCol;
 
     @FXML
     private TableView<GetNoteController> table1;
@@ -144,46 +157,48 @@ public class DashboardController extends Component implements Initializable {
         pathFinderController.setSearchBarVisible(false);
         pathFinderController.setBckBtnScene("dashboard");
 
-        //create the event listener to the navigation panel ToggleButton() method
-        navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
-            if(newValue){
-                expand();
-            }else{
-                collapse();
-            }
-        });
 
-        tableAdd();
+            //create the event listener to the navigation panel ToggleButton() method
+            navPanelController.collapseStateProperty().addListener((observable, oldValue, newValue) ->{
+                if(newValue){
+                    expand();
+                }else{
+                    collapse();
+                }
+            });
+            tableAdd();
+            addDataOfDevice();
+
     }
 
     public void dashboardCardUpdate(int count1, int count2, int count3, int count4, String tableValue, String regNum ){
         noteInstance=NoteTable.getInstance();
 
         count1= noteInstance.setPrValues(regNum,tableValue,"Active");
-        Label label1 = new Label(tableValue +"\t\t\t"+ count1);
-        VBox.setMargin(label1, new Insets(0, 0, 0, 10));
-        vbox5.getChildren().add(label1);
+        String statement1=tableValue + "\t "+Integer.toString(count1);
 
         count3 = noteInstance.setPrValues(regNum,tableValue,"Repairing");
-        Label label4 = new Label(tableValue+"\t\t\t"+ Integer.toString(count3));
-        VBox.setMargin(label4, new Insets(0, 0, 0, 10));
-        vbox1.getChildren().add(label4);
+        String statement2=tableValue + "\t "+Integer.toString(count3);
 
         count2 =noteInstance.setPrValues(regNum,tableValue,"Inactive");
-        Label label2 = new Label(tableValue + "\t\t\t "+Integer.toString(count2));
-        VBox.setMargin(label2, new Insets(0, 0, 0, 10));
-        vbox2.getChildren().add(label2);
+        String statement3=tableValue + "\t "+Integer.toString(count2);
 
         count4 =noteInstance.setPrValues(regNum,tableValue,"NotAssign");
-        Label label0 = new Label(tableValue + "\t\t\t "+Integer.toString(count4));
-        VBox.setMargin(label0, new Insets(0, 0, 0, 10));
-        vbox3.getChildren().add(label0);
+        String statement4=tableValue + "\t"+Integer.toString(count4);
 
-
-        Label label3=new Label(tableValue + "\t\t\t"+Integer.toString(count1+count2+count3+count4));
-        VBox.setMargin(label3, new Insets(0, 0, 0, 10));
-        vbox4.getChildren().add(label3);
-
+        String statement5=tableValue + "\t"+Integer.toString(count4+count1+count2+count3);
+        noteInstance.getDeviceStatus(statement1,statement3,statement4,statement2,statement5);
+    }
+    //add status of device to the table
+    public void addDataOfDevice(){
+        noteInstance=NoteTable.getInstance();
+        ObservableList<DashboardCardTableController> list=noteInstance.getDeviceStatus(null,null,null,null,null);
+        activeCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("activeDevices"));
+        inActiveCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("inactiveDevices"));
+        repairingCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("repairedDevices"));
+        notAssignCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("notAssignedDevices"));
+        totalCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("totalDevices"));
+        table2.setItems(list);
     }
     public void tableAdd(){
         setTableColumnData controller=new setTableColumnData();
