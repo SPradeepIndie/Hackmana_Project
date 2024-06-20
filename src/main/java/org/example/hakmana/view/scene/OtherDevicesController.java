@@ -49,7 +49,6 @@ public class OtherDevicesController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         otherDevicesDb=new OtherDevices();
-
         num.setCellValueFactory(new PropertyValueFactory<OtherDevices ,Integer>("num"));
         deviceNameClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices ,String>("dev"));
         activeClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices ,Integer>("numActiveDev"));

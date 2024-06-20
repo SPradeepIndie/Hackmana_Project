@@ -49,10 +49,10 @@
                         <Insets right="6.0" />
                      </HBox.margin>
                   </ImageView>
-                  <TextField disable="true" prefHeight="25.0" prefWidth="224.0" HBox.hgrow="ALWAYS" />
-                  <VBox alignment="CENTER_LEFT" disable="true" prefHeight="56.0" prefWidth="145.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                  <TextField prefHeight="25.0" prefWidth="224.0" HBox.hgrow="ALWAYS" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="145.0" spacing="2.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <RadioButton fx:id="deviceIdRadio" mnemonicParsing="false" prefWidth="112.0" text="Device Reg Num" />
+                        <RadioButton fx:id="deviceIdRadio" mnemonicParsing="false" prefWidth="112.0" selected="true" text="Device Reg Num" />
                         <RadioButton fx:id="userRadio" mnemonicParsing="false" text="User" />
                      </children>
                      <HBox.margin>
