@@ -102,6 +102,30 @@ public class DevDetailedViewController implements Initializable {
     public Label other11Lbl;
     @FXML
     public TextField other11;
+    @FXML
+    public HBox other12Hbox;
+    @FXML
+    public Label other12Lbl;
+    @FXML
+    public TextField other12;
+    @FXML
+    public HBox other13Hbox;
+    @FXML
+    public Label other13Lbl;
+    @FXML
+    public TextField other13;
+    @FXML
+    public HBox other14Hbox;
+    @FXML
+    public Label other14Lbl;
+    @FXML
+    public TextField other14;
+    @FXML
+    public HBox other15Hbox;
+    @FXML
+    public Label other15Lbl;
+    @FXML
+    public TextField other15;
 
 
     //input Dev details
@@ -134,6 +158,7 @@ public class DevDetailedViewController implements Initializable {
     public Label input4Lbl;
     @FXML
     public TextField input4;
+    
 
     //output Dev details
     private ArrayList<HBox> outputHboxList;
@@ -182,13 +207,14 @@ public class DevDetailedViewController implements Initializable {
     public Button editBtn;
     @FXML
     public Button saveBtn;
+    @FXML
+    public  Button resetBtn;
 
     ArrayList<String> newValues=new ArrayList<>();
 
     private static String deviceSelector;
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
-
 
     private DevDetailedViewController(){}
     public static DevDetailedViewController getInstance() {
@@ -199,15 +225,14 @@ public class DevDetailedViewController implements Initializable {
         return instance;
     }
 
-
     public void initialize(URL location, ResourceBundle resources) {
         //get all the other details vbox label and Hboxes
         otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other6Hbox,
-                other7Hbox,other8Hbox,other9Hbox,other10Hbox,other11Hbox));
+                other7Hbox,other8Hbox,other9Hbox,other10Hbox,other11Hbox,other12Hbox,other13Hbox,other14Hbox,other15Hbox));
         otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl,
-                other5Lbl,other6Lbl,other7Lbl,other8Lbl,other9Lbl,other10Lbl,other11Lbl));
+                other5Lbl,other6Lbl,other7Lbl,other8Lbl,other9Lbl,other10Lbl,other11Lbl,other12Lbl,other13Lbl,other14Lbl,other15Lbl));
         otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4,other5,other6,
-                other7,other8,other9,other10,other11));
+                other7,other8,other9,other10,other11,other12,other13,other14,other15));
 
         //get all the input vbox label and Hboxes and textfield
         inputHboxList=new ArrayList<>(List.of(input1Hbox,input2Hbox,input3Hbox,input4Hbox));
@@ -245,10 +270,6 @@ public class DevDetailedViewController implements Initializable {
 
     }
 
-    public static String getDeviceSelector() {
-        return deviceSelector;
-    }
-
     /*-------------------------Getter and Setter--------------------------------*/
     public String getDevRegNum() {
         return devRegNum;
@@ -264,52 +285,51 @@ public class DevDetailedViewController implements Initializable {
         switch (deviceSelector) {
             case "Desktop" -> {
                 Desktop desktop = Desktop.getDesktopInstance().getDevice(getDevRegNum());
-                setCommonToView("Device Management>Desktop>" + getDevRegNum(), desktop);
-                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor",
-                        "Hard Disk","Operating System","Floppy Disk","Sound Card","TV card","Netwrok card"},
-                        desktop.getSerialNum(),desktop.getPurchasedFrom(),desktop.getRam(),
-                        desktop.getHardDisk(),
-                        desktop.getOs(),desktop.getFloppyDisk(),desktop.getSoundCard(),
-                        desktop.getTvCard(),desktop.getNetworkCard());
-                setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number"},
-                        desktop.getMonitorRegNum(),desktop.getSpeakerRegNum());
+                setCommonToView(desktop);
+                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor", "Hard Disk",
+                                "Operating System","Floppy Disk","Sound Card","TV card","Network card","SSD","CD ROM","UPS Registration number","Power supply"},
+                        desktop.getSerialNum(),desktop.getPurchasedFrom(),desktop.getRam(),desktop.getProcessor(),
+                        desktop.getHardDisk(), desktop.getOs(),desktop.getFloppyDisk(),desktop.getSoundCard(),
+                        desktop.getTvCard(),desktop.getNetworkCard(),desktop.getSsd(),desktop.getCdRom(),desktop.getUpsRegNum(),desktop.getPowerSupplyRegNum());
+                setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number","Printer Registration number"},
+                        desktop.getMonitorRegNum(),desktop.getSpeakerRegNum(),desktop.getPrinterRegNum());
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"},
                         desktop.getMouseRegNum(),desktop.getKeyboardRegNum(),desktop.getMicRegNum(),desktop.getScannerRegNum());
                 userDetails(desktop.getUserNIC());
             }
             case "Photocopy Machines" ->{
                 PhotocpyMchine photocpyMchine=PhotocpyMchine.getPhotocpyMchineInstance().getDevice(getDevRegNum());
-                setCommonToView("Device Management>Photocopy Machines>"+getDevRegNum(),photocpyMchine);
-                //setOtherDetails(new String[]{"Copying Capability"},photocpyMchine.getCopyingCapability());
+                setCommonToView(photocpyMchine);
+                setOtherDetails(new String[]{"Purchased From"},photocpyMchine.getPurchasedFrom());
             }
             case "Monitors" ->{
                 Monitors monitor=Monitors.getMonitorInstance().getDevice(getDevRegNum());
-                setCommonToView("Device Management>Monitors>"+getDevRegNum(),monitor);
-                //setOtherDetails(new String[]{"Desktop Register Number"},monitor.getRegNumDesktop());
+                setCommonToView(monitor);
+                setOtherDetails(new String[]{"Screen Size","Purchased From"},monitor.getScreenSize(),monitor.getPurchasedFrom());
             }
             case "Projectors" -> {
                 Projectors projector=Projectors.getProjectorsInstance().getDevice(getDevRegNum());
-                setCommonToView("Device Management>Projectors>"+getDevRegNum(),projector);
+                setCommonToView(projector);
+                setOtherDetails(new String[]{"Purchased From"},projector.getPurchasedFrom());
             }
             case "Laptops" -> {
                     Laptops laptop = Laptops.getLaptopsInstance().getDevice(getDevRegNum());
-                    setCommonToView("Device Management>Laptops>" + getDevRegNum(), laptop);
-                    setOtherDetails(new String[]{"Ram","CPU","Storage","Display",
-                            "Operating System","Graphic Card"},laptop.getRam(), laptop.getCpu(), laptop.getStorage()
-                                ,laptop.getOs());
+                    setCommonToView(laptop);
+                    setOtherDetails(new String[]{"Ram","Processor","Hard Disk","Operating System","Purchased Form"},laptop.getRam(), laptop.getCpu(), laptop.getStorage()
+                                ,laptop.getOs(),laptop.getPurchasedFrom());
+                    setInputDetails(new String[]{"Mouse Registration number","Keyboard Registration number"},laptop.getMouseRegNum(), laptop.getKeyboardRegNum());
                     userDetails(laptop.getUserNIC());
                 }
             case "Printers" -> {
                 Printer printer =Printer.getPrinterInstance().getDevice(getDevRegNum());
-                setCommonToView("Device Management>Printers>" + getDevRegNum(), printer);
-                setOtherDetails(new String[]{"Serial Number","Paper Input","Paper Output","Warranty"},
-                        printer.getSerialNum(),printer.getPaperInput(),printer.getPaperOutput(),"waranty");
+                setCommonToView(printer);
+                setOtherDetails(new String[]{"Serial Number","Paper Input","Paper Output","Purchased From"},
+                        printer.getSerialNum(),printer.getPaperInput(),printer.getPaperOutput(),printer.getPurchasedFrom());
             }
             case "UPS" -> {
                     UPS ups =UPS.getUpsInstance().getDevice(getDevRegNum());
-                    setCommonToView("Device Management>UPS>" + getDevRegNum(), ups);
-                    //setOtherDetails(new String[]{"Backup Power","Runtime","Desktop Register Number"},
-                            //ups.getBackUpPower(),ups.getRunTime(),ups.getRegNumDesktop());
+                    setCommonToView(ups);
+                    setOtherDetails(new String[]{"Purchased From"},ups.getPurchasedFrom());
             }
 
             default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
@@ -334,7 +354,7 @@ public class DevDetailedViewController implements Initializable {
     }
 
     /*---------------------Set the values in TextField--------------------------*/
-    private void setCommonToView(String path, Devices devCommon){
+    private void setCommonToView(Devices devCommon){
         regNumTextField.setText(devCommon.getRegNum());
         modelTextField.setText(devCommon.getModel());
         StatusTextField.setText(devCommon.getStatus());
@@ -373,6 +393,8 @@ public class DevDetailedViewController implements Initializable {
         setEditable(otherTextList,true,"#03AED2");
         setEditable(inputTextList,true,"#03AED2");
         setEditable(outputTextList,true,"#03AED2");
+        saveBtn.setDisable(false);
+        resetBtn.setDisable(false);
     }
     private void reset(){
         setEditable(new ArrayList<>(List.of(regNumTextField,modelTextField,StatusTextField)),false,"grey");
@@ -388,6 +410,11 @@ public class DevDetailedViewController implements Initializable {
         for(HBox h:otherHboxList){
             h.setVisible(false);
         }
+        for(HBox input:inputHboxList){
+            input.setVisible(false);
+        }
+        saveBtn.setDisable(true);
+        resetBtn.setDisable(true);
     }
     @FXML
     private void cancel(){
@@ -396,6 +423,7 @@ public class DevDetailedViewController implements Initializable {
     }
     @FXML
     private void save(){
+        newValues.clear();
         switch (deviceSelector) {
             case "Desktop" -> {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
@@ -404,47 +432,26 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
-                if(!Desktop.getDesktopInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    //Check confirmation to change
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated desktop"+getDevRegNum() );
-                    alert.showAndWait();
-                }
+                Desktop.getDesktopInstance().updateDevice(newValues);
+                showDeviceDetail();
+
             }
             case "Photocopy Machines" -> {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                //System.out.println(newValues);
-                if(!PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    //Check confirmation to change
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated Photocopy Machine"+getDevRegNum() );
-                    alert.showAndWait();
-                }
-
+                PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
+                showDeviceDetail();
             }
             case "Monitors" -> {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                //System.out.println(newValues);
-                if(!Monitors.getMonitorInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated Monitor"+getDevRegNum() );
-                    alert.showAndWait();
-                }
+                Monitors.getMonitorInstance().updateDevice(newValues);
+                showDeviceDetail();
+
 
             }
             case "Projectors" -> {
@@ -452,32 +459,18 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                //System.out.println(newValues);
-                if(!Projectors.getProjectorsInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    //Check confirmation to change
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated Multimedia Projector"+getDevRegNum() );
-                    alert.showAndWait();
-                }
+                Projectors.getProjectorsInstance().updateDevice(newValues);
+                showDeviceDetail();
+
             }
             case "Laptops" -> {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
+                getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
-               // System.out.println(newValues);
-                if(!Laptops.getLaptopsInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    //Check confirmation to change
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated Laptop"+getDevRegNum() );
-                    alert.showAndWait();
-                }
+                Laptops.getLaptopsInstance().updateDevice(newValues);
+                showDeviceDetail();
 
             }
             case "Printers" -> {
@@ -485,36 +478,17 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                //System.out.println(newValues);
-                if(!Printer.getPrinterInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    //Check confirmation to change
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated Printer"+getDevRegNum() );
-                    alert.showAndWait();
-                }
-
+                Printer.getPrinterInstance().updateDevice(newValues);
+                showDeviceDetail();
             }
             case "UPS" -> {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-               // System.out.println(newValues);
-                if(!UPS.getUpsInstance().updateDevice(newValues)){
-                    showDeviceDetail();
-                }else{
-                    //Check confirmation to change
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Success");
-                    alert.setContentText("Successfully Updated UPS"+getDevRegNum() );
-                    alert.showAndWait();
-                }
-
+                UPS.getUpsInstance().updateDevice(newValues);
+                showDeviceDetail();
             }
-
             default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
         }
 

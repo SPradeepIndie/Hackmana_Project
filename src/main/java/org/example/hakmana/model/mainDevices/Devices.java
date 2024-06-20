@@ -1,6 +1,17 @@
 package org.example.hakmana.model.mainDevices;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import org.example.hakmana.model.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Optional;
+
 public abstract class Devices {
+    private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
     private String model="No";
     private String name;
@@ -33,6 +44,42 @@ public abstract class Devices {
     public abstract void setStatus(String para1);
     public abstract String getStatus();
 
+    public Optional<ButtonType> alerting(Alert.AlertType alertType, String title, String header, String content){
+        Alert alert=new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        return alert.showAndWait();
+    }
+
+    private void changesCommit(Connection conn, Optional<ButtonType> alertResult) throws SQLException {
+        if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
+            conn.commit();
+            return;
+        }
+        conn.rollback();
+    }
+
+    public void dbInteraction(String incompleteSql,ArrayList<String> valList,String deviceRegNum){
+        Connection connection= conn.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            int i=1;
+            PreparedStatement ps = connection.prepareStatement(incompleteSql);
+            for(String l:valList){
+                ps.setString(i,l);
+                i++;
+            }
+            i= ps.executeUpdate();
+
+            changesCommit(connection,alerting(Alert.AlertType.CONFIRMATION,"Confirmation","Desktop registration number"+deviceRegNum,"Update "+ i+" rows " ));
+            connection.setAutoCommit(true);
+
+        } catch (SQLException e) {
+            // Rollback the transaction on error
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+    }
 }
 
 

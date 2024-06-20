@@ -280,7 +280,7 @@ public class Desktop extends Devices {
                 desktops.add(desktop);//add desktop to the desktops list
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         //return desktops list as an array
@@ -313,10 +313,15 @@ public class Desktop extends Devices {
                 desktop.setSoundCard(rs.getString("soundCard"));
                 desktop.setTvCard(rs.getString("tvCard"));
                 desktop.setNetworkCard(rs.getString("networkCard"));
+                desktop.setSsd(rs.getString("ssd"));
+                desktop.setCdRom(rs.getString("cdRom"));
+                desktop.setUpsRegNum(rs.getString("upsRegNum"));
+                desktop.setPowerSupplyRegNum(rs.getString("powerSupplyRegNum"));
                 desktop.setMonitorRegNum(rs.getString("monitorRegNum"));
                 desktop.setSpeakerRegNum(rs.getString("speakerRegNum"));
                 desktop.setMouseRegNum(rs.getString("mouseRegNum"));
                 desktop.setKeyboardRegNum(rs.getString("keyboardRegNum"));
+                desktop.setPrinterRegNum(rs.getString("printerRegNum"));
                 desktop.setMicRegNum(rs.getString("micRegNum"));
                 desktop.setScannerRegNum(rs.getString("scannerRegNum"));
                 desktop.setUserNIC(rs.getString("userNIC"));
@@ -324,147 +329,39 @@ public class Desktop extends Devices {
                 return desktop;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         //return null if there is no result
         return null;
     }
 
-    public boolean updateDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
+    public void updateDevice(ArrayList<String> list){
         //pass query to the connection class
         String sql="UPDATE desktop SET model=?,status=?,serialNum=?,purchasedFrom=?,ram=?," +
-                "processor=?,hardDisk=?,os=?,floppyDisk=?,soundCard=?,tvCard=?,networkCard=?,monitorRegNum=?," +
-                "speakerRegNum=?,mouseRegNum=?,keyboardRegNum=?,micRegNum=?,scannerRegNum=?" +
+                "processor=?,hardDisk=?,os=?,floppyDisk=?,soundCard=?,tvCard=?,networkCard=?,ssd=?,cdRom=?,"+
+                "upsRegNum=?,powerSupplyRegNum=?,monitorRegNum=?,speakerRegNum=?,printerRegNum=?,mouseRegNum=?,keyboardRegNum=?,micRegNum=?,scannerRegNum=?" +
                 "WHERE DesRegNum=?";
-        try {
-            connection.setAutoCommit(false);
 
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
+        dbInteraction(sql,list,list.getLast());
 
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(20));
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            alerting(e.getMessage());
-
-        }
-        return false;
     }
-    public boolean updateDeviceUser(String userNic,String id){
-        Connection connection= conn.getConnection();
+    public void updateDeviceUser(String userNic,String id){
         //pass query to the connection class
         String sql="UPDATE desktop SET userNIC=? WHERE DesRegNum=?";
-        try {
-            connection.setAutoCommit(false);
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1,userNic);
-            ps.setString(2,id);
-
-            ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update deviceUser desktop registration number " +id);
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-           alerting(e.getMessage());
-
-        }
-        return false;
+        dbInteraction(sql,new ArrayList<>(List.of(userNic,id)),id);
     }
     public boolean insertDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
         //pass query to the connection class
         String sql="INSERT INTO desktop (DesRegNum,model,status,serialNum,purchasedFrom,ram," +
-                "processor,hardDisk,os,floppyDisk,soundCard,tvCard,networkCard,monitorRegNum," +
-                "speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,userNIC)" +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            connection.setAutoCommit(false);
-
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
-
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.getFirst());
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException sqlException) {
-            // Rollback the transaction on error
-            alerting(sqlException.getMessage());
-        }
+                "processor,hardDisk,os,floppyDisk,soundCard,tvCard,networkCard,ssd,cdRom,monitorRegNum," +
+                "speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,printerRegNum,upsRegNum,"+
+                "powerSupplyRegNum,userNIC)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        dbInteraction(sql,list, list.getFirst());
         return false;
     }
 
-    private void alerting(String content){
-        Alert alert=new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error Updating Device");
-        alert.setHeaderText("An error occurred while updating the device.");
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+
 }
 

@@ -1,7 +1,6 @@
 package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 import org.example.hakmana.model.DatabaseConnection;
 
@@ -11,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Monitors extends Devices{
     private DatabaseConnection conn=DatabaseConnection.getInstance();
@@ -78,6 +76,10 @@ public class Monitors extends Devices{
         this.purchasedFrom = purchasedFrom;
     }
 
+
+    //get the Desktop array from the database
+    //for updating cards
+    @Override
     public Monitors[] getDevices() {
         List<Monitors> monitors = new ArrayList<>();
         //pass query to the connection class
@@ -100,7 +102,7 @@ public class Monitors extends Devices{
             }
         }
         catch (SQLException e){
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         return monitors.toArray(new Monitors[0]);
@@ -108,7 +110,7 @@ public class Monitors extends Devices{
     @Override
     public Monitors getDevice(String monitorRegNum) {
         //pass query to the connection class
-        String sql = "SELECT * FROM monitor Where MonitoRegNum=?";
+        String sql = "SELECT * FROM monitor Where MonitorRegNum=?";
 
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement(sql);
@@ -119,107 +121,30 @@ public class Monitors extends Devices{
                 Monitors monitors = new Monitors();
                 monitors.setRegNum(rs.getString("MonitorRegNum"));
                 monitors.setModel(rs.getString("model"));
+                monitors.setScreenSize(rs.getString("screenSize"));
                 monitors.setStatus(rs.getString("status"));
+                monitors.setPurchasedFrom(rs.getString("purchasedFrom"));
 
                 return monitors;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         //return null if there is no result
         return null;
     }
 
-    public boolean updateDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
+    public void updateDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="UPDATE monitor SET model=?,status=? WHERE MonitoRegNum=?";
-        try {
-            connection.setAutoCommit(false);
-
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
-
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.get(3));
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-        return false;
+        String sql="UPDATE monitor SET model=?,status=?,screenSize=?,purchasedFrom=? WHERE MonitorRegNum=?";
+        dbInteraction(sql,list,list.getLast());
     }
     public boolean insertDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
         //pass query to the connection class
         String sql="INSERT INTO monitor (MonitoRegNum,model,status)" +
                 "VALUES (?,?,?)";
-        try {
-            connection.setAutoCommit(false);
-
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
-
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.getFirst());
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
+        dbInteraction(sql,list, list.getFirst());
         return false;
     }
 }
