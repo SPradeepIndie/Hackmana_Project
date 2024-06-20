@@ -82,6 +82,8 @@ public class PhotocpyMchine extends Devices {
         this.purchasedFrom = purchasedFrom;
     }
 
+    //get the Desktop array from the database
+    //for updating cards
     @Override
     public PhotocpyMchine[] getDevices() {
         List<PhotocpyMchine> photocopyMachines = new ArrayList<>();
@@ -105,7 +107,7 @@ public class PhotocpyMchine extends Devices {
             }
         }
         catch (SQLException e){
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         return photocopyMachines.toArray(new PhotocpyMchine[0]);
@@ -120,109 +122,32 @@ public class PhotocpyMchine extends Devices {
             ps.setString(1, photoCopyRegNum);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 PhotocpyMchine PhotoCopyMachine = new PhotocpyMchine();
                 PhotoCopyMachine.setRegNum(rs.getString("PhotoCopyMachineRegNum"));
                 PhotoCopyMachine.setModel(rs.getString("model"));
                 PhotoCopyMachine.setStatus(rs.getString("status"));
+                PhotoCopyMachine.setPurchasedFrom(rs.getString("purchasedFrom"));
 
                 return PhotoCopyMachine;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         //return null if there is no result
         return null;
     }
-    public boolean updateDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
+
+    public void updateDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="UPDATE PhotoCopyMachine SET model= ?, status= ? WHERE PhotoCopyMachineRegNum=?";
-        try {
-            connection.setAutoCommit(false);
-
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
-
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows Photocopy Machine registration number " +list.get(3));
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-        return false;
+        String sql="UPDATE PhotoCopyMachine SET model= ?, status= ? , purchasedFrom=? WHERE PhotoCopyMachineRegNum=?";
+        dbInteraction(sql,list,list.getLast());
     }
     public boolean insertDevice(ArrayList<String> list) {
-        Connection connection = conn.getConnection();
         //pass query to the connection class
         String sql = "INSERT INTO PhotoCopyMachine (PhotoCopyMachineRegNum,model,status) VALUES (?,?,?)";
-        try {
-            connection.setAutoCommit(false);
-
-            int i = 1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for (String l : list) {
-                ps.setString(i, l);
-                i++;
-            }
-
-            i = ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update " + i + " rows desktop registration number " + list.getFirst());
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
+        dbInteraction(sql,list, list.getFirst());
         return false;
     }
 }

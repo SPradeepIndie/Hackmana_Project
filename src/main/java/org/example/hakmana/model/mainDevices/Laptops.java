@@ -136,6 +136,9 @@ public class Laptops extends Devices{
         this.keyboardRegNum = keyboardRegNum;
     }
 
+    //get the Desktop array from the database
+    //for updating cards
+    @Override
     public Laptops[] getDevices() {
         List<Laptops> laptops = new ArrayList<>();
         //pass query to the connection class
@@ -158,7 +161,7 @@ public class Laptops extends Devices{
             }
         }
         catch (SQLException e){
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         return laptops.toArray(new Laptops[0]);
@@ -173,156 +176,48 @@ public class Laptops extends Devices{
             ps.setString(1, laptopRegNum);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 Laptops laptop = new Laptops();
                 laptop.setRegNum(rs.getString("LaptopRegNum"));
                 laptop.setModel(rs.getString("model"));
                 laptop.setStatus(rs.getString("status"));
-                laptop.setRam(rs.getString("RAM"));
+                laptop.setRam(rs.getString("ram"));
                 laptop.setCpu(rs.getString("processor"));
-                laptop.setStorage(rs.getString("hardDiak"));
+                laptop.setStorage(rs.getString("hardDisk"));
                 laptop.setOs(rs.getString("os"));
+                laptop.setPurchasedFrom(rs.getString("purchasedForm"));
+                laptop.setMouseRegNum(rs.getString("mouseRegNum"));
+                laptop.setKeyboardRegNum(rs.getString("keyboardRegNum"));
                 laptop.setUserNIC(rs.getString("userNIC"));
 
                 return laptop;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
         //return null if there is no result
         return null;
     }
-    public boolean updateDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
+
+    public void updateDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="UPDATE laptop SET model=?,status=?,RAM=?,processor=?,hardDisk=?,os=? WHERE LaptopRregNum=?";
-        try {
-            connection.setAutoCommit(false);
+        String sql="UPDATE laptop SET model=?,status=?,ram=?,processor=?,hardDisk=?,os=?,purchasedForm=?,mouseRegNum=?,keyboardRegNum=? WHERE LaptopRegNum=?";
+        dbInteraction(sql,list,list.getLast());
 
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
-
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows laptop registration number " +list.get(8));
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-        return false;
     }
-    public boolean updateDeviceUser(String userNic,String id) {
-        Connection connection = conn.getConnection();
+    public void updateDeviceUser(String userNic,String id) {
         //pass query to the connection class
         String sql = "UPDATE laptop SET userNIC=? WHERE LaptopRegNum=?";
-        try {
-            connection.setAutoCommit(false);
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, userNic);
-            ps.setString(2, id);
+        dbInteraction(sql,new ArrayList<>(List.of(userNic,id)),id);
 
-            ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update deviceUser laptop registration number " + id);
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating DeviceUser");
-            alert.setHeaderText("An error occurred while updating the device deviceUser.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
-        return false;
     }
     public boolean insertDevice(ArrayList<String> list){
-        Connection connection= conn.getConnection();
         //pass query to the connection class
         String sql="INSERT INTO laptop (LaptopRegNum,model,status,ram,processor,hardDisk,os,userNIC)" +
                 "VALUES (?,?,?,?,?,?,?,?)";
-        try {
-            connection.setAutoCommit(false);
-
-            int i=1;
-            PreparedStatement ps = connection.prepareStatement(sql);
-            for(String l:list){
-                ps.setString(i,l);
-                i++;
-            }
-
-            i=ps.executeUpdate();
-
-            //Check confirmation to change
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Update "+ i+" rows desktop registration number " +list.getFirst());
-
-            Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
-
-            //if alert box ok pressed execute sql quires
-            if (alertResult.isPresent() && alertResult.get() == ButtonType.OK) {
-                // commit the sql quires
-                connection.commit();
-                connection.setAutoCommit(true);
-                return true;
-            } else {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-        } catch (SQLException e) {
-            // Rollback the transaction on error
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Updating Device");
-            alert.setHeaderText("An error occurred while updating the device.");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
+        dbInteraction(sql,list, list.getFirst());
         return false;
     }
+
 }
