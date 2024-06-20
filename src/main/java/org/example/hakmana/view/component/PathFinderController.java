@@ -46,6 +46,10 @@ public class PathFinderController extends VBox implements Initializable {
         }
     }
 
+    public HBox getSearchBar() {
+        return searchBar;
+    }
+
     public DeviceCategoryCardController getDeviceCategoryCardController() {
         return deviceCategoryCardController;
     }

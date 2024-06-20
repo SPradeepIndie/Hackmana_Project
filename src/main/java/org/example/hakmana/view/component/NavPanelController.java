@@ -249,6 +249,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
             throw new RuntimeException(e);
         }
         getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+        getDashboardpathFinderController().setSearchBarVisible(false);//set search bar not visible in nav panel scene
         removeBorderStyle();
     }
 

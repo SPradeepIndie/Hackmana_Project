@@ -207,6 +207,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
      @FXML
      public void DetailedViewSceneLoad(ActionEvent event) throws IOException {
          getDashboardPathFinderControllerDD().setDeviceInfoCardController(this);
+         getDashboardPathFinderControllerDD().setSearchBarVisible(false);
          // Load the FXML loader for the target scene
           FXMLLoader detailDeviceVboxLoder = new FXMLLoader(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
           //create DevDetailedViewController instance
