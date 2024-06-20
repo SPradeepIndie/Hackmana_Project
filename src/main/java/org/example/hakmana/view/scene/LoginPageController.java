@@ -28,19 +28,19 @@ import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
 
-
     public static String curentUser = "";
 
     private static LoginPageController instance=null;
     public Text forgotBtn;
     private String query;
     @FXML
-    private TextField psswrdFeild, usrNameFeild;
+    private TextField usrNameFeild;
+    @FXML
+    private PasswordField psswrdFeild;
     @FXML
     private Button login;
     @FXML
     private CheckBox remenberCheckBox;
-
 
     private LoginPageController(){}
 
@@ -51,7 +51,6 @@ public class LoginPageController implements Initializable {
         }
         return instance;
     }
-
 
     // Method to hash the password using SHA-1
     private static String sha1(String input) {
@@ -85,14 +84,12 @@ public class LoginPageController implements Initializable {
         String storedPassword = systemUser.getPassword(tempUserName);
 
         if (storedPassword != null) {
-
             if (tempPsswrd.equals(storedPassword)) {
                 // Passwords match, load dashboard
                 loadDashboard(event);
 
                 curentUser = tempUserName;
                 systemUser.setUserName(tempUserName);
-
 
                 if (remenberCheckBox.isSelected()) {
                     query = "UPDATE systemUser SET isRemember = TRUE WHERE userName = ?";
@@ -109,8 +106,6 @@ public class LoginPageController implements Initializable {
         } else {
             alertBox(event, "Username Incorrect", "The username you entered does not exist.");
         }
-
-
     }
 
     // Method to load dashboard scene
@@ -136,7 +131,7 @@ public class LoginPageController implements Initializable {
         stage.setY(0.0);
         stage.setScene(scene);
         stage.show();
-        System.out.println("Login successfull");
+        System.out.println("Login successful");
     }
 
     @Override
@@ -145,10 +140,42 @@ public class LoginPageController implements Initializable {
         String storeUserName = systemUser.getIsRemUName();
         usrNameFeild.setText(storeUserName);
 
-//        AllDeviceDetails allDeviceDetails=new AllDeviceDetails();
-//        for (AllDeviceDetails dev:allDeviceDetails.getActiveDevicesCount()){
-//            System.out.println(dev.getDeviceName()+" "+dev.getDeviceCount());
-//        }
+        // Adding focus listeners to provide visual cues
+        usrNameFeild.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                usrNameFeild.setStyle("-fx-border-color: blue;");
+            } else {
+                usrNameFeild.setStyle("");
+            }
+        });
+
+        psswrdFeild.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                psswrdFeild.setStyle("-fx-border-color: blue;");
+            } else {
+                psswrdFeild.setStyle("");
+            }
+        });
+
+        // Bind the ENTER key to switch focus from Username to Password field
+        usrNameFeild.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    psswrdFeild.requestFocus(); // Switch focus to Password field
+                }
+            }
+        });
+
+        // Bind the ENTER key to the login button in Password field
+        psswrdFeild.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    login.fire(); // Fire the login button's action when ENTER is pressed
+                }
+            }
+        });
 
         // Bind the ENTER key to the button
         login.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -159,8 +186,6 @@ public class LoginPageController implements Initializable {
                 }
             }
         });
-
-
     }
 
     public void forgotPsswrdDialogPane(MouseEvent event) throws IOException {
@@ -174,19 +199,9 @@ public class LoginPageController implements Initializable {
         dialog.setDialogPane(forgotDialogPane);
         dialog.setTitle("Forgot password");
 
-
         Optional<ButtonType> clickedButton = dialog.showAndWait();
         if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
             dialog.close();
         }
     }
-
 }
-
-
-
-
-
-
-
-
