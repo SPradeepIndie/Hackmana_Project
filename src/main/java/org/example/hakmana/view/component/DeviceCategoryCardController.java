@@ -120,6 +120,8 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     }
 
     public void loadOtherDevice(){
+        getDashboardPathFinderControllerD().setSearchBarVisible(false);
+        
         FXMLLoader vboxLoad = new FXMLLoader(OtherDevicesController.class.getResource("OtherDevices.fxml"));
         OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
         vboxLoad.setController(otherDevicesController);
@@ -132,6 +134,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
     }
 
     public void loadSmmryScene(){
+        getDashboardPathFinderControllerD().setSearchBarVisible(true);
         FXMLLoader vboxLoad =new FXMLLoader(DeviceMngmntSmmryScene.class.getResource("DeviceMngmntSmmryScene.fxml"));
 
         DeviceMngmntSmmryScene deviceMngmntSmmryScene=DeviceMngmntSmmryScene.getInstance(); // Create controller instance

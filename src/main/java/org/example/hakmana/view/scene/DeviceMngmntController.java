@@ -34,6 +34,7 @@ public class DeviceMngmntController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        pathFinderControllerD.setSearchBarVisible(false);
         //add DeviceCategoryCardController for the scene
         addComponent("Desktop", new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/Desktop.png"))));
         addComponent("Photocopy Machines",new Image(Objects.requireNonNull(getClass().getResourceAsStream("Images/photoCopy.png"))));

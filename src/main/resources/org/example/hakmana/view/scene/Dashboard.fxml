@@ -37,23 +37,20 @@
                     <VBox.margin>
                         <Insets left="27.0" />
                     </VBox.margin>
-                    <ScrollPane fx:id="bodyScrollPane" fitToWidth="true" layoutY="0.8000030517578125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="0.0">
-                        <VBox prefHeight="567.0" prefWidth="696.0" spacing="10.0" stylesheets="@CSS/dashboard.css">
+                    <ScrollPane fx:id="bodyScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutY="0.8000030517578125" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="567.0" prefWidth="875.0" spacing="10.0" stylesheets="@CSS/dashboard.css">
                             <padding>
                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                             </padding>
-                     <HBox prefHeight="100.0" prefWidth="696.0" VBox.vgrow="ALWAYS">
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
+                     <HBox alignment="CENTER" prefWidth="875.0" VBox.vgrow="ALWAYS">
                         <children>
                            <TableView fx:id="table2" prefHeight="111.0" prefWidth="875.0" HBox.hgrow="ALWAYS">
                              <columns>
-                               <TableColumn fx:id="activeCol" editable="false" prefWidth="230.0" resizable="false" sortable="false" text="Active" />
-                               <TableColumn fx:id="inActiveCol" editable="false" prefWidth="230.0" resizable="false" sortable="false" text="Inactive" />
-                                 <TableColumn fx:id="repairingCol" editable="false" prefWidth="230.0" resizable="false" sortable="false" text="Repairing" />
-                                 <TableColumn fx:id="notAssignCol" editable="false" prefWidth="230.0" resizable="false" sortable="false" text="NotAssign" />
-                                 <TableColumn fx:id="totalCol" editable="false" prefWidth="230.0" resizable="false" sortable="false" text="Total" />
+                                 <TableColumn fx:id="totalCol" editable="false" prefWidth="475.0" resizable="false" sortable="false" text="DeviceName" />
+                               <TableColumn fx:id="activeCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Active" />
+                               <TableColumn fx:id="inActiveCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Inactive" />
+                                 <TableColumn fx:id="repairingCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="Repairing" />
+                                 <TableColumn fx:id="notAssignCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="NotAssign" />
                              </columns>
                            </TableView>
                         </children>

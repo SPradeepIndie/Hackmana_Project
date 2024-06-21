@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-      <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
           <padding>
               <Insets top="10.0" />
           </padding>
@@ -94,6 +93,30 @@
                           <Label fx:id="other11Lbl" prefWidth="150.0" text="Network Card" HBox.hgrow="ALWAYS" />
                           <TextField fx:id="other11" HBox.hgrow="ALWAYS" />
                       </HBox>
+            <HBox fx:id="other12Hbox">
+               <children>
+                  <Label fx:id="other12Lbl" prefWidth="150.0" text="SSD" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="other12" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox fx:id="other13Hbox">
+               <children>
+                  <Label fx:id="other13Lbl" prefWidth="150.0" text="CD ROM" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="other13" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox fx:id="other14Hbox">
+               <children>
+                  <Label fx:id="other14Lbl" prefWidth="150.0" text="UPS Registration number" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="other14" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox fx:id="other15Hbox">
+               <children>
+                  <Label fx:id="other15Lbl" prefWidth="150.0" text="Power supply" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="other15" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
                   </VBox>
               </VBox>
               <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
