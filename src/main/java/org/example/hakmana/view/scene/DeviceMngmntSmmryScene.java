@@ -3,6 +3,7 @@ package org.example.hakmana.view.scene;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.view.component.AddDevButtonController;
@@ -13,12 +14,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DeviceMngmntSmmryScene implements Initializable {
-    private static DeviceMngmntSmmryScene instance=null;
+    private static DeviceMngmntSmmryScene instance = null;
     private javafx.scene.control.ScrollPane bodyScrollPaneD;
     private PathFinderController pathFinderControllerD;
-    private  Devices[] dev=null;
+    private Devices[] dev = null;
     @FXML
     public GridPane grid;
+    @FXML
+    public TextField searchTextField;
     private int rowCount = 1;
     private int colCount = 0;
     private static String dbSelector;
@@ -27,8 +30,8 @@ public class DeviceMngmntSmmryScene implements Initializable {
     }
 
     public static DeviceMngmntSmmryScene getInstance() {
-        if(instance==null){
-            instance=new DeviceMngmntSmmryScene();
+        if (instance == null) {
+            instance = new DeviceMngmntSmmryScene();
             return instance;
         }
         return instance;
@@ -37,15 +40,20 @@ public class DeviceMngmntSmmryScene implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addLastComponent();
-        addComponent();
-        rowCount=1;
-        colCount=0;
-    }
+        addComponent("");
+        rowCount = 1;
+        colCount = 0;
 
+        // Add listener to searchTextField for real-time search
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            addComponent(newValue);
+        });
+    }
 
     public String getDbSelector() {
         return dbSelector;
     }
+
     public void setDbSelector(String dbSelector) {
         DeviceMngmntSmmryScene.dbSelector = dbSelector;
     }
@@ -53,66 +61,74 @@ public class DeviceMngmntSmmryScene implements Initializable {
     public ScrollPane getBodyScrollPaneD() {
         return bodyScrollPaneD;
     }
+
     public void setBodyScrollPaneD(ScrollPane bodyScrollPaneD) {
         this.bodyScrollPaneD = bodyScrollPaneD;
-
     }
 
     public PathFinderController getPathFinderControllerD() {
         return pathFinderControllerD;
     }
+
     public void setPathFinderControllerD(PathFinderController pathFinderControllerD) {
         this.pathFinderControllerD = pathFinderControllerD;
     }
 
     public Devices[] getDev() {
-        //upcast the dev
+        // upcast the dev
         switch (dbSelector) {
             case "Desktop" -> dev = Desktop.getDesktopInstance().getDevices();
             case "Photocopy Machines" -> dev = PhotocpyMchine.getPhotocpyMchineInstance().getDevices();
             case "Monitors" -> dev = Monitors.getMonitorInstance().getDevices();
-            case "Projectors" -> dev =Projectors.getProjectorsInstance().getDevices();
+            case "Projectors" -> dev = Projectors.getProjectorsInstance().getDevices();
             case "Laptops" -> dev = Laptops.getLaptopsInstance().getDevices();
-            case "Printers" -> dev =Printer.getPrinterInstance().getDevices();
+            case "Printers" -> dev = Printer.getPrinterInstance().getDevices();
             case "UPS" -> dev = UPS.getUpsInstance().getDevices();
         }
         return dev;
-
     }
 
-    //add DeviceInfoCards to the scene
+    // add DeviceInfoCards to the scene based on filter
     @FXML
-    public void addComponent() {
+    public void addComponent(String filter) {
         getDev();
+        grid.getChildren().clear(); // Clear existing components
+
+        rowCount = 1;
+        colCount = 0;
         DeviceInfoCardController card;
-        for (Devices d : dev) {//for all the Devices in dev array add card to the scene
-            card=new DeviceInfoCardController();
-            card.setUser(d.getUserName());
-            card.setBrand(d.getModel());
-            card.setDevId(d.getRegNum());
-            card.setDeviceCat(getDbSelector());
 
-            DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());//set the Scrollpane body in DevInfoCard class
-            DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD());//pass pathFinderController to the Device Info card Component
+        for (Devices d : dev) {
+            if (filter.isEmpty() || d.getRegNum().contains(filter)) { // Filter logic
+                card = new DeviceInfoCardController();
+                card.setUser(d.getUserName());
+                card.setBrand(d.getModel());
+                card.setDevId(d.getRegNum());
+                card.setDeviceCat(getDbSelector());
 
-            // Add the label to the grid
-            grid.add(card, colCount, rowCount);
+                DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD()); // set the Scrollpane body in DevInfoCard class
+                DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD()); // pass pathFinderController to the Device Info card Component
 
-            // Increment the row count for the next component
-            colCount++;
+                // Add the label to the grid
+                grid.add(card, colCount, rowCount);
 
-            // If the row count is a multiple of 3, increment the column count
-            if (colCount % 3 == 0) {
-                rowCount++;
-                colCount = 0;
+                // Increment the row count for the next component
+                colCount++;
+
+                // If the row count is a multiple of 3, increment the column count
+                if (colCount % 3 == 0) {
+                    rowCount++;
+                    colCount = 0;
+                }
             }
         }
 
+        addLastComponent(); // Add the AddDevice card at the end
     }
 
-    //add AddDevice card to the scene
+    // add AddDevice card to the scene
     public void addLastComponent() {
-        AddDevButtonController addDevButtonController=new AddDevButtonController();
+        AddDevButtonController addDevButtonController = new AddDevButtonController();
         addDevButtonController.setDevCat(getDbSelector());
         // Add the label to the grid
         grid.add(addDevButtonController, colCount, rowCount);
@@ -125,6 +141,5 @@ public class DeviceMngmntSmmryScene implements Initializable {
             rowCount++;
             colCount = 0;
         }
-
     }
 }
