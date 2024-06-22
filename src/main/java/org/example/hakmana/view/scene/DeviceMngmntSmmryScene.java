@@ -41,7 +41,6 @@ public class DeviceMngmntSmmryScene implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         updateUI(); // Initial update of UI
     }
 
@@ -98,7 +97,7 @@ public class DeviceMngmntSmmryScene implements Initializable {
     }
 
     // Update UI dynamically based on searchText
-    private void updateUI() {
+    public void updateUI() {
         grid.getChildren().clear(); // Clear existing cards
         addFirstComponent();
         getDev();
@@ -106,8 +105,6 @@ public class DeviceMngmntSmmryScene implements Initializable {
         int colCount = 1;
 
         // Add the last component (e.g., add button)
-
-
         if (isDevIdSelected == true) {
             for (Devices d : dev) {
                 if (searchText.isEmpty() || d.getRegNum().toLowerCase().contains(searchText.toLowerCase())) {
@@ -142,6 +139,7 @@ public class DeviceMngmntSmmryScene implements Initializable {
                     DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());
                     DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD());
 
+
                     // Add the card to the grid
                     colCount++;
                     grid.add(card, colCount % 3, rowCount); // Modulo 3 for column, rowCount for row
@@ -162,13 +160,12 @@ public class DeviceMngmntSmmryScene implements Initializable {
         updateUI(); // Update UI when searchText changes
     }
 
-    // Add the last component (e.g., add button) to the grid
+    // Add the first component (e.g., add button) to the grid
     @FXML
     public void addFirstComponent() {
         AddDevButtonController addDevButtonController = new AddDevButtonController();
         addDevButtonController.setDevCat(getDbSelector());
-
-        grid.add(addDevButtonController, 1, 1); // Modulo 3 for column, rowCount for row
+        grid.add(addDevButtonController, 1, 1);
 
     }
 }

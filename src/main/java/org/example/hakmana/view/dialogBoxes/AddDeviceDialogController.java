@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -434,8 +435,10 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add( OSChoiseBox.getValue());
                 newValues.add(userNIC.getText());
 
-                // Call addUser in a background thread
-                new Thread(this::addUser).start();
+                if(nicFieldCheck()) {
+                    // Call addUser in a background thread
+                    new Thread(this::addUser).start();
+                }
 
                 return Laptops.getLaptopsInstance().insertDevice(newValues);
 
@@ -476,6 +479,9 @@ public class AddDeviceDialogController implements Initializable {
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
             resetBtnAction();
             setDevCat();
+        }
+        if(isFromComponent){
+            DeviceMngmntSmmryScene.getInstance().updateUI();//when device added update ui
         }
         else {
             System.out.println(newValues);
