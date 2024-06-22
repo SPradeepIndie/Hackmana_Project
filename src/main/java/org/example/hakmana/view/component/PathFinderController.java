@@ -4,13 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 
 import org.example.hakmana.view.scene.*;
 
@@ -30,8 +30,38 @@ public class PathFinderController extends VBox implements Initializable {
     @FXML
     private Label pathTxt;
 
+    @FXML
+    public TextField searchTxtField;
+    @FXML
+    public RadioButton deviceIdRadio;
+
+    private String searchText;
+    private Boolean isDevIdSelected;
+    private static PathFinderController instance = null;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        DeviceMngmntSmmryScene deviceMngmntSmmryScene=DeviceMngmntSmmryScene.getInstance();
+
+        // Initialize listeners for searchTxtField and userRadio
+        searchTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+            searchText = newValue; // Update searchText dynamically
+            System.out.println("Search Text: " +searchText ); // Debug statement
+            deviceMngmntSmmryScene.setSearchText(searchText);
+        });
+
+        deviceIdRadio.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            isDevIdSelected = newValue; // Update isUserSelected dynamically
+            System.out.println("User Selected: " + isDevIdSelected); // Debug statement
+            deviceMngmntSmmryScene.setDevIdSelected(isDevIdSelected);
+        });
+    }
+    public static PathFinderController getInstance() {
+        if (instance == null) {
+            instance = new PathFinderController();
+            return instance;
+        }
+        return instance;
     }
     public PathFinderController() {
         super();
@@ -59,6 +89,15 @@ public class PathFinderController extends VBox implements Initializable {
     public void setSearchBarVisible(boolean searchBarVisible) {
         this.searchBarVisible = searchBarVisible;
         searchBar.setVisible(this.searchBarVisible);
+    }
+    // Getter for searchText
+    public String getSearchText() {
+        return searchText;
+    }
+
+    // Getter for isUserSelected
+    public Boolean isUserSelected() {
+        return isDevIdSelected;
     }
     public NavPanelController getNavPanelControllerPath() {
         return navPanelControllerPath;
