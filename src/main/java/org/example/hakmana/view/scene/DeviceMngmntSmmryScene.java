@@ -17,9 +17,11 @@ public class DeviceMngmntSmmryScene implements Initializable {
     private static String dbSelector;
     private String searchText = ""; // Initialize searchText
     private Boolean isDevIdSelected = true;
-    private javafx.scene.control.ScrollPane bodyScrollPaneD;
+    private ScrollPane bodyScrollPaneD;
     private PathFinderController pathFinderControllerD;
     private Devices[] dev = null;
+    private int rowCount =1;
+    private int colCount =1;
 
     @FXML
     public GridPane grid;
@@ -69,7 +71,7 @@ public class DeviceMngmntSmmryScene implements Initializable {
     }
 
     public Devices[] getDev() {
-        // upcast the dev
+        // Retrieve devices based on selected category
         switch (dbSelector) {
             case "Desktop":
                 dev = Desktop.getDesktopInstance().getDevices();
@@ -99,59 +101,60 @@ public class DeviceMngmntSmmryScene implements Initializable {
     // Update UI dynamically based on searchText
     public void updateUI() {
         grid.getChildren().clear(); // Clear existing cards
-        addFirstComponent();
+
+        // Fetch devices based on selected category
         getDev();
-        int rowCount = 1;
-        int colCount = 1;
+        rowCount = 1;
+        colCount = 0; // Reset column count
 
-        // Add the last component (e.g., add button)
-        if (isDevIdSelected == true) {
-            for (Devices d : dev) {
+        // Add the first component (e.g., add button)
+        AddDevButtonController addDevButtonController = new AddDevButtonController();
+        addDevButtonController.setDevCat(getDbSelector());
+
+        grid.add(addDevButtonController, (colCount % 3), rowCount); // Place at first row, first column
+
+        colCount++;
+
+        // Manage row and column overflow
+        if (colCount % 3 == 0) {
+            rowCount++;
+        }
+
+        // Iterate through devices and add info cards
+        for (Devices d : dev) {
+            if (isDevIdSelected == true) {
                 if (searchText.isEmpty() || d.getRegNum().toLowerCase().contains(searchText.toLowerCase())) {
-                    DeviceInfoCardController card = new DeviceInfoCardController();
-                    card.setUser(d.getUserName());
-                    card.setBrand(d.getModel());
-                    card.setDevId(d.getRegNum());
-                    card.setDeviceCat(getDbSelector());
-
-                    DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());
-                    DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD());
-
-                    // Add the card to the grid
-                    colCount++;
-                    grid.add(card, colCount % 3, rowCount); // Modulo 3 for column, rowCount for row
-
-                    // Manage row and column overflow
-                    if (colCount % 3 == 0) {
-                        rowCount++;
-                    }
+                    addDeviceInfoCard(d);
                 }
-            }
-        } else {
-            for (Devices d : dev) {
+            } else {
                 if (searchText.isEmpty() || d.getUserName().toLowerCase().contains(searchText.toLowerCase())) {
-                    DeviceInfoCardController card = new DeviceInfoCardController();
-                    card.setUser(d.getUserName());
-                    card.setBrand(d.getModel());
-                    card.setDevId(d.getRegNum());
-                    card.setDeviceCat(getDbSelector());
-
-                    DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());
-                    DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD());
-
-
-                    // Add the card to the grid
-                    colCount++;
-                    grid.add(card, colCount % 3, rowCount); // Modulo 3 for column, rowCount for row
-
-                    // Manage row and column overflow
-                    if (colCount % 3 == 0) {
-                        rowCount++;
-                    }
+                    addDeviceInfoCard(d);
                 }
             }
         }
+    }
 
+    // Method to add device info card to the grid
+    private void addDeviceInfoCard(Devices d) {
+        DeviceInfoCardController card = new DeviceInfoCardController();
+        card.setUser(d.getUserName());
+        card.setBrand(d.getModel());
+        card.setDevId(d.getRegNum());
+        card.setDeviceCat(getDbSelector());
+
+       DeviceInfoCardController.setDashboardBodyScrollpaneDD(getBodyScrollPaneD());
+       DeviceInfoCardController.setDashboardPathFinderControllerDD(getPathFinderControllerD());
+
+        // Add the card to the grid
+
+        grid.add(card, (colCount % 3), rowCount); // Modulo 3 for column, rowCount for row
+
+        colCount++;
+
+        // Manage row and column overflow
+        if (colCount % 3 == 0) {
+            rowCount++;
+        }
     }
 
     // Setter for searchText to be called externally (e.g., from a search field)
@@ -163,9 +166,5 @@ public class DeviceMngmntSmmryScene implements Initializable {
     // Add the first component (e.g., add button) to the grid
     @FXML
     public void addFirstComponent() {
-        AddDevButtonController addDevButtonController = new AddDevButtonController();
-        addDevButtonController.setDevCat(getDbSelector());
-        grid.add(addDevButtonController, 1, 1);
-
     }
 }
