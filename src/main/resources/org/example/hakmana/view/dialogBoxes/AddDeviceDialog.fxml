@@ -66,7 +66,7 @@
                                           <HBox VBox.vgrow="ALWAYS">
                                               <children>
                                                   <Label prefWidth="150.0" text="Status" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="StatusChoiseBox" prefWidth="150.0" />
+                                                <ChoiceBox fx:id="StatusChoiceBox" prefWidth="150.0" />
                                               </children>
                                           </HBox>
                                       </children>
@@ -220,25 +220,25 @@
                                           <HBox fx:id="input1Hbox">
                                               <children>
                                                   <Label fx:id="input1Lbl" prefWidth="200.0" text="Mouse Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input1" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox1" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="input2Hbox">
                                               <children>
                                                   <Label fx:id="input2Lbl" prefWidth="200.0" text="Keyboard Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input2" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox2" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="input3Hbox">
                                               <children>
                                                   <Label fx:id="input3Lbl" prefWidth="200.0" text="External Mic Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input3" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox3" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="input4Hbox">
                                               <children>
                                                   <Label fx:id="input4Lbl" prefWidth="200.0" text="Scanner Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input4" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox4" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                       </children>
@@ -253,19 +253,19 @@
                                           <HBox fx:id="output1Hbox">
                                               <children>
                                                   <Label fx:id="output1Lbl" prefWidth="200.0" text="Monitor Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="output1" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="outputChoiceBox1" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="output2Hbox">
                                               <children>
                                                   <Label fx:id="output2Lbl" prefWidth="200.0" text="Printer Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="output2" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="outputChoiceBox2" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="output3Hbox">
                                               <children>
                                                   <Label fx:id="output3Lbl" prefWidth="200.0" text="Speaker Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="output3" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="outputChoiceBox3" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                       </children>
