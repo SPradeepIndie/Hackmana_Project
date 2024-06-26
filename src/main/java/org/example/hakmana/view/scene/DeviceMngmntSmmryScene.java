@@ -99,15 +99,13 @@ public class DeviceMngmntSmmryScene implements Initializable {
     }
 
     // Update UI dynamically based on searchText
-    private void updateUI() {
+    public void updateUI() {
         grid.getChildren().clear(); // Clear existing cards
 
         // Fetch devices based on selected category
         getDev();
-
         rowCount = 1;
         colCount = 0; // Reset column count
-
 
         // Add the first component (e.g., add button)
         AddDevButtonController addDevButtonController = new AddDevButtonController();
@@ -168,6 +166,5 @@ public class DeviceMngmntSmmryScene implements Initializable {
     // Add the first component (e.g., add button) to the grid
     @FXML
     public void addFirstComponent() {
-
     }
 }
