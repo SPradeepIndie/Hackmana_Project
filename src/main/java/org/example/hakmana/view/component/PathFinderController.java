@@ -46,13 +46,11 @@ public class PathFinderController extends VBox implements Initializable {
         // Initialize listeners for searchTxtField and userRadio
         searchTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchText = newValue; // Update searchText dynamically
-            System.out.println("Search Text: " +searchText ); // Debug statement
             deviceMngmntSmmryScene.setSearchText(searchText);
         });
 
         deviceIdRadio.selectedProperty().addListener((observable, oldValue, newValue) -> {
             isDevIdSelected = newValue; // Update isUserSelected dynamically
-            System.out.println("User Selected: " + isDevIdSelected); // Debug statement
             deviceMngmntSmmryScene.setDevIdSelected(isDevIdSelected);
         });
     }
