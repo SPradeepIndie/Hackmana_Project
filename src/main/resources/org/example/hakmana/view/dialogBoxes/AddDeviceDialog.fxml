@@ -21,9 +21,9 @@
    <content>
       <AnchorPane prefWidth="1271.0">
        <children>
-            <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="10.0" maxHeight="650.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-          <VBox alignment="CENTER" spacing="10.0">
+          <VBox alignment="CENTER" maxHeight="650.0" spacing="10.0">
               <children>
                   <HBox fx:id="interactionHbox" alignment="CENTER" prefHeight="42.0" prefWidth="631.0" spacing="10.0" style="-fx-border-color: BLACK; -fx-border-width: 1 0 1 0; -fx-background-color: #CDE8E5;" VBox.vgrow="ALWAYS">
                       <children>
@@ -66,7 +66,7 @@
                                           <HBox VBox.vgrow="ALWAYS">
                                               <children>
                                                   <Label prefWidth="150.0" text="Status" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="StatusChoiseBox" prefWidth="150.0" />
+                                                <ChoiceBox fx:id="StatusChoiceBox" prefWidth="150.0" />
                                               </children>
                                           </HBox>
                                       </children>
@@ -91,9 +91,15 @@
                                                   <TextField fx:id="other3" HBox.hgrow="ALWAYS" />
                                               </children>
                                           </HBox>
+                                          <HBox fx:id="other6Hbox">
+                                              <children>
+                                                  <Label fx:id="other6Lbl" prefWidth="150.0" text="Operatiing System" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="OSChoiseBox" prefWidth="150.0" />
+                                              </children>
+                                          </HBox>
                                           <HBox fx:id="other4Hbox">
                                               <children>
-                                                  <Label fx:id="other4Lbl" prefWidth="150.0" text="Warranty" HBox.hgrow="ALWAYS" />
+                                                  <Label fx:id="other4Lbl" prefWidth="150.0" text="Other" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="other4" HBox.hgrow="ALWAYS" />
                                               </children>
                                           </HBox>
@@ -101,12 +107,6 @@
                                               <children>
                                                   <Label fx:id="other5Lbl" prefWidth="150.0" text="Hard Disk" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="other5" HBox.hgrow="ALWAYS" />
-                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other6Hbox">
-                                              <children>
-                                                  <Label fx:id="other6Lbl" prefWidth="150.0" text="Operatiing System" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="OSChoiseBox" prefWidth="150.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="other7Hbox">
@@ -138,6 +138,30 @@
                                                   <Label fx:id="other11Lbl" prefWidth="150.0" text="Network Card" HBox.hgrow="ALWAYS" />
                                                 <ChoiceBox fx:id="NetworkCardChoiseBox" prefWidth="150.0" />
                                               </children>
+                                          </HBox>
+                                          <HBox fx:id="other12Hbox">
+                                             <children>
+                                                <Label fx:id="other12Lbl" prefWidth="150.0" text="SSD" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="SsdChoiceBox" prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="other13Hbox">
+                                             <children>
+                                                <Label fx:id="other13Lbl" prefWidth="150.0" text="CD ROM" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="CdRomChoiceBox" prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="other14Hbox">
+                                             <children>
+                                                <Label fx:id="other14Lbl" prefWidth="150.0" text="UPS registration number" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="UpsChoiceBox" prefWidth="150.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="other15Hbox">
+                                             <children>
+                                                <Label fx:id="other15Lbl" prefWidth="150.0" text="Power Supply" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="PowerSupplyChoiceBox" prefWidth="150.0" />
+                                             </children>
                                           </HBox>
                                       </children>
                                   </VBox>
@@ -196,25 +220,25 @@
                                           <HBox fx:id="input1Hbox">
                                               <children>
                                                   <Label fx:id="input1Lbl" prefWidth="200.0" text="Mouse Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input1" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox1" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="input2Hbox">
                                               <children>
                                                   <Label fx:id="input2Lbl" prefWidth="200.0" text="Keyboard Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input2" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox2" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="input3Hbox">
                                               <children>
                                                   <Label fx:id="input3Lbl" prefWidth="200.0" text="External Mic Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input3" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox3" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="input4Hbox">
                                               <children>
                                                   <Label fx:id="input4Lbl" prefWidth="200.0" text="Scanner Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="input4" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="inputChoiceBox4" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                       </children>
@@ -229,19 +253,19 @@
                                           <HBox fx:id="output1Hbox">
                                               <children>
                                                   <Label fx:id="output1Lbl" prefWidth="200.0" text="Monitor Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="output1" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="outputChoiceBox1" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="output2Hbox">
                                               <children>
-                                                  <Label fx:id="output2Lbl" prefWidth="200.0" text="Projector Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="output2" HBox.hgrow="ALWAYS" />
+                                                  <Label fx:id="output2Lbl" prefWidth="200.0" text="Printer Registration number" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="outputChoiceBox2" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="output3Hbox">
                                               <children>
                                                   <Label fx:id="output3Lbl" prefWidth="200.0" text="Speaker Registration number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="output3" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="outputChoiceBox3" prefWidth="200.0" />
                                               </children>
                                           </HBox>
                                       </children>

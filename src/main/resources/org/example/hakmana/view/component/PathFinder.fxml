@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ToggleGroup?>
 
 <fx:root prefHeight="56.0" prefWidth="695.0" type="VBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -49,11 +50,15 @@
                         <Insets right="6.0" />
                      </HBox.margin>
                   </ImageView>
-                  <TextField prefHeight="25.0" prefWidth="224.0" HBox.hgrow="ALWAYS" />
+                  <TextField prefHeight="25.0" prefWidth="224.0" HBox.hgrow="ALWAYS" fx:id="searchTxtField"/>
                   <VBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="145.0" spacing="2.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <RadioButton fx:id="deviceIdRadio" mnemonicParsing="false" prefWidth="112.0" selected="true" text="Device Reg Num" />
-                        <RadioButton fx:id="userRadio" mnemonicParsing="false" text="User" />
+                        <RadioButton fx:id="deviceIdRadio" mnemonicParsing="false" prefWidth="112.0" selected="true" text="Device Reg Num">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radioGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="userRadio" mnemonicParsing="false" text="User" toggleGroup="$radioGroup" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" />

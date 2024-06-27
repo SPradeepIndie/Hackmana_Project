@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
-
+import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class AddDeviceDialogController implements Initializable {
     private static AddDeviceDialogController instance=null;
     @FXML
-    public ChoiceBox<String> devCat;
+    public ChoiceBox<String> devCat;//devcat selector
     private String devCategoryName;
     private String devRegNum;
 
@@ -28,13 +28,14 @@ public class AddDeviceDialogController implements Initializable {
     @FXML
     public TextField regNumTextField;
     @FXML
-    public ChoiceBox<String> StatusChoiseBox;
+    public ChoiceBox<String> StatusChoiceBox;
 
 
     //other details
     private ArrayList<HBox> otherHboxList;
     private ArrayList<Label> otherLblList;
     private ArrayList<TextField> otherTextList;
+    private ArrayList<ChoiceBox> otherChoiceBoxList;
     @FXML
     public VBox otherDetailVbox;
     @FXML
@@ -93,12 +94,28 @@ public class AddDeviceDialogController implements Initializable {
     public HBox other11Hbox;
     @FXML
     public ChoiceBox<String> NetworkCardChoiseBox;
+    @FXML
+    public HBox other12Hbox;
+    @FXML
+    public ChoiceBox<String> SsdChoiceBox;
+    @FXML
+    public HBox other13Hbox;
+    @FXML
+    public ChoiceBox<String> CdRomChoiceBox;
+    @FXML
+    public HBox other14Hbox;
+    @FXML
+    public ChoiceBox<String> UpsChoiceBox;
+    @FXML
+    public HBox other15Hbox;
+    @FXML
+    public ChoiceBox<String> PowerSupplyChoiceBox;
 
 
     //input Dev details
     private ArrayList<HBox> inputHboxList;
     private ArrayList<Label> inputLblList;
-    private ArrayList<TextField> inputTextList;
+    private ArrayList<ChoiceBox> inputChoiceBoxList;
     @FXML
     public VBox inputVbox;
     @FXML
@@ -106,30 +123,35 @@ public class AddDeviceDialogController implements Initializable {
     @FXML
     public Label input1Lbl;
     @FXML
-    public TextField input1;
+    public ChoiceBox<String> inputChoiceBox1;
     @FXML
     public HBox input2Hbox;
     @FXML
     public Label input2Lbl;
     @FXML
-    public TextField input2;
+    public ChoiceBox<String> inputChoiceBox2;
     @FXML
     public HBox input3Hbox;
     @FXML
     public Label input3Lbl;
     @FXML
-    public TextField input3;
+    public ChoiceBox<String> inputChoiceBox3;
     @FXML
     public HBox input4Hbox;
     @FXML
     public Label input4Lbl;
     @FXML
-    public TextField input4;
+    public ChoiceBox<String> inputChoiceBox4;
+    private final String[] inputDeviceList1={"No"};
+    private final String[] inputDeviceList2={"No"};
+    private final String[] inputDeviceList3={"No"};
+    private final String[] inputDeviceList4={"No"};
+
 
     //output Dev details
     private ArrayList<HBox> outputHboxList;
     private ArrayList<Label> outputLblList;
-    private ArrayList<TextField> outputTextList;
+    private ArrayList<ChoiceBox> outputChoiceBoxList;
     @FXML
     public VBox outputVbox;
     @FXML
@@ -137,19 +159,23 @@ public class AddDeviceDialogController implements Initializable {
     @FXML
     public Label output1Lbl;
     @FXML
-    public TextField output1;
+    public ChoiceBox<String> outputChoiceBox1;
     @FXML
     public HBox output2Hbox;
     @FXML
     public Label output2Lbl;
     @FXML
-    public TextField output2;
+    public ChoiceBox<String> outputChoiceBox2;
     @FXML
     public HBox output3Hbox;
     @FXML
     public Label output3Lbl;
     @FXML
-    public TextField output3;
+    public ChoiceBox<String> outputChoiceBox3;
+    private final String[] outputDeviceList1={"No"};
+    private final String[] outputDeviceList2={"No"};
+    private final String[] outputDeviceList3={"No"};
+
 
     //deviceUser details
     private ArrayList<TextField> userTextLsit;
@@ -175,17 +201,135 @@ public class AddDeviceDialogController implements Initializable {
 
     //Array fo populate the choiceBoxes
     private final String[] devCategories={"Desktop","Photocopy Machines","Monitors","Projectors","Laptops","Printers","UPS"};
-    private final String[] deviceStatus={"Active","Repairing","Inactive"};
+    private final String[] deviceStatus={"Active","Repairing","Inactive","Not Assigned"};
     private final String[] YN={"Yes","No"};
     private final String[] WinLin={"Windows","Linux"};
-    private final String[] OnboardDecicated={"On Board","Dedicated"};
+    private final String[] OnboardDecicated={"On Board","Dedicated","No"};
+    private final String[] ssdList={"No"};
+    private final String[] cdRomList={"No"};
+    private final String[] powerSupplyList={"No"};
+    private final String[] upsList={"No"};
 
     private boolean isFromComponent;
 
     public static DeviceUser deviceUser;
 
     //for get new values from the textFields
-    ArrayList<String> newValues=new ArrayList<>();
+    private ArrayList<String> newValues=new ArrayList<>();
+
+    /*----------------------------------------------------------------------------*/
+    private AddDeviceDialogController(){
+
+    }
+    public static AddDeviceDialogController getInstance() {
+        if(instance==null){
+            instance=new AddDeviceDialogController();
+            return instance;
+        }
+        return instance;
+    }
+
+    /*-------------------------------Initialize---------------------------------*/
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        isFromComponent=false;
+        deviceUser =DeviceUser.getDeviceUserInstance();
+
+        //populate the choiceboxes
+        devCat.getItems().addAll(devCategories);
+        StatusChoiceBox.getItems().addAll(deviceStatus);
+
+        FloppyDiskChoiseBox.getItems().addAll(YN);
+        CdRomChoiceBox.getItems().addAll(YN);
+
+        NetworkCardChoiseBox.getItems().addAll(OnboardDecicated);
+        SoundCardChoiseBox.getItems().addAll(OnboardDecicated);
+        TVCardChoiseBox.getItems().addAll(OnboardDecicated);
+
+        OSChoiseBox.getItems().addAll(WinLin);
+        SsdChoiceBox.getItems().addAll(ssdList);
+        CdRomChoiceBox.getItems().addAll(cdRomList);
+        PowerSupplyChoiceBox.getItems().addAll(powerSupplyList);
+        UpsChoiceBox.getItems().addAll(upsList);
+
+        inputChoiceBox1.getItems().addAll(inputDeviceList1);
+        inputChoiceBox2.getItems().addAll(inputDeviceList2);
+        inputChoiceBox3.getItems().addAll(inputDeviceList3);
+        inputChoiceBox4.getItems().addAll(inputDeviceList4);
+        outputChoiceBox1.getItems().addAll(outputDeviceList1);
+        outputChoiceBox2.getItems().addAll(outputDeviceList2);
+        outputChoiceBox3.getItems().addAll(outputDeviceList3);
+
+        //get all the other details vbox, label, Hboxes, TextField, ChoiceBoxes
+        otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other7Hbox));
+        otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl, other5Lbl,other7Lbl));
+        otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4,other5,other7));
+        otherChoiceBoxList=new ArrayList<>(List.of(OSChoiseBox,FloppyDiskChoiseBox,
+                SoundCardChoiseBox,TVCardChoiseBox,NetworkCardChoiseBox,
+                SsdChoiceBox,CdRomChoiceBox,UpsChoiceBox,PowerSupplyChoiceBox));
+
+        //get all the input vbox, label, Hboxes and ChoiceBoxes
+        inputHboxList=new ArrayList<>(List.of(input1Hbox,input2Hbox,input3Hbox,input4Hbox));
+        inputLblList=new ArrayList<>(List.of(input1Lbl,input2Lbl,input3Lbl,input4Lbl));
+        inputChoiceBoxList=new ArrayList<>(List.of(inputChoiceBox1,inputChoiceBox2,inputChoiceBox3,inputChoiceBox4));
+
+        //get all the output vbox, label, Hboxes and Choiceboxes
+        outputHboxList=new ArrayList<>(List.of(output1Hbox,output2Hbox,output3Hbox));
+        outputLblList=new ArrayList<>(List.of(output1Lbl,output2Lbl,output3Lbl));
+        outputChoiceBoxList=new ArrayList<>(List.of(outputChoiceBox1,outputChoiceBox2,outputChoiceBox3));
+
+        //get all the deviceUser textfield
+        userTextLsit=new ArrayList<>(List.of(userNIC,userName,userTitle,userGmail));
+
+        resetBtnAction();
+
+        //update the register number field realtime
+        regNumTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            //Check the given regNUm is available
+
+            // Enable the submitButton only if regNumTextField is not empty
+            submitButton.setDisable(newValue.isEmpty());
+
+            //set editable textfield when deviceUser enter register number
+            setEditable(new ArrayList<>(List.of(modelTextField)),true,"#03AED2");
+            setEditable(otherTextList,true,"#03AED2");
+            setEditable(userTextLsit,true,"#03AED2");
+            //set choice box enable
+            StatusChoiceBox.setDisable(false);
+            setChoiceBoxDisability(false,otherChoiceBoxList);
+            setChoiceBoxDisability(false,inputChoiceBoxList);
+            setChoiceBoxDisability(false,outputChoiceBoxList);
+            setDevRegNum(newValue);
+
+        });
+
+        //Realtime get the Users
+        userNIC.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Enable the submitButton only if regNumTextField is not empty
+            addUserButton.setDisable(newValue.isEmpty());
+
+            // Check if the newValue is available in the users array
+            DeviceUser deviceUser =DeviceUser.getDeviceUserInstance().isNicAvailable(newValue);
+            if (deviceUser != null) {
+                // Autofill the other text fields
+                userGmail.setText(deviceUser.getGmail());
+                userName.setText(deviceUser.getName());
+                userTitle.setText(deviceUser.getTitle());
+            }
+        });
+
+        //update the device category selecting choicebox realtime
+        devCat.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            listnerReset();
+            setDevCategoryName(newValue);
+            setView();
+        });
+
+        // Disable the submitButton initially if regNumTextField is empty
+        submitButton.setDisable(regNumTextField.getText().isEmpty());
+        addUserButton.setDisable(regNumTextField.getText().isEmpty());
+    }
+
 
     /*----------------------Getters and Setters----------------------*/
     public String getDevCategoryName() {
@@ -204,137 +348,34 @@ public class AddDeviceDialogController implements Initializable {
         devCat.setValue("Select a device");
     }
 
-    private AddDeviceDialogController(){
-
-    }
-    public static AddDeviceDialogController getInstance() {
-        if(instance==null){
-            instance=new AddDeviceDialogController();
-            return instance;
-        }
-        return instance;
-    }
-
-    /*-------------------------------Initialize---------------------------------*/
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        deviceUser =DeviceUser.getDeviceUserInstance();
-        //populate the choiceboxes
-        devCat.getItems().addAll(devCategories);
-        StatusChoiseBox.getItems().addAll(deviceStatus);
-        FloppyDiskChoiseBox.getItems().addAll(YN);
-        NetworkCardChoiseBox.getItems().addAll(OnboardDecicated);
-        SoundCardChoiseBox.getItems().addAll(OnboardDecicated);
-        TVCardChoiseBox.getItems().addAll(OnboardDecicated);
-        OSChoiseBox.getItems().addAll(WinLin);
-
-        //get all the other details vbox label and Hboxes
-        otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other7Hbox));
-        otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl, other5Lbl,other7Lbl));
-        otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4,other5,other7));
-
-        //get all the input vbox label and Hboxes and textfield
-        inputHboxList=new ArrayList<>(List.of(input1Hbox,input2Hbox,input3Hbox,input4Hbox));
-        inputLblList=new ArrayList<>(List.of(input1Lbl,input2Lbl,input3Lbl,input4Lbl));
-        inputTextList=new ArrayList<>(List.of(input1,input2,input3,input4));
-
-        //get all the output vbox label and Hboxes and textfield
-        outputHboxList=new ArrayList<>(List.of(output1Hbox,output2Hbox,output3Hbox));
-        outputLblList=new ArrayList<>(List.of(output1Lbl,output2Lbl,output3Lbl));
-        outputTextList=new ArrayList<>(List.of(output1,output2,output3));
-
-        //get all the deviceUser textfield
-        userTextLsit=new ArrayList<>(List.of(userNIC,userName,userTitle,userGmail));
-
-        resetBtnAction();
-
-        //update the register number field realtime
-        regNumTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            //Check the given regNUm is available
-
-            // Enable the submitButton only if regNumTextField is not empty
-            submitButton.setDisable(newValue.isEmpty());
-
-            //set editable textfield when deviceUser enter register number
-            setEditable(new ArrayList<>(List.of(modelTextField)),true,"#03AED2");
-            setEditable(otherTextList,true,"#03AED2");
-            setEditable(inputTextList,true,"#03AED2");
-            setEditable(outputTextList,true,"#03AED2");
-            setEditable(userTextLsit,true,"#03AED2");
-            //set choice box enable
-            setChoiceBoxDisablity(false);
-            setDevRegNum(newValue);
-
-        });
-
-        //Realtime get the Users
-        userNIC.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Enable the submitButton only if regNumTextField is not empty
-            addUserButton.setDisable(newValue.isEmpty());
-
-            // Check if the newValue is available in the users array
-            DeviceUser deviceUser =DeviceUser.getDeviceUserInstance().isNicAvailable(newValue);
-            if (deviceUser != null) {
-                // Auto-fill the other text fields
-                userGmail.setText(deviceUser.getGmail());
-                userName.setText(deviceUser.getName());
-                userTitle.setText(deviceUser.getTitle());
-            }
-        });
-
-        //update the device category selecting choicebox realtime
-        devCat.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            listnerReset();
-            setDevCategoryName(newValue);
-            setView();
-        });
-
-        // Disable the submitButton initially if regNumTextField is empty
-        submitButton.setDisable(regNumTextField.getText().isEmpty());
-        addUserButton.setDisable(regNumTextField.getText().isEmpty());
-
-    }
     private void setView(){
+        setChoiceBoxVisibility(false);
         switch (getDevCategoryName()) {
             case "Desktop" -> {
+                setChoiceBoxVisibility(true);
                 setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Hard Disk"});
                 setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number"});
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"});
                 userDetailsVbox.setVisible(true);
-                setChoiceBoxVisibilty(true);
             }
-            case "Photocopy Machines" ->{
-                setOtherDetails(new String[]{"Copying Capability"});
-                setChoiceBoxVisibilty(false);
-            }
-            case "Monitors" ->{
-                setOtherDetails(new String[]{"Desktop Register Number"});
-                setChoiceBoxVisibilty(false);
-            }
-            case "Projectors"->{
-
-            }
+            case "Photocopy Machines", "Projectors" ->
+                setOtherDetails(new String[]{"Purchased From"});
+            case "Monitors" ->
+                setOtherDetails(new String[]{"Purchased From","Screen Size"});
             case "Laptops" -> {
-                setOtherDetails(new String[]{"Ram","CPU","Storage"});
-                setChoiceBoxVisibilty(false);
+                setChoiceBoxVisibility(true);
+                setOtherDetails(new String[]{"Purchased From","Ram","CPU","Storage"});
+                setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number"});
                 other6Hbox.setVisible(true);
                 userDetailsVbox.setVisible(true);
             }
-            case "Printers" -> {
-                setOtherDetails(new String[]{"Serial Number","Paper Input","Paper Output","Warranty"});
-                setChoiceBoxVisibilty(false);
-            }
-            case "UPS" -> {
-                setOtherDetails(new String[]{"Backup Power","Runtime","Desktop Register Number"});
-                setChoiceBoxVisibilty(false);
-            }
-
-            default -> {
+            case "Printers" ->
+                setOtherDetails(new String[]{"purchased From","Serial Number","Paper Input","Paper Output"});
+            case "UPS" ->
+                setOtherDetails(new String[]{"purchasedFrom"});
+            default ->
                 System.out.println(getDevCategoryName());
-            }
-
         }
-
     }
     private void setOtherDetails(String[] otherlblText){
         otherDetailVbox.setVisible(true);
@@ -348,6 +389,7 @@ public class AddDeviceDialogController implements Initializable {
         inputVbox.setVisible(true);
         for(int i=0;i< inputLblText.length;i++){
             inputHboxList.get(i).setVisible(true);
+            inputChoiceBoxList.get(i).setVisible(true);
             inputLblList.get(i).setText(inputLblText[i]);
         }
     }
@@ -362,104 +404,113 @@ public class AddDeviceDialogController implements Initializable {
 
 
     /*--------------------------Interaction------------------------------------*/
-    @FXML
-    public void submitButtonOnAction(ActionEvent event) {
-        newValues.clear();
-        boolean isSuccessed;
+    private boolean checkCat(){
+        if(getDevCategoryName() == null){
+            alert(Alert.AlertType.WARNING,"No Category","Please select a category first");
+            return false;
+        }
+        return true;
+    }
+    private boolean addDb(){
         switch (getDevCategoryName()) {
             case "Desktop" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-                getTextFieldText(outputTextList);
-                getTextFieldText(inputTextList);
-                getChoiceBoxValue();
+                getChoiceBoxValue(otherChoiceBoxList);
                 newValues.add(userNIC.getText());
 
-                // Call addUser in a background thread
-                new Thread(this::addUser).start();
-
-                isSuccessed=Desktop.getDesktopInstance().insertDevice(newValues);
-
+                if(nicFieldCheck()){
+                    // Call addUser in a background thread
+                    new Thread(this::addUser).start();
+                }
+                return Desktop.getDesktopInstance().insertDevice(newValues);
 
             }
             case "Photocopy Machines" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
 
-                isSuccessed=PhotocpyMchine.getPhotocpyMchineInstance().insertDevice(newValues);
+                return PhotocpyMchine.getPhotocpyMchineInstance().insertDevice(newValues);
             }
             case "Monitors" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
 
-                isSuccessed=Monitors.getMonitorInstance().insertDevice(newValues);
+                return Monitors.getMonitorInstance().insertDevice(newValues);
 
             }
             case "Projectors" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
 
-                isSuccessed=Projectors.getProjectorsInstance().insertDevice(newValues);
+                return Projectors.getProjectorsInstance().insertDevice(newValues);
 
             }
             case "Laptops" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
                 newValues.add( OSChoiseBox.getValue());
                 newValues.add(userNIC.getText());
 
-                // Call addUser in a background thread
-                new Thread(this::addUser).start();
+                if(nicFieldCheck()) {
+                    // Call addUser in a background thread
+                    new Thread(this::addUser).start();
+                }
 
-                isSuccessed =Laptops.getLaptopsInstance().insertDevice(newValues);
+                return Laptops.getLaptopsInstance().insertDevice(newValues);
 
             }
             case "Printers" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
 
-                isSuccessed=Printer.getPrinterInstance().insertDevice(newValues);
+                return Printer.getPrinterInstance().insertDevice(newValues);
 
             }
             case "UPS" -> {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
-                newValues.add(StatusChoiseBox.getValue());
+                newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
 
-                System.out.println(newValues);
-
-                isSuccessed=UPS.getUpsInstance().insertDevice(newValues);
+                return UPS.getUpsInstance().insertDevice(newValues);
 
             }
             default -> {
-                alert(Alert.AlertType.WARNING,"No Category","Please select a category first");
-                isSuccessed=false;
+                return false;
             }
         }
 
-        if(isSuccessed) {
+    }
+    @FXML
+    public void submitButtonOnAction(ActionEvent event) {
+        newValues.clear();
+        boolean isCatSelected=checkCat();
+        boolean isDbAdded=false;
+        if(isCatSelected){
+            isDbAdded=addDb();
+        }
+        if(isCatSelected && isDbAdded){
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
-            listnerReset();
+            resetBtnAction();
             setDevCat();
-            if(!isFromComponent){
-                setDevCat();
-            }
+        }
+        if(isFromComponent){
+            DeviceMngmntSmmryScene.getInstance().updateUI();//when device added update ui
         }
         else {
-            clearAll();
-            setDevCat();
+            System.out.println(newValues);
         }
 
     }
@@ -468,13 +519,15 @@ public class AddDeviceDialogController implements Initializable {
     private void listnerReset(){
         clearAll();//clearAll the fields
 
-        setChoiceBoxDisablity(true);//disable all the choice boxes
+        StatusChoiceBox.setDisable(true);
+        //disable all the choice boxes
+        setChoiceBoxDisability(true,otherChoiceBoxList);
+        setChoiceBoxDisability(true,inputChoiceBoxList);
+        setChoiceBoxDisability(true,outputChoiceBoxList);
 
         //set text field to non-editable and colors
         setEditable(new ArrayList<>(List.of(modelTextField)), false, "grey");
         setEditable(otherTextList, false, "grey");
-        setEditable(inputTextList, false, "grey");
-        setEditable(outputTextList, false, "grey");
         setEditable(userTextLsit, false, "grey");
 
         //disable the addUserButton
@@ -483,14 +536,20 @@ public class AddDeviceDialogController implements Initializable {
         if(!isFromComponent) {
             //except the common vbox set all other fields to not visible
             otherDetailVbox.setVisible(false);
-            for (HBox h : otherHboxList) {
-                h.setVisible(false);
+            for (HBox otherHbox : otherHboxList) {
+                otherHbox.setVisible(false);
             }
-            for(TextField t:otherTextList){
-                t.setVisible(false);
+            for(TextField otherText:otherTextList){
+                otherText.setVisible(false);
             }
 
             inputVbox.setVisible(false);
+            for(HBox inputHbox:inputHboxList){
+                inputHbox.setVisible(false);
+            }
+            for(ChoiceBox inputChoiceBox:inputChoiceBoxList){
+                inputChoiceBox.setVisible(false);
+            }
             outputVbox.setVisible(false);
             userDetailsVbox.setVisible(false);
 
@@ -508,16 +567,13 @@ public class AddDeviceDialogController implements Initializable {
 
     //clear all  the text field and choice box values
     private void clearAll(){
-        clearChoiceBox();
+        StatusChoiceBox.getSelectionModel().clearSelection();
+        clearChoiceBox(otherChoiceBoxList);
+        clearChoiceBox(inputChoiceBoxList);
+        clearChoiceBox(outputChoiceBoxList);
         regNumTextField.clear();
         modelTextField.clear();
         for(TextField fields:otherTextList){
-            fields.clear();
-        }
-        for(TextField fields:inputTextList){
-            fields.clear();
-        }
-        for(TextField fields:outputTextList){
             fields.clear();
         }
         for(TextField fields:userTextLsit){
@@ -535,7 +591,6 @@ public class AddDeviceDialogController implements Initializable {
     }
 
 
-
     /*---------------------Create Configurations--------------------*/
 
     //According to the device selected in DeviceMngmntSmmryScene load the view
@@ -549,42 +604,43 @@ public class AddDeviceDialogController implements Initializable {
     }
 
     //set the All Choice box Disability
-    private void setChoiceBoxDisablity(boolean isDisable){
-        FloppyDiskChoiseBox.setDisable(isDisable);
-        OSChoiseBox.setDisable(isDisable);
-        StatusChoiseBox.setDisable(isDisable);
-        SoundCardChoiseBox.setDisable(isDisable);
-        TVCardChoiseBox.setDisable(isDisable);
-        OSChoiseBox.setDisable(isDisable);
-        NetworkCardChoiseBox.setDisable(isDisable);
+    private void setChoiceBoxDisability(boolean isDisable, ArrayList<ChoiceBox> choiceBoxList){
+        for(ChoiceBox choBox:choiceBoxList){
+            choBox.setDisable(isDisable);
+        }
     }
 
     //set the Choice box Visibility(except Status Choice Box)
-    private void setChoiceBoxVisibilty(boolean isVisible){
+    private void setChoiceBoxVisibility(boolean isVisible){
         other6Hbox.setVisible(isVisible);
         other8Hbox.setVisible(isVisible);
         other9Hbox.setVisible(isVisible);
         other10Hbox.setVisible(isVisible);
         other11Hbox.setVisible(isVisible);
+        other12Hbox.setVisible(isVisible);
+        other13Hbox.setVisible(isVisible);
+        other14Hbox.setVisible(isVisible);
+        other15Hbox.setVisible(isVisible);
     }
 
     //clear all the Choice boxes values
-    private void clearChoiceBox(){
-        FloppyDiskChoiseBox.getSelectionModel().clearSelection();
-        OSChoiseBox.getSelectionModel().clearSelection();
-        StatusChoiseBox.getSelectionModel().clearSelection();
-        SoundCardChoiseBox.getSelectionModel().clearSelection();
-        TVCardChoiseBox.getSelectionModel().clearSelection();
-        NetworkCardChoiseBox.getSelectionModel().clearSelection();
+    private void clearChoiceBox(ArrayList<ChoiceBox> choiceBoxList){
+        for(ChoiceBox choBox:choiceBoxList){
+            choBox.getSelectionModel().clearSelection();
+        }
     }
 
     //get the Choice Box values and add to the newValues arraylist(except Status Choice Box)
-    private void getChoiceBoxValue(){
-        newValues.add(OSChoiseBox.getValue());
-        newValues.add(FloppyDiskChoiseBox.getValue());
-        newValues.add(SoundCardChoiseBox.getValue());
-        newValues.add(TVCardChoiseBox.getValue());
-        newValues.add(NetworkCardChoiseBox.getValue());
+    private void getChoiceBoxValue(ArrayList<ChoiceBox> choiceBoxList){
+        for(ChoiceBox choBox:choiceBoxList){
+            if(choBox.getValue().toString().isEmpty()){
+                break;
+            }
+            if(choBox.isVisible()){
+                newValues.add((String) choBox.getValue());
+            }
+
+        }
     }
 
     //set the text fields editing ability and border color
@@ -599,9 +655,7 @@ public class AddDeviceDialogController implements Initializable {
     private void getTextFieldText(ArrayList<TextField> textFieldslists){
         for(TextField textField:textFieldslists){
             if(textField.getText().isEmpty() && textField.isVisible()){
-                alert(Alert.AlertType.CONFIRMATION,"Confirm","Empty Field detected\nDo you want to continue");
-                clearAll();
-                listnerReset();
+                //alert(Alert.AlertType.CONFIRMATION,"Confirm","Empty Field detected\nDo you want to continue");
                 break;
             }
             else if(textField.isVisible()){
@@ -612,12 +666,19 @@ public class AddDeviceDialogController implements Initializable {
     }
 
     /*------------------------Interactions with DeviceUser TABLE-----------------------------------*/
+    private boolean nicFieldCheck(){
+        return userNIC.getText() != null;
+    }
     @FXML
     private void addUser(){
-            if(deviceUser.isNicAvailable(userNIC.getText())==null) {
+        if(nicFieldCheck()) {
+            if (deviceUser.isNicAvailable(userNIC.getText()) == null) {
                 //add new deviceUser to the deviceUser table
                 deviceUser.insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
             }
+        }else {
+            alert(Alert.AlertType.WARNING,"No User","Please select a device user");
+        }
     }
 
     
