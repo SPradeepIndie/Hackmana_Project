@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Monitors extends Devices{
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Monitors.class);
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Monitors monitorInstance=null;
     private String monitorRegNum;
@@ -102,6 +105,7 @@ public class Monitors extends Devices{
             }
         }
         catch (SQLException e){
+            sqlLogger.error("An error occurred while updating the device",e);
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -128,6 +132,7 @@ public class Monitors extends Devices{
                 return monitors;
             }
         } catch (SQLException e) {
+            sqlLogger.error("An error occurred while updating the device",e);
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 

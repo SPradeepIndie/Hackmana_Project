@@ -1,10 +1,14 @@
 package org.example.hakmana.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AllDeviceDetails {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(AllDeviceDetails.class);
     private String deviceName;
     private String deviceCount;
     private String status;
@@ -51,6 +55,7 @@ public class AllDeviceDetails {
                 deviceNames.add(resultSet.getString(1));
             }
         } catch (SQLException e) {
+            sqlLogger.error("An sql error occur",e);
             e.printStackTrace();
         }
         return deviceNames.toArray(new String[0]);
@@ -79,6 +84,7 @@ public class AllDeviceDetails {
                     activeDevList[index] = activeDev;
                 }
             } catch (SQLException e) {
+                sqlLogger.error("An sql error occur",e);
                 e.printStackTrace();
             }
             index++;

@@ -1,18 +1,22 @@
 package org.example.hakmana.model;
 
 import javafx.scene.control.Alert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import java.sql.*;
 
 public class DatabaseConnection {
     private static DatabaseConnection instance =null;
     private Connection connection;
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(DatabaseConnection.class);
     private DatabaseConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hakmanaedm", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hakmanaedm", "root", "SPAxim1@");
             System.out.println("Connection Successfully");
         } catch (ClassNotFoundException | SQLException e) {
+            sqlLogger.error("sql error occured", e);
             System.out.println("Connection failed");
             //Need to show this alert
             Alert alert=new Alert(Alert.AlertType.WARNING);
@@ -40,6 +44,7 @@ public class DatabaseConnection {
             resultSet = preparedStatement.executeQuery();
 
         } catch (SQLException e) {
+            sqlLogger.error("sql error occured", e);
             throw new RuntimeException(e);
         }
 

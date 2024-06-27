@@ -2,6 +2,8 @@ package org.example.hakmana.model.userMngmnt;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.view.scene.LoginPageController;
 
@@ -18,6 +20,7 @@ import java.util.Properties;
 import java.util.Random;
 
 public class SystemUser {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(SystemUser.class);
     private DatabaseConnection databaseConnection;
     private Connection conn;
     private ResultSet rs;
@@ -290,6 +293,7 @@ public class SystemUser {
                 return isRemUName;
             }
         }catch (SQLException e){
+            sqlLogger.error("An sql error occur",e);
             e.printStackTrace();
         }
 
@@ -314,6 +318,7 @@ public class SystemUser {
 
             return  userDetArr;
         }catch (SQLException e){
+            sqlLogger.error("An sql error occur",e);
             e.printStackTrace();
         }
 
@@ -334,6 +339,7 @@ public class SystemUser {
             }
             preparedStatement.execute();
         }catch (SQLException e){
+            sqlLogger.error("An sql error occur",e);
             e.printStackTrace();
         }
     }
