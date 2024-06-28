@@ -80,7 +80,7 @@ public abstract class Devices {
 
         } catch (SQLException e) {
             // Rollback the transaction on error
-            sqlLogger.error("An error occurred while updating the device",e);
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
     }

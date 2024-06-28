@@ -164,7 +164,7 @@ public class Laptops extends Devices{
             }
         }
         catch (SQLException e){
-            sqlLogger.error("An error occurred while updating the device in getDevice methode",e);
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -197,7 +197,7 @@ public class Laptops extends Devices{
                 return laptop;
             }
         } catch (SQLException e) {
-            sqlLogger.error("An error occurred while updating the device in getDevicemethod",e);
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 

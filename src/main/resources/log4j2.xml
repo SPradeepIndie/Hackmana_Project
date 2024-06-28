@@ -68,6 +68,56 @@
             <AppenderRef ref="SQLFile"/>
         </Logger>
         <!-- other exceptions loggers-->
+        <Logger name="org.example.hakmana.view.component.AddDevButtonController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.DeviceCategoryCardController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.DeviceInfoCardController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.FooterController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.HeaderController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.NavPanelController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.PathFinderController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.CreateAccountController" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.CreateAccountController" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.EditAccountController" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.ShowUsersController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.DashboardController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+
+        <Logger name="org.example.hakmana.view.scene.LoginPageController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.ReportHndlingController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.UserMngmntController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+
 
 
         <Root level="fatal">

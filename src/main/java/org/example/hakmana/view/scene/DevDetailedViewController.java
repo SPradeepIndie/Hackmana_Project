@@ -9,8 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 import java.net.URL;
 import java.util.ArrayList;

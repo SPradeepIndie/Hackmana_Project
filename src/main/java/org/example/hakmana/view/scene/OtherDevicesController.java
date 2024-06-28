@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.otherDevices.OtherDevices;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 import java.net.URL;
 import java.util.ResourceBundle;

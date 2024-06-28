@@ -17,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.view.scene.*;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ import java.util.ResourceBundle;
 
 
 public class NavPanelController extends AnchorPane implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(NavPanelController.class);
     private static PathFinderController dashboardpathFinderController=null;
 
     private Stage stage;
@@ -137,6 +140,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
             fxmlNavPanelController.load();
         }
         catch(IOException navPnlException){
+            otherErrorLogger.error(navPnlException.getMessage());
             throw new RuntimeException(navPnlException);
         }
     }
@@ -246,6 +250,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
         try {
             vbox = vboxloader.load();
         } catch (IOException e) {
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
         getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file

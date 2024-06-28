@@ -15,8 +15,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.AllDeviceDetails;
 import org.example.hakmana.model.userMngmnt.SystemUser;
+import org.example.hakmana.view.component.AddDevButtonController;
 import org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog;
 
 import java.io.IOException;
@@ -27,7 +30,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
-
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(LoginPageController.class);
     public static String curentUser = "";
 
     private static LoginPageController instance=null;
@@ -64,6 +67,7 @@ public class LoginPageController implements Initializable {
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             // Handle the NoSuchAlgorithmException
+            otherErrorLogger.error(e.getMessage());
             e.printStackTrace();
             return null;
         }

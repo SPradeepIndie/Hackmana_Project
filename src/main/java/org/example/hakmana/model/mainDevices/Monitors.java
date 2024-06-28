@@ -105,7 +105,7 @@ public class Monitors extends Devices{
             }
         }
         catch (SQLException e){
-            sqlLogger.error("An error occurred while updating the device",e);
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -132,7 +132,7 @@ public class Monitors extends Devices{
                 return monitors;
             }
         } catch (SQLException e) {
-            sqlLogger.error("An error occurred while updating the device",e);
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 

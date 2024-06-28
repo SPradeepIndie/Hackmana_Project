@@ -20,14 +20,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.DashboardCardTableController;
 import org.example.hakmana.GetNoteController;
 import org.example.hakmana.model.noteHndling.NoteTable;
 import org.example.hakmana.model.noteHndling.setTableColumnData;
-import org.example.hakmana.view.component.FooterController;
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.component.*;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
 import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
 
@@ -44,6 +43,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DashboardController extends Component implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DashboardController.class);
     private static DashboardController instance=null;
     @FXML
     public HeaderController headerController;//header custom component injector
@@ -301,6 +301,7 @@ public class DashboardController extends Component implements Initializable {
 
                     }
                 } catch (IOException e) {
+                    otherErrorLogger.error(e.getMessage());
                     throw new RuntimeException(e);
                 }
             }
@@ -327,6 +328,7 @@ public class DashboardController extends Component implements Initializable {
                 tableAdd();
             }
         } catch (IOException e) {
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

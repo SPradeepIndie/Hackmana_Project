@@ -16,7 +16,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hakmanaedm", "root", "SPAxim1@");
             System.out.println("Connection Successfully");
         } catch (ClassNotFoundException | SQLException e) {
-            sqlLogger.error("sql error occured", e);
+            sqlLogger.error(e.getMessage());
             System.out.println("Connection failed");
             //Need to show this alert
             Alert alert=new Alert(Alert.AlertType.WARNING);
@@ -44,7 +44,7 @@ public class DatabaseConnection {
             resultSet = preparedStatement.executeQuery();
 
         } catch (SQLException e) {
-            sqlLogger.error("sql error occured", e);
+            sqlLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 

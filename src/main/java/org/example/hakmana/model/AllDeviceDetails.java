@@ -55,7 +55,7 @@ public class AllDeviceDetails {
                 deviceNames.add(resultSet.getString(1));
             }
         } catch (SQLException e) {
-            sqlLogger.error("An sql error occur",e);
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
         }
         return deviceNames.toArray(new String[0]);
@@ -84,7 +84,7 @@ public class AllDeviceDetails {
                     activeDevList[index] = activeDev;
                 }
             } catch (SQLException e) {
-                sqlLogger.error("An sql error occur",e);
+                sqlLogger.error(e.getMessage());
                 e.printStackTrace();
             }
             index++;
