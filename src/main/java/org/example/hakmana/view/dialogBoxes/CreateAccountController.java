@@ -10,8 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.userMngmnt.SystemUser;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 
 import java.sql.Connection;
@@ -19,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CreateAccountController {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(AddDevButtonController.class);
     private static CreateAccountController instance=null;
     @FXML
     public TextField userNameTxt;
@@ -113,6 +117,7 @@ public class CreateAccountController {
                 }
                 clearFields();
             } catch (SQLException e) {
+                sqlLogger.error("system Error",e);
                 alertBox(actionEvent,"Error","System Error!!");
                 e.printStackTrace();
             }

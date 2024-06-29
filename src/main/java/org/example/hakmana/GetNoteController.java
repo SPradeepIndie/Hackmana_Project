@@ -1,5 +1,9 @@
 package org.example.hakmana;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.example.hakmana.view.component.AddDevButtonController;
+
 import java.sql.*;
 
 public class GetNoteController {

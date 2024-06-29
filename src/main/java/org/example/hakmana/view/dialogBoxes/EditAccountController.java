@@ -6,7 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.view.component.AddDevButtonController;
 import org.example.hakmana.view.scene.LoginPageController;
 
 import java.net.URL;
@@ -17,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EditAccountController  implements Initializable{
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(EditAccountController.class);
     private static EditAccountController instance=null;
     @FXML
     public TextField editNameField;
@@ -100,6 +104,7 @@ public class EditAccountController  implements Initializable{
             }
 
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
 
         }

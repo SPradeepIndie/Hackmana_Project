@@ -9,6 +9,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.example.hakmana.model.AllDeviceDetails;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
 
 import java.io.IOException;
@@ -17,6 +20,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddDevButtonController extends AnchorPane implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(AddDevButtonController.class);
     @FXML
     public AnchorPane root;
     private static String devCat;
@@ -44,6 +48,7 @@ public class AddDevButtonController extends AnchorPane implements Initializable 
             fxmlFooterLoader.load();
         }
         catch (IOException e){
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 

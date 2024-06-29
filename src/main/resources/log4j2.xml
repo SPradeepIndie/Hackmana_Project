@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <CustomLevels>
+        <CustomLevel name="SUCCESS" intLevel="350" />
+    </CustomLevels>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{%msg%n}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=BLUE, SUCCESS=green}"/>
+        </Console>
+        <!-- File Appender for SQL exceptions -->
+        <File name="SQLFile" fileName="logs/sql_exceptions.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+        </File>
+        <!--system users files-->
+        <File name="systemUser" fileName="logs/SystemUser.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <!-- File Appender for other errors -->
+        <File name="ErrorFile" fileName="logs/other_exceptions.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <!--sql exception loggers-->
+        <Logger name="org.example.hakmana.model.noteHndling.NoteTable" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.Devices" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.Desktop" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.Laptops" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.Monitors" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.PhotocpyMchine" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.Printer" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.Projectors" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.mainDevices.UPS" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.noteHndling.NoteTable" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.noteHndling.setTableColumnData" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.otherDevices.OtherDevices" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.userMngmnt.DeviceUser" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.userMngmnt.SystemUser" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.AllDeviceDetails" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.model.DatabaseConnection" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <!-- other exceptions loggers-->
+        <Logger name="org.example.hakmana.view.component.AddDevButtonController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.DeviceCategoryCardController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.DeviceInfoCardController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.FooterController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.HeaderController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.NavPanelController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.component.PathFinderController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.CreateAccountController" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.CreateAccountController" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.EditAccountController" level="error" additivity="false">
+            <AppenderRef ref="SQLFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.ShowUsersController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.DashboardController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+
+        <Logger name="org.example.hakmana.view.scene.LoginPageController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.ReportHndlingController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.UserMngmntController" level="error" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.LoginPageController" level="info" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+            <AppenderRef ref="SQLFile"/>
+            <AppenderRef ref="systemUser"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.DevDetailedViewController" level="info" additivity="false">
+            <AppenderRef ref="systemUser"/>
+
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.AddDeviceDialogController" level="info" additivity="false">
+            <AppenderRef ref="systemUser"/>
+
+        </Logger>
+
+
+
+        <Root level="fatal">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

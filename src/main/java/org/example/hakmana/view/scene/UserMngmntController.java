@@ -8,8 +8,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.userMngmnt.SystemUser;
 
+import org.example.hakmana.view.component.AddDevButtonController;
 import org.example.hakmana.view.dialogBoxes.CreateAccountController;
 import org.example.hakmana.view.dialogBoxes.EditAccountController;
 import org.example.hakmana.view.dialogBoxes.ShowUsersController;

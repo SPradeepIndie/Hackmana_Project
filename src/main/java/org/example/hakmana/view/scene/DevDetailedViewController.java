@@ -9,8 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.AddDevButtonController;
+import org.example.hakmana.view.component.DeviceInfoCardController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DevDetailedViewController implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DevDetailedViewController.class);
     private static DevDetailedViewController instance=null;
 
     //Device details common
@@ -395,6 +400,7 @@ public class DevDetailedViewController implements Initializable {
         setEditable(outputTextList,true,"#03AED2");
         saveBtn.setDisable(false);
         resetBtn.setDisable(false);
+
     }
     private void reset(){
         setEditable(new ArrayList<>(List.of(regNumTextField,modelTextField,StatusTextField)),false,"grey");
@@ -431,7 +437,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(outputTextList);
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
-
+                otherErrorLogger.info("update details of "+getDevRegNum());
                 Desktop.getDesktopInstance().updateDevice(newValues);
                 showDeviceDetail();
 
@@ -440,6 +446,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("update details of "+getDevRegNum());
 
                 PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -448,6 +455,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("update details of "+getDevRegNum());
 
                 Monitors.getMonitorInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -458,6 +466,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("update details of "+getDevRegNum());
 
                 Projectors.getProjectorsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -468,6 +477,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("update details of "+getDevRegNum());
 
                 Laptops.getLaptopsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -477,6 +487,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("update details of "+getDevRegNum());
 
                 Printer.getPrinterInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -485,6 +496,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("update details of "+getDevRegNum());
 
                 UPS.getUpsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -517,10 +529,14 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop"->{
                     //add new deviceUser to the desktop table
                     Desktop.getDesktopInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to "+ getDevRegNum());
+
                 }
                 case "Laptops"->{
                     //add new deviceUser to the laptop table
                     Laptops.getLaptopsInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to "+ getDevRegNum());
+
                 }
             }
 

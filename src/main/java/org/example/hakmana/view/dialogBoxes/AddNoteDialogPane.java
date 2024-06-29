@@ -9,7 +9,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.noteHndling.NoteTable;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 import javax.swing.*;
 import java.awt.*;
