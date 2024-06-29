@@ -16,9 +16,13 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.AllDeviceDetails;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 public class ReportHndlingController{
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(ReportHndlingController.class);
     private static ReportHndlingController instance=null;
     public Label descriptionLabel;
     public Button downloadButton;
@@ -93,6 +97,7 @@ public class ReportHndlingController{
                 // Open the created PDF file
                 openPdf(filePath);
             } catch (IOException e) {
+                otherErrorLogger.error(e.getMessage());
                 System.err.println("Error creating PDF: " + e.getMessage());
             }
         }
@@ -103,6 +108,7 @@ public class ReportHndlingController{
             File file = new File(filePath);
             Desktop.getDesktop().open(file);
         } catch (IOException e) {
+            otherErrorLogger.error(e.getMessage());
             System.err.println("Error opening PDF: " + e.getMessage());
         }
     }

@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 public class Desktop extends Devices {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Desktop.class);
     private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Desktop desktopInstance=null;
     private String DesRegNum;
@@ -280,6 +283,7 @@ public class Desktop extends Devices {
                 desktops.add(desktop);//add desktop to the desktops list
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -329,6 +333,7 @@ public class Desktop extends Devices {
                 return desktop;
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 

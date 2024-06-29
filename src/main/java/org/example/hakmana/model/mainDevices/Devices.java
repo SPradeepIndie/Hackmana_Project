@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public abstract class Devices {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Devices.class);
     private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
     private String model="No";
@@ -77,6 +80,7 @@ public abstract class Devices {
 
         } catch (SQLException e) {
             // Rollback the transaction on error
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
     }

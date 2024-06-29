@@ -6,8 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.AddDevButtonController;
+import org.example.hakmana.view.component.DeviceInfoCardController;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +19,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddDeviceDialogController implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(AddDeviceDialogController.class);
     private static AddDeviceDialogController instance=null;
     @FXML
     public ChoiceBox<String> devCat;//devcat selector
@@ -500,9 +505,11 @@ public class AddDeviceDialogController implements Initializable {
         boolean isDbAdded=false;
         if(isCatSelected){
             isDbAdded=addDb();
+
         }
         if(isCatSelected && isDbAdded){
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
+            otherErrorLogger.info("new"+checkCat()+" device added");
             resetBtnAction();
             setDevCat();
         }
@@ -675,6 +682,7 @@ public class AddDeviceDialogController implements Initializable {
             if (deviceUser.isNicAvailable(userNIC.getText()) == null) {
                 //add new deviceUser to the deviceUser table
                 deviceUser.insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
+                otherErrorLogger.info("new deviceUser "+userNIC.getText()+" is added");
             }
         }else {
             alert(Alert.AlertType.WARNING,"No User","Please select a device user");
