@@ -11,6 +11,7 @@ import org.example.hakmana.model.userMngmnt.DeviceUser;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -142,11 +143,6 @@ public class AddDeviceDialogController implements Initializable {
     public Label input4Lbl;
     @FXML
     public ChoiceBox<String> inputChoiceBox4;
-    private final String[] inputDeviceList1={"No"};
-    private final String[] inputDeviceList2={"No"};
-    private final String[] inputDeviceList3={"No"};
-    private final String[] inputDeviceList4={"No"};
-
 
     //output Dev details
     private ArrayList<HBox> outputHboxList;
@@ -172,10 +168,6 @@ public class AddDeviceDialogController implements Initializable {
     public Label output3Lbl;
     @FXML
     public ChoiceBox<String> outputChoiceBox3;
-    private final String[] outputDeviceList1={"No"};
-    private final String[] outputDeviceList2={"No"};
-    private final String[] outputDeviceList3={"No"};
-
 
     //deviceUser details
     private ArrayList<TextField> userTextLsit;
@@ -235,30 +227,11 @@ public class AddDeviceDialogController implements Initializable {
         isFromComponent=false;
         deviceUser =DeviceUser.getDeviceUserInstance();
 
-        //populate the choiceboxes
         devCat.getItems().addAll(devCategories);
         StatusChoiceBox.getItems().addAll(deviceStatus);
-
-        FloppyDiskChoiseBox.getItems().addAll(YN);
-        CdRomChoiceBox.getItems().addAll(YN);
-
-        NetworkCardChoiseBox.getItems().addAll(OnboardDecicated);
-        SoundCardChoiseBox.getItems().addAll(OnboardDecicated);
-        TVCardChoiseBox.getItems().addAll(OnboardDecicated);
-
         OSChoiseBox.getItems().addAll(WinLin);
-        SsdChoiceBox.getItems().addAll(ssdList);
-        CdRomChoiceBox.getItems().addAll(cdRomList);
-        PowerSupplyChoiceBox.getItems().addAll(powerSupplyList);
-        UpsChoiceBox.getItems().addAll(upsList);
 
-        inputChoiceBox1.getItems().addAll(inputDeviceList1);
-        inputChoiceBox2.getItems().addAll(inputDeviceList2);
-        inputChoiceBox3.getItems().addAll(inputDeviceList3);
-        inputChoiceBox4.getItems().addAll(inputDeviceList4);
-        outputChoiceBox1.getItems().addAll(outputDeviceList1);
-        outputChoiceBox2.getItems().addAll(outputDeviceList2);
-        outputChoiceBox3.getItems().addAll(outputDeviceList3);
+        populateChoiceBx();
 
         //get all the other details vbox, label, Hboxes, TextField, ChoiceBoxes
         otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other7Hbox));
@@ -347,27 +320,46 @@ public class AddDeviceDialogController implements Initializable {
     public void setDevCat() {
         devCat.setValue("Select a device");
     }
+    private void setChoBox(ArrayList<String> items,ChoiceBox<String> choBox) {
+        if(choBox.getItems().isEmpty()){
+            choBox.getItems().addAll(items);
+        }
+        choBox.getItems().add("No");
+    }
 
     private void setView(){
         setChoiceBoxVisibility(false);
         switch (getDevCategoryName()) {
             case "Desktop" -> {
+                Desktop desktop=Desktop.getDesktopInstance();
                 setChoiceBoxVisibility(true);
                 setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Hard Disk"});
                 setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number"});
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"});
                 userDetailsVbox.setVisible(true);
+                setChoBox(desktop.getUPSRegNums(),UpsChoiceBox);
+                setChoBox(desktop.getPowerSuppliesRegNum(),PowerSupplyChoiceBox);
+                setChoBox(desktop.getMousesRegNum(),inputChoiceBox1);
+                setChoBox(desktop.getKeyboardsRegNum(),inputChoiceBox2);
+                setChoBox(desktop.getMicsRegNum(),inputChoiceBox3);
+                setChoBox(desktop.getScannersRegNum(),inputChoiceBox4);
+                setChoBox(desktop.getMonitorsRegNum(),outputChoiceBox1);
+                setChoBox(desktop.getSpeakersRegNum(),outputChoiceBox2);
+
             }
             case "Photocopy Machines", "Projectors" ->
                 setOtherDetails(new String[]{"Purchased From"});
             case "Monitors" ->
                 setOtherDetails(new String[]{"Purchased From","Screen Size"});
             case "Laptops" -> {
+                Laptops laptop=Laptops.getLaptopsInstance();
                 setChoiceBoxVisibility(true);
                 setOtherDetails(new String[]{"Purchased From","Ram","CPU","Storage"});
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number"});
                 other6Hbox.setVisible(true);
                 userDetailsVbox.setVisible(true);
+                setChoBox(laptop.getMousesRegNum(),inputChoiceBox1);
+                setChoBox(laptop.getKeyboardsRegNum(),inputChoiceBox2);
             }
             case "Printers" ->
                 setOtherDetails(new String[]{"purchased From","Serial Number","Paper Input","Paper Output"});
@@ -397,6 +389,7 @@ public class AddDeviceDialogController implements Initializable {
         outputVbox.setVisible(true);
         for(int i=0;i< outputLblText.length;i++){
             outputHboxList.get(i).setVisible(true);
+            outputChoiceBoxList.get(i).setVisible(true);
             outputLblList.get(i).setText(outputLblText[i]);
         }
 
@@ -542,17 +535,20 @@ public class AddDeviceDialogController implements Initializable {
             for(TextField otherText:otherTextList){
                 otherText.setVisible(false);
             }
-
-            inputVbox.setVisible(false);
-            for(HBox inputHbox:inputHboxList){
-                inputHbox.setVisible(false);
-            }
-            for(ChoiceBox inputChoiceBox:inputChoiceBoxList){
-                inputChoiceBox.setVisible(false);
-            }
-            outputVbox.setVisible(false);
+            resetVisible(inputVbox,inputHboxList,inputChoiceBoxList);
+            resetVisible(outputVbox,outputHboxList,outputChoiceBoxList);
             userDetailsVbox.setVisible(false);
 
+        }
+    }
+
+    private void resetVisible(VBox vbox,ArrayList<HBox> hbxList,ArrayList<ChoiceBox> choiceboxList){
+        vbox.setVisible(false);
+        for(HBox outputHbox:hbxList){
+            outputHbox.setVisible(false);
+        }
+        for(ChoiceBox outputChoiceBox:choiceboxList){
+            outputChoiceBox.setVisible(false);
         }
     }
 
@@ -603,6 +599,18 @@ public class AddDeviceDialogController implements Initializable {
         setView();
     }
 
+    private void populateChoiceBx(){
+        //populate the choiceboxes
+        FloppyDiskChoiseBox.getItems().addAll(YN);
+        CdRomChoiceBox.getItems().addAll(YN);
+
+        NetworkCardChoiseBox.getItems().addAll(OnboardDecicated);
+        SoundCardChoiseBox.getItems().addAll(OnboardDecicated);
+        TVCardChoiseBox.getItems().addAll(OnboardDecicated);
+
+        SsdChoiceBox.getItems().addAll(ssdList);
+        CdRomChoiceBox.getItems().addAll(cdRomList);
+    }
     //set the All Choice box Disability
     private void setChoiceBoxDisability(boolean isDisable, ArrayList<ChoiceBox> choiceBoxList){
         for(ChoiceBox choBox:choiceBoxList){
