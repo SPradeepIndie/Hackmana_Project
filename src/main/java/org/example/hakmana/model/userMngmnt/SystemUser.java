@@ -276,6 +276,7 @@ public class SystemUser {
                 return storedPassword;
             }
         }catch (SQLException e){
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -293,7 +294,7 @@ public class SystemUser {
                 return isRemUName;
             }
         }catch (SQLException e){
-            sqlLogger.error("An sql error occur",e);
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -318,7 +319,7 @@ public class SystemUser {
 
             return  userDetArr;
         }catch (SQLException e){
-            sqlLogger.error("An sql error occur",e);
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
         }
 
@@ -339,7 +340,7 @@ public class SystemUser {
             }
             preparedStatement.execute();
         }catch (SQLException e){
-            sqlLogger.error("An sql error occur",e);
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
         }
     }

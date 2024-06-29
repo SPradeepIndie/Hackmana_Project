@@ -91,7 +91,7 @@ public class LoginPageController implements Initializable {
             if (tempPsswrd.equals(storedPassword)) {
                 // Passwords match, load dashboard
                 loadDashboard(event);
-
+                otherErrorLogger.info(tempUserName+" is Successfully logged in");
                 curentUser = tempUserName;
                 systemUser.setUserName(tempUserName);
 

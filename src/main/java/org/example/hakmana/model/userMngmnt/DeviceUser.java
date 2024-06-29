@@ -90,7 +90,7 @@ public class DeviceUser {
 
             }
         } catch (SQLException e) {
-            sqlLogger.error("An sql error occur",e);
+            sqlLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
@@ -127,7 +127,7 @@ public class DeviceUser {
                 deviceUsers.add(deviceUser);
             }
         } catch (SQLException e) {
-            sqlLogger.error("An sql error occur",e);
+            sqlLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 

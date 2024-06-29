@@ -11,9 +11,13 @@
         <File name="SQLFile" fileName="logs/sql_exceptions.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         </File>
+        <!--system users files-->
+        <File name="systemUser" fileName="logs/SystemUser.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+        </File>
 
         <!-- File Appender for other errors -->
-        <File name="ErrorFile" fileName="logs/errors.log">
+        <File name="ErrorFile" fileName="logs/other_exceptions.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         </File>
     </Appenders>
@@ -116,6 +120,19 @@
         </Logger>
         <Logger name="org.example.hakmana.view.scene.UserMngmntController" level="error" additivity="false">
             <AppenderRef ref="ErrorFile"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.LoginPageController" level="info" additivity="false">
+            <AppenderRef ref="ErrorFile"/>
+            <AppenderRef ref="SQLFile"/>
+            <AppenderRef ref="systemUser"/>
+        </Logger>
+        <Logger name="org.example.hakmana.view.scene.DevDetailedViewController" level="info" additivity="false">
+            <AppenderRef ref="systemUser"/>
+
+        </Logger>
+        <Logger name="org.example.hakmana.view.dialogBoxes.AddDeviceDialogController" level="info" additivity="false">
+            <AppenderRef ref="systemUser"/>
+
         </Logger>
 
 
