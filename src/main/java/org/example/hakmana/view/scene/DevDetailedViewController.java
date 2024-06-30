@@ -220,7 +220,7 @@ public class DevDetailedViewController implements Initializable {
     private static String deviceSelector;
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
-
+    LoginPageController newInstance=LoginPageController.getInstance();
     private DevDetailedViewController(){}
     public static DevDetailedViewController getInstance() {
         if(instance==null){
@@ -437,7 +437,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(outputTextList);
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
                 Desktop.getDesktopInstance().updateDevice(newValues);
                 showDeviceDetail();
 
@@ -446,7 +446,8 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+
 
                 PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -455,7 +456,8 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+
 
                 Monitors.getMonitorInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -466,7 +468,8 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+
 
                 Projectors.getProjectorsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -477,7 +480,8 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+
 
                 Laptops.getLaptopsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -496,7 +500,8 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+
 
                 UPS.getUpsInstance().updateDevice(newValues);
                 showDeviceDetail();

@@ -13,6 +13,8 @@ import org.example.hakmana.model.userMngmnt.DeviceUser;
 import org.example.hakmana.view.component.AddDevButtonController;
 import org.example.hakmana.view.component.DeviceInfoCardController;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
+import org.example.hakmana.view.scene.LoginPageController;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -203,7 +205,7 @@ public class AddDeviceDialogController implements Initializable {
     public Button resetBtn;
     @FXML
     public Button addUserButton;
-
+    LoginPageController newInstance=LoginPageController.getInstance();
     //Array fo populate the choiceBoxes
     private final String[] devCategories={"Desktop","Photocopy Machines","Monitors","Projectors","Laptops","Printers","UPS"};
     private final String[] deviceStatus={"Active","Repairing","Inactive","Not Assigned"};
@@ -417,6 +419,7 @@ public class AddDeviceDialogController implements Initializable {
         return true;
     }
     private boolean addDb(){
+       String loggedUser=newInstance.getLogedUser();
         switch (getDevCategoryName()) {
             case "Desktop" -> {
                 newValues.add(getDevRegNum());
@@ -438,7 +441,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-
+                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
                 return PhotocpyMchine.getPhotocpyMchineInstance().insertDevice(newValues);
             }
             case "Monitors" -> {
@@ -446,7 +449,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-
+                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
                 return Monitors.getMonitorInstance().insertDevice(newValues);
 
             }
@@ -454,7 +457,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
-
+                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
                 return Projectors.getProjectorsInstance().insertDevice(newValues);
 
             }
@@ -465,7 +468,7 @@ public class AddDeviceDialogController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add( OSChoiseBox.getValue());
                 newValues.add(userNIC.getText());
-
+                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
                 if(nicFieldCheck()) {
                     // Call addUser in a background thread
                     new Thread(this::addUser).start();
@@ -479,7 +482,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-
+                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
                 return Printer.getPrinterInstance().insertDevice(newValues);
 
             }
@@ -488,7 +491,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-
+                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
                 return UPS.getUpsInstance().insertDevice(newValues);
 
             }
@@ -509,7 +512,6 @@ public class AddDeviceDialogController implements Initializable {
         }
         if(isCatSelected && isDbAdded){
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
-            otherErrorLogger.info("new"+checkCat()+" device added");
             resetBtnAction();
             setDevCat();
         }
