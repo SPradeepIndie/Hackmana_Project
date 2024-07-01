@@ -46,3 +46,4 @@ docker-compose.yml
 Dockerfile
 docker-compose.yml
 Dockerfile
+/src/main/resources/logs/
