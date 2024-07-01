@@ -512,7 +512,6 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-
                 return PhotocpyMchine.getPhotocpyMchineInstance().insertDevice(newValues);
             }
             case "Monitors" -> {
@@ -520,7 +519,6 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-
                 return Monitors.getMonitorInstance().insertDevice(newValues);
 
             }
