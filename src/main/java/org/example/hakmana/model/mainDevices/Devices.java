@@ -8,6 +8,7 @@ import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -83,6 +84,18 @@ public abstract class Devices {
             sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
+    }
+
+    public ArrayList<String> regNumbGetQueryExecute(String qry,String regNumcolumnName){
+        ArrayList<String> regNumbers=new ArrayList<>();
+        try(ResultSet rs = conn.executeSt(qry)){
+            while(rs.next()){
+                regNumbers.add(rs.getString(regNumcolumnName));
+            }
+        }catch (SQLException e){
+          alerting(Alert.AlertType.INFORMATION,"Unsuccessfully fetched data","","");
+        }
+        return regNumbers;
     }
 }
 

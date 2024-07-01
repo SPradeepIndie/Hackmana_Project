@@ -225,4 +225,15 @@ public class Laptops extends Devices{
         return false;
     }
 
+    public ArrayList<String> getMousesRegNum() {
+        String sql="Select mouseRegNum From mouse";
+        String colName="mouseRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getKeyboardsRegNum() {
+        String sql="Select KeyboardRegNum From Keyboard";
+        String colName="KeyboardRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 }
