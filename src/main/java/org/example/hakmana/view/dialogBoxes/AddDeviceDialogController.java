@@ -441,7 +441,7 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
+                otherErrorLogger.info("user "+loggedUser+"  added new device/"+newValues);
                 return PhotocpyMchine.getPhotocpyMchineInstance().insertDevice(newValues);
             }
             case "Monitors" -> {
@@ -449,7 +449,8 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
+                otherErrorLogger.info("user "+loggedUser+"  added new device/"+newValues);
+
                 return Monitors.getMonitorInstance().insertDevice(newValues);
 
             }
@@ -457,7 +458,8 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(getDevRegNum());
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
-                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
+                otherErrorLogger.info("user "+loggedUser+"  added new device/"+newValues);
+
                 return Projectors.getProjectorsInstance().insertDevice(newValues);
 
             }
@@ -468,7 +470,8 @@ public class AddDeviceDialogController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add( OSChoiseBox.getValue());
                 newValues.add(userNIC.getText());
-                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
+                otherErrorLogger.info("user "+loggedUser+"  added new device/"+newValues);
+
                 if(nicFieldCheck()) {
                     // Call addUser in a background thread
                     new Thread(this::addUser).start();
@@ -482,7 +485,8 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
+                otherErrorLogger.info("user "+loggedUser+"  added new device/"+newValues);
+
                 return Printer.getPrinterInstance().insertDevice(newValues);
 
             }
@@ -491,7 +495,8 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(modelTextField.getText());
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
-                otherErrorLogger.info("user "+loggedUser+"  added new device "+newValues);
+                otherErrorLogger.info("user "+loggedUser+"  added new device/"+newValues);
+
                 return UPS.getUpsInstance().insertDevice(newValues);
 
             }

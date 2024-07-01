@@ -437,7 +437,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(outputTextList);
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
                 Desktop.getDesktopInstance().updateDevice(newValues);
                 showDeviceDetail();
 
@@ -446,7 +446,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
 
 
                 PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
@@ -456,7 +456,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
 
 
                 Monitors.getMonitorInstance().updateDevice(newValues);
@@ -468,7 +468,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
 
 
                 Projectors.getProjectorsInstance().updateDevice(newValues);
@@ -480,7 +480,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
 
 
                 Laptops.getLaptopsInstance().updateDevice(newValues);
@@ -491,7 +491,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
 
                 Printer.getPrinterInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -500,7 +500,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of "+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
 
 
                 UPS.getUpsInstance().updateDevice(newValues);
@@ -534,13 +534,12 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop"->{
                     //add new deviceUser to the desktop table
                     Desktop.getDesktopInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
-                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to "+ getDevRegNum());
-
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to/"+ getDevRegNum());
                 }
                 case "Laptops"->{
                     //add new deviceUser to the laptop table
                     Laptops.getLaptopsInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
-                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to "+ getDevRegNum());
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to/"+ getDevRegNum());
 
                 }
             }

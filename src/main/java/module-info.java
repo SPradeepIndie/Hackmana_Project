@@ -20,6 +20,7 @@ module org.example.hakmana {
     requires org.apache.logging.log4j.core;
 
 
+    opens org.example.hakmana.model.overviewTable to javafx.base;
     opens org.example.hakmana to javafx.fxml;
     exports org.example.hakmana;
     exports org.example.hakmana.model;
