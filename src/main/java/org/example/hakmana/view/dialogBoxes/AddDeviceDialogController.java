@@ -68,22 +68,10 @@ public class AddDeviceDialogController implements Initializable {
     public Label other4Lbl;
     @FXML
     public TextField other4;
-    @FXML
-    public HBox other5Hbox;
-    @FXML
-    public Label other5Lbl;
-    @FXML
-    public TextField other5;
-    @FXML
-    public HBox other6Hbox;
+
     @FXML
     public ChoiceBox<String> OSChoiseBox;
-    @FXML
-    public HBox other7Hbox;
-    @FXML
-    public Label other7Lbl;
-    @FXML
-    public TextField other7;
+
     @FXML
     public HBox other8Hbox;
     @FXML
@@ -239,10 +227,10 @@ public class AddDeviceDialogController implements Initializable {
         populateChoiceBx();
 
         //get all the other details vbox, label, Hboxes, TextField, ChoiceBoxes
-        otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other7Hbox));
-        otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl, other5Lbl,other7Lbl));
-        otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4,other5,other7));
-        otherChoiceBoxList=new ArrayList<>(List.of(OSChoiseBox,FloppyDiskChoiseBox,
+        otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox));
+        otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl));
+        otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4));
+        otherChoiceBoxList=new ArrayList<>(List.of(FloppyDiskChoiseBox,
                 SoundCardChoiseBox,TVCardChoiseBox,NetworkCardChoiseBox,
                 SsdChoiceBox,CdRomChoiceBox,UpsChoiceBox,PowerSupplyChoiceBox));
 
@@ -337,11 +325,11 @@ public class AddDeviceDialogController implements Initializable {
         switch (getDevCategoryName()) {
             case "Desktop" -> {
                 Desktop desktop=Desktop.getDesktopInstance();
-                setChoiceBoxVisibility(true);
-                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor","Hard Disk"});
+                setOtherDetails(new String[]{"Serial Number","Purchased Form","Processor"});
                 setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number"});
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"});
                 userDetailsVbox.setVisible(true);
+                setChoiceBoxVisibility(true);
                 setChoBox(desktop.getUPSRegNums(),UpsChoiceBox);
                 setChoBox(desktop.getPowerSuppliesRegNum(),PowerSupplyChoiceBox);
                 setChoBox(desktop.getMousesRegNum(),inputChoiceBox1);
@@ -358,10 +346,9 @@ public class AddDeviceDialogController implements Initializable {
                 setOtherDetails(new String[]{"Purchased From","Screen Size"});
             case "Laptops" -> {
                 Laptops laptop=Laptops.getLaptopsInstance();
-                setChoiceBoxVisibility(true);
                 setOtherDetails(new String[]{"Purchased From","Ram","CPU","Storage"});
                 setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number"});
-                other6Hbox.setVisible(true);
+                //other6Hbox.setVisible(true);
                 userDetailsVbox.setVisible(true);
                 setChoBox(laptop.getMousesRegNum(),inputChoiceBox1);
                 setChoBox(laptop.getKeyboardsRegNum(),inputChoiceBox2);
@@ -627,7 +614,7 @@ public class AddDeviceDialogController implements Initializable {
 
     //set the Choice box Visibility(except Status Choice Box)
     private void setChoiceBoxVisibility(boolean isVisible){
-        other6Hbox.setVisible(isVisible);
+        //other6Hbox.setVisible(isVisible);
         other8Hbox.setVisible(isVisible);
         other9Hbox.setVisible(isVisible);
         other10Hbox.setVisible(isVisible);
