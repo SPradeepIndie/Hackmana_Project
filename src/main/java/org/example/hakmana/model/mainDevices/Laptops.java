@@ -221,8 +221,7 @@ public class Laptops extends Devices{
         //pass query to the connection class
         String sql="INSERT INTO laptop (LaptopRegNum,model,status,ram,processor,hardDisk,os,userNIC)" +
                 "VALUES (?,?,?,?,?,?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        return dbInteraction(sql,list, list.getFirst());
     }
 
     public ArrayList<String> getMousesRegNum() {

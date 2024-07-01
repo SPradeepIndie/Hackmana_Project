@@ -363,8 +363,8 @@ public class Desktop extends Devices {
                 "speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,printerRegNum,upsRegNum,"+
                 "powerSupplyRegNum,userNIC)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        return dbInteraction(sql,list, list.getFirst());
+
     }
 
     public ArrayList<String> getUPSRegNums(){

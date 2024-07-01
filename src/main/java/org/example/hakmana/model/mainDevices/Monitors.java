@@ -147,9 +147,8 @@ public class Monitors extends Devices{
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO monitor (MonitoRegNum,model,status)" +
-                "VALUES (?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO monitor (MonitoRegNum,model,status,purchasedFrom,screenSize)" +
+                "VALUES (?,?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 }
