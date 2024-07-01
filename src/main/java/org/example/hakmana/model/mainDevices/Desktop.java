@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 public class Desktop extends Devices {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Desktop.class);
     private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Desktop desktopInstance=null;
     private String DesRegNum;
@@ -50,8 +53,8 @@ public class Desktop extends Devices {
             return desktopInstance;
         }
         return desktopInstance;
-    }
 
+    }
     @Override
     public String getRegNum() {
         return DesRegNum;
@@ -280,6 +283,7 @@ public class Desktop extends Devices {
                 desktops.add(desktop);//add desktop to the desktops list
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -329,6 +333,7 @@ public class Desktop extends Devices {
                 return desktop;
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -362,6 +367,51 @@ public class Desktop extends Devices {
         return false;
     }
 
+    public ArrayList<String> getUPSRegNums(){
+        String sql="Select UpsRegNum From Ups";
+        String colName="UpsRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+    public ArrayList<String> getPowerSuppliesRegNum(){
+        String sql="Select PowerSupplyRegNum From PowerSupply";
+        String colName="PowerSupplyRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 
+    public ArrayList<String> getMousesRegNum(){
+        String sql="Select mouseRegNum From mouse";
+        String colName="mouseRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getKeyboardsRegNum() {
+        String sql="Select KeyboardRegNum From Keyboard";
+        String colName="KeyboardRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getMicsRegNum() {
+        String sql="Select MICRegNum From Mic";
+        String colName="MICRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getScannersRegNum() {
+        String sql="Select ScannersRegNum From Scanners";
+        String colName="ScannersRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getMonitorsRegNum() {
+        String sql="Select MonitorRegNum From Monitor";
+        String colName="MonitorRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getSpeakersRegNum() {
+        String sql="Select SpeakerRegNum From Speaker";
+        String colName="SpeakerRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 }
 

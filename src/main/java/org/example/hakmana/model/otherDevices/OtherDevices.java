@@ -2,6 +2,8 @@ package org.example.hakmana.model.otherDevices;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.*;
@@ -11,6 +13,7 @@ import java.util.List;
 
 
 public class OtherDevices {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(OtherDevices.class);
     private DatabaseConnection databaseConnection ;
     private static Connection connection;
     private static List<String> excludedTables;
@@ -113,6 +116,7 @@ public class OtherDevices {
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
+            sqlLogger.error("An sql error occur",e);
             throw new RuntimeException(e);
         }
     }
@@ -161,6 +165,7 @@ public class OtherDevices {
                     resultSet.close();
                     preparedStatementRepairing.close();
                 } catch (SQLException e) {
+                    sqlLogger.error("An sql error occur",e);
                     e.getMessage();
                 }
 
@@ -172,5 +177,6 @@ public class OtherDevices {
                 row++;
             }
     }
+
 }
 

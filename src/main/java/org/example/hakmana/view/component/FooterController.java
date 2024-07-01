@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.view.dialogBoxes.ContactUsDialog;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.ResourceBundle;
 
 
 public class FooterController extends VBox implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(FooterController.class);
     @FXML
     public Label dateLabel;
     @FXML
@@ -61,6 +64,7 @@ public class FooterController extends VBox implements Initializable {
             fxmlFooterLoader.load();
         }
         catch (IOException FooterException){
+            otherErrorLogger.error(FooterException.getMessage());
             throw new RuntimeException(FooterException);
         }
     }

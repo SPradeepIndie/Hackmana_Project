@@ -2,6 +2,8 @@ package org.example.hakmana.model.userMngmnt;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DeviceUser {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(DeviceUser.class);
     private static DeviceUser deviceUserInstance=null;
     private final DatabaseConnection dbconn=DatabaseConnection.getInstance();
     private final Connection connection=dbconn.getConnection();
@@ -87,6 +90,7 @@ public class DeviceUser {
 
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
@@ -123,6 +127,7 @@ public class DeviceUser {
                 deviceUsers.add(deviceUser);
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
@@ -148,6 +153,7 @@ public class DeviceUser {
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
         } catch (SQLException e) {
+            sqlLogger.error("An sql error occur",e);
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error adding DeviceUser");
             alert.setHeaderText("An error occurred while adding new deviceUser.");
