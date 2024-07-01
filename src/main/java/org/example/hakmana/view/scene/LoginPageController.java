@@ -44,7 +44,7 @@ public class LoginPageController implements Initializable {
     private Button login;
     @FXML
     private CheckBox remenberCheckBox;
-
+    private String logedUser;
     private LoginPageController(){}
 
     public static LoginPageController getInstance() {
@@ -91,6 +91,7 @@ public class LoginPageController implements Initializable {
             if (tempPsswrd.equals(storedPassword)) {
                 // Passwords match, load dashboard
                 loadDashboard(event);
+                logedUser=tempUserName;
                 otherErrorLogger.info(tempUserName+" is Successfully logged in");
                 curentUser = tempUserName;
                 systemUser.setUserName(tempUserName);
@@ -137,7 +138,9 @@ public class LoginPageController implements Initializable {
         stage.show();
         System.out.println("Login successful");
     }
-
+    public String getLogedUser(){
+        return logedUser;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SystemUser systemUser = new SystemUser();

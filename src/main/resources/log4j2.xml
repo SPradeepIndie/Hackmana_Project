@@ -124,7 +124,6 @@
         <Logger name="org.example.hakmana.view.scene.LoginPageController" level="info" additivity="false">
             <AppenderRef ref="ErrorFile"/>
             <AppenderRef ref="SQLFile"/>
-            <AppenderRef ref="systemUser"/>
         </Logger>
         <Logger name="org.example.hakmana.view.scene.DevDetailedViewController" level="info" additivity="false">
             <AppenderRef ref="systemUser"/>
