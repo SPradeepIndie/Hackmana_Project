@@ -219,8 +219,8 @@ public class Laptops extends Devices{
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO laptop (LaptopRegNum,model,status,ram,processor,hardDisk,os,userNIC)" +
-                "VALUES (?,?,?,?,?,?,?,?)";
+        String sql="INSERT INTO laptop (LaptopRegNum,model,status,purchasedForm,processor,hardDisk,ram,os,mouseRegNum,keyboardRegNum,userNIC)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
     }
 

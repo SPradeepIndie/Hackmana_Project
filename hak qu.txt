@@ -19,7 +19,7 @@ CREATE TABLE Speaker(
     SpeakerRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10)
+    status VARCHAR(20)
 );
 
 CREATE TABLE Mouse (

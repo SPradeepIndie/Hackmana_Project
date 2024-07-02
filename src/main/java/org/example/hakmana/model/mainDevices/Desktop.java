@@ -358,10 +358,10 @@ public class Desktop extends Devices {
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO desktop (DesRegNum,model,status,serialNum,purchasedFrom,ram," +
-                "processor,hardDisk,os,floppyDisk,soundCard,tvCard,networkCard,ssd,cdRom,monitorRegNum," +
-                "speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,printerRegNum,upsRegNum,"+
-                "powerSupplyRegNum,userNIC)" +
+        String sql="INSERT INTO desktop (DesRegNum,model,status,serialNum,purchasedFrom,processor," +
+                "hardDisk,ram,os,floppyDisk,soundCard,tvCard,networkCard,ssd,cdRom,upsRegNum,powerSupplyRegNum," +
+                "mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,"+
+                "monitorRegNum,speakerRegNum,printerRegNum,userNIC)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
 
@@ -411,6 +411,12 @@ public class Desktop extends Devices {
     public ArrayList<String> getSpeakersRegNum() {
         String sql="Select SpeakerRegNum From Speaker";
         String colName="SpeakerRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getPrintersRegNum() {
+        String sql="Select printerRegNum From printer";
+        String colName="PrinterRegNum";
         return regNumbGetQueryExecute(sql,colName);
     }
 }
