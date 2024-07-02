@@ -81,20 +81,14 @@
                                           </HBox>
                                           <HBox fx:id="other2Hbox">
                                               <children>
-                                                  <Label fx:id="other2Lbl" prefWidth="150.0" text="Ram" HBox.hgrow="ALWAYS" />
+                                                  <Label fx:id="other2Lbl" prefWidth="150.0" text="Processor" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="other2" HBox.hgrow="ALWAYS" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="other3Hbox">
                                               <children>
-                                                  <Label fx:id="other3Lbl" prefWidth="150.0" text="Processor" HBox.hgrow="ALWAYS" />
+                                                  <Label fx:id="other3Lbl" prefWidth="150.0" text="Serial Number" HBox.hgrow="ALWAYS" />
                                                   <TextField fx:id="other3" HBox.hgrow="ALWAYS" />
-                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other6Hbox">
-                                              <children>
-                                                  <Label fx:id="other6Lbl" prefWidth="150.0" text="Operatiing System" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="OSChoiseBox" prefWidth="150.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="other4Hbox">
@@ -106,63 +100,75 @@
                                           <HBox fx:id="other5Hbox">
                                               <children>
                                                   <Label fx:id="other5Lbl" prefWidth="150.0" text="Hard Disk" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="other5" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other5" />
+                                                <ChoiceBox fx:id="hardSizeChoiceBox" prefWidth="50.0" />
+                                              </children>
+                                          </HBox>
+                                          <HBox fx:id="other6Hbox">
+                                              <children>
+                                                  <Label prefWidth="150.0" text="Ram" HBox.hgrow="ALWAYS" />
+                                                  <TextField fx:id="other6" />
+                                                <ChoiceBox fx:id="ramSizeChoiceBox" prefWidth="50.0" />
                                               </children>
                                           </HBox>
                                           <HBox fx:id="other7Hbox">
                                               <children>
-                                                  <Label fx:id="other7Lbl" prefWidth="150.0" text="Serial Number" HBox.hgrow="ALWAYS" />
-                                                  <TextField fx:id="other7" HBox.hgrow="ALWAYS" />
+                                                  <Label fx:id="other7Lbl" prefWidth="150.0" text="Operatiing System" HBox.hgrow="ALWAYS" />
+                                                <ChoiceBox fx:id="OSChoiseBox" prefWidth="150.0" />
                                               </children>
                                           </HBox>
-                                          <HBox fx:id="other8Hbox">
-                                              <children>
-                                                  <Label fx:id="other8Lbl" prefWidth="150.0" text="Floppy Disk Drive" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="FloppyDiskChoiseBox" prefWidth="150.0" />
-                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other9Hbox">
-                                              <children>
-                                                  <Label fx:id="other9Lbl" prefWidth="150.0" text="Sound Card" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="SoundCardChoiseBox" prefWidth="150.0" />
-                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other10Hbox">
-                                              <children>
-                                                  <Label fx:id="other10Lbl" prefWidth="150.0" text="TV Card" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="TVCardChoiseBox" prefWidth="150.0" />
-                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other11Hbox">
-                                              <children>
-                                                  <Label fx:id="other11Lbl" prefWidth="150.0" text="Network Card" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="NetworkCardChoiseBox" prefWidth="150.0" />
-                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other12Hbox">
+                                          <VBox fx:id="otherChoiceBoxVbox" spacing="10.0" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Label fx:id="other12Lbl" prefWidth="150.0" text="SSD" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="SsdChoiceBox" prefWidth="150.0" />
+                                                <HBox fx:id="other8Hbox" VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <Label fx:id="other8Lbl" prefWidth="150.0" text="Floppy Disk Drive" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="FloppyDiskChoiseBox" prefWidth="150.0" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox fx:id="other9Hbox" VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <Label fx:id="other9Lbl" prefWidth="150.0" text="Sound Card" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="SoundCardChoiseBox" prefWidth="150.0" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox fx:id="other10Hbox" VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <Label fx:id="other10Lbl" prefWidth="150.0" text="TV Card" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="TVCardChoiseBox" prefWidth="150.0" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox fx:id="other11Hbox" VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <Label fx:id="other11Lbl" prefWidth="150.0" text="Network Card" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="NetworkCardChoiseBox" prefWidth="150.0" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox fx:id="other12Hbox" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label fx:id="other12Lbl" prefWidth="150.0" text="SSD" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="SsdChoiceBox" prefWidth="150.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox fx:id="other13Hbox" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label fx:id="other13Lbl" prefWidth="150.0" text="CD ROM" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="CdRomChoiceBox" prefWidth="150.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox fx:id="other14Hbox" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label fx:id="other14Lbl" prefWidth="150.0" text="UPS registration number" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="UpsChoiceBox" prefWidth="150.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox fx:id="other15Hbox" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <Label fx:id="other15Lbl" prefWidth="150.0" text="Power Supply" HBox.hgrow="ALWAYS" />
+                                                      <ChoiceBox fx:id="PowerSupplyChoiceBox" prefWidth="150.0" />
+                                                   </children>
+                                                </HBox>
                                              </children>
-                                          </HBox>
-                                          <HBox fx:id="other13Hbox">
-                                             <children>
-                                                <Label fx:id="other13Lbl" prefWidth="150.0" text="CD ROM" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="CdRomChoiceBox" prefWidth="150.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox fx:id="other14Hbox">
-                                             <children>
-                                                <Label fx:id="other14Lbl" prefWidth="150.0" text="UPS registration number" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="UpsChoiceBox" prefWidth="150.0" />
-                                             </children>
-                                          </HBox>
-                                          <HBox fx:id="other15Hbox">
-                                             <children>
-                                                <Label fx:id="other15Lbl" prefWidth="150.0" text="Power Supply" HBox.hgrow="ALWAYS" />
-                                                <ChoiceBox fx:id="PowerSupplyChoiceBox" prefWidth="150.0" />
-                                             </children>
-                                          </HBox>
+                                          </VBox>
                                       </children>
                                   </VBox>
                               </children>

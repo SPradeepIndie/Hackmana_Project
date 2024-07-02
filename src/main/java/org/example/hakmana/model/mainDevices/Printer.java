@@ -164,9 +164,8 @@ public class Printer extends Devices {
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO printer (PrinterRegNum,model,status,serialNum,paperInput,paperOutput)" +
-                "VALUES (?,?,?,?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO printer (PrinterRegNum,model,status,purchasedFROM,serialNum,paperInput,paperOutput)" +
+                "VALUES (?,?,?,?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 }

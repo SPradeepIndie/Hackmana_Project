@@ -64,7 +64,7 @@ public abstract class Devices {
         conn.rollback();
     }
 
-    public void dbInteraction(String incompleteSql,ArrayList<String> valList,String deviceRegNum){
+    public Boolean dbInteraction(String incompleteSql,ArrayList<String> valList,String deviceRegNum){
         Connection connection= conn.getConnection();
         try {
             connection.setAutoCommit(false);
@@ -76,13 +76,15 @@ public abstract class Devices {
             }
             i= ps.executeUpdate();
 
-            changesCommit(connection,alerting(Alert.AlertType.CONFIRMATION,"Confirmation","Desktop registration number"+deviceRegNum,"Update "+ i+" rows " ));
+            changesCommit(connection,alerting(Alert.AlertType.CONFIRMATION,"Confirmation","registration number: "+deviceRegNum,"Updated "+ i+" rows " ));
             connection.setAutoCommit(true);
+            return true;
 
         } catch (SQLException e) {
             // Rollback the transaction on error
             sqlLogger.error(e.getMessage());
-            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Warning","Something went wrong",e.getMessage());
+            return false;
         }
     }
 
