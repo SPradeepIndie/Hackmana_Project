@@ -141,8 +141,7 @@ public class Projectors extends Devices{
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status) VALUES (?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status,purchasedFrom) VALUES (?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 }

@@ -219,10 +219,20 @@ public class Laptops extends Devices{
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO laptop (LaptopRegNum,model,status,ram,processor,hardDisk,os,userNIC)" +
-                "VALUES (?,?,?,?,?,?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO laptop (LaptopRegNum,model,status,purchasedForm,processor,hardDisk,ram,os,mouseRegNum,keyboardRegNum,userNIC)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 
+    public ArrayList<String> getMousesRegNum() {
+        String sql="Select mouseRegNum From mouse";
+        String colName="mouseRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getKeyboardsRegNum() {
+        String sql="Select KeyboardRegNum From Keyboard";
+        String colName="KeyboardRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 }

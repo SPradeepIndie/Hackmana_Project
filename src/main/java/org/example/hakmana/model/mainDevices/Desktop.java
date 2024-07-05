@@ -53,8 +53,8 @@ public class Desktop extends Devices {
             return desktopInstance;
         }
         return desktopInstance;
-    }
 
+    }
     @Override
     public String getRegNum() {
         return DesRegNum;
@@ -358,15 +358,66 @@ public class Desktop extends Devices {
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO desktop (DesRegNum,model,status,serialNum,purchasedFrom,ram," +
-                "processor,hardDisk,os,floppyDisk,soundCard,tvCard,networkCard,ssd,cdRom,monitorRegNum," +
-                "speakerRegNum,mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,printerRegNum,upsRegNum,"+
-                "powerSupplyRegNum,userNIC)" +
+        String sql="INSERT INTO desktop (DesRegNum,model,status,serialNum,purchasedFrom,processor," +
+                "hardDisk,ram,os,floppyDisk,soundCard,tvCard,networkCard,ssd,cdRom,upsRegNum,powerSupplyRegNum," +
+                "mouseRegNum,keyboardRegNum,micRegNum,scannerRegNum,"+
+                "monitorRegNum,speakerRegNum,printerRegNum,userNIC)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        return dbInteraction(sql,list, list.getFirst());
+
     }
 
+    public ArrayList<String> getUPSRegNums(){
+        String sql="Select UpsRegNum From Ups";
+        String colName="UpsRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+    public ArrayList<String> getPowerSuppliesRegNum(){
+        String sql="Select PowerSupplyRegNum From PowerSupply";
+        String colName="PowerSupplyRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 
+    public ArrayList<String> getMousesRegNum(){
+        String sql="Select mouseRegNum From mouse";
+        String colName="mouseRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getKeyboardsRegNum() {
+        String sql="Select KeyboardRegNum From Keyboard";
+        String colName="KeyboardRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getMicsRegNum() {
+        String sql="Select MICRegNum From Mic";
+        String colName="MICRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getScannersRegNum() {
+        String sql="Select ScannersRegNum From Scanners";
+        String colName="ScannersRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getMonitorsRegNum() {
+        String sql="Select MonitorRegNum From Monitor";
+        String colName="MonitorRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getSpeakersRegNum() {
+        String sql="Select SpeakerRegNum From Speaker";
+        String colName="SpeakerRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getPrintersRegNum() {
+        String sql="Select printerRegNum From printer";
+        String colName="PrinterRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 }
 
