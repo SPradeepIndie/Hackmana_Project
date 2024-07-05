@@ -415,7 +415,7 @@ public class DashboardController extends Component implements Initializable {
             e.printStackTrace();
         }
 
-        System.out.println("Log file cleaned. Entries older than " + retentionDays + " days have been removed.");
+
     }
 }
 
