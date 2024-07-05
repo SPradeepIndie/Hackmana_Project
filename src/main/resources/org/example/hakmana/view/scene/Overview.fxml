@@ -26,8 +26,8 @@
         <VBox fx:id="bodyComponent" prefWidth="549.0" HBox.hgrow="ALWAYS">
             <TableView fx:id="historyTable" prefHeight="425.0" prefWidth="554.0" style="-fx-border-radius: 10;" VBox.vgrow="ALWAYS">
                 <columns>
-                    <TableColumn fx:id="dateColumn" prefWidth="188.0" text="Date/Time" />
-                    <TableColumn fx:id="processColumn" prefWidth="150.0" text="Process" />
+                    <TableColumn fx:id="dateColumn" editable="false" prefWidth="188.0" sortable="false" text="Date/Time" />
+                    <TableColumn fx:id="processColumn" editable="false" prefWidth="150.0" sortable="false" text="Process" />
                     <TableColumn fx:id="detailsColumn" prefWidth="226.0" text="Details" />
                 </columns>
                 <columnResizePolicy>
