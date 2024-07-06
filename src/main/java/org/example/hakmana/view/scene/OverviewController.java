@@ -43,7 +43,6 @@ public class OverviewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("hiiiiiiiii");
         OverviewTableData controller=new OverviewTableData();
         ObservableList<LogEntry> list= controller.setColumnData();
         dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry,String>("timestamp"));

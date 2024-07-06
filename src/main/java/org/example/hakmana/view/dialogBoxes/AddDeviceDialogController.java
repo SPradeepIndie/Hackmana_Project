@@ -597,7 +597,7 @@ public class AddDeviceDialogController implements Initializable {
 
         }
         if(isCatSelected && isDbAdded){
-            otherErrorLogger.info("user "+loggedUser+"  added new device with values:"+newValues);
+            otherErrorLogger.info("user "+loggedUser+" added a new device / values:"+newValues);
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
             resetBtnAction();
             setDevCat();
@@ -606,7 +606,7 @@ public class AddDeviceDialogController implements Initializable {
             DeviceMngmntSmmryScene.getInstance().updateUI();//when device added update ui
         }
         else {
-            otherErrorLogger.info("user "+loggedUser+" try to add new device with values: "+newValues);
+            otherErrorLogger.info("user "+loggedUser+" try to add a new device / values:"+newValues);
         }
 
         newValues.clear();
@@ -751,7 +751,7 @@ public class AddDeviceDialogController implements Initializable {
             if(deviceUser.isNicAvailable(userNIC.getText()) == null) {
                 //add new deviceUser to the deviceUser table
                 deviceUser.insertUser(new ArrayList<>(List.of(userNIC.getText(), userName.getText(), userTitle.getText(), userGmail.getText())));
-                otherErrorLogger.info("new deviceUser "+userNIC.getText()+" is added");
+                otherErrorLogger.info("new deviceUser is added / user:"+userNIC.getText());
             }
         }else {
             alert(Alert.AlertType.WARNING,"No User","Please select a device user");
