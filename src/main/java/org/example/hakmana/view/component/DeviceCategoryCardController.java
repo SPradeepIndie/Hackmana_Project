@@ -114,6 +114,11 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
 
 
     //  For the DeviceMngmntSmmryScene load when device category button click
+
+    public void callDeviceInfo(){
+        getDashboardPathFinderControllerD().setDeviceCategoryCardController(this);
+        loadSmmryScene();
+    }
     public void DevInfoCall(){
         getDashboardPathFinderControllerD().setDeviceCategoryCardController(this);
         if(Objects.equals(getDevName(), "Other Devices")){
@@ -128,6 +133,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         
         FXMLLoader vboxLoad = new FXMLLoader(OtherDevicesController.class.getResource("OtherDevices.fxml"));
         OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
+        otherDevicesController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());
         vboxLoad.setController(otherDevicesController);
 
         if(isCalledFromCategoryCard()) {
