@@ -53,3 +53,27 @@
 2024-07-02 01:09:04 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
 2024-07-02 08:35:24 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
 2024-07-02 08:39:16 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-03 14:31:32 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-05 19:34:25 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 11:59:50 ERROR org.example.hakmana.model.DatabaseConnection - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2024-07-06 12:00:22 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 12:10:25 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 14:55:40 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:05:12 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:18:12 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:20:40 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:26:04 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:29:04 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:59:18 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:01:14 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:27:11 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:30:55 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:38:58 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:45:19 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:46:25 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:50:24 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:51:24 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:54:16 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:58:53 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in

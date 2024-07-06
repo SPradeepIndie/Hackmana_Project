@@ -511,10 +511,11 @@ public class AddDeviceDialogController implements Initializable {
                 getChoiceBoxValue(otherChoiceBoxList);
                 getChoiceBoxValue(inputChoiceBoxList);
                 getChoiceBoxValue(outputChoiceBoxList);
-                newValues.add(userNIC.getText());
-
-                if(nicFieldCheck()){
-                   addUser();
+                if(nicFieldCheck()) {
+                    newValues.add(userNIC.getText());
+                    addUser();
+                }else{
+                    newValues.add(null);
                 }
                 return Desktop.getDesktopInstance().insertDevice(newValues);
 
@@ -553,10 +554,11 @@ public class AddDeviceDialogController implements Initializable {
                 newValues.add(OSChoiseBox.getValue());//get os
                 getChoiceBoxValue(inputChoiceBoxList);
 
-                newValues.add(userNIC.getText());
-
                 if(nicFieldCheck()) {
+                    newValues.add(userNIC.getText());
                     addUser();
+                }else{
+                    newValues.add(null);
                 }
 
                 return Laptops.getLaptopsInstance().insertDevice(newValues);
@@ -716,6 +718,10 @@ public class AddDeviceDialogController implements Initializable {
                 break;
             }
             if(choBox.isVisible()){
+                if(Objects.equals(choBox.getValue(), "No")){
+                    newValues.add(null);
+                    continue;
+                }
                 newValues.add((String) choBox.getValue());
             }
 
@@ -726,7 +732,7 @@ public class AddDeviceDialogController implements Initializable {
         for(TextField textField:textFieldslists){
             if(textField.getText().isEmpty() && textField.isVisible()){
                 //alert(Alert.AlertType.CONFIRMATION,"Confirm","Empty Field detected\nDo you want to continue");
-                break;
+                newValues.add(null);
             }
             else if(textField.isVisible()){
                 newValues.add(textField.getText());

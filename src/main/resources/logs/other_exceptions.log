@@ -45,3 +45,69 @@
 2024-07-02 01:09:04 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
 2024-07-02 08:35:24 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
 2024-07-02 08:39:16 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-03 14:31:32 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-05 19:34:25 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 12:00:22 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 12:00:27 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 12:10:25 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 14:55:40 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 14:55:44 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:05:12 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:05:20 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:18:12 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:18:17 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:20:40 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:20:45 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:20:48 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:20:49 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:20:59 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:26:04 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:26:08 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 18:29:04 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 18:59:18 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:01:14 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:27:11 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:30:55 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:38:58 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:45:19 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:45:23 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 19:45:25 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 19:45:26 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 19:46:25 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:49:05 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 19:50:24 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:50:29 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 19:51:24 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:51:27 ERROR org.example.hakmana.view.component.DeviceInfoCardController - 
+/G:/CAMPUS/2--LV2/Hakmana%20project/Development/hakmana/target/classes/org/example/hakmana/view/scene/DevDetailedView.fxml
+
+2024-07-06 19:54:16 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in
+2024-07-06 19:58:53 INFO  org.example.hakmana.view.scene.LoginPageController - test is Successfully logged in

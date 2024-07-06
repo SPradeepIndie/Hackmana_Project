@@ -35,3 +35,5 @@
 2024-07-02 01:07:04,248yyyy-MM-dd HH:mm:ss/-user test try to add new device with values: [34543, model, Active, form, i4, 1222, 12, Linux, MOUSE12345678, KEYBOARD12345, test]
 2024-07-02 01:09:43,614yyyy-MM-dd HH:mm:ss/-user test  added new device with values:[45345, mdoeltest, Repairing, form1, i5, 256, 4, Linux, MOUSE12345678, KEYBOARD12345, test]
 2024-07-02 01:09:44,678yyyy-MM-dd HH:mm:ss/-user test try to add new device with values: [45345, mdoeltest, Repairing, form1, i5, 256, 4, Linux, MOUSE12345678, KEYBOARD12345, test]
+2024-07-03 14:31:39,789yyyy-MM-dd HH:mm:ss/-user test  added new device with values:[123123, , null, null, null, null,  null,  null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+2024-07-03 14:31:42,307yyyy-MM-dd HH:mm:ss/-user test try to add new device with values: [123123, , null, null, null, null,  null,  null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
