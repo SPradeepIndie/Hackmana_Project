@@ -11,7 +11,7 @@ public class OverviewTableData {
 
     public ObservableList<LogEntry> setColumnData(){
         try {
-            System.out.println("inside setColumnData");
+
             ObservableList<LogEntry> list=FXCollections.observableArrayList(instance.readLogFile());
             return  list;
         } catch (IOException e) {
