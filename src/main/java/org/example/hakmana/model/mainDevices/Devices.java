@@ -2,15 +2,19 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public abstract class Devices {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Devices.class);
     private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private String regNum;
     private String model="No";
@@ -60,7 +64,7 @@ public abstract class Devices {
         conn.rollback();
     }
 
-    public void dbInteraction(String incompleteSql,ArrayList<String> valList,String deviceRegNum){
+    public Boolean dbInteraction(String incompleteSql,ArrayList<String> valList,String deviceRegNum){
         Connection connection= conn.getConnection();
         try {
             connection.setAutoCommit(false);
@@ -72,13 +76,28 @@ public abstract class Devices {
             }
             i= ps.executeUpdate();
 
-            changesCommit(connection,alerting(Alert.AlertType.CONFIRMATION,"Confirmation","Desktop registration number"+deviceRegNum,"Update "+ i+" rows " ));
+            changesCommit(connection,alerting(Alert.AlertType.CONFIRMATION,"Confirmation","registration number: "+deviceRegNum,"Updated "+ i+" rows " ));
             connection.setAutoCommit(true);
+            return true;
 
         } catch (SQLException e) {
             // Rollback the transaction on error
-            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Warning","Something went wrong",e.getMessage());
+            return false;
         }
+    }
+
+    public ArrayList<String> regNumbGetQueryExecute(String qry,String regNumcolumnName){
+        ArrayList<String> regNumbers=new ArrayList<>();
+        try(ResultSet rs = conn.executeSt(qry)){
+            while(rs.next()){
+                regNumbers.add(rs.getString(regNumcolumnName));
+            }
+        }catch (SQLException e){
+          alerting(Alert.AlertType.INFORMATION,"Unsuccessfully fetched data","","");
+        }
+        return regNumbers;
     }
 }
 

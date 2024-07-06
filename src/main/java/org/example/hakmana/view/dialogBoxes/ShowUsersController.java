@@ -5,8 +5,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.userMngmnt.SystemUser;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ShowUsersController implements Initializable {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(AddDevButtonController.class);
     private static ShowUsersController insance=null;
     @FXML
     private TableView<SystemUser> tableView;
@@ -68,6 +72,7 @@ public class ShowUsersController implements Initializable {
             tableView.getItems().addAll(userList);
 
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             e.printStackTrace();
 
         }

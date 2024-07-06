@@ -3,6 +3,8 @@ package org.example.hakmana.model.otherDevices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.mainDevices.Desktop;
 import org.example.hakmana.model.mainDevices.Devices;
@@ -14,6 +16,7 @@ import java.util.List;
 
 
 public class OtherDevices extends Devices {
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(OtherDevices.class);
     private DatabaseConnection databaseConnection ;
     private final DatabaseConnection conn=DatabaseConnection.getInstance();
     private static OtherDevices otherDevicesInstance=null;
@@ -196,6 +199,7 @@ public class OtherDevices extends Devices {
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
+            sqlLogger.error("An sql error occur",e);
             throw new RuntimeException(e);
         }
     }
@@ -244,6 +248,7 @@ public class OtherDevices extends Devices {
                     resultSet.close();
                     preparedStatementRepairing.close();
                 } catch (SQLException e) {
+                    sqlLogger.error("An sql error occur",e);
                     e.getMessage();
                 }
 
@@ -261,5 +266,6 @@ public class OtherDevices extends Devices {
         String sql = "CREATE TABLE "+newDev+" ("+newDev+"RegNum VARCHAR(13) PRIMARY KEY NOT NULL, model VARCHAR(25), purchasedFrom VARCHAR(50), status VARCHAR(10));";
         ;
     }
+
 }
 

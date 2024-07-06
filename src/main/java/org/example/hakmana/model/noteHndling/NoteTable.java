@@ -3,6 +3,8 @@ package org.example.hakmana.model.noteHndling;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.DashboardCardTableController;
 import org.example.hakmana.GetNoteController;
 import org.example.hakmana.model.DatabaseConnection;
@@ -13,6 +15,7 @@ import java.util.List;
 
 
 public class NoteTable {
+    private static final Logger logger= (Logger) LogManager.getLogger(NoteTable.class);
     private  ObservableList<DashboardCardTableController> list1 = FXCollections.observableArrayList();
     private static NoteTable noteInstance=null;
     private DatabaseConnection instance;
@@ -47,7 +50,9 @@ public class NoteTable {
             rs.close();
 
         } catch (SQLException e) {
+            logger.error("sql exception occured",e);
             throw new RuntimeException(e);
+
         }
 
         return  size;
@@ -73,6 +78,7 @@ public class NoteTable {
             rs.close();
 
         } catch (SQLException e) {
+            logger.error("sql exception occured",e);
             throw new RuntimeException(e);
         }
         return items;
@@ -99,6 +105,7 @@ public class NoteTable {
             }
             rs.close();
         } catch (SQLException e) {
+            logger.error("sql exception occured",e);
             throw new RuntimeException(e);
         }
 
@@ -117,6 +124,7 @@ public class NoteTable {
             st.executeUpdate("delete from notes where title='"+titles + "' and id='"+ids+"'");
             st.close();
         } catch (SQLException e) {
+            logger.error("sql exception occured",e);
             throw new RuntimeException(e);
         }
 
@@ -138,6 +146,7 @@ public class NoteTable {
             rs.close();
 
         } catch (SQLException e) {
+            logger.error("sql exception occured",e);
             throw new RuntimeException(e);
         }
         return  data;
@@ -178,6 +187,7 @@ public class NoteTable {
             str.close();
             rst.close();
         } catch (SQLException e) {
+            logger.error("sql exception occured",e);
             throw new RuntimeException(e);
         }
         finally{

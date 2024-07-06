@@ -14,7 +14,10 @@ import org.example.hakmana.view.component.DeviceCategoryCardController;
 import org.example.hakmana.view.component.PathFinderController;
 import org.example.hakmana.view.dialogBoxes.AddNewDevCatController;
 import org.example.hakmana.view.dialogBoxes.CreateAccountController;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.example.hakmana.model.otherDevices.OtherDevices;
+import org.example.hakmana.view.component.AddDevButtonController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;

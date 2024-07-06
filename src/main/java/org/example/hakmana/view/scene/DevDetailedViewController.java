@@ -9,8 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.AddDevButtonController;
+import org.example.hakmana.view.component.DeviceInfoCardController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DevDetailedViewController implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DevDetailedViewController.class);
     private static DevDetailedViewController instance=null;
 
     //Device details common
@@ -215,7 +220,7 @@ public class DevDetailedViewController implements Initializable {
     private static String deviceSelector;
     private static String devRegNum;
     private  TranslateTransition bodyExpand;//Animation object refernce
-
+    LoginPageController newInstance=LoginPageController.getInstance();
     private DevDetailedViewController(){}
     public static DevDetailedViewController getInstance() {
         if(instance==null){
@@ -395,6 +400,7 @@ public class DevDetailedViewController implements Initializable {
         setEditable(outputTextList,true,"#03AED2");
         saveBtn.setDisable(false);
         resetBtn.setDisable(false);
+
     }
     private void reset(){
         setEditable(new ArrayList<>(List.of(regNumTextField,modelTextField,StatusTextField)),false,"grey");
@@ -432,6 +438,8 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
+
                 Desktop.getDesktopInstance().updateDevice(newValues);
                 showDeviceDetail();
 
@@ -441,6 +449,10 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
+
+
+
                 PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
                 showDeviceDetail();
             }
@@ -448,6 +460,10 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
+
+ 
 
                 Monitors.getMonitorInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -459,6 +475,10 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
+
+
+
                 Projectors.getProjectorsInstance().updateDevice(newValues);
                 showDeviceDetail();
 
@@ -469,6 +489,11 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
+
+
+
+
                 Laptops.getLaptopsInstance().updateDevice(newValues);
                 showDeviceDetail();
 
@@ -477,6 +502,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 Printer.getPrinterInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -485,6 +511,12 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
+
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
+
+      
+
+
 
                 UPS.getUpsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -517,10 +549,12 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop"->{
                     //add new deviceUser to the desktop table
                     Desktop.getDesktopInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
                 }
                 case "Laptops"->{
                     //add new deviceUser to the laptop table
                     Laptops.getLaptopsInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
                 }
             }
 

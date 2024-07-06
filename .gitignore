@@ -36,8 +36,15 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
 src/main/java/org/example/hakmana/model/userMngmnt/OAuth2ForGmail.java
 src/main/resources/client_secret_669746775686-ca2b4n3rashg98te7q1nk2mdqcoun7ub.apps.googleusercontent.com.json
-tokens/
+src/main/resources/client_secret_669746775686-ca2b4n3rashg98te7q1nk2mdqcoun7ub.apps.googleusercontent.com.json
 
 out/
+docker-compose.yml
+Dockerfile
+docker-compose.yml
+Dockerfile
+/src/main/resources/logs/
+/tokens/

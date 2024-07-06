@@ -5,25 +5,24 @@ import javafx.scene.Node;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.view.scene.DevDetailedViewController;
-
+import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
 import org.example.hakmana.model.noteHndling.NoteTable;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DeviceInfoCardController extends AnchorPane implements Initializable {
-
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DeviceInfoCardController.class);
      //For get the main dashboard body scroll pane
      private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneDD;
      private static PathFinderController dashboardPathFinderControllerDD;
@@ -69,6 +68,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
                fxmlFooterLoader.load();
           }
           catch (IOException e){
+              otherErrorLogger.error(e.getMessage());
                throw new RuntimeException(e);
           }
 
@@ -145,6 +145,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
 
                     DialogPane dialog1 = fxmlLoader.load();
                 } catch (IOException e) {
+                    otherErrorLogger.error(e.getMessage());
                     throw new RuntimeException(e);
                 }
                 AddNoteDialogPane dialogpane = fxmlLoader.getController();
@@ -221,6 +222,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
              getDashboardBodyScrollpaneDD().setContent(vbox);//this scollpane id knows only that controller file
 
           } catch (IOException e) {
+              otherErrorLogger.error(e.getMessage());
               throw new RuntimeException(e);
           }
           //setters
@@ -255,6 +257,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
                   dialog.close();
               }
           } catch (IOException e) {
+              otherErrorLogger.error(e.getMessage());
                throw new RuntimeException(e);
           }
      }

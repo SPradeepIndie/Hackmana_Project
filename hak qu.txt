@@ -11,7 +11,7 @@ CREATE TABLE Monitor (
     MonitorRegNum VARCHAR(13) PRIMARY KEY NOT NULL, 
     model VARCHAR(25), 
     screenSize VARCHAR(10), 
-    status VARCHAR(10),
+    status VARCHAR(20),
     purchasedFrom VARCHAR(50)
 );
 
@@ -19,13 +19,13 @@ CREATE TABLE Speaker(
     SpeakerRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10)
+    status VARCHAR(20)
 );
 
 CREATE TABLE Mouse (
     mouseRegNum VARCHAR(13) PRIMARY KEY,
     model VARCHAR(25),
-    status VARCHAR(10),
+    status VARCHAR(20),
     purchasedFrom VARCHAR(50),
     Connectivity VARCHAR(50)
 );
@@ -33,7 +33,7 @@ CREATE TABLE Mouse (
 CREATE TABLE Keyboard (
      KeyboardRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
      model VARCHAR(25),
-     status VARCHAR(10),
+     status VARCHAR(20),
      purchasedFrom VARCHAR(50),
      connectivity VARCHAR(10)
 );
@@ -42,20 +42,20 @@ CREATE TABLE Mic(
    MICRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
    model VARCHAR(25),
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10)
+    status VARCHAR(20)
 );
 
 CREATE TABLE Scanners(
     ScannersRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10)
+    status VARCHAR(20)
 );
 
 CREATE TABLE Printer (
     PrinterRegNum VARCHAR(13) PRIMARY KEY NOT NULL, 
     model VARCHAR(50), 
-    status VARCHAR(10), 
+    status VARCHAR(20),
     serialNum VARCHAR(30), 
     purchasedFrom VARCHAR(50), 
     paperInput VARCHAR(15),  
@@ -65,7 +65,7 @@ CREATE TABLE Printer (
 CREATE TABLE Ups (
     UpsRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
-    status VARCHAR(10),
+    status VARCHAR(20),
     purchasedFrom VARCHAR(50)
 );
 
@@ -73,13 +73,13 @@ CREATE TABLE PowerSupply (
     PowerSupplyRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25), 
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10) 
+    status VARCHAR(20)
 );
 
 CREATE TABLE Desktop (
     DesRegNum VARCHAR(13) PRIMARY KEY,
     model VARCHAR(50), 
-    status VARCHAR(10),
+    status VARCHAR(20),
     serialNum VARCHAR(20), 
     purchasedFrom VARCHAR(50),
     ram VARCHAR(8), 
@@ -117,7 +117,7 @@ CREATE TABLE Desktop (
 CREATE TABLE Laptop (
     LaptopRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25), 
-    status VARCHAR(10), 
+    status VARCHAR(20),
     ram VARCHAR(8),  
     processor VARCHAR(50),  
     hardDisk VARCHAR(8),  
@@ -134,7 +134,7 @@ CREATE TABLE Laptop (
 CREATE TABLE PhotoCopyMachine (
     PhotoCopyMachineRegNum VARCHAR(13) PRIMARY KEY NOT NULL, 
     model VARCHAR(45), 
-    status VARCHAR(10),
+    status VARCHAR(20),
     purchasedFrom VARCHAR(50)
 );
 
@@ -149,20 +149,20 @@ CREATE TABLE FaxMachine (
     FaxMachineRegNum VARCHAR(13) PRIMARY KEY NOT NULL,  
     purchasedFrom VARCHAR(50),
     model VARCHAR(25), 
-    status VARCHAR(10) 
+    status VARCHAR(20)
 );
 
 CREATE TABLE WebCam (
     WebCamRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10)
+    status VARCHAR(20)
 );
 
 CREATE TABLE Tripod (
     TripodRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
-    status VARCHAR(10),
+    status VARCHAR(20),
     purchasedFrom VARCHAR(50),
     AdjustableHeight VARCHAR(50)
 );
@@ -170,7 +170,7 @@ CREATE TABLE Tripod (
 CREATE TABLE Headphone (
     HeadphoneRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
-    status VARCHAR(10),
+    status VARCHAR(20),
     purchasedFrom VARCHAR(50),
     Connectivity VARCHAR(10)
 );
@@ -179,7 +179,7 @@ CREATE TABLE USBHub (
     USBHubRegNum VARCHAR(13) PRIMARY KEY NOT NULL,
     model VARCHAR(25),
     purchasedFrom VARCHAR(50),
-    status VARCHAR(10)
+    status VARCHAR(20)
 );
 
 CREATE TABLE notes(

@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import org.example.hakmana.view.scene.OtherDevicesController;
 
@@ -19,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class DeviceCategoryCardController extends AnchorPane implements Initializable{
     //For get the main dashboard body scroll pane
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DeviceCategoryCardController.class);
     private static javafx.scene.control.ScrollPane dashboardBodyScrollpaneD;
     private PathFinderController dashboardPathFinderControllerD;
 
@@ -50,6 +53,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
+            otherErrorLogger.error(exception.getMessage());
             throw new RuntimeException(exception);
         }
     }
@@ -165,6 +169,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
             getDashboardBodyScrollpaneD().setContent(vbox);//this scroll pane id knows only that controller file
 
         } catch (IOException e) {
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

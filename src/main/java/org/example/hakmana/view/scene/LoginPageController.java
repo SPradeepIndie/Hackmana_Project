@@ -15,8 +15,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.AllDeviceDetails;
 import org.example.hakmana.model.userMngmnt.SystemUser;
+import org.example.hakmana.view.component.AddDevButtonController;
 import org.example.hakmana.view.dialogBoxes.ForgotPasswrdDialog;
 
 import java.io.IOException;
@@ -27,7 +30,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginPageController implements Initializable {
-
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(LoginPageController.class);
     public static String curentUser = "";
 
     private static LoginPageController instance=null;
@@ -41,7 +44,7 @@ public class LoginPageController implements Initializable {
     private Button login;
     @FXML
     private CheckBox remenberCheckBox;
-
+    private String logedUser;
     private LoginPageController(){}
 
     public static LoginPageController getInstance() {
@@ -64,6 +67,7 @@ public class LoginPageController implements Initializable {
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             // Handle the NoSuchAlgorithmException
+            otherErrorLogger.error(e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -87,7 +91,8 @@ public class LoginPageController implements Initializable {
             if (tempPsswrd.equals(storedPassword)) {
                 // Passwords match, load dashboard
                 loadDashboard(event);
-
+                logedUser=tempUserName;
+                otherErrorLogger.info(tempUserName+" is Successfully logged in");
                 curentUser = tempUserName;
                 systemUser.setUserName(tempUserName);
 
@@ -133,7 +138,9 @@ public class LoginPageController implements Initializable {
         stage.show();
         System.out.println("Login successful");
     }
-
+    public String getLogedUser(){
+        return logedUser;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SystemUser systemUser = new SystemUser();

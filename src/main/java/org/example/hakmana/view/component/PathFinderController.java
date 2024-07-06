@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.view.scene.*;
 
 import java.io.IOException;
@@ -19,6 +21,7 @@ import java.net.URL;
 import java.util.*;
 
 public class PathFinderController extends VBox implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(PathFinderController.class);
     private Stack<String> sceneStack = new Stack<>(); // Create the scene stack
     private String currentScene;//hold the current scene
     private NavPanelController navPanelControllerPath;//reference for navpanel
@@ -70,6 +73,7 @@ public class PathFinderController extends VBox implements Initializable {
             fxmlPathLoader.load();
         }
         catch(IOException e){
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
