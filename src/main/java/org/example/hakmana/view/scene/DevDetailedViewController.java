@@ -1,10 +1,11 @@
 package org.example.hakmana.view.scene;
 
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -13,8 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
-import org.example.hakmana.view.component.AddDevButtonController;
-import org.example.hakmana.view.component.DeviceInfoCardController;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,9 +26,7 @@ public class DevDetailedViewController implements Initializable {
 
     //Device details common
     @FXML
-    public VBox commonVbox;
-    @FXML
-    public TextField StatusTextField;
+    public ChoiceBox<String> StatusChoiceBox;
     @FXML
     public TextField modelTextField;
     @FXML
@@ -39,6 +36,8 @@ public class DevDetailedViewController implements Initializable {
     private ArrayList<HBox> otherHboxList;
     private ArrayList<Label> otherLblList;
     private ArrayList<TextField> otherTextList;
+    private ArrayList<ChoiceBox<String>> otherChoiceBoxList;
+    private ArrayList<HBox> otherChoiceBoxHboxList;
     @FXML
     public VBox otherDetailVbox;
     @FXML
@@ -66,77 +65,65 @@ public class DevDetailedViewController implements Initializable {
     @FXML
     public TextField other4;
     @FXML
-    public HBox other5Hbox;
-    @FXML
-    public Label other5Lbl;
-    @FXML
     public TextField other5;
-    @FXML
-    public HBox other6Hbox;
-    @FXML
-    public Label other6Lbl;
     @FXML
     public TextField other6;
     @FXML
+    public HBox other5Hbox;
+    public ChoiceBox<String> hardSizeChoiceBox;
+    @FXML
+    public HBox other6Hbox;
+    @FXML
+    public ChoiceBox<String> ramSizeChoiceBox;
+
+
+    //Operating system
+    @FXML
     public HBox other7Hbox;
     @FXML
-    public Label other7Lbl;
+    public ChoiceBox<String> OSChoiseBox;
+
+    //Other Choice box
     @FXML
-    public TextField other7;
+    public VBox otherChoiceBoxVbox;
     @FXML
     public HBox other8Hbox;
     @FXML
-    public Label other8Lbl;
-    @FXML
-    public TextField other8;
+    public ChoiceBox<String> FloppyDiskChoiceBox;
     @FXML
     public HBox other9Hbox;
     @FXML
-    public Label other9Lbl;
-    @FXML
-    public TextField other9;
+    public ChoiceBox<String> SoundCardChoiceBox;
     @FXML
     public HBox other10Hbox;
     @FXML
-    public Label other10Lbl;
-    @FXML
-    public TextField other10;
+    public ChoiceBox<String> TVCardChoiceBox;
     @FXML
     public HBox other11Hbox;
     @FXML
-    public Label other11Lbl;
-    @FXML
-    public TextField other11;
+    public ChoiceBox<String> NetworkCardChoiceBox;
     @FXML
     public HBox other12Hbox;
     @FXML
-    public Label other12Lbl;
-    @FXML
-    public TextField other12;
+    public ChoiceBox<String> SsdChoiceBox;
     @FXML
     public HBox other13Hbox;
     @FXML
-    public Label other13Lbl;
-    @FXML
-    public TextField other13;
+    public ChoiceBox<String> CdRomChoiceBox;
     @FXML
     public HBox other14Hbox;
     @FXML
-    public Label other14Lbl;
-    @FXML
-    public TextField other14;
+    public ChoiceBox<String> UpsChoiceBox;
     @FXML
     public HBox other15Hbox;
     @FXML
-    public Label other15Lbl;
-    @FXML
-    public TextField other15;
+    public ChoiceBox<String> PowerSupplyChoiceBox;
 
 
     //input Dev details
     private ArrayList<HBox> inputHboxList;
     private ArrayList<Label> inputLblList;
-    private ArrayList<TextField> inputTextList;
+    private ArrayList<ChoiceBox<String>> inputChoiceBoxList;
     @FXML
     public VBox inputVbox;
     @FXML
@@ -144,31 +131,31 @@ public class DevDetailedViewController implements Initializable {
     @FXML
     public Label input1Lbl;
     @FXML
-    public TextField input1;
+    public ChoiceBox<String> inputChoiceBox1;
     @FXML
     public HBox input2Hbox;
     @FXML
     public Label input2Lbl;
     @FXML
-    public TextField input2;
+    public ChoiceBox<String> inputChoiceBox2;
     @FXML
     public HBox input3Hbox;
     @FXML
     public Label input3Lbl;
     @FXML
-    public TextField input3;
+    public ChoiceBox<String> inputChoiceBox3;
     @FXML
     public HBox input4Hbox;
     @FXML
     public Label input4Lbl;
     @FXML
-    public TextField input4;
+    public ChoiceBox<String> inputChoiceBox4;
     
 
     //output Dev details
     private ArrayList<HBox> outputHboxList;
     private ArrayList<Label> outputLblList;
-    private ArrayList<TextField> outputTextList;
+    private ArrayList<ChoiceBox<String>> outputChoiceBoxList;
     @FXML
     public VBox outputVbox;
     @FXML
@@ -176,19 +163,20 @@ public class DevDetailedViewController implements Initializable {
     @FXML
     public Label output1Lbl;
     @FXML
-    public TextField output1;
+    public ChoiceBox<String> outputChoiceBox1;
     @FXML
     public HBox output2Hbox;
     @FXML
     public Label output2Lbl;
     @FXML
-    public TextField output2;
+    public ChoiceBox<String> outputChoiceBox2;
     @FXML
     public HBox output3Hbox;
     @FXML
     public Label output3Lbl;
     @FXML
-    public TextField output3;
+    public ChoiceBox<String> outputChoiceBox3;
+
 
     //deviceUser details
     private ArrayList<TextField> userTextLsit;
@@ -216,6 +204,11 @@ public class DevDetailedViewController implements Initializable {
     public  Button resetBtn;
 
     ArrayList<String> newValues=new ArrayList<>();
+    private final String[] deviceStatus={"Active","Repairing","Inactive","Not Assigned"};
+    private final String[] YN={"Yes","No"};
+    private final String[] WinLin={"Windows","Linux"};
+    private final String[] OnboardDecicated={"On Board","Dedicated","No"};
+    private final String[] sizeTypeList={"MB","GB","TB"};
 
     private static String deviceSelector;
     private static String devRegNum;
@@ -231,23 +224,37 @@ public class DevDetailedViewController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        populateChoiceBx();
+
+        StatusChoiceBox.getItems().addAll(deviceStatus);
+        OSChoiseBox.getItems().addAll(WinLin);
+
+        OSChoiseBox.setDisable(false);
+        hardSizeChoiceBox.setDisable(false);
+        ramSizeChoiceBox.setDisable(false);
+
         //get all the other details vbox label and Hboxes
         otherHboxList=new ArrayList<>(List.of(other1Hbox,other2Hbox,other3Hbox,other4Hbox,other5Hbox,other6Hbox,
-                other7Hbox,other8Hbox,other9Hbox,other10Hbox,other11Hbox,other12Hbox,other13Hbox,other14Hbox,other15Hbox));
-        otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl,
-                other5Lbl,other6Lbl,other7Lbl,other8Lbl,other9Lbl,other10Lbl,other11Lbl,other12Lbl,other13Lbl,other14Lbl,other15Lbl));
-        otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4,other5,other6,
-                other7,other8,other9,other10,other11,other12,other13,other14,other15));
+                other7Hbox));
+        otherLblList=new ArrayList<>(List.of(other1Lbl,other2Lbl,other3Lbl,other4Lbl));
+        otherTextList=new ArrayList<>(List.of(other1,other2,other3,other4));
+        otherChoiceBoxHboxList=new ArrayList<>(List.of(other8Hbox,other9Hbox,other10Hbox,other11Hbox,
+                other12Hbox,other13Hbox,other14Hbox,other15Hbox));
+        otherChoiceBoxList=new ArrayList<>(List.of(FloppyDiskChoiceBox,
+                SoundCardChoiceBox,TVCardChoiceBox,NetworkCardChoiceBox,
+                SsdChoiceBox,CdRomChoiceBox,UpsChoiceBox,PowerSupplyChoiceBox));
 
         //get all the input vbox label and Hboxes and textfield
         inputHboxList=new ArrayList<>(List.of(input1Hbox,input2Hbox,input3Hbox,input4Hbox));
         inputLblList=new ArrayList<>(List.of(input1Lbl,input2Lbl,input3Lbl,input4Lbl));
-        inputTextList=new ArrayList<>(List.of(input1,input2,input3,input4));
+        inputChoiceBoxList=new ArrayList<>(List.of(inputChoiceBox1,inputChoiceBox2,inputChoiceBox3,inputChoiceBox4));
+
 
         //get all the output vbox label and Hboxes and textfield
         outputHboxList=new ArrayList<>(List.of(output1Hbox,output2Hbox,output3Hbox));
         outputLblList=new ArrayList<>(List.of(output1Lbl,output2Lbl,output3Lbl));
-        outputTextList=new ArrayList<>(List.of(output1,output2,output3));
+        outputChoiceBoxList=new ArrayList<>(List.of(outputChoiceBox1,outputChoiceBox2,outputChoiceBox3));
+
 
         //get all the deviceUser textfield
         userTextLsit=new ArrayList<>(List.of(userNIC,userName,userTitle,userGmail));
@@ -286,21 +293,78 @@ public class DevDetailedViewController implements Initializable {
         DevDetailedViewController.deviceSelector = deviceSelector;
     }
 
+    //populate choice boxes (input choice boxes,output choice boxes,ups,power supply)
+    private void setChoBox(ArrayList<String> items,ChoiceBox<String> choBox) {
+        if(choBox.getItems().isEmpty()){
+            choBox.getItems().addAll(items);
+        }
+        choBox.getItems().add("No");
+    }
+    //populate the choice boxes(floppy disk,cdrom,network card,sound card,tv card,ssd,cd)
+    private void populateChoiceBx(){
+        FloppyDiskChoiceBox.getItems().addAll(YN);
+        CdRomChoiceBox.getItems().addAll(YN);
+
+        NetworkCardChoiceBox.getItems().addAll(OnboardDecicated);
+        SoundCardChoiceBox.getItems().addAll(OnboardDecicated);
+        TVCardChoiceBox.getItems().addAll(OnboardDecicated);
+
+        SsdChoiceBox.getItems().addAll(YN);
+    }
+    //choice box visibility
+    private void ChoboxVisiblity(VBox vbox,ArrayList<HBox> hbxList, ArrayList<ChoiceBox<String>> choiceboxList,boolean isVisible){
+        vbox.setVisible(isVisible);
+        for(HBox outputHbox:hbxList){
+            outputHbox.setVisible(isVisible);
+        }
+        for(ChoiceBox<String> outputChoiceBox:choiceboxList){
+            outputChoiceBox.setVisible(isVisible);
+        }
+
+    }
+    //set the All Choice box Disability
+    private void setChoiceBoxDisability(boolean isDisable, ArrayList<ChoiceBox<String>> choiceBoxList){
+        for(ChoiceBox<String> choBox:choiceBoxList){
+            choBox.setDisable(isDisable);
+        }
+    }
+    private void acceptOnlyNumbers(TextField textField){
+        textField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }
+
     public void showDeviceDetail(){
         switch (deviceSelector) {
             case "Desktop" -> {
                 Desktop desktop = Desktop.getDesktopInstance().getDevice(getDevRegNum());
                 setCommonToView(desktop);
-                setOtherDetails(new String[]{"Serial Number","Purchased Form","Ram","Processor", "Hard Disk",
-                                "Operating System","Floppy Disk","Sound Card","TV card","Network card","SSD","CD ROM","UPS Registration number","Power supply"},
-                        desktop.getSerialNum(),desktop.getPurchasedFrom(),desktop.getRam(),desktop.getProcessor(),
-                        desktop.getHardDisk(), desktop.getOs(),desktop.getFloppyDisk(),desktop.getSoundCard(),
-                        desktop.getTvCard(),desktop.getNetworkCard(),desktop.getSsd(),desktop.getCdRom(),desktop.getUpsRegNum(),desktop.getPowerSupplyRegNum());
-                setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number","Printer Registration number"},
-                        desktop.getMonitorRegNum(),desktop.getSpeakerRegNum(),desktop.getPrinterRegNum());
-                setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"},
-                        desktop.getMouseRegNum(),desktop.getKeyboardRegNum(),desktop.getMicRegNum(),desktop.getScannerRegNum());
+                setOtherDetails(new String[]{"Purchased Form","Serial Number","Processor","Hard Disk"},
+                        desktop.getPurchasedFrom(),desktop.getSerialNum(),desktop.getProcessor(),
+                        desktop.getHardDisk());
+                setOutputDetails(new String[]{"Monitor Register Number","Speaker Register Number","Printer Registration number"});
+                setInputDetails(new String[]{"Mouse Register Number","Keyboard Register Number","Mic Register Number","Scanner Register Number"});
                 userDetails(desktop.getUserNIC());
+                other5Hbox.setVisible(true);//hard disk
+                other6Hbox.setVisible(true);//ram
+                other7Hbox.setVisible(true);//os
+                acceptOnlyNumbers(other5);
+                acceptOnlyNumbers(other6);
+
+                //populate the choice boxes
+                hardSizeChoiceBox.getItems().addAll(sizeTypeList);
+                ramSizeChoiceBox.getItems().addAll(sizeTypeList);
+                setChoBox(desktop.getUPSRegNums(),UpsChoiceBox);
+                setChoBox(desktop.getPowerSuppliesRegNum(),PowerSupplyChoiceBox);
+                setChoBox(desktop.getMousesRegNum(),inputChoiceBox1);
+                setChoBox(desktop.getKeyboardsRegNum(),inputChoiceBox2);
+                setChoBox(desktop.getMicsRegNum(),inputChoiceBox3);
+                setChoBox(desktop.getScannersRegNum(),inputChoiceBox4);
+                setChoBox(desktop.getMonitorsRegNum(),outputChoiceBox1);
+                setChoBox(desktop.getSpeakersRegNum(),outputChoiceBox2);
+                setChoBox(desktop.getPrintersRegNum(),outputChoiceBox3);
             }
             case "Photocopy Machines" ->{
                 PhotocpyMchine photocpyMchine=PhotocpyMchine.getPhotocpyMchineInstance().getDevice(getDevRegNum());
@@ -320,10 +384,14 @@ public class DevDetailedViewController implements Initializable {
             case "Laptops" -> {
                     Laptops laptop = Laptops.getLaptopsInstance().getDevice(getDevRegNum());
                     setCommonToView(laptop);
-                    setOtherDetails(new String[]{"Ram","Processor","Hard Disk","Operating System","Purchased Form"},laptop.getRam(), laptop.getCpu(), laptop.getStorage()
-                                ,laptop.getOs(),laptop.getPurchasedFrom());
-                    setInputDetails(new String[]{"Mouse Registration number","Keyboard Registration number"},laptop.getMouseRegNum(), laptop.getKeyboardRegNum());
+                    setOtherDetails(new String[]{"Purchased Form","Processor","Hard Disk"}, laptop.getPurchasedFrom(),laptop.getCpu(), laptop.getStorage());
+                    setInputDetails(new String[]{"Mouse Registration number","Keyboard Registration number"});
                     userDetails(laptop.getUserNIC());
+                    other5Hbox.setVisible(true);//hard disk
+                    other6Hbox.setVisible(true);//ram
+                    other7Hbox.setVisible(true);//os
+                    acceptOnlyNumbers(other5);
+                    acceptOnlyNumbers(other6);
                 }
             case "Printers" -> {
                 Printer printer =Printer.getPrinterInstance().getDevice(getDevRegNum());
@@ -362,7 +430,7 @@ public class DevDetailedViewController implements Initializable {
     private void setCommonToView(Devices devCommon){
         regNumTextField.setText(devCommon.getRegNum());
         modelTextField.setText(devCommon.getModel());
-        StatusTextField.setText(devCommon.getStatus());
+        StatusChoiceBox.setValue(devCommon.getStatus());
     }
     private void setOtherDetails(String[] otherlblText,String ...setOtherTextField){
         otherDetailVbox.setVisible(true);
@@ -372,19 +440,17 @@ public class DevDetailedViewController implements Initializable {
             otherLblList.get(i).setText(otherlblText[i]);
         }
     }
-    private void setInputDetails(String[] inputLblText,String ...setInputTextField){
+    private void setInputDetails(String[] inputLblText){
         inputVbox.setVisible(true);
-        for(int i=0;i< setInputTextField.length;i++){
+        for(int i=0;i< inputLblText.length;i++){
             inputHboxList.get(i).setVisible(true);
-            inputTextList.get(i).setText(setInputTextField[i]);
             inputLblList.get(i).setText(inputLblText[i]);
         }
     }
-    private void setOutputDetails(String[] outputLblText,String ...setInputTextField){
+    private void setOutputDetails(String[] outputLblText){
         outputVbox.setVisible(true);
-        for(int i=0;i< setInputTextField.length;i++){
+        for(int i=0;i< outputLblText.length;i++){
             outputHboxList.get(i).setVisible(true);
-            outputTextList.get(i).setText(setInputTextField[i]);
             outputLblList.get(i).setText(outputLblText[i]);
         }
 
@@ -394,24 +460,23 @@ public class DevDetailedViewController implements Initializable {
     /*------------------------General Interactions-----------------------------*/
     @FXML
     private void edit(){
-        setEditable(new ArrayList<>(List.of(modelTextField,StatusTextField)),true,"#03AED2");
+        setEditable(new ArrayList<>(List.of(modelTextField)),true,"#03AED2");
         setEditable(otherTextList,true,"#03AED2");
-        setEditable(inputTextList,true,"#03AED2");
-        setEditable(outputTextList,true,"#03AED2");
         saveBtn.setDisable(false);
         resetBtn.setDisable(false);
 
     }
     private void reset(){
-        setEditable(new ArrayList<>(List.of(regNumTextField,modelTextField,StatusTextField)),false,"grey");
-        setEditable(otherTextList,false,"grey");
-        setEditable(inputTextList,false,"grey");
-        setEditable(outputTextList,false,"grey");
-        setEditable(userTextLsit,false,"grey");
+        ChoboxVisiblity(otherChoiceBoxVbox,otherChoiceBoxHboxList,otherChoiceBoxList,false);
 
         otherDetailVbox.setVisible(false);
+        setEditable(new ArrayList<>(List.of(regNumTextField,modelTextField)),false,"grey");
+        setEditable(otherTextList,false,"grey");
+        setEditable(userTextLsit,false,"grey");
+
         inputVbox.setVisible(false);
         outputVbox.setVisible(false);
+
         userDetailsVbox.setVisible(false);
         for(HBox h:otherHboxList){
             h.setVisible(false);
@@ -432,91 +497,75 @@ public class DevDetailedViewController implements Initializable {
         newValues.clear();
         switch (deviceSelector) {
             case "Desktop" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
-                getTextFieldText(outputTextList);
-                getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 Desktop.getDesktopInstance().updateDevice(newValues);
                 showDeviceDetail();
 
             }
             case "Photocopy Machines" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
-
-
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
                 showDeviceDetail();
             }
             case "Monitors" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
- 
-
-                Monitors.getMonitorInstance().updateDevice(newValues);
+              Monitors.getMonitorInstance().updateDevice(newValues);
                 showDeviceDetail();
 
 
             }
             case "Projectors" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
-
-
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 Projectors.getProjectorsInstance().updateDevice(newValues);
                 showDeviceDetail();
 
             }
             case "Laptops" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
-                getTextFieldText(inputTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
-
-
-
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 Laptops.getLaptopsInstance().updateDevice(newValues);
                 showDeviceDetail();
 
             }
             case "Printers" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 Printer.getPrinterInstance().updateDevice(newValues);
                 showDeviceDetail();
             }
             case "UPS" -> {
-                getTextFieldText(new ArrayList<>(List.of(modelTextField,StatusTextField)));
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user "+newInstance+" update details of/"+getDevRegNum());
-
-      
-
-
+                otherErrorLogger.info("user "+newInstance.getLogedUser()+" update a details of a device / detailes changed device regNum:"+getDevRegNum());
 
                 UPS.getUpsInstance().updateDevice(newValues);
                 showDeviceDetail();
@@ -525,10 +574,8 @@ public class DevDetailedViewController implements Initializable {
         }
 
         //after saving set non editable the field
-        setEditable(new ArrayList<>(List.of(modelTextField,StatusTextField)),false,"grey");
+        setEditable(new ArrayList<>(List.of(modelTextField)),false,"grey");
         setEditable(otherTextList,false,"grey");
-        setEditable(inputTextList,false,"grey");
-        setEditable(outputTextList,false,"grey");
 
     }
 
@@ -549,13 +596,12 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop"->{
                     //add new deviceUser to the desktop table
                     Desktop.getDesktopInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
-                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to/"+ getDevRegNum());
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
                 }
                 case "Laptops"->{
                     //add new deviceUser to the laptop table
                     Laptops.getLaptopsInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
-                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to/"+ getDevRegNum());
-
+                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
                 }
             }
 

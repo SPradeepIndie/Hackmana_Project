@@ -13,7 +13,7 @@
         </File>
         <!--system users files-->
         <File name="systemUser" fileName="src/main/resources/logs/systemuser.log">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss/-%msg%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss}/-%msg%n"/>
         </File>
 
         <!-- File Appender for other errors -->

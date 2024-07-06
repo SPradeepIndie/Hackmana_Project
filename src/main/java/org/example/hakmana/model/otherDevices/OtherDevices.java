@@ -2,9 +2,12 @@ package org.example.hakmana.model.otherDevices;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
+import org.example.hakmana.model.mainDevices.Desktop;
+import org.example.hakmana.model.mainDevices.Devices;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,9 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class OtherDevices {
+public class OtherDevices extends Devices {
     private static final Logger sqlLogger= (Logger) LogManager.getLogger(OtherDevices.class);
     private DatabaseConnection databaseConnection ;
+    private final DatabaseConnection conn=DatabaseConnection.getInstance();
+    private static OtherDevices otherDevicesInstance=null;
     private static Connection connection;
     private static List<String> excludedTables;
     private static List<String> devices= new ArrayList<>();
@@ -30,9 +35,87 @@ public class OtherDevices {
     private ObservableList<OtherDevices> observableOtherDevices = FXCollections.observableArrayList();
     private boolean tblRowLoaded=false;
 
+    private String RegNum;
+    private String Model;
+    private String UserName;
+    private String Status;
+
     /*-----------------constructors for this class---------------*/
     public OtherDevices() {
 
+    }
+
+    public static OtherDevices getOtherDevicesInstance() {
+        if(otherDevicesInstance==null){
+            otherDevicesInstance=new OtherDevices();
+            return otherDevicesInstance;
+        }
+        return otherDevicesInstance;
+    }
+
+    public OtherDevices[] getSpDevices(String dbSelector) {
+        List<OtherDevices> otherDevices = new ArrayList<>();
+        //pass query to the connection class
+        String sql = "SELECT "+dbSelector+"."+dbSelector+"RegNum,"+dbSelector+".model,"+dbSelector+".status FROM "+dbSelector;
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            // Iterate through the result set and create Desktop and DeviceUser objects
+            while (resultSet.next()) {
+                OtherDevices otherDevice = new OtherDevices();
+                otherDevice.setRegNum(resultSet.getString(dbSelector+"RegNum"));
+                otherDevice.setModel(resultSet.getString("model"));
+                otherDevice.setStatus(resultSet.getString("status"));
+                otherDevice.setUserName("not dev yet"); //not dev yet
+
+                otherDevices.add(otherDevice);//add desktop to the desktops list
+            }
+        } catch (SQLException e) {
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+
+        //return desktops list as an array
+        return otherDevices.toArray(new OtherDevices[0]);
+    }
+
+    @Override
+    public void setRegNum(String RegNum) {
+        this.RegNum=RegNum;
+    }
+
+    @Override
+    public String getRegNum() {
+        return this.RegNum;
+    }
+
+    @Override
+    public void setModel(String Model) {
+        this.Model=Model;
+    }
+
+    @Override
+    public String getModel() {
+        return this.Model;
+    }
+
+    @Override
+    public String getUserName() {
+        return UserName;
+    }
+
+    @Override
+    public void setUserName(String UserName) {
+        this.UserName=UserName;
+    }
+
+    @Override
+    public void setStatus(String Status) {
+        this.Status=Status;
+    }
+
+    @Override
+    public String getStatus() {
+        return this.Status;
     }
 
     //This constructor Especially for the table data  inserting purpose
@@ -49,7 +132,7 @@ public class OtherDevices {
     public static List<String> getExcludedTables() {
         return excludedTables;
     }
-    public List<String> getDevices() {
+    public List<String> getDevicesList() {
         //create the database connection
         databaseConnection = DatabaseConnection.getInstance();
         connection = databaseConnection.getConnection();
@@ -124,7 +207,7 @@ public class OtherDevices {
     //This method set the rows of the table and add to the Observable list
     private void setOtherDeviceTblDetails() {
             int row = 1;// Start adding devices from row 1 (after header row)
-            for (String d : getDevices()) {
+            for (String d : getDevicesList()) {
                 int numActiveDev = 0;
                 int numInactiveDev = 0;
                 int numRepairingDev = 0;
@@ -176,6 +259,12 @@ public class OtherDevices {
                         numActiveDev, numInactiveDev, numRepairingDev));
                 row++;
             }
+
+    }
+
+    public void createNewDevCat(String newDev) {
+        String sql = "CREATE TABLE "+newDev+" ("+newDev+"RegNum VARCHAR(13) PRIMARY KEY NOT NULL, model VARCHAR(25), purchasedFrom VARCHAR(50), status VARCHAR(10));";
+        ;
     }
 
 }
