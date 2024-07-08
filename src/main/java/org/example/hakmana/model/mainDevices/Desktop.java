@@ -341,14 +341,15 @@ public class Desktop extends Devices {
         return null;
     }
 
-    public void updateDevice(ArrayList<String> list){
+    public boolean updateDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="UPDATE desktop SET model=?,status=?,serialNum=?,purchasedFrom=?,ram=?," +
-                "processor=?,hardDisk=?,os=?,floppyDisk=?,soundCard=?,tvCard=?,networkCard=?,ssd=?,cdRom=?,"+
-                "upsRegNum=?,powerSupplyRegNum=?,monitorRegNum=?,speakerRegNum=?,printerRegNum=?,mouseRegNum=?,keyboardRegNum=?,micRegNum=?,scannerRegNum=?" +
+        String sql="UPDATE desktop SET model=?,status=?,purchasedFrom=?,serialNum=?,processor=?," +
+                "hardDisk=?,ram=?,os=?,floppyDisk=?,soundCard=?,tvCard=?,networkCard=?,ssd=?,cdRom=?,"+
+                "upsRegNum=?,powerSupplyRegNum=?,mouseRegNum=?,keyboardRegNum=?,micRegNum=?,scannerRegNum=?," +
+                "monitorRegNum=?,speakerRegNum=?,printerRegNum=?" +
                 "WHERE DesRegNum=?";
 
-        dbInteraction(sql,list,list.getLast());
+        return dbInteraction(sql,list,list.getLast());
 
     }
     public void updateDeviceUser(String userNic,String id){

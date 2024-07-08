@@ -139,7 +139,6 @@ public class DeviceMngmntSmmryScene implements Initializable {
                     addDeviceInfoCard(d);
                 }
             }
-            System.out.println(d.getRegNum());
         }
     }
 
@@ -172,8 +171,4 @@ public class DeviceMngmntSmmryScene implements Initializable {
         updateUI(); // Update UI when searchText changes
     }
 
-    // Add the first component (e.g., add button) to the grid
-    @FXML
-    public void addFirstComponent() {
-    }
 }
