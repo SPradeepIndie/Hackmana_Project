@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
+import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.view.component.AddDevButtonController;
 import org.example.hakmana.view.component.DeviceInfoCardController;
 import org.example.hakmana.view.component.PathFinderController;
@@ -96,10 +97,15 @@ public class DeviceMngmntSmmryScene implements Initializable {
             case "UPS":
                 dev = UPS.getUpsInstance().getDevices();
                 break;
+            default:
+                otherDevSmmry();
         }
         return dev;
     }
 
+    private void otherDevSmmry() {
+        dev = OtherDevices.getOtherDevicesInstance().getSpDevices(dbSelector);
+    }
     // Update UI dynamically based on searchText
     public void updateUI() {
         grid.getChildren().clear(); // Clear existing cards
@@ -165,8 +171,4 @@ public class DeviceMngmntSmmryScene implements Initializable {
         updateUI(); // Update UI when searchText changes
     }
 
-    // Add the first component (e.g., add button) to the grid
-    @FXML
-    public void addFirstComponent() {
-    }
 }
