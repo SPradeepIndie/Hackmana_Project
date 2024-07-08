@@ -608,7 +608,6 @@ public class AddDeviceDialogController implements Initializable {
         else {
             otherErrorLogger.info("user "+loggedUser+" try to add a new device / values:"+newValues);
         }
-
         newValues.clear();
     }
 
