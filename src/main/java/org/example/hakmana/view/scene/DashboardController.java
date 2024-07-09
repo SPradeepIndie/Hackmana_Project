@@ -199,6 +199,7 @@ public class DashboardController extends Component implements Initializable {
     }
     //add status of device to the table
     public void addDataOfDevice(){
+        table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         noteInstance=NoteTable.getInstance();
         ObservableList<DashboardCardTableController> list=noteInstance.getDeviceStatus(null,null,null,null,null);
         activeCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("activeDevices"));
@@ -209,6 +210,7 @@ public class DashboardController extends Component implements Initializable {
         table2.setItems(list);
     }
     public void tableAdd(){
+        table1.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         setTableColumnData controller=new setTableColumnData();
         ObservableList<GetNoteController> list= controller.getNote();
         col1.setCellValueFactory(new PropertyValueFactory<GetNoteController,String>("id"));
