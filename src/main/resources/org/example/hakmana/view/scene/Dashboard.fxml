@@ -44,7 +44,7 @@
                             </padding>
                             <HBox alignment="CENTER" prefWidth="875.0" VBox.vgrow="ALWAYS">
                                 <children>
-                                    <TableView fx:id="table2" prefHeight="111.0" prefWidth="875.0" HBox.hgrow="ALWAYS">
+                                    <TableView fx:id="table2" prefHeight="140.0" HBox.hgrow="ALWAYS">
                                         <columns>
                                             <TableColumn fx:id="totalCol" editable="false" prefWidth="475.0" sortable="false" text="DeviceName" />
                                             <TableColumn fx:id="activeCol" editable="false" prefWidth="150.0" sortable="false" text="Active" />
@@ -74,15 +74,23 @@
                                             <Insets right="10.0" top="25.0" />
                                         </VBox.margin>
                                     </Label>
-                                    <HBox prefWidth="875.0">
-                                        <TableView fx:id="table1" prefWidth="875.0" HBox.hgrow="ALWAYS">
-                                            <columns>
-                                                <TableColumn fx:id="col1" editable="false" prefWidth="195.0" sortable="false" text="Device Id" />
-                                                <TableColumn fx:id="col2" editable="false" prefWidth="500.0" sortable="false" text="title" />
-                                                <TableColumn fx:id="col3" editable="false" prefWidth="200.0" sortType="DESCENDING" text="Date" />
-                                            </columns>
-                                        </TableView>
-                                    </HBox>
+                           <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                           <TableView fx:id="table1" prefWidth="300.0">
+                                               <columns>
+                                                   <TableColumn fx:id="col1" editable="false" prefWidth="195.0" sortable="false" text="Device Id" />
+                                                   <TableColumn fx:id="col2" editable="false" prefWidth="500.0" sortable="false" text="title" />
+                                                   <TableColumn fx:id="col3" editable="false" prefWidth="200.0" sortType="DESCENDING" text="Date" />
+                                               </columns>
+                                           </TableView>
+                              </children>
+                           </GridPane>
                                     <HBox alignment="CENTER_RIGHT" fillHeight="false" prefHeight="32.0" prefWidth="385.0" spacing="25.0">
                                         <VBox.margin>
                                             <Insets right="15.0" top="5.0" />
