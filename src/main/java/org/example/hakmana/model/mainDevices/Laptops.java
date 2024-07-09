@@ -205,10 +205,10 @@ public class Laptops extends Devices{
         return null;
     }
 
-    public void updateDevice(ArrayList<String> list){
+    public boolean updateDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="UPDATE laptop SET model=?,status=?,ram=?,processor=?,hardDisk=?,os=?,purchasedForm=?,mouseRegNum=?,keyboardRegNum=? WHERE LaptopRegNum=?";
-        dbInteraction(sql,list,list.getLast());
+        String sql="UPDATE laptop SET model=?,status=?,purchasedForm=?,processor=?,hardDisk=?,ram=?,os=?,mouseRegNum=?,keyboardRegNum=? WHERE LaptopRegNum=?";
+        return  dbInteraction(sql,list,list.getLast());
 
     }
     public void updateDeviceUser(String userNic,String id) {

@@ -399,7 +399,7 @@ public class DashboardController extends Component implements Initializable {
                 LocalDateTime logDate = LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
 
                 if (!logDate.isBefore(thresholdDate)) {
-                    filteredLines.add(line);
+                   filteredLines.add(line);
                 }
             }
         } catch (IOException e) {

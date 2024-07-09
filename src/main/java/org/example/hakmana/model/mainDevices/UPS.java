@@ -134,10 +134,10 @@ public class UPS extends Devices{
         return null;
     }
 
-    public void updateDevice(ArrayList<String> list){
+    public boolean updateDevice(ArrayList<String> list){
         //pass query to the connection class
         String sql="UPDATE ups SET model=?,status=?,purchasedFrom=? WHERE upsRegNum=?";
-        dbInteraction(sql,list,list.getLast());
+        return dbInteraction(sql,list,list.getLast());
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
