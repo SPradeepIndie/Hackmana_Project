@@ -43,6 +43,7 @@ public class OverviewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         OverviewTableData controller=new OverviewTableData();
         ObservableList<LogEntry> list= controller.setColumnData();
         dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry,String>("timestamp"));
