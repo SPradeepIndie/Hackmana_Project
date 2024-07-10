@@ -397,11 +397,13 @@ public class DashboardController extends Component implements Initializable {
             String line;
             while ((line = reader.readLine()) != null) {
                 // Assuming the date is at the beginning of the log entry in the format yyyy-MM-dd HH:mm:ss
-                String dateString = line.substring(0, 19); // Adjust based on your log format
-                LocalDateTime logDate = LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
+                if(!line.trim().isEmpty()) {
+                       String dateString = line.substring(0, 19); // Adjust based on your log format
+                        LocalDateTime logDate = LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
 
-                if (!logDate.isBefore(thresholdDate)) {
-                   filteredLines.add(line);
+                    if (!logDate.isBefore(thresholdDate)) {
+                        filteredLines.add(line);
+                    }
                 }
             }
         } catch (IOException e) {
