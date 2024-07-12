@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Projectors extends Devices{
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Projectors.class);
     private DatabaseConnection conn =DatabaseConnection.getInstance();
     private static Projectors projectorsInstance=null;
     private String multimediaProjectorRegNum;
@@ -97,6 +100,7 @@ public class Projectors extends Devices{
             }
         }
         catch (SQLException e){
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -122,6 +126,7 @@ public class Projectors extends Devices{
                 return multimediaprojector;
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -129,15 +134,14 @@ public class Projectors extends Devices{
         return null;
     }
 
-    public void updateDevice(ArrayList<String> list){
+    public boolean updateDevice(ArrayList<String> list){
         //pass query to the connection class
         String sql="UPDATE multimediaprojector SET model=?,status=?,purchasedFrom=? WHERE MultimediaProjectorRegNum=?";
-        dbInteraction(sql,list,list.getLast());
+        return dbInteraction(sql,list,list.getLast());
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status) VALUES (?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status,purchasedFrom) VALUES (?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 }

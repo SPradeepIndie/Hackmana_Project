@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Laptops extends Devices{
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Laptops.class);
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Laptops laptopsInstance=null;
     private String laptopRegNum;
@@ -161,6 +164,7 @@ public class Laptops extends Devices{
             }
         }
         catch (SQLException e){
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -193,6 +197,7 @@ public class Laptops extends Devices{
                 return laptop;
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -200,10 +205,10 @@ public class Laptops extends Devices{
         return null;
     }
 
-    public void updateDevice(ArrayList<String> list){
+    public boolean updateDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="UPDATE laptop SET model=?,status=?,ram=?,processor=?,hardDisk=?,os=?,purchasedForm=?,mouseRegNum=?,keyboardRegNum=? WHERE LaptopRegNum=?";
-        dbInteraction(sql,list,list.getLast());
+        String sql="UPDATE laptop SET model=?,status=?,purchasedForm=?,processor=?,hardDisk=?,ram=?,os=?,mouseRegNum=?,keyboardRegNum=? WHERE LaptopRegNum=?";
+        return  dbInteraction(sql,list,list.getLast());
 
     }
     public void updateDeviceUser(String userNic,String id) {
@@ -214,10 +219,20 @@ public class Laptops extends Devices{
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO laptop (LaptopRegNum,model,status,ram,processor,hardDisk,os,userNIC)" +
-                "VALUES (?,?,?,?,?,?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO laptop (LaptopRegNum,model,status,purchasedForm,processor,hardDisk,ram,os,mouseRegNum,keyboardRegNum,userNIC)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 
+    public ArrayList<String> getMousesRegNum() {
+        String sql="Select mouseRegNum From mouse";
+        String colName="mouseRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
+
+    public ArrayList<String> getKeyboardsRegNum() {
+        String sql="Select KeyboardRegNum From Keyboard";
+        String colName="KeyboardRegNum";
+        return regNumbGetQueryExecute(sql,colName);
+    }
 }

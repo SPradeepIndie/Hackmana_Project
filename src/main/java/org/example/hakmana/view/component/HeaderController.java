@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,6 +14,7 @@ import java.util.ResourceBundle;
 
 public class HeaderController extends VBox implements Initializable {
     /*Injectors for Labels in fxml file*/
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(HeaderController.class);
     @FXML
     public Text headerTitle;
     @FXML
@@ -39,6 +42,7 @@ public class HeaderController extends VBox implements Initializable {
             fxmlHeaderLoader.load();
         }
         catch(IOException e){
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

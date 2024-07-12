@@ -12,7 +12,7 @@
     <Label text="You can get the overview and log about all the activities that have been done" VBox.vgrow="ALWAYS" />
     <Label text="Filter your result to get information" VBox.vgrow="ALWAYS" />
     <HBox prefWidth="679.0" VBox.vgrow="ALWAYS">
-        <VBox prefWidth="136.0" spacing="10.0" style="-fx-padding: 5; -fx-border-color: #800080; -fx-border-radius: 10; -fx-background-color: #E6E6FA;" stylesheets="@CSS/Overview.css" HBox.hgrow="ALWAYS">
+        <VBox prefWidth="50.0" spacing="10.0" style="-fx-padding: 5; -fx-border-color: #800080; -fx-border-radius: 10; -fx-background-color: #E6E6FA;" stylesheets="@CSS/Overview.css" HBox.hgrow="ALWAYS">
             <Label stylesheets="@CSS/Overview.css" text="Filter the result" VBox.vgrow="ALWAYS">
                 <styleClass>
                     <String fx:value="check-box" />
@@ -26,9 +26,9 @@
         <VBox fx:id="bodyComponent" prefWidth="549.0" HBox.hgrow="ALWAYS">
             <TableView fx:id="historyTable" prefHeight="425.0" prefWidth="554.0" style="-fx-border-radius: 10;" VBox.vgrow="ALWAYS">
                 <columns>
-                    <TableColumn fx:id="dateColumn" text="Date/Time" />
-                    <TableColumn fx:id="processColumn" text="Process" />
-                    <TableColumn fx:id="detailsColumn" text="Details" />
+                    <TableColumn fx:id="dateColumn" editable="false" prefWidth="88.0" sortable="false" text="Date/Time" />
+                    <TableColumn fx:id="processColumn" editable="false" prefWidth="150.0" sortable="false" text="Process" />
+                    <TableColumn fx:id="detailsColumn" prefWidth="326.0" text="Details" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.userMngmnt.SystemUser;
+import org.example.hakmana.view.component.AddDevButtonController;
 
 import javax.mail.MessagingException;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ForgotPasswrdDialog {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(AddDevButtonController.class);
     private static ForgotPasswrdDialog instance=null;
     public SystemUser systemUser =new SystemUser();
     private String usrEmail;
@@ -133,7 +137,7 @@ public class ForgotPasswrdDialog {
             try {
                 systemUser.sendEmail(code);
             } catch (Exception e) {
-                System.out.println("Error: Mail sending!");
+                otherErrorLogger.error(e.getMessage());
                 throw new RuntimeException(e);
             }
             getVerificationCodeVbox().setDisable(false);

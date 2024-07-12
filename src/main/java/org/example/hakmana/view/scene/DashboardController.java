@@ -20,30 +20,30 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.DashboardCardTableController;
 import org.example.hakmana.GetNoteController;
 import org.example.hakmana.model.noteHndling.NoteTable;
 import org.example.hakmana.model.noteHndling.setTableColumnData;
-import org.example.hakmana.view.component.FooterController;
-import org.example.hakmana.view.component.HeaderController;
-import org.example.hakmana.view.component.NavPanelController;
-import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.component.*;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
 import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.util.List;
+import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class DashboardController extends Component implements Initializable {
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DashboardController.class);
     private static DashboardController instance=null;
     @FXML
     public HeaderController headerController;//header custom component injector
@@ -94,6 +94,11 @@ public class DashboardController extends Component implements Initializable {
     private Button editButton;
     private Button updateButton;
     private NoteTable noteInstance;
+    private static final String LOG_FILE_PATH1= "src/main/resources/logs/systemuser.log"; // Path to the log file
+    private static final String LOG_FILE_PATH2= "src/main/resources/logs/sql_exceptions.log"; // Path to the log file
+    private static final String LOG_FILE_PATH3= "src/main/resources/logs/other_exceptions.log"; // Path to the log file
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final int RETENTION_DAYS = 90; // Retention period in days
 
     private DashboardController(){}
 
@@ -106,6 +111,10 @@ public class DashboardController extends Component implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        //clean the log files
+        cleanLogFile(LOG_FILE_PATH1,RETENTION_DAYS);
+        cleanLogFile(LOG_FILE_PATH2,RETENTION_DAYS);
+        cleanLogFile(LOG_FILE_PATH3,RETENTION_DAYS);
         //automaticaly upadate the cards
         noteInstance=NoteTable.getInstance();
         //create the connections
@@ -190,6 +199,7 @@ public class DashboardController extends Component implements Initializable {
     }
     //add status of device to the table
     public void addDataOfDevice(){
+        table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         noteInstance=NoteTable.getInstance();
         ObservableList<DashboardCardTableController> list=noteInstance.getDeviceStatus(null,null,null,null,null);
         activeCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController,String>("activeDevices"));
@@ -200,6 +210,7 @@ public class DashboardController extends Component implements Initializable {
         table2.setItems(list);
     }
     public void tableAdd(){
+        table1.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         setTableColumnData controller=new setTableColumnData();
         ObservableList<GetNoteController> list= controller.getNote();
         col1.setCellValueFactory(new PropertyValueFactory<GetNoteController,String>("id"));
@@ -301,6 +312,7 @@ public class DashboardController extends Component implements Initializable {
 
                     }
                 } catch (IOException e) {
+                    otherErrorLogger.error(e.getMessage());
                     throw new RuntimeException(e);
                 }
             }
@@ -327,6 +339,7 @@ public class DashboardController extends Component implements Initializable {
                 tableAdd();
             }
         } catch (IOException e) {
+            otherErrorLogger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -373,5 +386,42 @@ public class DashboardController extends Component implements Initializable {
 
     }
 
+    //log cleaner function
+    public static void cleanLogFile(String filePath, int retentionDays) {
+        File logFile = new File(filePath);
+        List<String> filteredLines = new ArrayList<>();
+
+        LocalDateTime thresholdDate = LocalDateTime.now().minus(retentionDays, ChronoUnit.DAYS);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Assuming the date is at the beginning of the log entry in the format yyyy-MM-dd HH:mm:ss
+                if(!line.trim().isEmpty()) {
+                       String dateString = line.substring(0, 19); // Adjust based on your log format
+                        LocalDateTime logDate = LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
+
+                    if (!logDate.isBefore(thresholdDate)) {
+                        filteredLines.add(line);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile))) {
+            for (String logLine : filteredLines) {
+                writer.write(logLine);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
+
+
 

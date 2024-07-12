@@ -11,3 +11,8 @@
     -fx-background-color: black;
     -fx-background-radius: 15;
 }
+.combo-box-base:disabled,
+.list-cell:disabled
+{
+    -fx-opacity: 1;
+}

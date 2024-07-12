@@ -2,6 +2,8 @@ package org.example.hakmana.model.mainDevices;
 
 import javafx.scene.control.Alert;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
 import java.sql.Connection;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Monitors extends Devices{
+    private static final Logger sqlLogger= (Logger) LogManager.getLogger(Monitors.class);
     private DatabaseConnection conn=DatabaseConnection.getInstance();
     private static Monitors monitorInstance=null;
     private String monitorRegNum;
@@ -102,6 +105,7 @@ public class Monitors extends Devices{
             }
         }
         catch (SQLException e){
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -128,6 +132,7 @@ public class Monitors extends Devices{
                 return monitors;
             }
         } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
 
@@ -135,16 +140,15 @@ public class Monitors extends Devices{
         return null;
     }
 
-    public void updateDevice(ArrayList<String> list){
+    public boolean updateDevice(ArrayList<String> list){
         //pass query to the connection class
         String sql="UPDATE monitor SET model=?,status=?,screenSize=?,purchasedFrom=? WHERE MonitorRegNum=?";
-        dbInteraction(sql,list,list.getLast());
+        return dbInteraction(sql,list,list.getLast());
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO monitor (MonitoRegNum,model,status)" +
-                "VALUES (?,?,?)";
-        dbInteraction(sql,list, list.getFirst());
-        return false;
+        String sql="INSERT INTO monitor (MonitoRegNum,model,status,purchasedFrom,screenSize)" +
+                "VALUES (?,?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
     }
 }
