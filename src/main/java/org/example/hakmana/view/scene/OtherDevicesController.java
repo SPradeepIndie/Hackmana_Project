@@ -6,20 +6,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 import org.example.hakmana.model.otherDevices.OtherDevices;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import org.example.hakmana.view.component.DeviceCategoryCardController;
 import org.example.hakmana.view.component.PathFinderController;
 import org.example.hakmana.view.dialogBoxes.AddNewDevCatController;
-import org.example.hakmana.view.dialogBoxes.CreateAccountController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+
 
 public class OtherDevicesController implements Initializable {
     private static OtherDevicesController instance = null;
@@ -60,6 +59,8 @@ public class OtherDevicesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ViewMore.setDisable(true);
+
         otherDevicesDb = new OtherDevices();
         num.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("num"));
         deviceNameClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, String>("dev"));
@@ -67,7 +68,10 @@ public class OtherDevicesController implements Initializable {
         inactiveClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("numInactiveDev"));
         repairClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("numRepairingDev"));
         totalClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("totalDev"));
+        update();
+    }
 
+    public void update(){
         addTblRow();
         addTableSelectionListener();
     }
@@ -99,7 +103,7 @@ public class OtherDevicesController implements Initializable {
             public void changed(ObservableValue<? extends OtherDevices> observable, OtherDevices oldValue, OtherDevices newValue) {
                 if (newValue != null) {
                     devName = newValue.getDev();
-                    System.out.println("Selected device: " + devName);
+                    ViewMore.setDisable(false);
                 }
             }
         });
@@ -112,18 +116,24 @@ public class OtherDevicesController implements Initializable {
         //  DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
         deviceCategoryCardController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());
         deviceCategoryCardController.callDeviceInfo();
+
     }
 
-    public void addNewButtonOnAction(ActionEvent actionEvent) throws IOException{
-        FXMLLoader addNewDevfxmlLoad = new FXMLLoader();
-        addNewDevfxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddNewDevCatController.class.getResource("AddNewDevCat.fxml"));
-        addNewDevfxmlLoad.setController(AddNewDevCatController.getInstance());
-        DialogPane addDevDialogPane = addNewDevfxmlLoad.load();
+    public void addNewButtonOnAction(ActionEvent actionEvent) throws IOException {
+        AddNewDevCatController addNewDevCatController = AddNewDevCatController.getInstance();
+        FXMLLoader addNewDevCatFxmlLoad = new FXMLLoader();
+        addNewDevCatFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddNewDevCatController.class.getResource("AddNewDevCat.fxml"));
+        addNewDevCatFxmlLoad.setController(addNewDevCatController);
+        DialogPane addNewDevCatDialogPane = addNewDevCatFxmlLoad.load();
 
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(addDevDialogPane);
+        dialog.setDialogPane(addNewDevCatDialogPane);
         dialog.setTitle("Add New Device Category");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
+        }
+        update();
     }
 }
