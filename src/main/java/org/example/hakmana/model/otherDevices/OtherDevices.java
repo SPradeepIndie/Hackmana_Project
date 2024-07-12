@@ -263,8 +263,17 @@ public class OtherDevices extends Devices {
     }
 
     public void createNewDevCat(String newDev) {
-        String sql = "CREATE TABLE "+newDev+" ("+newDev+"RegNum VARCHAR(13) PRIMARY KEY NOT NULL, model VARCHAR(25), purchasedFrom VARCHAR(50), status VARCHAR(10));";
-        ;
+        String sql = "CREATE TABLE " + newDev + " (" +
+                newDev + "RegNum VARCHAR(13) PRIMARY KEY NOT NULL, " +
+                "model VARCHAR(25), " +
+                "purchasedFrom VARCHAR(50), " +
+                "status VARCHAR(10));";
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.err.println("Error creating table: " + e.getMessage());
+        }
     }
 
 }
