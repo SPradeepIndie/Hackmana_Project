@@ -433,6 +433,7 @@ public class Desktop extends Devices {
             sqlLogger.error(e.getMessage());
             alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
         }
+        desktopList.add("all");
         return desktopList;
     }
 }

@@ -618,7 +618,7 @@ public class DevDetailedViewController implements Initializable {
                 getChoiceBoxValue(outputChoiceBoxList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
 
                 return Desktop.getDesktopInstance().updateDevice(newValues);
 
@@ -629,8 +629,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
             }
             case "Monitors" -> {
@@ -639,8 +638,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Monitors.getMonitorInstance().updateDevice(newValues);
 
 
@@ -651,8 +649,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Projectors.getProjectorsInstance().updateDevice(newValues);
 
             }
@@ -666,8 +663,7 @@ public class DevDetailedViewController implements Initializable {
                 getChoiceBoxValue(inputChoiceBoxList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Laptops.getLaptopsInstance().updateDevice(newValues);
 
             }
@@ -676,8 +672,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Printer.getPrinterInstance().updateDevice(newValues);
             }
             case "UPS" -> {
@@ -686,8 +681,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return UPS.getUpsInstance().updateDevice(newValues);
             }
             default -> {

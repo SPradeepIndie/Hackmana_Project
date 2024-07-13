@@ -42,7 +42,7 @@ public class LogFileReader {
         String details;
 
 
-        String[] parts = logLine.split("/", 5);
+        String[] parts = logLine.split("/", 6);
 
         if (parts.length < 3) {
             return null;
@@ -66,6 +66,13 @@ public class LogFileReader {
             return new LogEntry(details, time, process);
         }
         else if (user.getValue().equals("all") && device.getValue().equals("all")) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+
+        else if (user.getValue().equals("all") && device.getValue().equals(parts[5]) && deviceId.getValue().equals("all")) {
             time = parts[0];
             process = parts[1];
             details = parts[2];

@@ -67,14 +67,14 @@ public class OverviewController implements Initializable {
         if (mainSelection.equals("Desktop")) {
             subOptions = FXCollections.observableArrayList(Desktop.getDesktopInstance().getAllDesktops());
         }
-        else if (mainSelection.equals("Laptop")) {
+        else if (mainSelection.equals("Laptops")) {
             subOptions = FXCollections.observableArrayList(Laptops.getLaptopsInstance().getAllLaptops());
 
         }
-        else if (mainSelection.equals("PhotocopyMatchines")) {
+        else if (mainSelection.equals("Photocopy Machines")) {
             subOptions = FXCollections.observableArrayList(PhotocpyMchine.getPhotocpyMchineInstance().getAllPhotoCopyMachine());
         }
-        else if (mainSelection.equals("Monitor")) {
+        else if (mainSelection.equals("Monitors")) {
             subOptions = FXCollections.observableArrayList(Monitors.getMonitorInstance().getAllMonitors());
 
         }
@@ -82,11 +82,11 @@ public class OverviewController implements Initializable {
             subOptions = FXCollections.observableArrayList(UPS.getUpsInstance().getAllUps());
 
         }
-        else if (mainSelection.equals("Projector")) {
+        else if (mainSelection.equals("Projectors")) {
             subOptions = FXCollections.observableArrayList(Projectors.getProjectorsInstance().getAllProjectors());
 
         }
-        else if (mainSelection.equals("printers")) {
+        else if (mainSelection.equals("Printers")) {
             subOptions = FXCollections.observableArrayList(Printer.getPrinterInstance().getAllPrinters());
         }
         else{
@@ -115,7 +115,7 @@ public class OverviewController implements Initializable {
             users.setValue("all");
         }
         //set devIds
-        ObservableList<String> mainOptions = FXCollections.observableArrayList("Desktop","Laptop","PhotocopyMatchines","Monitor","UPS","Projector","printers","all");
+        ObservableList<String> mainOptions = FXCollections.observableArrayList("Desktop","Laptops","Photocopy Machines","Monitors","UPS","Projectors","Printers","all");
         devIds.setItems(mainOptions);
         devIds.setValue("all");
 

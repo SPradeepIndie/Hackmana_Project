@@ -597,7 +597,7 @@ public class AddDeviceDialogController implements Initializable {
 
         }
         if(isCatSelected && isDbAdded){
-            otherErrorLogger.info("user "+loggedUser+" added  device "+newValues.get(0)+"/" + "values:" +newValues+"/"+newValues.get(0)+"/"+loggedUser);
+            otherErrorLogger.info("user "+loggedUser+" added  device "+newValues.get(0)+"/" + "values:" +newValues+"/"+newValues.get(0)+"/"+loggedUser+"/"+getDevCategoryName());
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
             resetBtnAction();
             setDevCat();
