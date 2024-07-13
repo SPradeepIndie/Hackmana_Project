@@ -50,7 +50,7 @@
                                             <TableColumn fx:id="activeCol" editable="false" prefWidth="150.0" sortable="false" text="Active" />
                                             <TableColumn fx:id="inActiveCol" editable="false" prefWidth="150.0" sortable="false" text="Inactive" />
                                             <TableColumn fx:id="repairingCol" editable="false" prefWidth="150.0" sortable="false" text="Repairing" />
-                                            <TableColumn fx:id="notAssignCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="NotAssign" />
+                                            <TableColumn fx:id="notAssignCol" editable="false" prefWidth="150.0" sortable="false" text="NotAssign" />
                                         </columns>
                                     </TableView>
                                 </children>

@@ -141,6 +141,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
         }
         catch(IOException navPnlException){
             otherErrorLogger.error(navPnlException.getMessage());
+            System.out.println(navPnlException.getMessage());
             throw new RuntimeException(navPnlException);
         }
     }
