@@ -1,5 +1,6 @@
 package org.example.hakmana.view.scene;
 
+import com.google.api.client.googleapis.json.GoogleJsonError;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,7 @@ public class OtherDevicesController implements Initializable {
     @FXML
     public TableColumn<OtherDevices, Integer> repairClmn;
     private String devName;
+
 
     private OtherDevicesController() {
     }
