@@ -52,7 +52,15 @@ public class LogFileReader {
             process = parts[1];
             details = parts[2];
             return new LogEntry(details, time, process);
-        } else if (user.getValue().equals(parts[4]) && device.getValue().equals("all")) {
+
+        }
+       else if (user.getValue().equals(parts[4]) && deviceId.getValue().equals("all") &&  device.getValue().equals(parts[5]) ) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+        else if (user.getValue().equals(parts[4]) && device.getValue().equals("all")) {
             time = parts[0];
             process = parts[1];
             details = parts[2];
