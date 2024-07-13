@@ -154,4 +154,22 @@ public class PhotocpyMchine extends Devices {
         String sql = "INSERT INTO PhotoCopyMachine (PhotoCopyMachineRegNum,model,status,purchasedFrom) VALUES (?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
     }
+
+    public ArrayList<String> getAllPhotoCopyMachine(){
+        ArrayList<String> List=new ArrayList<>();
+        String sql = "SELECT PhotoCopyMachineRegNum FROM PhotoCopyMachine";
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            while (resultSet.next()) {
+                List.add(resultSet.getString(1)) ;
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+
+        return List;
+    }
 }

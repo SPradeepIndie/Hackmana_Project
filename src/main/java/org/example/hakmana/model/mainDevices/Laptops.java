@@ -235,4 +235,21 @@ public class Laptops extends Devices{
         String colName="KeyboardRegNum";
         return regNumbGetQueryExecute(sql,colName);
     }
+
+    public ArrayList<String> getAllLaptops(){
+        ArrayList<String> laptopList=new ArrayList<>();
+        String sql = "SELECT LaptopRegNum FROM laptop";
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            while (resultSet.next()) {
+                laptopList.add(resultSet.getString(1)) ;
+            }
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+
+        return laptopList;
+    }
 }

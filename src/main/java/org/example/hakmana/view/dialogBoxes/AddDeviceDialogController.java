@@ -597,16 +597,13 @@ public class AddDeviceDialogController implements Initializable {
 
         }
         if(isCatSelected && isDbAdded){
-            otherErrorLogger.info("user "+loggedUser+" added a new device / values:"+newValues);
+            otherErrorLogger.info("user "+loggedUser+" added  device "+newValues.get(0)+"/" + "values:" +newValues+"/"+newValues.get(0)+"/"+loggedUser);
             alert(Alert.AlertType.INFORMATION,"Success","Successfully inserted new device \n"+newValues);
             resetBtnAction();
             setDevCat();
         }
-        if(isFromComponent){
+        if(isFromComponent) {
             DeviceMngmntSmmryScene.getInstance().updateUI();//when device added update ui
-        }
-        else {
-            otherErrorLogger.info("user "+loggedUser+" try to add a new device / values:"+newValues);
         }
         newValues.clear();
     }

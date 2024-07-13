@@ -420,5 +420,20 @@ public class Desktop extends Devices {
         String colName="PrinterRegNum";
         return regNumbGetQueryExecute(sql,colName);
     }
+    public ArrayList<String> getAllDesktops(){
+        ArrayList<String> desktopList=new ArrayList<>();
+        String sql = "SELECT DesRegNum FROM desktop";
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            while (resultSet.next()) {
+                   desktopList.add(resultSet.getString(1)) ;
+                }
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+        return desktopList;
+    }
 }
 

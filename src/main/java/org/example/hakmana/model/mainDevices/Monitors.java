@@ -147,8 +147,25 @@ public class Monitors extends Devices{
     }
     public boolean insertDevice(ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO monitor (MonitoRegNum,model,status,purchasedFrom,screenSize)" +
+        String sql="INSERT INTO monitor (MonitorRegNum,model,status,purchasedFrom,screenSize)" +
                 "VALUES (?,?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
+    }
+
+    public ArrayList<String> getAllMonitors(){
+        ArrayList<String> monitorList=new ArrayList<>();
+        String sql = "SELECT MonitorRegNum FROM monitor";
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            while (resultSet.next()) {
+                monitorList.add(resultSet.getString(1)) ;
+            }
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+
+        return monitorList;
     }
 }
