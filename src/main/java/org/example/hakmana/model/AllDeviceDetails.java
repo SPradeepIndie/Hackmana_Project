@@ -61,14 +61,14 @@ public class AllDeviceDetails {
         return deviceNames.toArray(new String[0]);
     }
 
-    public AllDeviceDetails[] getActiveDevicesCount() {
+    public AllDeviceDetails[] getDevicesCount(String status) {
         AllDeviceDetails allDeviceDetails = new AllDeviceDetails();
         String[] divNameList = allDeviceDetails.getDeviceList();
-        AllDeviceDetails[] activeDevList = new AllDeviceDetails[divNameList.length];
+        AllDeviceDetails[] devList = new AllDeviceDetails[divNameList.length];
 
         DatabaseConnection conn = DatabaseConnection.getInstance();
 
-        String sql = "SELECT COUNT(*) AS active_records_count FROM %s WHERE status = 'Active';";
+        String sql = "SELECT COUNT(*) AS records_count FROM %s WHERE status = '"+status+"';";
 
         int index = 0;
         for (String tableName : divNameList) {
@@ -77,11 +77,11 @@ public class AllDeviceDetails {
                 ResultSet resultSet = statement.executeQuery(String.format(sql, tableName));
 
                 while (resultSet.next()) {
-                    AllDeviceDetails activeDev = new AllDeviceDetails();
-                    activeDev.setDeviceName(tableName);
-                    activeDev.setDeviceCount(resultSet.getString("active_records_count"));
-                    activeDev.setStatus("Active");
-                    activeDevList[index] = activeDev;
+                    AllDeviceDetails dev = new AllDeviceDetails();
+                    dev.setDeviceName(tableName);
+                    dev.setDeviceCount(resultSet.getString("records_count"));
+                    dev.setStatus(status);
+                    devList[index] = dev;
                 }
             } catch (SQLException e) {
                 sqlLogger.error(e.getMessage());
@@ -89,7 +89,7 @@ public class AllDeviceDetails {
             }
             index++;
         }
-        return activeDevList;
+        return devList;
     }
 
 
