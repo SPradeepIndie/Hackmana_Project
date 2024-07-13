@@ -26,7 +26,7 @@ public class SystemUser {
     private Connection conn;
     private ResultSet rs;
 
-   // private OAuth2ForGmail auth;
+    //private OAuth2ForGmail auth;
 
     private boolean checkCode;
     private String userName;
@@ -179,9 +179,9 @@ public class SystemUser {
 
     //send verification code to the email
     public void sendEmail(String verificationCode) throws Exception {
-     //   auth=new OAuth2ForGmail();
+        //auth=new OAuth2ForGmail();
 
-        String fromEmail = "hakmanaedm@gmail.com"; // sender email
+        String fromEmail = "hakmanamathara2@gmail.com"; // sender email
         Properties props = new Properties();
 
         //start new mail session
@@ -208,7 +208,7 @@ public class SystemUser {
 
         email.setText(emailBody);
 
-      //  auth.sendMail(email);
+         //auth.sendMail(email);
 
     }
 
