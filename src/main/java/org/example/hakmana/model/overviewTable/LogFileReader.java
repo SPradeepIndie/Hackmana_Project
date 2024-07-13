@@ -1,6 +1,7 @@
 package org.example.hakmana.model.overviewTable;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.ChoiceBox;
 import org.example.hakmana.model.noteHndling.NoteTable;
 
 import java.io.BufferedReader;
@@ -21,12 +22,12 @@ public class LogFileReader {
         }
         return logFileReaderInstance;
     }
-    public static ArrayList<LogEntry> readLogFile() throws IOException {
+    public static ArrayList<LogEntry> readLogFile(ChoiceBox<String> user,ChoiceBox<String> device,ChoiceBox<String> deviceId) throws IOException {
         ArrayList <LogEntry> logEntries=new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/logs/systemuser.log"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                LogEntry entry = parseLogEntry(line);
+                LogEntry entry = parseLogEntry(line,user,device,deviceId);
                 if (entry != null) {
                     logEntries.add(entry);
                 }
@@ -35,16 +36,60 @@ public class LogFileReader {
         return logEntries;
     }
 
-    private static LogEntry parseLogEntry(String logLine) {
+    private static LogEntry parseLogEntry(String logLine,ChoiceBox<String> user,ChoiceBox<String> device,ChoiceBox<String> deviceId) {
+        String time;
+        String process;
+        String details;
 
-        String[] parts = logLine.split("/", 3);
+        System.out.println(deviceId.getValue());
+        String[] parts = logLine.split("/", 6);
+
         if (parts.length < 3) {
             return null;
         }
-        String time=parts[0];
-        String process=parts[1];
-        String details=parts[2];
-            return new LogEntry(details,time,process );
+        if (user.getValue().equals(parts[4]) && deviceId.getValue().equals(parts[3]) &&  device.getValue().equals(parts[5]) ) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+
+        }
+       else if (user.getValue().equals(parts[4]) && deviceId.getValue().equals("all") &&  device.getValue().equals(parts[5]) ) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+        else if (user.getValue().equals(parts[4]) && device.getValue().equals("all")) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+
+        else if (user.getValue().equals("all") && deviceId.getValue().equals(parts[3]) &&  device.getValue().equals(parts[5]) ) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+        else if (user.getValue().equals("all") && device.getValue().equals("all")) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+
+        else if (user.getValue().equals("all") && device.getValue().equals(parts[5]) && deviceId.getValue().equals("all")) {
+            time = parts[0];
+            process = parts[1];
+            details = parts[2];
+            return new LogEntry(details, time, process);
+        }
+
+        else{
+            return null;
+        }
 
     }
 }
