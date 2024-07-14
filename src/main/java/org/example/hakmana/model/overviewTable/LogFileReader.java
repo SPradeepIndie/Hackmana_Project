@@ -40,56 +40,50 @@ public class LogFileReader {
         String time;
         String process;
         String details;
-
-        System.out.println(deviceId.getValue());
         String[] parts = logLine.split("/", 6);
 
         if (parts.length < 3) {
             return null;
         }
-        if (user.getValue().equals(parts[4]) && deviceId.getValue().equals(parts[3]) &&  device.getValue().equals(parts[5]) ) {
-            time = parts[0];
-            process = parts[1];
-            details = parts[2];
-            return new LogEntry(details, time, process);
+       try {
+           if (user.getValue().equals(parts[4]) && deviceId.getValue().equals(parts[3]) && device.getValue().equals(parts[5])) {
+               time = parts[0];
+               process = parts[1];
+               details = parts[2];
+               return new LogEntry(details, time, process);
 
-        }
-       else if (user.getValue().equals(parts[4]) && deviceId.getValue().equals("all") &&  device.getValue().equals(parts[5]) ) {
-            time = parts[0];
-            process = parts[1];
-            details = parts[2];
-            return new LogEntry(details, time, process);
-        }
-        else if (user.getValue().equals(parts[4]) && device.getValue().equals("all")) {
-            time = parts[0];
-            process = parts[1];
-            details = parts[2];
-            return new LogEntry(details, time, process);
-        }
-
-        else if (user.getValue().equals("all") && deviceId.getValue().equals(parts[3]) &&  device.getValue().equals(parts[5]) ) {
-            time = parts[0];
-            process = parts[1];
-            details = parts[2];
-            return new LogEntry(details, time, process);
-        }
-        else if (user.getValue().equals("all") && device.getValue().equals("all")) {
-            time = parts[0];
-            process = parts[1];
-            details = parts[2];
-            return new LogEntry(details, time, process);
-        }
-
-        else if (user.getValue().equals("all") && device.getValue().equals(parts[5]) && deviceId.getValue().equals("all")) {
-            time = parts[0];
-            process = parts[1];
-            details = parts[2];
-            return new LogEntry(details, time, process);
-        }
-
-        else{
-            return null;
-        }
+           } else if (user.getValue().equals(parts[4]) && deviceId.getValue().equals("all") && device.getValue().equals(parts[5])) {
+               time = parts[0];
+               process = parts[1];
+               details = parts[2];
+               return new LogEntry(details, time, process);
+           } else if (user.getValue().equals(parts[4]) && device.getValue().equals("all")) {
+               time = parts[0];
+               process = parts[1];
+               details = parts[2];
+               return new LogEntry(details, time, process);
+           } else if (user.getValue().equals("all") && deviceId.getValue().equals(parts[3]) && device.getValue().equals(parts[5])) {
+               time = parts[0];
+               process = parts[1];
+               details = parts[2];
+               return new LogEntry(details, time, process);
+           } else if (user.getValue().equals("all") && device.getValue().equals("all")) {
+               time = parts[0];
+               process = parts[1];
+               details = parts[2];
+               return new LogEntry(details, time, process);
+           } else if (user.getValue().equals("all") && device.getValue().equals(parts[5]) && deviceId.getValue().equals("all")) {
+               time = parts[0];
+               process = parts[1];
+               details = parts[2];
+               return new LogEntry(details, time, process);
+           } else {
+               return null;
+           }
+       }
+       catch(NullPointerException e){
+           return null;
+       }
 
     }
 }

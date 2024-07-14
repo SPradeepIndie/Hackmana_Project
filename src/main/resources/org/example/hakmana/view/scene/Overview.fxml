@@ -2,7 +2,6 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -19,16 +18,7 @@
     <Label text="Filter your result to get information" VBox.vgrow="ALWAYS" />
    <HBox style="-fx-padding: 5; -fx-border-color: #800080; -fx-border-radius: 10; -fx-background-color: #E6E6FA;" stylesheets="@CSS/Overview.css" VBox.vgrow="ALWAYS">
       <children>
-            <Label stylesheets="@CSS/Overview.css" text="Filter the result">
-                <styleClass>
-                    <String fx:value="check-box" />
-                    <String fx:value="title-label" />
-                </styleClass>
-            <HBox.margin>
-               <Insets top="4.0" />
-            </HBox.margin>
-            </Label>
-         <Label stylesheets="@CSS/Overview.css" text="user">
+         <Label contentDisplay="RIGHT" stylesheets="@CSS/Overview.css" text="user">
             <graphic>
                <ChoiceBox fx:id="users" prefWidth="150.0" />
             </graphic>
@@ -36,14 +26,12 @@
                <Insets top="6.0" />
             </HBox.margin>
          </Label>
-            <CheckBox fx:id="filterDateCheckbox" prefHeight="39.0" prefWidth="213.0" stylesheets="@CSS/Overview.css" text="Date">
-            <graphic>
-               <DatePicker prefHeight="30.0" prefWidth="144.0" />
-            </graphic>
+         <DatePicker fx:id="datePicker" prefHeight="30.0" prefWidth="144.0" promptText="enter  date">
             <HBox.margin>
-               <Insets left="20.0" />
-            </HBox.margin></CheckBox>
-         <Label stylesheets="@CSS/Overview.css" text="Device">
+               <Insets left="6.0" right="5.0" top="3.0" />
+            </HBox.margin>
+         </DatePicker>
+         <Label contentDisplay="RIGHT" stylesheets="@CSS/Overview.css" text="Device">
             <graphic>
                <ChoiceBox fx:id="devIds" prefWidth="150.0" />
             </graphic>
@@ -51,7 +39,7 @@
                <Insets top="6.0" />
             </HBox.margin>
          </Label>
-         <Label fx:id="label1" text="DeviceId">
+         <Label fx:id="label1" contentDisplay="RIGHT" text="DeviceId">
             <graphic>
                <ChoiceBox fx:id="subChoiceBox" prefWidth="150.0" />
             </graphic>
@@ -80,4 +68,10 @@
          </children>
       </GridPane>
     </HBox>
+      <Label stylesheets="@CSS/Overview.css" text="Filter the result">
+          <styleClass>
+              <String fx:value="check-box" />
+              <String fx:value="title-label" />
+          </styleClass>
+      </Label>
 </VBox>
