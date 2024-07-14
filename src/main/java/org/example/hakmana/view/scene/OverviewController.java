@@ -127,12 +127,7 @@ public class OverviewController implements Initializable {
         //add data to the table
 
         ObservableList<LogEntry> list = controller.setColumnData(users, devIds, subChoiceBox);
-        dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("timestamp"));
-        processColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("process"));
-        detailsColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("details"));
-        historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-        historyTable.setItems(list);
-
+       refreshTable(list);
     }
 
     private void filter(ActionEvent actionEvent) {
@@ -148,28 +143,23 @@ public class OverviewController implements Initializable {
                 LocalDate localDate = LocalDate.parse(dateStringArray[0], newFormat);
                 if (localDate.isEqual(date) || datePicker.getValue() == null) {
                     filteredList.add(l);
-                    dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("timestamp"));
-                    processColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("process"));
-                    detailsColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("details"));
-                    historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-                    historyTable.setItems(filteredList);
+                    refreshTable(filteredList);
                 } else {
-                    dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("timestamp"));
-                    processColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("process"));
-                    detailsColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("details"));
-                    historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-                    historyTable.setItems(filteredList);
+                    refreshTable(filteredList);
                 }
             }
-
         }
         else{
-            dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("timestamp"));
-            processColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("process"));
-            detailsColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("details"));
-            historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-            historyTable.setItems(list);
+            refreshTable(list);
         }
 
+    }
+
+    public void refreshTable(ObservableList<LogEntry> list){
+        dateColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("timestamp"));
+        processColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("process"));
+        detailsColumn.setCellValueFactory(new PropertyValueFactory<LogEntry, String>("details"));
+        historyTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        historyTable.setItems(list);
     }
 }
