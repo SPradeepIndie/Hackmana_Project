@@ -48,3 +48,4 @@ Dockerfile
 /src/main/resources/logs/
 /tokens
 tokens/StoredCredential
+/out
