@@ -758,37 +758,44 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop" -> {
                     Desktop instance=Desktop.getDesktopInstance();
                     instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
+                    successAlert();
                     break;
                 }
                 case "Photocopy Machines" ->{
                     PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
                     instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
+                    successAlert();
                     break;
                 }
                 case "Monitors" ->{
                     Monitors instnace=Monitors.getMonitorInstance();
                     instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
+                    successAlert();
                    break;
                 }
                 case "Projectors" -> {
                     Projectors instance=Projectors.getProjectorsInstance();
                     instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
+                    successAlert();
                    break;
                 }
                 case "Laptops" -> {
                     Laptops instance=Laptops.getLaptopsInstance();
                     instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
+                    successAlert();
                     break;
                 }
                 case "Printers" -> {
                     Printer instance=Printer.getPrinterInstance();
                     instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
+                    successAlert();
                     break;
 
                 }
                 case "UPS" -> {
                     UPS instance=UPS.getUpsInstance();
                     instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
+                    successAlert();
                     break;
                 }
 //                case "OtherDevices"->{
@@ -796,13 +803,27 @@ public class DevDetailedViewController implements Initializable {
 //                    break;
 //                }
 
-                default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
+                default -> {
+                    throw new IllegalStateException("Unexpected value: " + deviceSelector);
+                }
+
+
             }
-            System.out.println("Yes button was pressed");
+
         } else {
-            System.out.println("No button was pressed or the dialog was closed");
+           alert.close();
         }
 
+    }
+
+    public void successAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null); // Header text can be null
+        alert.setContentText("Device removed successfully!");
+
+        // Show the alert and wait for the user to close it
+        alert.showAndWait();
     }
 
 }
