@@ -266,10 +266,8 @@ public class OtherDevices extends Devices {
         return otherDevices.toArray(new OtherDevices[0]);
     }
 
+    public boolean createNewDevCat(String newDev) {
 
-    //--------------------------------------------------------------------------------
-    //new device category adding
-    public void createNewDevCat(String newDev) {
         String sql = "CREATE TABLE " + newDev + " (" +
                 newDev + "RegNum VARCHAR(13) PRIMARY KEY NOT NULL, " +
                 "model VARCHAR(25), " +
@@ -278,8 +276,10 @@ public class OtherDevices extends Devices {
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
+            return true;
         } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
+            return false;
         }
     }
 
