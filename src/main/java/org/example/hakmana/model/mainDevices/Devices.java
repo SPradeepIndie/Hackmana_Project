@@ -100,12 +100,30 @@ public abstract class Devices {
     public void deleteDevice(String devRegNum,String RegNumType,String table)  {
        try {
            Statement str=conn.getConnection().createStatement();
-           System.out.println("DELETE FROM "+table+" WHERE "+RegNumType+"="+devRegNum);
            str.executeUpdate("DELETE FROM "+table+" WHERE "+RegNumType+"='"+devRegNum+"'");
+           successAlert();
        }
        catch(SQLException e){
-           e.printStackTrace();
+                failAlert();
         }
+    }
+    public void successAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null); // Header text can be null
+        alert.setContentText("Device removed successfully!");
+
+        // Show the alert and wait for the user to close it
+        alert.showAndWait();
+    }
+    public void failAlert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null); // Header text can be null
+        alert.setContentText("Device removed failed!");
+
+        // Show the alert and wait for the user to close it
+        alert.showAndWait();
     }
 }
 
