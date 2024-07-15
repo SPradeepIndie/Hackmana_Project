@@ -262,7 +262,7 @@ public class OtherDevices extends Devices {
 
     }
 
-    public void createNewDevCat(String newDev) {
+    public boolean createNewDevCat(String newDev) {
         String sql = "CREATE TABLE " + newDev + " (" +
                 newDev + "RegNum VARCHAR(13) PRIMARY KEY NOT NULL, " +
                 "model VARCHAR(25), " +
@@ -271,8 +271,10 @@ public class OtherDevices extends Devices {
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
+            return true;
         } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
+            return false;
         }
     }
 

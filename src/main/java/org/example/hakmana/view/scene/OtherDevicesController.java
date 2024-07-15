@@ -59,6 +59,8 @@ public class OtherDevicesController implements Initializable {
         return instance;
     }
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ViewMore.setDisable(true);
