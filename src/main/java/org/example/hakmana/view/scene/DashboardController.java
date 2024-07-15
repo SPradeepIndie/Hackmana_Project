@@ -391,6 +391,18 @@ public class DashboardController extends Component implements Initializable {
 
     }
 
+    /*+++++++++++++++++++++++++++++Device User add dialog pane++++++++++++++++++++++++++++++++++++++*/
+    public void addDeviceUser(ActionEvent event){
+
+    }
+    /*+++++++++++++++++++++++++++++See other device dialog pane++++++++++++++++++++++++++++++++++++++*/
+    public void otherDeviceView(ActionEvent event){
+
+    }
+    /*+++++++++++++++++++++++++++++Show device++++++++++++++++++++++++++++++++++++++*/
+    public void showDevice(ActionEvent event){
+
+    }
     //log cleaner function
     public static void cleanLogFile(String filePath, int retentionDays) {
         File logFile = new File(filePath);
@@ -424,8 +436,6 @@ public class DashboardController extends Component implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
 
