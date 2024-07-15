@@ -65,7 +65,7 @@ public class OtherDevicesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ViewMore.setDisable(true);
 
-        otherDevicesDb = new OtherDevices();
+        otherDevicesDb = OtherDevices.getOtherDevicesInstance();
         num.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("num"));
         deviceNameClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, String>("dev"));
         activeClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("numActiveDev"));
@@ -76,6 +76,8 @@ public class OtherDevicesController implements Initializable {
     }
 
     public void update(){
+        otherDevicesDb.setTblRowLoaded(false);
+        OtherDevices.setDevicesLoaded(false);
         addTblRow();
         addTableSelectionListener();
     }

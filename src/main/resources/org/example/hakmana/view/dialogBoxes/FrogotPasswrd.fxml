@@ -44,7 +44,7 @@
                      <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Images/icon-deviceUser.png" />
+                              <Image url="@../scene/Images/image_lock.png" />
                            </image>
                         </ImageView>
                      </graphic>

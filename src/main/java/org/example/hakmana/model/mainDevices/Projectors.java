@@ -144,4 +144,21 @@ public class Projectors extends Devices{
         String sql="INSERT INTO multimediaprojector (MultimediaProjectorRegNum,model,status,purchasedFrom) VALUES (?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
     }
+    public ArrayList<String> getAllProjectors(){
+        ArrayList<String> List=new ArrayList<>();
+        String sql = "SELECT MultimediaProjectorRegNum FROM multimediaprojector";
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            while (resultSet.next()) {
+                List.add(resultSet.getString(1)) ;
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+        List.add("all");
+        return List;
+    }
 }

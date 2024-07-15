@@ -29,6 +29,7 @@
               </Button>
               <Button fx:id="saveBtn" layoutX="405.0" layoutY="19.0" mnemonicParsing="false" onAction="#save" prefWidth="80.0" styleClass="btn" text="Save" />
               <Button fx:id="resetBtn" layoutX="460.0" layoutY="19.0" mnemonicParsing="false" onAction="#cancel" prefWidth="80.0" styleClass="btn" text="Reset" />
+      <Button fx:id="deleteBtn" layoutX="481.0" layoutY="19.0" mnemonicParsing="false" onAction="#Remove" prefWidth="80.0" styleClass="btn" text="Remove" />
           </HBox>
           <HBox spacing="20.0" stylesheets="@CSS/DevDetailedView.css">
               <padding>

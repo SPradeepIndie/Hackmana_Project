@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
@@ -25,7 +26,7 @@ public class SystemUser {
     private Connection conn;
     private ResultSet rs;
 
-   // private OAuth2ForGmail auth;
+    //private OAuth2ForGmail auth;
 
     private boolean checkCode;
     private String userName;
@@ -36,7 +37,7 @@ public class SystemUser {
     private String email;
     private String phoneNum;
     private boolean isRemember;
-
+    private ArrayList<String> SytemUsers=new ArrayList<>();
     // Constructors
     public SystemUser() {
         setDatabaseConnection();
@@ -178,9 +179,9 @@ public class SystemUser {
 
     //send verification code to the email
     public void sendEmail(String verificationCode) throws Exception {
-     //   auth=new OAuth2ForGmail();
+        //auth=new OAuth2ForGmail();
 
-        String fromEmail = "hakmanaedm@gmail.com"; // sender email
+        String fromEmail = "hakmanamathara2@gmail.com"; // sender email
         Properties props = new Properties();
 
         //start new mail session
@@ -207,7 +208,7 @@ public class SystemUser {
 
         email.setText(emailBody);
 
-      //  auth.sendMail(email);
+         //auth.sendMail(email);
 
     }
 
@@ -344,5 +345,26 @@ public class SystemUser {
             e.printStackTrace();
         }
     }
+    //get allSystemUsers
+    public ArrayList<String> getAllSystemUsers(){
+        try {
+            String sql = "SELECT userName FROM systemUser";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            // Execute the SQL query and get the result set
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Iterate through the result set and create Desktop and DeviceUser objects
+            while (resultSet.next()) {
+
+                SytemUsers.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        SytemUsers.add("all");
+        return SytemUsers;
+    }
+
 
 }

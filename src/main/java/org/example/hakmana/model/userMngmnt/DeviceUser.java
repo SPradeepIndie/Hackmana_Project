@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class DeviceUser {
-    private static final Logger sqlLogger= (Logger) LogManager.getLogger(DeviceUser.class);
-    private static DeviceUser deviceUserInstance=null;
-    private final DatabaseConnection dbconn=DatabaseConnection.getInstance();
-    private final Connection connection=dbconn.getConnection();
+    private static final Logger sqlLogger = (Logger) LogManager.getLogger(DeviceUser.class);
+    private static DeviceUser deviceUserInstance = null;
+    private final DatabaseConnection dbconn = DatabaseConnection.getInstance();
+    private final Connection connection = dbconn.getConnection();
     private String nic;
     private String name;
     private String title;
@@ -29,12 +29,14 @@ public class DeviceUser {
     }
 
     public static DeviceUser getDeviceUserInstance() {
-        if(deviceUserInstance==null){
-            deviceUserInstance=new DeviceUser();
+        if (deviceUserInstance == null) {
+            deviceUserInstance = new DeviceUser();
             return deviceUserInstance;
         }
         return deviceUserInstance;
     }
+
+    public ArrayList<String> list = new ArrayList<>();
 
     public String getNic() {
         return nic;
@@ -73,7 +75,7 @@ public class DeviceUser {
             String sql = "SELECT * FROM deviceuser WHERE userNIC=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1,userNic);
+            preparedStatement.setString(1, userNic);
             // Execute the SQL query and get the result set
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -96,6 +98,7 @@ public class DeviceUser {
 
         return null;
     }
+
     public DeviceUser isNicAvailable(String nic) {
         DeviceUser[] deviceUsers = getUsers();
         for (DeviceUser deviceUser : deviceUsers) {
@@ -105,6 +108,7 @@ public class DeviceUser {
         }
         return null;
     }
+
     public DeviceUser[] getUsers() {
         List<DeviceUser> deviceUsers = new ArrayList<>();
         try {
@@ -133,6 +137,7 @@ public class DeviceUser {
 
         return deviceUsers.toArray(new DeviceUser[0]);
     }
+
     public void insertUser(ArrayList<String> newUser) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -153,8 +158,8 @@ public class DeviceUser {
             Optional<ButtonType> alertResult = alert.showAndWait();//wait until button press in alert box
 
         } catch (SQLException e) {
-            sqlLogger.error("An sql error occur",e);
-            Alert alert=new Alert(Alert.AlertType.ERROR);
+            sqlLogger.error("An sql error occur", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error adding DeviceUser");
             alert.setHeaderText("An error occurred while adding new deviceUser.");
             alert.setContentText(e.getMessage());
@@ -162,3 +167,24 @@ public class DeviceUser {
         }
     }
 }
+
+    //get all device users
+//    public ArrayList<String> getAllUsers() {
+//        try {
+//            String sql = "SELECT name FROM deviceuser";
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+//            // Execute the SQL query and get the result set
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            // Iterate through the result set and create Desktop and DeviceUser objects
+//            while (resultSet.next()) {
+//
+//                list.add(resultSet.getString(1));
+//            }
+//        } catch (SQLException e) {
+//            sqlLogger.error(e.getMessage());
+//            throw new RuntimeException(e);
+//        }
+//        return list;
+//    }
+//}
