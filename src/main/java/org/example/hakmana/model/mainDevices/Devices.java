@@ -6,10 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -98,6 +95,17 @@ public abstract class Devices {
           alerting(Alert.AlertType.INFORMATION,"Unsuccessfully fetched data","","");
         }
         return regNumbers;
+    }
+
+    public void deleteDevice(String devRegNum,String RegNumType,String table)  {
+       try {
+           Statement str=conn.getConnection().createStatement();
+           System.out.println("DELETE FROM "+table+" WHERE "+RegNumType+"="+devRegNum);
+           str.executeUpdate("DELETE FROM "+table+" WHERE "+RegNumType+"='"+devRegNum+"'");
+       }
+       catch(SQLException e){
+           e.printStackTrace();
+        }
     }
 }
 

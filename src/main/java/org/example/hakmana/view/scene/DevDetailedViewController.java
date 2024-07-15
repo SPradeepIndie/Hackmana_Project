@@ -10,13 +10,11 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
+import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DevDetailedViewController implements Initializable {
     private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DevDetailedViewController.class);
@@ -744,6 +742,66 @@ public class DevDetailedViewController implements Initializable {
     }
     @FXML
     public void Remove(){
+        // Create custom ButtonType instances
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        // Create a confirmation alert with custom buttons
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to proceed?", yesButton, noButton);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Confirmation Needed");
+
+        // Show the alert and wait for a response
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            switch (deviceSelector) {
+                case "Desktop" -> {
+                    Desktop instance=Desktop.getDesktopInstance();
+                    instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
+                    break;
+                }
+                case "Photocopy Machines" ->{
+                    PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
+                    instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
+                    break;
+                }
+                case "Monitors" ->{
+                    Monitors instnace=Monitors.getMonitorInstance();
+                    instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
+                   break;
+                }
+                case "Projectors" -> {
+                    Projectors instance=Projectors.getProjectorsInstance();
+                    instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
+                   break;
+                }
+                case "Laptops" -> {
+                    Laptops instance=Laptops.getLaptopsInstance();
+                    instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
+                    break;
+                }
+                case "Printers" -> {
+                    Printer instance=Printer.getPrinterInstance();
+                    instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
+                    break;
+
+                }
+                case "UPS" -> {
+                    UPS instance=UPS.getUpsInstance();
+                    instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
+                    break;
+                }
+//                case "OtherDevices"->{
+//                    OtherDevices instance=OtherDevices.getOtherDevicesInstance();
+//                    break;
+//                }
+
+                default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
+            }
+            System.out.println("Yes button was pressed");
+        } else {
+            System.out.println("No button was pressed or the dialog was closed");
+        }
 
     }
 
