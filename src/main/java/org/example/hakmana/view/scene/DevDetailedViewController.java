@@ -204,6 +204,8 @@ public class DevDetailedViewController implements Initializable {
     public Button saveBtn;
     @FXML
     public  Button resetBtn;
+    @FXML
+    public Button deleteBtn;
 
     ArrayList<String> newValues=new ArrayList<>();
     private final String[] deviceStatus={"Active","Repairing","Inactive","Not Assigned"};
@@ -739,6 +741,10 @@ public class DevDetailedViewController implements Initializable {
         }
 
         initialUser=nic;
+    }
+    @FXML
+    public void Remove(){
+
     }
 
 }
