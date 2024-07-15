@@ -15,11 +15,16 @@
 
 .button {
     -fx-background-color: #3498db;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 10px;
+}
+.button:hover{
+    -fx-transition: color 0.8s ease-in-out;
+    -fx-background-color:linear-gradient(rgba(96, 63, 139, 0.36) 0%, rgba(15, 7, 102, 0.23) 100%);
+    -fx-cursor: hand;
+    -fx-font-weight:800;
 }
 
 .report-table {

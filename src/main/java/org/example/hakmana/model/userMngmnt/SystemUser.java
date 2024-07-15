@@ -11,14 +11,13 @@ import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Random;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SystemUser {
     private static final Logger sqlLogger= (Logger) LogManager.getLogger(SystemUser.class);
@@ -155,7 +154,6 @@ public class SystemUser {
         setResultSet();
         return getRs().next();// return false if result set is empty else (rs not empty)place cursor to the 1 row.
     }
-
     //generate verification code
     public String generateVerificationCode() {
         StringBuilder code = new StringBuilder();
@@ -166,8 +164,7 @@ public class SystemUser {
         }
         return code.toString();
     }
-
-    //store verification code under the username
+    //store verification code and the time expire under the user email
     public void dbUpdate(String verificationCode) throws SQLException {
         String sql = "UPDATE systemuser SET verification_code = ?, code_expiry = DATE_ADD(NOW(), INTERVAL 15 MINUTE) WHERE email = ?"; // Update with expiry time
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -175,8 +172,6 @@ public class SystemUser {
         ps.setString(2, getEmail());
         ps.executeUpdate();
     }
-
-
     //send verification code to the email
     public void sendEmail(String verificationCode) throws Exception {
         //auth=new OAuth2ForGmail();
@@ -211,23 +206,42 @@ public class SystemUser {
          //auth.sendMail(email);
 
     }
-
     //check verification with the db
     public boolean verifyWithDb(String code) throws SQLException {
         setResultSet();//have to run and assign resultset
-        while (getRs().next()) {
+        if (getRs().next()) {
             if (code.equals(rs.getString("verification_code"))) {
-                // System.out.println("code matched");
                 setCheckCode(true);
                 return true;
             }
         }
         return false;
     }
+    //Check code expiration
+    public boolean isExpired() throws SQLException {
+        setResultSet();
+        if (getRs().next()) {
+            return checkTime();
+        }
+        return false;
+    }
+    private boolean checkTime() throws SQLException{
+        LocalDate today = LocalDate.now();
+        LocalDate expiryDate = rs.getDate("code_expiry").toLocalDate();
+        if(!today.isEqual(expiryDate)){
+            return false;
+        }
+        LocalTime currentTime= LocalTime.now();
+        LocalTime expiryTime = rs.getTime("code_expiry").toLocalTime();
+        if(!currentTime.isBefore(expiryTime)){
+            return false;
+        }
+        return true;
+    }
 
     //change the password
     public boolean pswrdChanger(String newPsswrd) throws SQLException {
-        if (isCheckCode()) {//check the verification code success or not
+        if (isCheckCode() && isExpired()) {//check the verification code success or not
             setResultSet();
             if (getRs().next()) {
                 setUserName(getRs().getString("userName"));
@@ -264,6 +278,7 @@ public class SystemUser {
         }
         return false;
     }
+
 
     public String getPassword(String tempUserName){
         try {
