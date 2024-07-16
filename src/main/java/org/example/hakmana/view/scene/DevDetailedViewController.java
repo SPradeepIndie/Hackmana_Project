@@ -791,17 +791,17 @@ public class DevDetailedViewController implements Initializable {
                     instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
                     break;
                 }
-//                case "OtherDevices"->{
-//                    OtherDevices instance=OtherDevices.getOtherDevicesInstance();
-//                    break;
-//                }
+                case "OtherDevices"->{
+                    OtherDevices instance=OtherDevices.getOtherDevicesInstance();
+                    break;
+                }
 
                 default -> {
                     throw new IllegalStateException("Unexpected value: " + deviceSelector);
                 }
-
-
             }
+            //TODO create a method for direct DeviceMngmntSmmryScene and call it in here
+
 
         } else {
            alert.close();
