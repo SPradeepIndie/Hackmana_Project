@@ -119,7 +119,6 @@ public class OtherDevicesController implements Initializable {
         DeviceMngmntSmmryScene.setDbSelector(devName);
         DeviceCategoryCardController deviceCategoryCardController=new DeviceCategoryCardController();
         deviceCategoryCardController.setDevName(devName);
-        //  DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
         deviceCategoryCardController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());
         deviceCategoryCardController.callDeviceInfo();
 

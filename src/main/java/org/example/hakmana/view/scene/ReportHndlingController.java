@@ -1,10 +1,10 @@
 package org.example.hakmana.view.scene;
 
-//import com.itextpdf.kernel.pdf.*;
-//import com.itextpdf.layout.*;
-//import com.itextpdf.layout.element.*;
-//import com.itextpdf.layout.properties.TextAlignment;
-//import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.kernel.pdf.*;
+import com.itextpdf.layout.*;
+import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -105,43 +105,43 @@ public class ReportHndlingController {
         File selectedFile = fileChooser.showSaveDialog(new Stage());
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
-//            try {
-//                PdfWriter writer = new PdfWriter(new File(filePath));
-//                PdfDocument pdf = new PdfDocument(writer);
-//                Document document = new Document(pdf);
-//
-//                // Add header
-//                Paragraph header = new Paragraph(heading)
-//                        .setTextAlignment(TextAlignment.CENTER)
-//                        .setFontSize(16);
-//                document.add(header);
-//
-//                // Create table
-//                Table table = new Table(2);
-//                table.setWidth(UnitValue.createPercentValue(100));
-//
-//                // Add headers
-//                table.addHeaderCell(new Cell().add(new Paragraph("Device Name")));
-//                table.addHeaderCell(new Cell().add(new Paragraph("Devices Count")));
-//
-//                AllDeviceDetails allDeviceDetails = new AllDeviceDetails();
-//                for (AllDeviceDetails dev : allDeviceDetails.getDevicesCount(status)) {
-//                    if (parseInt(dev.getDeviceCount()) != 0) {
-//                        table.addCell(new Cell().add(new Paragraph(dev.getDeviceName())));
-//                        table.addCell(new Cell().add(new Paragraph(dev.getDeviceCount())));
-//                    }
-//                }
-//
-//                // Add table to document
-//                document.add(table);
-//                document.close();
+            try {
+                PdfWriter writer = new PdfWriter(new File(filePath));
+                PdfDocument pdf = new PdfDocument(writer);
+                Document document = new Document(pdf);
 
-//                System.out.println("PDF created successfully!");
-//                openPdf(filePath);
-//            } catch (IOException e) {
-//                otherErrorLogger.error(e.getMessage());
-//                System.err.println("Error creating PDF: " + e.getMessage());
-//            }
+                // Add header
+                Paragraph header = new Paragraph(heading)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setFontSize(16);
+                document.add(header);
+
+                // Create table
+                Table table = new Table(2);
+                table.setWidth(UnitValue.createPercentValue(100));
+
+                // Add headers
+                table.addHeaderCell(new Cell().add(new Paragraph("Device Name")));
+                table.addHeaderCell(new Cell().add(new Paragraph("Devices Count")));
+
+                AllDeviceDetails allDeviceDetails = new AllDeviceDetails();
+                for (AllDeviceDetails dev : allDeviceDetails.getDevicesCount(status)) {
+                    if (parseInt(dev.getDeviceCount()) != 0) {
+                        table.addCell(new Cell().add(new Paragraph(dev.getDeviceName())));
+                        table.addCell(new Cell().add(new Paragraph(dev.getDeviceCount())));
+                    }
+                }
+
+                // Add table to document
+                document.add(table);
+                document.close();
+
+                System.out.println("PDF created successfully!");
+                openPdf(filePath);
+            } catch (IOException e) {
+                otherErrorLogger.error(e.getMessage());
+                System.err.println("Error creating PDF: " + e.getMessage());
+            }
         }
     }
 

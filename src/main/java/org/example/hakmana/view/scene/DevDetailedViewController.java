@@ -444,8 +444,9 @@ public class DevDetailedViewController implements Initializable {
                     setCommonToView(ups);
                     setOtherDetails(new String[]{"Purchased From"},ups.getPurchasedFrom());
             }
-
-            default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
+            default -> {
+                System.out.println("Unexpected value: " + deviceSelector);
+            }
         }
 
     }
