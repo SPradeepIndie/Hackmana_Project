@@ -109,7 +109,7 @@ public class OtherDevicesController implements Initializable {
             public void changed(ObservableValue<? extends OtherDevices> observable, OtherDevices oldValue, OtherDevices newValue) {
                 if (newValue != null) {
                     devName = newValue.getDev();
-                    ViewMore.setDisable(false);
+                    ViewMore.setDisable(true);
                 }
             }
         });
@@ -139,6 +139,7 @@ public class OtherDevicesController implements Initializable {
         if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
             dialog.close();
         }
+
         update();
     }
 }
