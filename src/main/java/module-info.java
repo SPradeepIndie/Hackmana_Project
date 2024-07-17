@@ -15,8 +15,8 @@ module org.example.hakmana {
     requires com.google.api.services.gmail;
     requires org.apache.commons.codec;
     requires jdk.httpserver;
-    requires kernel;
-    requires layout;
+   // requires kernel;
+    //requires layout;
     requires org.apache.logging.log4j.core;
 
 
