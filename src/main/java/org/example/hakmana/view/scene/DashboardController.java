@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -26,13 +25,17 @@ import org.example.hakmana.DashboardCardTableController;
 import org.example.hakmana.GetNoteController;
 import org.example.hakmana.model.noteHndling.NoteTable;
 import org.example.hakmana.model.noteHndling.setTableColumnData;
-import org.example.hakmana.view.component.*;
+import org.example.hakmana.view.component.FooterController;
+import org.example.hakmana.view.component.HeaderController;
+import org.example.hakmana.view.component.NavPanelController;
+import org.example.hakmana.view.component.PathFinderController;
 import org.example.hakmana.view.dialogBoxes.AddDeviceDialogController;
+import org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController;
 import org.example.hakmana.view.dialogBoxes.AddNoteDialogPane;
+import org.example.hakmana.view.dialogBoxes.LoadDeviceByRegNumDialogController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 import java.io.*;
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,6 +43,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.*;
 
 public class DashboardController extends Component implements Initializable {
@@ -392,15 +396,53 @@ public class DashboardController extends Component implements Initializable {
     }
 
     /*+++++++++++++++++++++++++++++Device User add dialog pane++++++++++++++++++++++++++++++++++++++*/
-    public void addDeviceUser(ActionEvent event){
+    public void addDeviceUser(ActionEvent event) throws IOException {
+        FXMLLoader addDeviceUserDialogFxmlLoad = new FXMLLoader();
+        addDeviceUserDialogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("AddDeviceUserDialog.fxml"));
 
+        AddDeviceUserDialogController addDeviceUserDialogController=AddDeviceUserDialogController.getInstance();
+        addDeviceUserDialogFxmlLoad.setController(addDeviceUserDialogController);
+
+        DialogPane addDeviceDialogPane = addDeviceUserDialogFxmlLoad.load();
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(addDeviceDialogPane);
+        dialog.setTitle("Add Device User");
+
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
     }
     /*+++++++++++++++++++++++++++++See other device dialog pane++++++++++++++++++++++++++++++++++++++*/
-    public void otherDeviceView(ActionEvent event){
+    public void otherDeviceView(ActionEvent event) throws IOException {
+        FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
+        loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
+
+        LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
+        loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
+
+        DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(addDeviceDialogPane);
+        dialog.setTitle("Other device details");
+
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
 
     }
     /*+++++++++++++++++++++++++++++Show device++++++++++++++++++++++++++++++++++++++*/
-    public void showDevice(ActionEvent event){
+    public void showDevice(ActionEvent event) throws IOException {
+        FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
+        loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
+
+        LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
+        loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
+
+        DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(addDeviceDialogPane);
+        dialog.setTitle("Main device details");
+
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
 
     }
     //log cleaner function

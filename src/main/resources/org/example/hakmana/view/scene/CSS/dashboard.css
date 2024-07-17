@@ -45,32 +45,10 @@
 }
 
 .Mpane3 .Button{
-    -fx-pref-width: 175px;
-    -fx-pref-height: 39px;
-    -fx-padding: 0px 4px;
-    -fx-hgap: 18px;
-    /*-fx-on-click: open-overlay("Add_device_popup"), animate("Instant", 0ms);*/
     -fx-font-family: "Inter";
     -fx-font-size: 13px;
     -fx-font-weight: 700;
-
     -fx-letter-spacing: 0em;
-    -fx-alignment: center;
-
-
-}
-
-.Mpane3 .largebutt{
-        -fx-pref-width: 230px;
-            -fx-pref-height: 39px;
-            /*-fx-on-click: open-overlay("Add_device_popup"), animate("Instant", 0ms);*/
-            -fx-font-family: "Inter";
-            -fx-font-size: 13px;
-            -fx-font-weight: 700;
-
-            -fx-letter-spacing: 0em;
-            -fx-alignment: center;
-
 }
 
 .Mpane3 .Button:hover{
@@ -79,11 +57,6 @@
     -fx-cursor: hand;
 }
 
-.Mpane3 .largebutt:hover{
-    -fx-background-color: #666666;
-    -fx-background-radius: 15;
-    -fx-cursor: hand;
-}
 
 .scroll{
     -fx-background-radius: 10;

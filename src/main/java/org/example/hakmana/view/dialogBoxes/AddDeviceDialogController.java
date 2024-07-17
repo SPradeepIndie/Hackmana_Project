@@ -227,7 +227,7 @@ public class AddDeviceDialogController implements Initializable {
     private ArrayList<String> newValues=new ArrayList<>();
 
     /*----------------------------------------------------------------------------*/
-    private AddDeviceDialogController(){
+    AddDeviceDialogController(){
 
     }
     public static AddDeviceDialogController getInstance() {

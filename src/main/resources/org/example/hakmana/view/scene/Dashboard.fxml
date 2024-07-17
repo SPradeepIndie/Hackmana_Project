@@ -141,7 +141,7 @@
                                         </Button>
                                     </HBox>
                                 </VBox>
-                                <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="296.0" prefWidth="282.0" styleClass="Mpane3" HBox.hgrow="NEVER">
+                                <VBox alignment="TOP_CENTER" prefHeight="296.0" prefWidth="282.0" spacing="20.0" styleClass="Mpane3" HBox.hgrow="NEVER">
                                     <HBox.margin>
                                         <Insets left="29.0" />
                                     </HBox.margin>
@@ -149,65 +149,55 @@
                                         <DropShadow />
                                     </effect>
                                      <Label alignment="CENTER" styleClass="quickaccessLabel" text="Quick access" />
-                                     <VBox fillWidth="false" spacing="10.0" VBox.vgrow="ALWAYS">
-                                         <JFXButton fx:id="addDeviceBtn" onAction="#addDeviceBtnDialogOpen" prefHeight="89.0" styleClass="Button" text="Add a device" VBox.vgrow="ALWAYS">
-                                             <graphic>
-                                                 <ImageView fitHeight="39.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                                     <Image url="@Images/icon-plus-circle.png" />
-                                                 </ImageView>
-                                             </graphic>
-                                             <VBox.margin>
-                                                 <Insets />
-                                             </VBox.margin>
-                                 <font>
-                                    <Font size="8.0" />
-                                 </font>
-                                         </JFXButton>
-                                         <JFXButton fx:id="MadinDeviceViewBtn" onAction="#showDevice" prefHeight="89.0" style="-fx-padding: 0;" styleClass="largebutt" text="Main device view &#10;">
-                                             <graphic>
-                                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                                     <Image url="@Images/icon-check-circle.png" />
-                                                 </ImageView>
-                                             </graphic>
-                                             <VBox.margin>
-                                                 <Insets />
-                                             </VBox.margin>
-                                 <font>
-                                    <Font size="8.0" />
-                                 </font>
-                                         </JFXButton>
-                                         <JFXButton fx:id="viewOtherDevicesBtn" onAction="#otherDeviceView" styleClass="Button" text="View Other Devices" wrapText="true">
-                                             <graphic>
-                                                 <ImageView fitHeight="39.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                                     <Image url="@Images/icon-package.png" />
-                                                 </ImageView>
-                                             </graphic>
-                                             <VBox.margin>
-                                                 <Insets />
-                                             </VBox.margin>
-                                 <font>
-                                    <Font size="8.0" />
-                                 </font>
-                                         </JFXButton>
-                                         <JFXButton fx:id="addDeviceUserBtn" onAction="#addDeviceUser" styleClass="Button" text="Add Device User" wrapText="true">
-                                             <graphic>
-                                                 <ImageView fitHeight="39.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                                     <Image url="@Images/icon-file.png" />
-                                                 </ImageView>
-                                             </graphic>
-                                             <VBox.margin>
-                                                 <Insets />
-                                             </VBox.margin>
-                                 <font>
-                                    <Font size="8.0" />
-                                 </font>
-                                         </JFXButton>
+                           <VBox spacing="10.0">
+                              <children>
+                                            <JFXButton fx:id="addDeviceBtn" onAction="#addDeviceBtnDialogOpen" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Add a device">
+                                                <graphic>
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                        <Image url="@Images/icon-plus-circle.png" />
+                                                    </ImageView>
+                                                </graphic>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                            </JFXButton>
+                                            <JFXButton fx:id="MadinDeviceViewBtn" onAction="#showDevice" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Main device view &#10;">
+                                                <graphic>
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                        <Image url="@Images/icon-check-circle.png" />
+                                                    </ImageView>
+                                                </graphic>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                            </JFXButton>
+                                            <JFXButton fx:id="viewOtherDevicesBtn" onAction="#otherDeviceView" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="View Other Devices" wrapText="true">
+                                                <graphic>
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                        <Image url="@Images/icon-package.png" />
+                                                    </ImageView>
+                                                </graphic>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                            </JFXButton>
+                                            <JFXButton fx:id="addDeviceUserBtn" onAction="#addDeviceUser" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Add Device User" wrapText="true">
+                                                <graphic>
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                        <Image url="@Images/icon-file.png" />
+                                                    </ImageView>
+                                                </graphic>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
+                                            </JFXButton>
+                              </children>
                               <VBox.margin>
                                  <Insets />
                               </VBox.margin>
-                                     </VBox>
+                           </VBox>
                            <padding>
-                              <Insets top="22.0" />
+                              <Insets left="10.0" right="10.0" top="22.0" />
                            </padding>
                                 </VBox>
                             </HBox>
