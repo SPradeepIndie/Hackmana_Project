@@ -139,6 +139,7 @@ public class OtherDevicesController implements Initializable {
         if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
             dialog.close();
         }
+
         update();
     }
 }
