@@ -10,13 +10,11 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
+import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DevDetailedViewController implements Initializable {
     private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DevDetailedViewController.class);
@@ -204,6 +202,8 @@ public class DevDetailedViewController implements Initializable {
     public Button saveBtn;
     @FXML
     public  Button resetBtn;
+    @FXML
+    public Button deleteBtn;
 
     ArrayList<String> newValues=new ArrayList<>();
     private final String[] deviceStatus={"Active","Repairing","Inactive","Not Assigned"};
@@ -444,8 +444,9 @@ public class DevDetailedViewController implements Initializable {
                     setCommonToView(ups);
                     setOtherDetails(new String[]{"Purchased From"},ups.getPurchasedFrom());
             }
-
-            default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
+            default -> {
+                System.out.println("Unexpected value: " + deviceSelector);
+            }
         }
 
     }
@@ -591,14 +592,14 @@ public class DevDetailedViewController implements Initializable {
         String loggedUser=newInstance.getLogedUser();
         boolean isDbAdded=addDb();
         if(isDbAdded){
-            otherErrorLogger.info("user "+loggedUser+" updated a new device / values:"+newValues);
+         //   otherErrorLogger.info("user "+loggedUser+" updated a new device / values:"+newValues);
             alert(Alert.AlertType.INFORMATION,"Success","Successfully updated device \n"+newValues);
             //after saving set non editable the field
             setEditable(new ArrayList<>(List.of(modelTextField,other5,other6)),false,"grey");
             setEditable(otherTextList,false,"grey");
         }
         else {
-            otherErrorLogger.info("user "+loggedUser+" try to update the device with values:"+newValues);
+            //otherErrorLogger.info("user "+loggedUser+" try to update the device with values:"+newValues);
         }
         showDeviceDetail();
         newValues.clear();
@@ -618,7 +619,7 @@ public class DevDetailedViewController implements Initializable {
                 getChoiceBoxValue(outputChoiceBoxList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
 
                 return Desktop.getDesktopInstance().updateDevice(newValues);
 
@@ -629,8 +630,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return PhotocpyMchine.getPhotocpyMchineInstance().updateDevice(newValues);
             }
             case "Monitors" -> {
@@ -639,8 +639,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Monitors.getMonitorInstance().updateDevice(newValues);
 
 
@@ -651,8 +650,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Projectors.getProjectorsInstance().updateDevice(newValues);
 
             }
@@ -666,8 +664,7 @@ public class DevDetailedViewController implements Initializable {
                 getChoiceBoxValue(inputChoiceBoxList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Laptops.getLaptopsInstance().updateDevice(newValues);
 
             }
@@ -676,8 +673,7 @@ public class DevDetailedViewController implements Initializable {
                 newValues.add(StatusChoiceBox.getValue());
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return Printer.getPrinterInstance().updateDevice(newValues);
             }
             case "UPS" -> {
@@ -686,8 +682,7 @@ public class DevDetailedViewController implements Initializable {
                 getTextFieldText(otherTextList);
                 newValues.add(getDevRegNum());
 
-                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of a device / detailes changed device regNum:" + getDevRegNum());
-
+                otherErrorLogger.info("user " + newInstance.getLogedUser() + " update a details of the "+getDevRegNum()+"/new Details:"+newValues+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                 return UPS.getUpsInstance().updateDevice(newValues);
             }
             default -> {
@@ -723,12 +718,12 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop"->{
                     //add new deviceUser to the desktop table
                     Desktop.getDesktopInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
-                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
+                   // otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
                 }
                 case "Laptops"->{
                     //add new deviceUser to the laptop table
                     Laptops.getLaptopsInstance().updateDeviceUser(userNIC.getText(),getDevRegNum());
-                    otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
+                  //  otherErrorLogger.info("new user "+userNIC.getText()+" assign to a device / RegNo:"+ getDevRegNum());
                 }
             }
 
@@ -746,5 +741,75 @@ public class DevDetailedViewController implements Initializable {
 
         initialUser=nic;
     }
+    @FXML
+    public void Remove(){
+        // Create custom ButtonType instances
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        // Create a confirmation alert with custom buttons
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to proceed?", yesButton, noButton);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Confirmation Needed");
+
+        // Show the alert and wait for a response
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            switch (deviceSelector) {
+                case "Desktop" -> {
+                    Desktop instance=Desktop.getDesktopInstance();
+                    instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
+                    break;
+                }
+                case "Photocopy Machines" ->{
+                    PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
+                    instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
+                    break;
+                }
+                case "Monitors" ->{
+                    Monitors instnace=Monitors.getMonitorInstance();
+                    instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
+                   break;
+                }
+                case "Projectors" -> {
+                    Projectors instance=Projectors.getProjectorsInstance();
+                    instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
+                   break;
+                }
+                case "Laptops" -> {
+                    Laptops instance=Laptops.getLaptopsInstance();
+                    instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
+                    break;
+                }
+                case "Printers" -> {
+                    Printer instance=Printer.getPrinterInstance();
+                    instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
+                    break;
+
+                }
+                case "UPS" -> {
+                    UPS instance=UPS.getUpsInstance();
+                    instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
+                    break;
+                }
+                case "OtherDevices"->{
+                    OtherDevices instance=OtherDevices.getOtherDevicesInstance();
+                    break;
+                }
+
+                default -> {
+                    throw new IllegalStateException("Unexpected value: " + deviceSelector);
+                }
+            }
+            //TODO create a method for direct DeviceMngmntSmmryScene and call it in here
+
+
+        } else {
+           alert.close();
+        }
+
+    }
+
+
 
 }

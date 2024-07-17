@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import org.example.hakmana.view.component.FooterController?>
 <?import org.example.hakmana.view.component.HeaderController?>
 <?import org.example.hakmana.view.component.NavPanelController?>
@@ -50,7 +51,7 @@
                                             <TableColumn fx:id="activeCol" editable="false" prefWidth="150.0" sortable="false" text="Active" />
                                             <TableColumn fx:id="inActiveCol" editable="false" prefWidth="150.0" sortable="false" text="Inactive" />
                                             <TableColumn fx:id="repairingCol" editable="false" prefWidth="150.0" sortable="false" text="Repairing" />
-                                            <TableColumn fx:id="notAssignCol" editable="false" prefWidth="150.0" resizable="false" sortable="false" text="NotAssign" />
+                                            <TableColumn fx:id="notAssignCol" editable="false" prefWidth="150.0" sortable="false" text="NotAssign" />
                                         </columns>
                                     </TableView>
                                 </children>
@@ -140,69 +141,64 @@
                                         </Button>
                                     </HBox>
                                 </VBox>
-                                <VBox fillWidth="false" prefHeight="349.0" prefWidth="340.0" styleClass="Mpane3" HBox.hgrow="NEVER">
+                                <VBox alignment="TOP_CENTER" prefHeight="296.0" prefWidth="282.0" spacing="20.0" styleClass="Mpane3" HBox.hgrow="NEVER">
                                     <HBox.margin>
                                         <Insets left="29.0" />
                                     </HBox.margin>
                                     <effect>
                                         <DropShadow />
                                     </effect>
-                                    <GridPane accessibleRole="BUTTON" alignment="CENTER" prefHeight="269.0" prefWidth="232.0" styleClass="Mpane3">
-                                        <columnConstraints>
-                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.8" minWidth="10.0" prefWidth="139.1999619483948" />
-                                        </columnConstraints>
-                                        <rowConstraints>
-                                            <RowConstraints maxHeight="76.39999999999999" minHeight="10.0" prefHeight="76.39999999999999" vgrow="SOMETIMES" />
-                                            <RowConstraints maxHeight="148.8" minHeight="0.0" prefHeight="34.79998779296875" vgrow="SOMETIMES" />
-                                        </rowConstraints>
-                                        <Label alignment="CENTER" styleClass="quickaccessLabel" text="Quick access" GridPane.hgrow="ALWAYS">
-                                            <GridPane.margin>
-                                                <Insets left="16.0" right="8.0" />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <VBox fillWidth="false" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-                                            <JFXButton fx:id="addDeviceBtn" onAction="#addDeviceBtnDialogOpen" styleClass="Button" text="Add a device">
+                                     <Label alignment="CENTER" styleClass="quickaccessLabel" text="Quick access" />
+                           <VBox spacing="10.0">
+                              <children>
+                                            <JFXButton fx:id="addDeviceBtn" onAction="#addDeviceBtnDialogOpen" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Add a device">
                                                 <graphic>
-                                                    <ImageView fitHeight="39.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                         <Image url="@Images/icon-plus-circle.png" />
                                                     </ImageView>
                                                 </graphic>
-                                                <VBox.margin>
-                                                    <Insets left="5.0" top="80.0" />
-                                                </VBox.margin>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
                                             </JFXButton>
-                                            <JFXButton disable="true" style="-fx-padding: 0;" styleClass="largebutt" text="Change the device &#10;status">
+                                            <JFXButton fx:id="MadinDeviceViewBtn" onAction="#showDevice" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Main device view &#10;">
                                                 <graphic>
                                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                         <Image url="@Images/icon-check-circle.png" />
                                                     </ImageView>
                                                 </graphic>
-                                                <VBox.margin>
-                                                    <Insets left="6.0" top="10.0" />
-                                                </VBox.margin>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
                                             </JFXButton>
-                                            <JFXButton disable="true" styleClass="Button" text="View inventory">
+                                            <JFXButton fx:id="viewOtherDevicesBtn" onAction="#otherDeviceView" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="View Other Devices" wrapText="true">
                                                 <graphic>
-                                                    <ImageView fitHeight="39.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                         <Image url="@Images/icon-package.png" />
                                                     </ImageView>
                                                 </graphic>
-                                                <VBox.margin>
-                                                    <Insets left="13.0" top="10.0" />
-                                                </VBox.margin>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
                                             </JFXButton>
-                                            <JFXButton disable="true" styleClass="Button" text="Daily Report">
+                                            <JFXButton fx:id="addDeviceUserBtn" onAction="#addDeviceUser" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Add Device User" wrapText="true">
                                                 <graphic>
-                                                    <ImageView fitHeight="39.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                         <Image url="@Images/icon-file.png" />
                                                     </ImageView>
                                                 </graphic>
-                                                <VBox.margin>
-                                                    <Insets left="8.0" top="10.0" />
-                                                </VBox.margin>
+                                    <font>
+                                       <Font size="8.0" />
+                                    </font>
                                             </JFXButton>
-                                        </VBox>
-                                    </GridPane>
+                              </children>
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                           </VBox>
+                           <padding>
+                              <Insets left="10.0" right="10.0" top="22.0" />
+                           </padding>
                                 </VBox>
                             </HBox>
                         </VBox>

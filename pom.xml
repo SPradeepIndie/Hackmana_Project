@@ -74,7 +74,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <version>8.0.33</version>
+            <version>LATEST</version>
         </dependency>
 
 
@@ -110,10 +110,9 @@
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itext7-core</artifactId>
-            <version>7.2.0</version>
+            <version>LATEST</version>
             <type>pom</type>
         </dependency>
-
 
 
     </dependencies>
@@ -139,7 +138,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.example.hakmana/org.example.hakmana.MainApplication</mainClass>
+                            <mainClass>org.example.hakmana.MainApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

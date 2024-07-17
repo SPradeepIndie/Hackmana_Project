@@ -168,4 +168,22 @@ public class Printer extends Devices {
                 "VALUES (?,?,?,?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
     }
+
+    public ArrayList<String> getAllPrinters(){
+        ArrayList<String> List=new ArrayList<>();
+        String sql = "SELECT PrinterRegNum FROM printer";
+
+        try (ResultSet resultSet = conn.executeSt(sql)) {// get result set from connection class and auto closable
+
+            while (resultSet.next()) {
+                List.add(resultSet.getString(1)) ;
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            sqlLogger.error(e.getMessage());
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+        List.add("all");
+        return List;
+    }
 }

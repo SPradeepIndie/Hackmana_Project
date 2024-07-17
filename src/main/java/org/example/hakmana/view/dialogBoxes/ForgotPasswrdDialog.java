@@ -117,6 +117,7 @@ public class ForgotPasswrdDialog {
 
     //set the output in label
     public void usrOutput(String msg){
+        getOutputLbl().setVisible(true);
         getOutputLbl().setText(msg);
     }
 
@@ -130,9 +131,7 @@ public class ForgotPasswrdDialog {
         storeUsrEmail();
         if(isValidEmail(getUsrEmail())){
             getOutputLbl().setVisible(false);
-            //System.out.println("valid");
             String code= systemUser.generateVerificationCode();
-            //System.out.println(code);
             systemUser.dbUpdate(code);
             try {
                 systemUser.sendEmail(code);
@@ -143,28 +142,31 @@ public class ForgotPasswrdDialog {
             getVerificationCodeVbox().setDisable(false);
         }
         else{
-            getOutputLbl().setVisible(true);
             usrOutput("Invalid email address");
         }
     }
 
     //handle OTP verification button
     @FXML
-    public void verifyOTP() throws SQLException {
-        if(systemUser.verifyWithDb(getVerificationCodeField().getText())){
-            getVerificationCodeField().setStyle("-fx-border-color: green;-fx-border-width: 2px");
-            getOutputLbl().setVisible(true);
-            usrOutput("Verified! Now you can enter a new password");
-            getnewPsswrdVbox().setDisable(false);
-        }
-        else{
-            usrOutput("Incorrect code");
+    public boolean verifyOTP() throws SQLException {
+        if(!systemUser.verifyWithDb(getVerificationCodeField().getText())){
+            usrOutput("Incorrect Code!");
             getVerificationCodeField().setStyle("-fx-border-color: red;-fx-border-width: 2px");
+            return false;
         }
-
+        if(!systemUser.isExpired()){
+            usrOutput("Code Expired! Please request a new!(press arrow button)");
+            getVerificationCodeField().setStyle("-fx-border-color: red;-fx-border-width: 2px");
+            return false;
+        }
+        getVerificationCodeField().setStyle("-fx-border-color: green;-fx-border-width: 2px");
+        getOutputLbl().setVisible(true);
+        usrOutput("Verified! Now you can enter a new password");
+        getnewPsswrdVbox().setDisable(false);
+        return true;
     }
 
-    //check the password vbox is enable
+    //check the password vbox enable
     public void isVboxEnable() throws SQLException {
         if(!getnewPsswrdVbox().isDisable()){
             newPsswrd();
