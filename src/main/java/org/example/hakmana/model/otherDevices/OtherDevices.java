@@ -133,7 +133,7 @@ public class OtherDevices extends Devices {
 
 
     //-------------------------------------------------------------------------
-    public List<String> getDevicesList() {
+    private List<String> getDevicesList() {
         //create the database connection
         databaseConnection = DatabaseConnection.getInstance();
         connection = databaseConnection.getConnection();
@@ -145,6 +145,7 @@ public class OtherDevices extends Devices {
             devices.clear();
             fetchTableNames();
             devicesLoaded = true;
+            return devices;
         }
         return devices;
     }
@@ -176,6 +177,7 @@ public class OtherDevices extends Devices {
     }
     //This method set the rows of the table and add to the Observable list
     private void setOtherDeviceTblDetails() {
+        observableOtherDevices.clear();
         int row = 1;// Start adding devices from row 1 (after header row)
         for (String d : getDevicesList()) {
             int numActiveDev = 0;
@@ -223,7 +225,6 @@ public class OtherDevices extends Devices {
             }
 
             // Print results or use them as needed
-            //System.out.println(numActiveDev+ "\t"+ numInactiveDev+ "\t"+ numRepairingDev);
             observableOtherDevices.add(new OtherDevices(row, d,
                     numActiveDev+numInactiveDev+numRepairingDev,
                     numActiveDev, numInactiveDev, numRepairingDev));
@@ -231,12 +232,15 @@ public class OtherDevices extends Devices {
         }
 
     }
+
     public ObservableList<OtherDevices> getObservableOtherDevices() {
         if (!isTblRowLoaded()) {
             setOtherDeviceTblDetails();
             tblRowLoaded=true;
+            return observableOtherDevices;
         }
         return observableOtherDevices;
+
     }
 
 
