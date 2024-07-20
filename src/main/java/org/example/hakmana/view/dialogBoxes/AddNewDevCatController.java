@@ -4,8 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.example.hakmana.model.otherDevices.OtherDevices;
-
-
 public class AddNewDevCatController {
     private static AddNewDevCatController instance = null;
 
