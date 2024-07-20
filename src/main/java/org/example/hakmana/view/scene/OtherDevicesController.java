@@ -75,6 +75,10 @@ public class OtherDevicesController implements Initializable {
         update();
     }
 
+    public void setDevName(String devName) {
+        this.devName = devName;
+    }
+
     public void update(){
         otherDevicesDb.setTblRowLoaded(false);
         OtherDevices.setDevicesLoaded(false);
@@ -114,7 +118,7 @@ public class OtherDevicesController implements Initializable {
             }
         });
     }
-
+//tt
     public void ViewMoreButtonOnAction(ActionEvent actionEvent) {
         DeviceMngmntSmmryScene.setDbSelector(devName);
         DeviceCategoryCardController deviceCategoryCardController=new DeviceCategoryCardController();

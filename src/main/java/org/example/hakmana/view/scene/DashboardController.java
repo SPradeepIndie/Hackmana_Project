@@ -107,6 +107,10 @@ public class DashboardController extends Component implements Initializable {
     private DashboardController() {
     }
 
+    public NavPanelController getNavPanelController() {
+        return navPanelController;
+    }
+
     public static DashboardController getInstance() {
         if (instance == null) {
             instance = new DashboardController();

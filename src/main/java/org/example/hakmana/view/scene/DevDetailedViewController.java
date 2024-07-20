@@ -2,6 +2,7 @@ package org.example.hakmana.view.scene;
 
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,14 +13,21 @@ import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.DeviceInfoCardController;
+import org.example.hakmana.view.component.NavPanelController;
+import org.example.hakmana.view.component.PathFinderController;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class DevDetailedViewController implements Initializable {
     private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DevDetailedViewController.class);
     private static DevDetailedViewController instance=null;
-
+    private DeviceInfoCardController deviceInfoCardController;
+    private OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
+    private PathFinderController dashboardPathFinderControllerD=PathFinderController.getInstance();
     //Device details common
     @FXML
     public ChoiceBox<String> StatusChoiceBox;
@@ -741,10 +749,13 @@ public class DevDetailedViewController implements Initializable {
         initialUser=nic;
     }
     @FXML
-    public void Remove(){
+    public void Remove(ActionEvent e) throws IOException {
+        Devices dev[];
+        deviceInfoCardController=new DeviceInfoCardController();
         // Create custom ButtonType instances
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
 
         // Create a confirmation alert with custom buttons
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to proceed?", yesButton, noButton);
@@ -758,41 +769,49 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop" -> {
                     Desktop instance=Desktop.getDesktopInstance();
                     instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
+                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "Photocopy Machines" ->{
                     PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
                     instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
+                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "Monitors" ->{
                     Monitors instnace=Monitors.getMonitorInstance();
                     instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
+                    backToDeviceCategoryCard(e,deviceSelector);
                    break;
                 }
                 case "Projectors" -> {
                     Projectors instance=Projectors.getProjectorsInstance();
                     instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
+                    backToDeviceCategoryCard(e,deviceSelector);
                    break;
                 }
                 case "Laptops" -> {
                     Laptops instance=Laptops.getLaptopsInstance();
                     instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
+                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "Printers" -> {
                     Printer instance=Printer.getPrinterInstance();
                     instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
+                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
 
                 }
                 case "UPS" -> {
                     UPS instance=UPS.getUpsInstance();
                     instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
+                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "OtherDevices"->{
                     OtherDevices instance=OtherDevices.getOtherDevicesInstance();
+                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
 
@@ -808,6 +827,14 @@ public class DevDetailedViewController implements Initializable {
         }
 
     }
+
+    private void backToDeviceCategoryCard(ActionEvent e,String deviceSelector){
+        otherDevicesController.setDevName(deviceSelector);
+        otherDevicesController.setDashboardPathFinderControllerD(dashboardPathFinderControllerD);
+        otherDevicesController.ViewMoreButtonOnAction(e);
+    }
+
+
 
 
 
