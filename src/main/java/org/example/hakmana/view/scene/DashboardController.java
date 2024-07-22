@@ -412,12 +412,13 @@ public class DashboardController extends Component implements Initializable {
         Optional<ButtonType> clickedButton = dialog.showAndWait();
     }
     /*+++++++++++++++++++++++++++++See other device dialog pane++++++++++++++++++++++++++++++++++++++*/
-    public void otherDeviceView(ActionEvent event) throws IOException {
+    public void otherDeviceQuickAccess(ActionEvent event) throws IOException {
         FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
         loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
 
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
+        loadDeviceByRegNumDialogController.setFromOtherDevice(true);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -429,12 +430,13 @@ public class DashboardController extends Component implements Initializable {
 
     }
     /*+++++++++++++++++++++++++++++Show device++++++++++++++++++++++++++++++++++++++*/
-    public void showDevice(ActionEvent event) throws IOException {
+    public void mainDeviceQuickAccess(ActionEvent event) throws IOException {
         FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
         loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
 
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
+        loadDeviceByRegNumDialogController.setFromOtherDevice(false);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
