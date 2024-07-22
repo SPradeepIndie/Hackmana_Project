@@ -115,10 +115,11 @@ public class LoginPageController implements Initializable {
 
     // Method to load dashboard scene
     private void loadDashboard(ActionEvent event) throws IOException {
-        FXMLLoader dasboardFxmlLoader=new FXMLLoader(DashboardController.class.getResource("dashboard.fxml"));
+        FXMLLoader dasboardFxmlLoader=new FXMLLoader();
 
         DashboardController dashboardController=DashboardController.getInstance();
         dasboardFxmlLoader.setController(dashboardController);
+        dasboardFxmlLoader.setLocation(org.example.hakmana.view.scene.DashboardController.class.getResource("Dashboard.fxml"));
 
         Parent root = dasboardFxmlLoader.load();
 
