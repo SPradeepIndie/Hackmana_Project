@@ -465,8 +465,6 @@ public class DashboardController extends Component implements Initializable {
                 if (!line.trim().isEmpty()) {
                     String dateString = line.substring(0,21);
                     String Dates[]=dateString.split(",",2);
-                    // Adjust based on your log format
-                    System.out.printf(Dates[0]);
                     String curretntDate=Dates[0]+Dates[1].trim();
                     LocalDateTime logDate = LocalDateTime.parse(curretntDate, DATE_TIME_FORMATTER);
 
