@@ -768,49 +768,50 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop" -> {
                     Desktop instance=Desktop.getDesktopInstance();
                     instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                     backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "Photocopy Machines" ->{
                     PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
                     instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "Monitors" ->{
                     Monitors instnace=Monitors.getMonitorInstance();
                     instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                    break;
                 }
                 case "Projectors" -> {
                     Projectors instance=Projectors.getProjectorsInstance();
                     instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                    break;
                 }
                 case "Laptops" -> {
                     Laptops instance=Laptops.getLaptopsInstance();
                     instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "Printers" -> {
                     Printer instance=Printer.getPrinterInstance();
                     instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
 
                 }
                 case "UPS" -> {
                     UPS instance=UPS.getUpsInstance();
                     instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
                 case "OtherDevices"->{
                     OtherDevices instance=OtherDevices.getOtherDevicesInstance();
-                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
 
