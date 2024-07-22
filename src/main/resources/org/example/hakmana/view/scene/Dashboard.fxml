@@ -161,7 +161,7 @@
                                        <Font size="8.0" />
                                     </font>
                                             </JFXButton>
-                                            <JFXButton fx:id="MadinDeviceViewBtn" onAction="#showDevice" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Main device view &#10;">
+                                            <JFXButton fx:id="MadinDeviceViewBtn" onAction="#mainDeviceQuickAccess" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="Main device view &#10;">
                                                 <graphic>
                                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                         <Image url="@Images/icon-check-circle.png" />
@@ -171,7 +171,7 @@
                                        <Font size="8.0" />
                                     </font>
                                             </JFXButton>
-                                            <JFXButton fx:id="viewOtherDevicesBtn" onAction="#otherDeviceView" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="View Other Devices" wrapText="true">
+                                            <JFXButton fx:id="viewOtherDevicesBtn" onAction="#otherDeviceQuickAccess" style="-fx-padding: 2 5 2 5;" styleClass="Button" text="View Other Devices" wrapText="true">
                                                 <graphic>
                                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                         <Image url="@Images/icon-package.png" />

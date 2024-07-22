@@ -175,6 +175,13 @@ public class OtherDevices extends Devices {
             throw new RuntimeException(e);
         }
     }
+
+    public List<String> loadForQuickAccess(){
+        List<String> quickAcessDeviceList =getDevicesList();
+        devicesLoaded = false;
+        return quickAcessDeviceList;
+    }
+
     //This method set the rows of the table and add to the Observable list
     private void setOtherDeviceTblDetails() {
         observableOtherDevices.clear();
@@ -232,7 +239,6 @@ public class OtherDevices extends Devices {
         }
 
     }
-
     public ObservableList<OtherDevices> getObservableOtherDevices() {
         if (!isTblRowLoaded()) {
             setOtherDeviceTblDetails();
@@ -269,7 +275,6 @@ public class OtherDevices extends Devices {
         //return desktops list as an array
         return otherDevices.toArray(new OtherDevices[0]);
     }
-
     public boolean createNewDevCat(String newDev) {
 
         String sql = "CREATE TABLE " + newDev + " (" +
