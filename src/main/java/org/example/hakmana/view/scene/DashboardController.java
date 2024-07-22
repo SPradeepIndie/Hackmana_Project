@@ -419,6 +419,8 @@ public class DashboardController extends Component implements Initializable {
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
         loadDeviceByRegNumDialogController.setFromOtherDevice(true);
+        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
+        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -427,9 +429,15 @@ public class DashboardController extends Component implements Initializable {
         dialog.setTitle("Other device details");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+            loadDeviceByRegNumDialogController.loadDevDetailedscene();
+        }
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
+        }
 
     }
-    /*+++++++++++++++++++++++++++++Show device++++++++++++++++++++++++++++++++++++++*/
+    /*+++++++++++++++++++++++++++++Show main device++++++++++++++++++++++++++++++++++++++*/
     public void mainDeviceQuickAccess(ActionEvent event) throws IOException {
         FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
         loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
@@ -437,6 +445,8 @@ public class DashboardController extends Component implements Initializable {
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
         loadDeviceByRegNumDialogController.setFromOtherDevice(false);
+        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
+        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -445,6 +455,12 @@ public class DashboardController extends Component implements Initializable {
         dialog.setTitle("Main device details");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+            loadDeviceByRegNumDialogController.loadDevDetailedscene();
+        }
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
+        }
 
     }
     //log cleaner function

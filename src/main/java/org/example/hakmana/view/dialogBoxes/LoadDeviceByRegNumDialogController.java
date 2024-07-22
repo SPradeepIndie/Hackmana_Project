@@ -1,18 +1,35 @@
 package org.example.hakmana.view.dialogBoxes;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import org.example.hakmana.model.mainDevices.Devices;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.example.hakmana.model.DatabaseConnection;
 import org.example.hakmana.model.otherDevices.OtherDevices;
+import org.example.hakmana.view.component.DeviceInfoCardController;
+import org.example.hakmana.view.component.PathFinderController;
+import org.example.hakmana.view.scene.DevDetailedViewController;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoadDeviceByRegNumDialogController implements Initializable {
     private static LoadDeviceByRegNumDialogController instance=null;
+    private final DatabaseConnection databaseConnection=DatabaseConnection.getInstance();
     private final OtherDevices otherDevices=OtherDevices.getOtherDevicesInstance();
+    private static final Logger otherErrorLogger= (Logger) LogManager.getLogger(DeviceInfoCardController.class);
+
+    //For get the main dashboard body scroll pane
+    private static javafx.scene.control.ScrollPane dashboardBodyScrollpane;
+    private static PathFinderController dashboardPathFinderController;
     @FXML//device category selector
     public ChoiceBox<String> devCat;
     @FXML//device Registration number selector
@@ -21,9 +38,9 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
     private String selectedDevice;
     private String selectedDevRegNum;
 
-    private final String[] mainDevCategories={"Desktop","Photocopy Machines","Monitors","Projectors","Laptops","Printers","UPS"};
+    private final String[] mainDevCategories={"Desktop","Photocopy Machine","Monitor","Projectors","Laptop","Printer","UPS"};
     private List<String> otherDevCategories;
-    private List<String> devRegNumbers;;
+    private ArrayList<String> devRegNumbers;;
     private boolean fromOtherDevice;
 
     private LoadDeviceByRegNumDialogController() {
@@ -42,11 +59,28 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
         populateDevCatChoiceBox();
         devCat.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             setSelectedDevice(newValue);
+            populateDevRegChoiceBoxes();
         });
         devRegNum.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-           setSelectedDevice(newValue);
+           setSelectedDevRegNum(newValue);
         });
-        populateDevRegChoiceBox();
+
+    }
+
+    public static ScrollPane getDashboardBodyScrollpane() {
+        return dashboardBodyScrollpane;
+    }
+
+    public static void setDashboardBodyScrollpane(ScrollPane dashboardBodyScrollpane) {
+        LoadDeviceByRegNumDialogController.dashboardBodyScrollpane = dashboardBodyScrollpane;
+    }
+
+    public static PathFinderController getDashboardPathFinderController() {
+        return dashboardPathFinderController;
+    }
+
+    public static void setDashboardPathFinderController(PathFinderController dashboardPathFinderController) {
+        LoadDeviceByRegNumDialogController.dashboardPathFinderController = dashboardPathFinderController;
     }
 
     public String getSelectedDevice() {
@@ -73,11 +107,11 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
         this.otherDevCategories = otherDevCategories;
     }
 
-    public List<String> getDevRegNumbers() {
+    public ArrayList<String> getDevRegNumbers() {
         return devRegNumbers;
     }
 
-    public void setDevRegNumbers(List<String> devRegNumbers) {
+    public void setDevRegNumbers(ArrayList<String> devRegNumbers) {
         this.devRegNumbers = devRegNumbers;
     }
 
@@ -103,10 +137,40 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
     }
 
     //When device cat selected the reg numbers from tables
-    private void populateDevRegChoiceBox(){
-        System.out.println(getSelectedDevice());
-
+    private void fetchDevReg(){
+        if(devRegNumbers!=null){
+            devRegNum.getItems().removeAll(getDevRegNumbers());
+        }
+        setDevRegNumbers(databaseConnection.quickAccessLoadDevRegnum(getSelectedDevice()));
     }
 
+    private void populateDevRegChoiceBoxes(){
+        fetchDevReg();
+        devRegNum.getItems().addAll(getDevRegNumbers());
+    }
+
+    public void loadDevDetailedscene(){
+            getDashboardPathFinderController().setSearchBarVisible(false);
+            // Load the FXML loader for the target scene
+            FXMLLoader detailDeviceVboxLoder = new FXMLLoader(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
+            //create DevDetailedViewController instance
+            DevDetailedViewController devDetailedViewController=DevDetailedViewController.getInstance();
+            detailDeviceVboxLoder.setController(devDetailedViewController);
+            getDashboardPathFinderController().setPathTxt("Device Management>"+getSelectedDevice()+">"+getSelectedDevRegNum());
+            getDashboardPathFinderController().setBckBtnScene("DevDetailedView");
+
+            try{
+                VBox vbox=detailDeviceVboxLoder.load();
+                getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
+
+            } catch (IOException e) {
+                otherErrorLogger.error(e.getMessage());
+                throw new RuntimeException(e);
+            }
+            //setters
+            devDetailedViewController.setDeviceSelector(getSelectedDevice());
+            devDetailedViewController.setDevRegNum(getSelectedDevRegNum());
+            devDetailedViewController.showDeviceDetail();
+    }
 
 }

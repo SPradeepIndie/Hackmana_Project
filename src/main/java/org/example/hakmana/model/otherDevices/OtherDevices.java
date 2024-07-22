@@ -175,7 +175,7 @@ public class OtherDevices extends Devices {
             throw new RuntimeException(e);
         }
     }
-
+    //filter other device categories for quick access
     public List<String> loadForQuickAccess(){
         List<String> quickAcessDeviceList =getDevicesList();
         devicesLoaded = false;
@@ -291,6 +291,7 @@ public class OtherDevices extends Devices {
             return false;
         }
     }
+
 
 }
 
