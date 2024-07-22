@@ -260,7 +260,7 @@ public class NavPanelController extends AnchorPane implements Initializable {
     }
 
     public void dashboardScene(ActionEvent event) throws IOException {
-        FXMLLoader dasboardFxmlLoader=new FXMLLoader(DashboardController.class.getResource("dashboard.fxml"));
+        FXMLLoader dasboardFxmlLoader=new FXMLLoader(DashboardController.class.getResource("Dashboard.fxml"));
 
         DashboardController dashboardController=DashboardController.getInstance();
         dasboardFxmlLoader.setController(dashboardController);
