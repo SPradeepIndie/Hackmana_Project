@@ -16,7 +16,8 @@ module org.example.hakmana {
     requires org.apache.commons.codec;
     requires jdk.httpserver;
     requires org.apache.logging.log4j.core;
-
+    requires kernel;
+    requires layout;
 
     opens org.example.hakmana.model.overviewTable to javafx.base;
     opens org.example.hakmana to javafx.fxml;
