@@ -47,7 +47,7 @@
                                 <children>
                                     <TableView fx:id="table2" prefHeight="140.0" HBox.hgrow="ALWAYS">
                                         <columns>
-                                            <TableColumn fx:id="totalCol" editable="false" prefWidth="475.0" sortable="false" text="DeviceName" />
+                                            <TableColumn fx:id="totalCol" editable="false" prefWidth="475.0" sortable="false" text="Device Category" />
                                             <TableColumn fx:id="activeCol" editable="false" prefWidth="150.0" sortable="false" text="Active" />
                                             <TableColumn fx:id="inActiveCol" editable="false" prefWidth="150.0" sortable="false" text="Inactive" />
                                             <TableColumn fx:id="repairingCol" editable="false" prefWidth="150.0" sortable="false" text="Repairing" />
@@ -86,7 +86,7 @@
                                            <TableView fx:id="table1" prefWidth="300.0">
                                                <columns>
                                                    <TableColumn fx:id="col1" editable="false" prefWidth="195.0" sortable="false" text="Device Id" />
-                                                   <TableColumn fx:id="col2" editable="false" prefWidth="500.0" sortable="false" text="title" />
+                                                   <TableColumn fx:id="col2" editable="false" prefWidth="500.0" sortable="false" text="Title" />
                                                    <TableColumn fx:id="col3" editable="false" prefWidth="200.0" sortType="DESCENDING" text="Date" />
                                                </columns>
                                            </TableView>
