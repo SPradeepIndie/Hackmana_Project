@@ -72,16 +72,7 @@ public class OtherDevicesController implements Initializable {
         inactiveClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("numInactiveDev"));
         repairClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("numRepairingDev"));
         totalClmn.setCellValueFactory(new PropertyValueFactory<OtherDevices, Integer>("totalDev"));
-        update();
-    }
 
-    public void setDevName(String devName) {
-        this.devName = devName;
-    }
-
-    public void update(){
-        otherDevicesDb.setTblRowLoaded(false);
-        OtherDevices.setDevicesLoaded(false);
         addTblRow();
         addTableSelectionListener();
     }
@@ -95,12 +86,6 @@ public class OtherDevicesController implements Initializable {
     }
     public void setDashboardPathFinderControllerD(PathFinderController dashboardPathFinderControllerD) {
         this.dashboardPathFinderControllerD = dashboardPathFinderControllerD;
-    }
-    public static ScrollPane getDashboardBodyScrollpaneD() {
-        return dashboardBodyScrollpaneD;
-    }
-    public static void setDashboardBodyScrollpaneD(ScrollPane dashboardBodyScrollpaneD) {
-        OtherDevicesController.dashboardBodyScrollpaneD = dashboardBodyScrollpaneD;
     }
 
     public String getDevName() {
@@ -118,12 +103,11 @@ public class OtherDevicesController implements Initializable {
             }
         });
     }
-//tt
+
     public void ViewMoreButtonOnAction(ActionEvent actionEvent) {
         DeviceMngmntSmmryScene.setDbSelector(devName);
         DeviceCategoryCardController deviceCategoryCardController=new DeviceCategoryCardController();
         deviceCategoryCardController.setDevName(devName);
-        //  DeviceCategoryCardController.setDashboardBodyScrollpaneD(bodyScrollPaneD);
         deviceCategoryCardController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());
         deviceCategoryCardController.callDeviceInfo();
 
@@ -144,6 +128,14 @@ public class OtherDevicesController implements Initializable {
         if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
             dialog.close();
         }
-        update();
+        tableViewRefresh();
     }
+
+    private void tableViewRefresh(){
+        otherDevicesDb.setTblRowLoaded(false);
+        OtherDevices.setDevicesLoaded(false);
+        otherDevicesDb.getObservableOtherDevices();
+        otherDeviceTblView.refresh();
+    }
+
 }
