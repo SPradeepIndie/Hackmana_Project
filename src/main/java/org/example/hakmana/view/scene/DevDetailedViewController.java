@@ -829,7 +829,7 @@ public class DevDetailedViewController implements Initializable {
     }
 
     private void backToDeviceCategoryCard(ActionEvent e,String deviceSelector){
-        otherDevicesController.setDevName(deviceSelector);
+       //otherDevicesController.setDevName(deviceSelector);
         otherDevicesController.setDashboardPathFinderControllerD(dashboardPathFinderControllerD);
         otherDevicesController.ViewMoreButtonOnAction(e);
     }
