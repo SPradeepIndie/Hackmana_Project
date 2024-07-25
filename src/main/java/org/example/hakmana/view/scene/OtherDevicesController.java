@@ -105,7 +105,6 @@ public class OtherDevicesController implements Initializable {
     }
 
     public void ViewMoreButtonOnAction(ActionEvent actionEvent) {
-        DeviceMngmntSmmryScene.setDbSelector(devName);
         DeviceCategoryCardController deviceCategoryCardController=new DeviceCategoryCardController();
         deviceCategoryCardController.setDevName(devName);
         deviceCategoryCardController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());

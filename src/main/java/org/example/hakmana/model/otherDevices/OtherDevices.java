@@ -39,6 +39,7 @@ public class OtherDevices extends Devices {
     private String Model;
     private String UserName;
     private String Status;
+    private String purchasedFrom;
 
     /*-----------------constructors for this class---------------*/
     private OtherDevices() {}
@@ -130,7 +131,12 @@ public class OtherDevices extends Devices {
     public int getTotalDev() {
         return totalDev;
     }
-
+    public String getPurchasedFrom() {
+        return purchasedFrom;
+    }
+    public void setPurchasedFrom(String purchasedFrom) {
+        this.purchasedFrom = purchasedFrom;
+    }
 
     //-------------------------------------------------------------------------
     private List<String> getDevicesList() {
@@ -290,6 +296,31 @@ public class OtherDevices extends Devices {
             System.err.println("Error creating table: " + e.getMessage());
             return false;
         }
+    }
+
+    public  OtherDevices getOtherevice(String otherDevRegNum,String otherDeviceCat){
+        //pass query to the connection class
+        String sql = "SELECT * FROM "+otherDeviceCat +" WHERE "+otherDeviceCat+"RegNum=?";
+        try{
+            // get result set from connection class and auto closable
+            PreparedStatement ps = conn.getConnection().prepareStatement(sql);
+            ps.setString(1, otherDevRegNum);
+            ResultSet resultSet = ps.executeQuery();
+            // if result set have data load it
+            if (resultSet.next()) {
+                OtherDevices otherDevice = new OtherDevices();
+                otherDevice.setRegNum(resultSet.getString(otherDeviceCat+"RegNum"));
+                otherDevice.setModel(resultSet.getString("model"));
+                otherDevice.setStatus(resultSet.getString("status"));
+                otherDevice.setPurchasedFrom(resultSet.getString("purchasedFrom"));
+
+                return otherDevice;//add desktop to the desktops list
+            }
+        } catch (SQLException e) {
+            alerting(Alert.AlertType.WARNING,"Error Updating Device","An error occurred while updating the device.",e.getMessage());
+        }
+        //return null if not found
+        return null;
     }
 
 

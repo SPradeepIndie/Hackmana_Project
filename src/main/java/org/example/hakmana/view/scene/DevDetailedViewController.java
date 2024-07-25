@@ -219,6 +219,7 @@ public class DevDetailedViewController implements Initializable {
     private final String[] WinLin={"Windows","Linux"};
     private final String[] OnboardDecicated={"On Board","Dedicated","No"};
     private final String[] sizeTypeList={"MB","GB","TB"};
+    private String otherDevCat;
 
     private static String deviceSelector;
     private static String devRegNum;
@@ -301,6 +302,12 @@ public class DevDetailedViewController implements Initializable {
     }
     public void setDeviceSelector(String deviceSelector) {
         DevDetailedViewController.deviceSelector = deviceSelector;
+    }
+    public String getOtherDevCat() {
+        return otherDevCat;
+    }
+    public void setOtherDevCat(String otherDevCat) {
+        this.otherDevCat = otherDevCat;
     }
 
     //populate choice boxes (input choice boxes,output choice boxes,ups,power supply)
@@ -452,8 +459,11 @@ public class DevDetailedViewController implements Initializable {
                     setCommonToView(ups);
                     setOtherDetails(new String[]{"Purchased From"},ups.getPurchasedFrom());
             }
-
-            default -> throw new IllegalStateException("Unexpected value: " + deviceSelector);
+            default -> {
+                OtherDevices otherDevices=OtherDevices.getOtherDevicesInstance().getOtherevice(getDevRegNum(),getOtherDevCat());
+                setCommonToView(otherDevices);
+                setOtherDetails(new String[]{"Purchased From"},otherDevices.getPurchasedFrom());
+            }
         }
 
     }

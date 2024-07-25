@@ -151,12 +151,23 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
 
     public void loadDevDetailedscene(){
             getDashboardPathFinderController().setSearchBarVisible(false);
+            String selDevForScene="";
             // Load the FXML loader for the target scene
             FXMLLoader detailDeviceVboxLoder = new FXMLLoader(DevDetailedViewController.class.getResource("DevDetailedView.fxml"));
             //create DevDetailedViewController instance
             DevDetailedViewController devDetailedViewController=DevDetailedViewController.getInstance();
             detailDeviceVboxLoder.setController(devDetailedViewController);
-            getDashboardPathFinderController().setPathTxt("Device Management>"+getSelectedDevice()+">"+getSelectedDevRegNum());
+            switch (getSelectedDevice()) {
+                case "Desktop" -> selDevForScene="Desktop";
+                case "Photocopy Machine" -> selDevForScene="Photocopy Machines";
+                case "Monitor" -> selDevForScene="Monitors";
+                case "Projectors" -> selDevForScene="Projectors";
+                case "Laptop" -> selDevForScene="Laptops";
+                case "Printer" -> selDevForScene="Printers";
+                case "UPS" -> selDevForScene="UPS";
+                default -> System.out.println("Other devices");
+            }
+            getDashboardPathFinderController().setPathTxt("Device Management>"+selDevForScene+">"+getSelectedDevRegNum());
             getDashboardPathFinderController().setBckBtnScene("DevDetailedView");
 
             try{
@@ -168,7 +179,7 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
                 throw new RuntimeException(e);
             }
             //setters
-            devDetailedViewController.setDeviceSelector(getSelectedDevice());
+            devDetailedViewController.setDeviceSelector(selDevForScene);
             devDetailedViewController.setDevRegNum(getSelectedDevRegNum());
             devDetailedViewController.showDeviceDetail();
     }
