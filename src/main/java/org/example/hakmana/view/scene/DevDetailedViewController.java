@@ -702,7 +702,11 @@ public class DevDetailedViewController implements Initializable {
                 return UPS.getUpsInstance().updateDevice(newValues);
             }
             default -> {
-                return false;
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
+                newValues.add(StatusChoiceBox.getValue());
+                getTextFieldText(otherTextList);
+                newValues.add(getDevRegNum());
+                return OtherDevices.getOtherDevicesInstance().updateDevice(otherDevCat,newValues);
             }
         }
     }
