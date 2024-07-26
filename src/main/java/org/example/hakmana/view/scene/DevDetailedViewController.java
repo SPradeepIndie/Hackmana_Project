@@ -768,7 +768,7 @@ public class DevDetailedViewController implements Initializable {
         // Create custom ButtonType instances
         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
+        String OtherDev=getOtherDevCat();
 
         // Create a confirmation alert with custom buttons
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to proceed?", yesButton, noButton);
@@ -823,14 +823,17 @@ public class DevDetailedViewController implements Initializable {
                     otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
                     break;
                 }
-                case "OtherDevices"->{
-                    OtherDevices instance=OtherDevices.getOtherDevicesInstance();
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-                }
 
                 default -> {
-                    throw new IllegalStateException("Unexpected value: " + deviceSelector);
+                    if(deviceSelector.equals(OtherDev)){
+                        OtherDevices instance=OtherDevices.getOtherDevicesInstance();
+                        instance.deleteDevice(getDevRegNum(),getOtherDevCat()+"RegNum",getOtherDevCat());
+                        otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    }
+                    else{
+                        throw new IllegalStateException("Unexpected value: " + deviceSelector);
+                    }
+
                 }
             }
             //TODO create a method for direct DeviceMngmntSmmryScene and call it in here
