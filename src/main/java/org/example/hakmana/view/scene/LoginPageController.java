@@ -120,6 +120,7 @@ public class LoginPageController implements Initializable {
         DashboardController dashboardController=DashboardController.getInstance();
         dasboardFxmlLoader.setController(dashboardController);
         dasboardFxmlLoader.setLocation(org.example.hakmana.view.scene.DashboardController.class.getResource("Dashboard.fxml"));
+
         Parent root = dasboardFxmlLoader.load();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

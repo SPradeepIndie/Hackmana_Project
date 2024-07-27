@@ -107,6 +107,10 @@ public class DashboardController extends Component implements Initializable {
     private DashboardController() {
     }
 
+    public NavPanelController getNavPanelController() {
+        return navPanelController;
+    }
+
     public static DashboardController getInstance() {
         if (instance == null) {
             instance = new DashboardController();
@@ -412,12 +416,15 @@ public class DashboardController extends Component implements Initializable {
         Optional<ButtonType> clickedButton = dialog.showAndWait();
     }
     /*+++++++++++++++++++++++++++++See other device dialog pane++++++++++++++++++++++++++++++++++++++*/
-    public void otherDeviceView(ActionEvent event) throws IOException {
+    public void otherDeviceQuickAccess(ActionEvent event) throws IOException {
         FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
         loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
 
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
+        loadDeviceByRegNumDialogController.setFromOtherDevice(true);
+        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
+        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -426,15 +433,24 @@ public class DashboardController extends Component implements Initializable {
         dialog.setTitle("Other device details");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+            loadDeviceByRegNumDialogController.loadDevDetailedscene();
+        }
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
+        }
 
     }
-    /*+++++++++++++++++++++++++++++Show device++++++++++++++++++++++++++++++++++++++*/
-    public void showDevice(ActionEvent event) throws IOException {
+    /*+++++++++++++++++++++++++++++Show main device++++++++++++++++++++++++++++++++++++++*/
+    public void mainDeviceQuickAccess(ActionEvent event) throws IOException {
         FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
         loadDeviceByRegNumDiallogFxmlLoad.setLocation(org.example.hakmana.view.dialogBoxes.AddDeviceUserDialogController.class.getResource("LoadDeviceByRegNumDialog.fxml"));
 
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
+        loadDeviceByRegNumDialogController.setFromOtherDevice(false);
+        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
+        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -443,6 +459,12 @@ public class DashboardController extends Component implements Initializable {
         dialog.setTitle("Main device details");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+            loadDeviceByRegNumDialogController.loadDevDetailedscene();
+        }
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
+        }
 
     }
     //log cleaner function
@@ -457,9 +479,10 @@ public class DashboardController extends Component implements Initializable {
             while ((line = reader.readLine()) != null) {
                 // Assuming the date is at the beginning of the log entry in the format yyyy-MM-dd HH:mm:ss
                 if (!line.trim().isEmpty()) {
-                    String dateString = line.substring(0, 19);
-                    // Adjust based on your log format
-                    LocalDateTime logDate = LocalDateTime.parse(dateString, DATE_TIME_FORMATTER);
+                    String dateString = line.substring(0,21);
+                    String Dates[]=dateString.split(",",2);
+                    String curretntDate=Dates[0]+Dates[1].trim();
+                    LocalDateTime logDate = LocalDateTime.parse(curretntDate, DATE_TIME_FORMATTER);
 
                     if (!logDate.isBefore(thresholdDate)) {
                         filteredLines.add(line);
