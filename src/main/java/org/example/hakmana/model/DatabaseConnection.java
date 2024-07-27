@@ -21,7 +21,7 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hakmanaedm", "root", "");
             System.out.println("Connection Successfully");
         } catch (ClassNotFoundException | SQLException e) {
-            sqlLogger.error(e.getMessage());
+            sqlLogger.error("connection is null");
             System.out.println("Connection failed");
             //Need to show this alert
             Alert alert=new Alert(Alert.AlertType.WARNING);
