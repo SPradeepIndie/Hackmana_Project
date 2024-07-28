@@ -124,7 +124,7 @@ public class DeviceCategoryCardController extends AnchorPane implements Initiali
         if(Objects.equals(getDevName(), "Other Devices")){
             loadOtherDevice();
         }else {
-            loadSmmryScene();
+            loadSmmryScene();//s
         }
     }
 
