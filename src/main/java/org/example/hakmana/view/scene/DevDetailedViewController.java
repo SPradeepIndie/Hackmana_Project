@@ -13,6 +13,7 @@ import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.DeviceCategoryCardController;
 import org.example.hakmana.view.component.DeviceInfoCardController;
 import org.example.hakmana.view.component.NavPanelController;
 import org.example.hakmana.view.component.PathFinderController;
@@ -28,6 +29,8 @@ public class DevDetailedViewController implements Initializable {
     private DeviceInfoCardController deviceInfoCardController;
     private OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
     private PathFinderController dashboardPathFinderControllerD=PathFinderController.getInstance();
+    private String devName;
+
     //Device details common
     @FXML
     public ChoiceBox<String> StatusChoiceBox;
@@ -294,6 +297,12 @@ public class DevDetailedViewController implements Initializable {
     }
 
     /*-------------------------Getter and Setter--------------------------------*/
+    public PathFinderController getDashboardPathFinderControllerD() {
+        return dashboardPathFinderControllerD;
+    }
+    public void setDashboardPathFinderControllerD(PathFinderController dashboardPathFinderControllerD) {
+        this.dashboardPathFinderControllerD = dashboardPathFinderControllerD;
+    }
     public String getDevRegNum() {
         return devRegNum;
     }
@@ -782,45 +791,43 @@ public class DevDetailedViewController implements Initializable {
                 case "Desktop" -> {
                     Desktop instance=Desktop.getDesktopInstance();
                     instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
-                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);;
                 }
                 case "Photocopy Machines" ->{
                     PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
                     instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                     break;
                 }
                 case "Monitors" ->{
                     Monitors instnace=Monitors.getMonitorInstance();
                     instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                    break;
                 }
                 case "Projectors" -> {
                     Projectors instance=Projectors.getProjectorsInstance();
                     instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                    break;
                 }
                 case "Laptops" -> {
                     Laptops instance=Laptops.getLaptopsInstance();
                     instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                     break;
                 }
                 case "Printers" -> {
                     Printer instance=Printer.getPrinterInstance();
                     instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                     break;
 
                 }
                 case "UPS" -> {
                     UPS instance=UPS.getUpsInstance();
                     instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                     break;
                 }
 
@@ -828,7 +835,7 @@ public class DevDetailedViewController implements Initializable {
                     if(deviceSelector.equals(OtherDev)){
                         OtherDevices instance=OtherDevices.getOtherDevicesInstance();
                         instance.deleteDevice(getDevRegNum(),getOtherDevCat()+"RegNum",getOtherDevCat());
-                        otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
+                        otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
                     }
                     else{
                         throw new IllegalStateException("Unexpected value: " + deviceSelector);
@@ -838,6 +845,12 @@ public class DevDetailedViewController implements Initializable {
             }
             //TODO create a method for direct DeviceMngmntSmmryScene and call it in here
 
+            DeviceCategoryCardController deviceCategoryCardController=new DeviceCategoryCardController();
+            deviceCategoryCardController.setDevName(deviceSelector);
+            deviceCategoryCardController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());
+            deviceCategoryCardController.callDeviceInfo();
+
+
 
         } else {
            alert.close();
@@ -845,11 +858,6 @@ public class DevDetailedViewController implements Initializable {
 
     }
 
-    private void backToDeviceCategoryCard(ActionEvent e,String deviceSelector){
-       //otherDevicesController.setDevName(deviceSelector);
-        otherDevicesController.setDashboardPathFinderControllerD(dashboardPathFinderControllerD);
-        otherDevicesController.ViewMoreButtonOnAction(e);
-    }
 
 
 

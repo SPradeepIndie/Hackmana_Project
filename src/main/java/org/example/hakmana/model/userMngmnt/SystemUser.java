@@ -25,11 +25,9 @@ public class SystemUser {
     private Connection conn;
     private ResultSet rs;
 
-<<<<<<< HEAD
    // private OAuth2ForGmail auth;
-=======
+
   //  private OAuth2ForGmail auth;
->>>>>>> 84b851fb073dc877ac02ef689e3833c72adbd9c2
 
     private boolean checkCode;
     private String userName;
@@ -178,11 +176,11 @@ public class SystemUser {
     }
     //send verification code to the email
     public void sendEmail(String verificationCode) throws Exception {
-<<<<<<< HEAD
+
        // auth=new OAuth2ForGmail();
-=======
+
     //    auth=new OAuth2ForGmail();
->>>>>>> 84b851fb073dc877ac02ef689e3833c72adbd9c2
+
 
         String fromEmail = "hakmanamathara2@gmail.com"; // sender email
         Properties props = new Properties();
