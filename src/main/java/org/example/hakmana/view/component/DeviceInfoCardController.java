@@ -228,6 +228,7 @@ public class DeviceInfoCardController extends AnchorPane implements Initializabl
           //setters
           devDetailedViewController.setDeviceSelector(getDeviceCat());
           devDetailedViewController.setDevRegNum(getDevId());
+          devDetailedViewController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerDD());
           devDetailedViewController.showDeviceDetail();
 
 
