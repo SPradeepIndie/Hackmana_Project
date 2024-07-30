@@ -323,6 +323,18 @@ public class OtherDevices extends Devices {
         return null;
     }
 
+    public boolean updateDevice(String otherDeviceCat,ArrayList<String> list){
+        //pass query to the connection class
+        String sql="UPDATE "+otherDeviceCat+" SET model=?,status=?,purchasedFrom=? WHERE "+otherDeviceCat+"RegNum=?";
+        return dbInteraction(sql,list,list.getLast());
+    }
 
+    public boolean insertDevice(String otherDeviceCat,ArrayList<String> list){
+        //pass query to the connection class
+        String sql="INSERT INTO "+otherDeviceCat+" ("+otherDeviceCat+"RegNum,model,status,purchasedFrom)" +
+                "VALUES (?,?,?,?)";
+        return dbInteraction(sql,list, list.getFirst());
+
+    }
 }
 

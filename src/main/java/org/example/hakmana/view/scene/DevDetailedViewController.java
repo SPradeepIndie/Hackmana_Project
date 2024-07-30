@@ -13,6 +13,7 @@ import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
 import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
+import org.example.hakmana.view.component.DeviceCategoryCardController;
 import org.example.hakmana.view.component.DeviceInfoCardController;
 import org.example.hakmana.view.component.NavPanelController;
 import org.example.hakmana.view.component.PathFinderController;
@@ -28,6 +29,8 @@ public class DevDetailedViewController implements Initializable {
     private DeviceInfoCardController deviceInfoCardController;
     private OtherDevicesController otherDevicesController=OtherDevicesController.getInstance();
     private PathFinderController dashboardPathFinderControllerD=PathFinderController.getInstance();
+    private String devName;
+
     //Device details common
     @FXML
     public ChoiceBox<String> StatusChoiceBox;
@@ -294,6 +297,12 @@ public class DevDetailedViewController implements Initializable {
     }
 
     /*-------------------------Getter and Setter--------------------------------*/
+    public PathFinderController getDashboardPathFinderControllerD() {
+        return dashboardPathFinderControllerD;
+    }
+    public void setDashboardPathFinderControllerD(PathFinderController dashboardPathFinderControllerD) {
+        this.dashboardPathFinderControllerD = dashboardPathFinderControllerD;
+    }
     public String getDevRegNum() {
         return devRegNum;
     }
@@ -621,7 +630,91 @@ public class DevDetailedViewController implements Initializable {
         showDeviceDetail();
         newValues.clear();
     }
+    @FXML
+    public void Remove(ActionEvent e) throws IOException {
+        Devices dev[];
+        deviceInfoCardController=new DeviceInfoCardController();
+        // Create custom ButtonType instances
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        String OtherDev=getOtherDevCat();
 
+        // Create a confirmation alert with custom buttons
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to proceed?", yesButton, noButton);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Confirmation Needed");
+
+        // Show the alert and wait for a response
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == yesButton) {
+            switch (deviceSelector) {
+                case "Desktop" -> {
+                    Desktop instance=Desktop.getDesktopInstance();
+                    instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);;
+                }
+                case "Photocopy Machines" ->{
+                    PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
+                    instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    break;
+                }
+                case "Monitors" ->{
+                    Monitors instnace=Monitors.getMonitorInstance();
+                    instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    break;
+                }
+                case "Projectors" -> {
+                    Projectors instance=Projectors.getProjectorsInstance();
+                    instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    break;
+                }
+                case "Laptops" -> {
+                    Laptops instance=Laptops.getLaptopsInstance();
+                    instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    break;
+                }
+                case "Printers" -> {
+                    Printer instance=Printer.getPrinterInstance();
+                    instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    break;
+
+                }
+                case "UPS" -> {
+                    UPS instance=UPS.getUpsInstance();
+                    instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
+                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    break;
+                }
+
+                default -> {
+                    if(deviceSelector.equals(OtherDev)){
+                        OtherDevices instance=OtherDevices.getOtherDevicesInstance();
+                        instance.deleteDevice(getDevRegNum(),getOtherDevCat()+"RegNum",getOtherDevCat());
+                        otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
+                    }
+                    else{
+                        throw new IllegalStateException("Unexpected value: " + deviceSelector);
+                    }
+
+                }
+            }
+            //TODO create a method for direct DeviceMngmntSmmryScene and call it in here
+
+            DeviceCategoryCardController deviceCategoryCardController=new DeviceCategoryCardController();
+            deviceCategoryCardController.setDevName(deviceSelector);
+            deviceCategoryCardController.setDashboardPathFinderControllerD(getDashboardPathFinderControllerD());
+            deviceCategoryCardController.callDeviceInfo();
+            OtherDevicesController.getInstance().tableViewRefresh();
+        } else {
+            alert.close();
+        }
+
+    }
     private boolean addDb() {
         switch (deviceSelector) {
             case "Desktop" -> {
@@ -702,7 +795,11 @@ public class DevDetailedViewController implements Initializable {
                 return UPS.getUpsInstance().updateDevice(newValues);
             }
             default -> {
-                return false;
+                getTextFieldText(new ArrayList<>(List.of(modelTextField)));
+                newValues.add(StatusChoiceBox.getValue());
+                getTextFieldText(otherTextList);
+                newValues.add(getDevRegNum());
+                return OtherDevices.getOtherDevicesInstance().updateDevice(otherDevCat,newValues);
             }
         }
     }
@@ -757,95 +854,5 @@ public class DevDetailedViewController implements Initializable {
 
         initialUser=nic;
     }
-    @FXML
-    public void Remove(ActionEvent e) throws IOException {
-        Devices dev[];
-        deviceInfoCardController=new DeviceInfoCardController();
-        // Create custom ButtonType instances
-        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-
-        // Create a confirmation alert with custom buttons
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to proceed?", yesButton, noButton);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Confirmation Needed");
-
-        // Show the alert and wait for a response
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == yesButton) {
-            switch (deviceSelector) {
-                case "Desktop" -> {
-                    Desktop instance=Desktop.getDesktopInstance();
-                    instance.deleteDevice(getDevRegNum(),"DesRegNum","desktop");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);
-                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-                }
-                case "Photocopy Machines" ->{
-                    PhotocpyMchine instance=PhotocpyMchine.getPhotocpyMchineInstance();
-                    instance.deleteDevice(getDevRegNum(),"PhotoCopyMachineRegNum","PhotoCopyMachine");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-                }
-                case "Monitors" ->{
-                    Monitors instnace=Monitors.getMonitorInstance();
-                    instnace.deleteDevice(getDevRegNum(),"MonitorRegNum","monitor");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                   break;
-                }
-                case "Projectors" -> {
-                    Projectors instance=Projectors.getProjectorsInstance();
-                    instance.deleteDevice(getDevRegNum(),"MultimediaProjectorRegNum","multimediaprojector");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                   break;
-                }
-                case "Laptops" -> {
-                    Laptops instance=Laptops.getLaptopsInstance();
-                    instance.deleteDevice(getDevRegNum(),"LaptopRegNum","laptop");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-                }
-                case "Printers" -> {
-                    Printer instance=Printer.getPrinterInstance();
-                    instance.deleteDevice(getDevRegNum(),"PrinterRegNum","printer");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-
-                }
-                case "UPS" -> {
-                    UPS instance=UPS.getUpsInstance();
-                    instance.deleteDevice(getDevRegNum(),"upsRegNum","ups");
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-                }
-                case "OtherDevices"->{
-                    OtherDevices instance=OtherDevices.getOtherDevicesInstance();
-                    otherErrorLogger.info("/"+newInstance.getLogedUser() + "/remove a device  "+"/Device RegNumber:"+getDevRegNum()+"/"+getDevRegNum()+"/"+newInstance.getLogedUser()+"/"+deviceSelector);                    backToDeviceCategoryCard(e,deviceSelector);
-                    break;
-                }
-
-                default -> {
-                    throw new IllegalStateException("Unexpected value: " + deviceSelector);
-                }
-            }
-            //TODO create a method for direct DeviceMngmntSmmryScene and call it in here
-
-
-        } else {
-           alert.close();
-        }
-
-    }
-
-    private void backToDeviceCategoryCard(ActionEvent e,String deviceSelector){
-       //otherDevicesController.setDevName(deviceSelector);
-        otherDevicesController.setDashboardPathFinderControllerD(dashboardPathFinderControllerD);
-        otherDevicesController.ViewMoreButtonOnAction(e);
-    }
-
-
-
-
 
 }

@@ -97,13 +97,13 @@ public class DashboardController extends Component implements Initializable {
     private Label date1;
     private Button editButton;
     private Button updateButton;
-    private NoteTable noteInstance;
+    private NoteTable noteInstance=NoteTable.getInstance();
     private static final String LOG_FILE_PATH1 = "src/main/resources/logs/systemuser.log"; // Path to the log file
     private static final String LOG_FILE_PATH2 = "src/main/resources/logs/sql_exceptions.log"; // Path to the log file
     private static final String LOG_FILE_PATH3 = "src/main/resources/logs/other_exceptions.log"; // Path to the log file
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final int RETENTION_DAYS = 90; // Retention period in days
-
+    ObservableList<DashboardCardTableController> list1;
     private DashboardController() {
     }
 
@@ -124,8 +124,8 @@ public class DashboardController extends Component implements Initializable {
         cleanLogFile(LOG_FILE_PATH1, RETENTION_DAYS);
         cleanLogFile(LOG_FILE_PATH2, RETENTION_DAYS);
         cleanLogFile(LOG_FILE_PATH3, RETENTION_DAYS);
+
         //automaticaly upadate the cards
-        noteInstance = NoteTable.getInstance();
         //create the connections
         int count1;
         int count2;
@@ -186,11 +186,10 @@ public class DashboardController extends Component implements Initializable {
         tableAdd();
         addDataOfDevice();
 
+
     }
 
     public void dashboardCardUpdate(int count1, int count2, int count3, int count4, String tableValue, String regNum) {
-        noteInstance = NoteTable.getInstance();
-
         count1 = noteInstance.setPrValues(regNum, tableValue, "Active");
         String statement1 = Integer.toString(count1);
 
@@ -209,14 +208,13 @@ public class DashboardController extends Component implements Initializable {
     //add status of device to the table
     public void addDataOfDevice() {
         table2.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-        noteInstance = NoteTable.getInstance();
-        ObservableList<DashboardCardTableController> list = noteInstance.getDeviceStatus(null, null, null, null, null);
+        list1= noteInstance.getDeviceStatus(null, null, null, null, null);
         activeCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController, String>("activeDevices"));
         inActiveCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController, String>("inactiveDevices"));
         repairingCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController, String>("repairedDevices"));
         notAssignCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController, String>("notAssignedDevices"));
         totalCol.setCellValueFactory(new PropertyValueFactory<DashboardCardTableController, String>("totalDevices"));
-        table2.setItems(list);
+        table2.setItems(list1);
     }
 
     public void tableAdd() {
@@ -235,7 +233,7 @@ public class DashboardController extends Component implements Initializable {
         noteInstance = NoteTable.getInstance();
         int selectedValue = table1.getSelectionModel().getSelectedIndex();
         System.out.println(selectedValue);
-        if (selectedValue >= 0) {
+        if(selectedValue >= 0) {
             Alert.AlertType type = Alert.AlertType.CONFIRMATION;
             Alert alert = new Alert(type, "");
             alert.initModality(Modality.APPLICATION_MODAL);
@@ -415,6 +413,30 @@ public class DashboardController extends Component implements Initializable {
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
     }
+
+    private void commonTaskInScene(LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController){
+        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
+        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
+        loadDeviceByRegNumDialogController.setCatSelected(false);
+        loadDeviceByRegNumDialogController.setRegNumSelected(false);
+    }
+    private int loadQuickScene(LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController, Dialog<ButtonType> dialog){
+        if(!(loadDeviceByRegNumDialogController.isCatSelected() && loadDeviceByRegNumDialogController.isRegNumSelected())){
+            dialog.showAndWait();
+            return 0;
+        }
+        loadDeviceByRegNumDialogController.loadDevDetailedscene();
+        return 1;
+    }
+    private void dialogButtons(LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController, Dialog<ButtonType> dialog){
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
+            loadQuickScene(loadDeviceByRegNumDialogController,dialog);
+        }
+        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
+            dialog.close();
+        }
+    }
     /*+++++++++++++++++++++++++++++See other device dialog pane++++++++++++++++++++++++++++++++++++++*/
     public void otherDeviceQuickAccess(ActionEvent event) throws IOException {
         FXMLLoader loadDeviceByRegNumDiallogFxmlLoad = new FXMLLoader();
@@ -423,8 +445,7 @@ public class DashboardController extends Component implements Initializable {
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
         loadDeviceByRegNumDialogController.setFromOtherDevice(true);
-        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
-        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
+        commonTaskInScene(loadDeviceByRegNumDialogController);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -432,13 +453,7 @@ public class DashboardController extends Component implements Initializable {
         dialog.setDialogPane(addDeviceDialogPane);
         dialog.setTitle("Other device details");
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
-        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
-            loadDeviceByRegNumDialogController.loadDevDetailedscene();
-        }
-        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
-            dialog.close();
-        }
+        dialogButtons(loadDeviceByRegNumDialogController,dialog);
 
     }
     /*+++++++++++++++++++++++++++++Show main device++++++++++++++++++++++++++++++++++++++*/
@@ -449,8 +464,7 @@ public class DashboardController extends Component implements Initializable {
         LoadDeviceByRegNumDialogController loadDeviceByRegNumDialogController=LoadDeviceByRegNumDialogController.getInstance();
         loadDeviceByRegNumDiallogFxmlLoad.setController(loadDeviceByRegNumDialogController);
         loadDeviceByRegNumDialogController.setFromOtherDevice(false);
-        LoadDeviceByRegNumDialogController.setDashboardPathFinderController(pathFinderController);
-        LoadDeviceByRegNumDialogController.setDashboardBodyScrollpane(bodyScrollPane);
+        commonTaskInScene(loadDeviceByRegNumDialogController);
 
         DialogPane addDeviceDialogPane = loadDeviceByRegNumDiallogFxmlLoad.load();
 
@@ -458,13 +472,7 @@ public class DashboardController extends Component implements Initializable {
         dialog.setDialogPane(addDeviceDialogPane);
         dialog.setTitle("Main device details");
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
-        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.OK) {
-            loadDeviceByRegNumDialogController.loadDevDetailedscene();
-        }
-        if (clickedButton.isPresent() && clickedButton.get() == ButtonType.CANCEL) {
-            dialog.close();
-        }
+        dialogButtons(loadDeviceByRegNumDialogController,dialog);
 
     }
     //log cleaner function
