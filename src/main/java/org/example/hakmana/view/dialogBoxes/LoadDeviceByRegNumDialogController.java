@@ -42,6 +42,8 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
     private List<String> otherDevCategories;
     private ArrayList<String> devRegNumbers;;
     private boolean fromOtherDevice;
+    private boolean catSelected;
+    private boolean regNumSelected;
 
     private LoadDeviceByRegNumDialogController() {
     }
@@ -67,6 +69,7 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
 
     }
 
+
     public static ScrollPane getDashboardBodyScrollpane() {
         return dashboardBodyScrollpane;
     }
@@ -89,6 +92,7 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
 
     public void setSelectedDevice(String selectedDevice) {
         this.selectedDevice = selectedDevice;
+        setCatSelected(true);
     }
 
     public String getSelectedDevRegNum() {
@@ -97,6 +101,7 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
 
     public void setSelectedDevRegNum(String selectedDevRegNum) {
         this.selectedDevRegNum = selectedDevRegNum;
+        setRegNumSelected(true);
     }
 
     public List<String> getOtherDevCategories() {
@@ -121,6 +126,22 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
 
     public void setFromOtherDevice(boolean fromOtherDevice) {
         this.fromOtherDevice = fromOtherDevice;
+    }
+
+    public boolean isCatSelected() {
+        return catSelected;
+    }
+
+    public void setCatSelected(boolean catSelected) {
+        this.catSelected = catSelected;
+    }
+
+    public boolean isRegNumSelected() {
+        return regNumSelected;
+    }
+
+    public void setRegNumSelected(boolean regNumSelected) {
+        this.regNumSelected = regNumSelected;
     }
 
     //according to the button selected fetch table name from other device table
@@ -165,11 +186,11 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
                 case "Laptop" -> selDevForScene="Laptops";
                 case "Printer" -> selDevForScene="Printers";
                 case "UPS" -> selDevForScene="UPS";
-                default -> System.out.println("Other devices");
+                default -> selDevForScene=getSelectedDevice();
             }
             getDashboardPathFinderController().setPathTxt("Device Management>"+selDevForScene+">"+getSelectedDevRegNum());
             getDashboardPathFinderController().setBckBtnScene("DevDetailedView");
-
+            devDetailedViewController.setOtherDevCat(selDevForScene);
             try{
                 VBox vbox=detailDeviceVboxLoder.load();
                 getDashboardBodyScrollpane().setContent(vbox);//this scollpane id knows only that controller file
@@ -182,6 +203,7 @@ public class LoadDeviceByRegNumDialogController implements Initializable {
             devDetailedViewController.setDeviceSelector(selDevForScene);
             devDetailedViewController.setDevRegNum(getSelectedDevRegNum());
             devDetailedViewController.showDeviceDetail();
+
     }
 
 }

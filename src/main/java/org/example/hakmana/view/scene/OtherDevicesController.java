@@ -130,7 +130,7 @@ public class OtherDevicesController implements Initializable {
         tableViewRefresh();
     }
 
-    private void tableViewRefresh(){
+    public void tableViewRefresh(){
         otherDevicesDb.setTblRowLoaded(false);
         OtherDevices.setDevicesLoaded(false);
         otherDevicesDb.getObservableOtherDevices();
