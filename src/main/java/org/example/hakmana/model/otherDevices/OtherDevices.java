@@ -328,14 +328,13 @@ public class OtherDevices extends Devices {
         String sql="UPDATE "+otherDeviceCat+" SET model=?,status=?,purchasedFrom=? WHERE "+otherDeviceCat+"RegNum=?";
         return dbInteraction(sql,list,list.getLast());
     }
-    public boolean insertDevice(ArrayList<String> list){
+
+    public boolean insertDevice(String otherDeviceCat,ArrayList<String> list){
         //pass query to the connection class
-        String sql="INSERT INTO ups (upsRegNum,model,status,purchasedFrom)" +
+        String sql="INSERT INTO "+otherDeviceCat+" ("+otherDeviceCat+"RegNum,model,status,purchasedFrom)" +
                 "VALUES (?,?,?,?)";
         return dbInteraction(sql,list, list.getFirst());
 
     }
-
-
 }
 

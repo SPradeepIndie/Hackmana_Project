@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.example.hakmana.model.mainDevices.*;
+import org.example.hakmana.model.otherDevices.OtherDevices;
 import org.example.hakmana.model.userMngmnt.DeviceUser;
 import org.example.hakmana.view.scene.DeviceMngmntSmmryScene;
 import org.example.hakmana.view.scene.LoginPageController;
@@ -459,8 +460,9 @@ public class AddDeviceDialogController implements Initializable {
             }
             case "UPS" ->
                 setOtherDetails(new String[]{"purchasedFrom"});
-            default ->
-                System.out.println(getDevCategoryName());
+            default -> {
+                setOtherDetails(new String[]{"purchasedFrom"});
+            }
         }
     }
     private void setOtherDetails(String[] otherlblText){
@@ -583,7 +585,12 @@ public class AddDeviceDialogController implements Initializable {
 
             }
             default -> {
-                return false;
+                newValues.add(getDevRegNum());
+                newValues.add(modelTextField.getText());
+                newValues.add(StatusChoiceBox.getValue());
+                getTextFieldText(otherTextList);
+                
+                return OtherDevices.getOtherDevicesInstance().insertDevice(getDevCategoryName(),newValues);
             }
         }
     }
